@@ -44,9 +44,6 @@ const UserContextProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             setAccessToken(data.accessToken);
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken); // Optional, for refresh logic
-
-            // Assuming `data` contains user information
-            console.log(data);
             setUser(data.user); // Update user information if included in the response
         } catch (error) {
             console.error('Error during login:', error);
