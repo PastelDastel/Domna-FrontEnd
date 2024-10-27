@@ -21,6 +21,7 @@ const Navbar = () => {
             <div className="navbar-auth">
                 {user ? (
                     <>
+                    <Link to="/my-courses">My courses</Link>
                         <Link to="/profile">Profilo</Link>
                         <button onClick={logout}>Logout</button>
                     </>
