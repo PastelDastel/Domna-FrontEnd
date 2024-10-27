@@ -1,0 +1,92 @@
+/* ContactForm.css */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.contact-form h2 {
+    font-size: 1.5em;
+    margin-bottom: 0.2em;
+    color: #fff;
+}
+
+.contact-form h3 {
+    font-size: 1.8em;
+    color: #fff;
+    margin-bottom: 1em;
+}
+
+.form-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1em;
+}
+
+.form-group label,
+label {
+    display: block;
+    font-size: 1em;
+    color: #fff;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    background-color: #666;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+.character-count {
+    font-size: 0.85em;
+    color: #666;
+    text-align: right;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.privacy-section {
+    text-align: left;
+    font-size: 0.9em;
+    color: #333;
+    margin: 1em 0;
+}
+
+.privacy-section a {
+    color: #e74c3c;
+    text-decoration: none;
+}
+
+.privacy-section input {
+    margin-right: 8px;
+}
+
+.submit-button {
+    background-color: #1f76d2;
+    color: #fff;
+    font-size: 1.2em;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #155a9f;
+}
