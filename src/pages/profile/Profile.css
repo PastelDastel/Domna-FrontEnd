@@ -1,0 +1,71 @@
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f4f4f9;
+  }
+  
+  .profile-container h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .profile-container p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  
+  .profile-container h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  /* Course list styling */
+  .course-item {
+    font-size: 1rem;
+    color: #333;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 5px 0;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Message for non-logged-in users */
+  .profile-container p {
+    font-size: 1.1rem;
+    color: #888;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .profile-container {
+      padding: 10px;
+    }
+  
+    .profile-container h1 {
+      font-size: 1.5rem;
+    }
+  
+    .profile-container h2 {
+      font-size: 1.2rem;
+    }
+  
+    .profile-container p,
+    .course-item {
+      font-size: 0.9rem;
+    }
+  }
+  

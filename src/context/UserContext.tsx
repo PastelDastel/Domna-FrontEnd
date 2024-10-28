@@ -18,17 +18,14 @@ const defaultAuthContextValue: AuthContextType = {
   refreshAccessToken: async () => {},
 };
 
-export const UserContext = createContext<AuthContextType>(
-  defaultAuthContextValue
-);
+export const UserContext = createContext<AuthContextType>(defaultAuthContextValue);
 
-const UserContextProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const [user, setUser] = useState(null);
-  const [accessToken, setAccessToken] = useState<string | null>(
-    localStorage.getItem("accessToken")
-  );
+const UserContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const storedUser = localStorage.getItem("user");
+  const [user, setUser] = useState<any>(storedUser && storedUser !== "undefined" ? JSON.parse(storedUser) : null);
+  const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem("accessToken"));
+
+  console.log("UserContextProvider, getting user from localstorage: ", storedUser);
 
   const login = async (credentials: any) => {
     try {
@@ -51,9 +48,10 @@ const UserContextProvider: React.FC<{ children: ReactNode }> = ({
 
       // Store tokens and user
       setAccessToken(data.accessToken);
+      setUser(data.user);
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-      setUser(data.user);
+      localStorage.setItem("user", JSON.stringify(data.user)); // Store user data
     } catch (error) {
       console.error("Error during login:", error);
     }
@@ -64,9 +62,10 @@ const UserContextProvider: React.FC<{ children: ReactNode }> = ({
     setAccessToken(null);
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
   };
 
-  // Function to refresh access token using the refresh token
+  // Function to refresh access token
   const refreshAccessToken = async () => {
     const refreshToken = localStorage.getItem("refreshToken");
     if (!refreshToken) {
@@ -82,12 +81,12 @@ const UserContextProvider: React.FC<{ children: ReactNode }> = ({
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ refreshToken }),
+          body: JSON.stringify({ token: refreshToken }),
         }
       );
 
       if (!response.ok) {
-        logout(); // Logout if refresh fails
+        logout();
         throw new Error("Token refresh failed: " + response.statusText);
       }
 
@@ -99,6 +98,7 @@ const UserContextProvider: React.FC<{ children: ReactNode }> = ({
       logout();
     }
   };
+
   const register = async (credentials: any) => {
     try {
       const response = await fetch(
@@ -120,32 +120,33 @@ const UserContextProvider: React.FC<{ children: ReactNode }> = ({
 
       // Store tokens and user
       setAccessToken(data.accessToken);
+      setUser(data.user);
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-      setUser(data.user);
+      localStorage.setItem("user", JSON.stringify(data.user)); // Store user data
     } catch (error) {
       console.error("Error during registration:", error);
     }
   };
+
   useEffect(() => {
-    // Check if accessToken is close to expiration and refresh it if needed
+    const storedUser = localStorage.getItem("user");
+    if (accessToken && storedUser && storedUser !== "undefined") {
+      setUser(JSON.parse(storedUser));
+    }
+
+    // Token refresh interval
     const interval = setInterval(() => {
-      const accessToken = localStorage.getItem("accessToken");
-      if (!accessToken) {
-        logout();
-      } else {
-        // Implement expiration check here, e.g., if (isTokenExpiringSoon(accessToken)) { refreshAccessToken(); }
+      if (accessToken) {
         refreshAccessToken();
       }
-    }, 15 * 60 * 1000); // Refresh every 15 minutes or as needed
+    }, 15 * 60 * 1000); // Refresh every 15 minutes
 
-    return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
+    return () => clearInterval(interval);
+  }, [accessToken]);
 
   return (
-    <UserContext.Provider
-      value={{ user, accessToken, login, logout, refreshAccessToken, register }}
-    >
+    <UserContext.Provider value={{ user, accessToken, login, logout, refreshAccessToken, register }}>
       {children}
     </UserContext.Provider>
   );

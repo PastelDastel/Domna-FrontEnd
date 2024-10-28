@@ -1,0 +1,152 @@
+/* Container and Sections */
+.courses {
+    padding: 20px;
+    background-color: #f9f9fb;
+  }
+  
+  .courses-hero {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #e7e3f5;
+    color: #333;
+  }
+  
+  .courses-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #4c4b6b;
+  }
+  
+  .courses-hero p {
+    font-size: 1.2rem;
+    color: #4c4b6b;
+  }
+  
+  /* Pricing Section */
+  .pricing-section {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  
+  .pricing-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #4c4b6b;
+  }
+  
+  /* Pricing Cards */
+  .pricing-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    width: 300px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .price {
+    font-size: 1.8rem;
+    color: #4c4b6b;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .old-price {
+    font-size: 1rem;
+    color: #a9a9a9;
+    text-decoration: line-through;
+  }
+  
+  .card p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .card ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0 20px 0;
+    color: #555;
+  }
+  
+  .card ul li {
+    margin-bottom: 5px;
+  }
+  
+  .card button {
+    background-color: #4c4b6b;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .card button:hover {
+    background-color: #3a3a58;
+  }
+  
+  /* Info Boxes Section */
+  .info-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 40px 0;
+  }
+  
+  .info-box {
+    width: 300px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    color: #4c4b6b;
+  }
+  
+  .info-box h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .info-box p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .pricing-cards, .info-boxes {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .card, .info-box {
+      width: 90%;
+      max-width: 300px;
+    }
+  }
+  

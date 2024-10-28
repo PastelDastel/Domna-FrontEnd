@@ -15,7 +15,6 @@ const Profile = () => {
         const fetchUserCourses = async () => {
             try {
                 console.log("User: ", user);
-                console.log("Fetching user courses... : " + user._id);
                 const response = await fetch(
                     `https://1edf17b2-a202-47d1-94db-4087c4ce79af.eu-central-1.cloud.genez.io/protected/profile/${user._id}`,
                     {
@@ -45,13 +44,7 @@ const Profile = () => {
                     <h1>Welcome, {user.name}</h1>
                     <p>Email: {user.email}</p>
                     <p>Role: {user.role}</p>
-                    <h2>Your Courses</h2>
-                    {/* Here you could map over the courses data if it is stored in the state */}
-                    {/* Example:
-                    {courses.map((course) => (
-                        <p key={course.id}>{course.title}</p>
-                    ))}
-                    */}
+                    
                 </div>
             ) : (
                 <p>You need to be logged in to access this page's content...</p>

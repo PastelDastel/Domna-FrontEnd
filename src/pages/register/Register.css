@@ -1,0 +1,128 @@
+/* Container styling */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #f4f4f9;
+  }
+  
+  .register-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .register-form h2 {
+    margin-bottom: 24px;
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  /* Error message */
+  .error-message {
+    color: #a94442;
+    background-color: #fbe9e7;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+  }
+  
+  /* Labels and inputs */
+  .register-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #555;
+    text-align: left;
+  }
+  
+  .register-form input[type="text"],
+  .register-form input[type="password"],
+  .register-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  /* Password toggle styling */
+  .password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .show-password {
+    position: absolute;
+    right: 10px;
+    font-size: 0.8rem;
+    color: #007bff;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  /* Register button */
+  .register-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .register-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Link styling */
+  .links {
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
+  
+  .links a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .links a:hover {
+    color: #0056b3;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 600px) {
+    .register-form {
+      padding: 20px;
+    }
+  
+    .register-form h2 {
+      font-size: 1.5rem;
+    }
+  
+    .error-message {
+      font-size: 0.85rem;
+    }
+  
+    .register-form label,
+    .register-form input,
+    .register-button,
+    .links a {
+      font-size: 0.9rem;
+    }
+  }
+  
