@@ -3,20 +3,22 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserContextProvider from "./context/UserContext";
 import Navbar from "./components/Navbar";
 import Home from "./pages/home/Home";
-import Profile from "./pages/profile/Profile";
-import Login from "./pages/login/Login";
-import Register from "./pages/register/Register";
-import Courses from "./pages/courses/Courses"; // Ensure this exists
-import Contact from "./pages/contact/Contact";
-import MyCourse from "./pages/mycourses/mycourse";
-import ProtectedRoute from "./components/ProtectedRoutes";
+// import Profile from "./pages/profile/Profile";
+// import Login from "./pages/login/Login";
+// import Register from "./pages/register/Register";
+// import Courses from "./pages/courses/Courses"; // Ensure this exists
+// import Contact from "./pages/contact/Contact";
+// import MyCourse from "./pages/mycourses/mycourse";
+// import ProtectedRoute from "./components/ProtectedRoutes";
 const App: React.FC = () => {
   return (
     <UserContextProvider>
       <Router>
         <Navbar />
         <Routes>
+          
           <Route path="/" element={<Home />} />
+          {/*
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/courses" element={<Courses />} />
@@ -36,8 +38,9 @@ const App: React.FC = () => {
                 <Profile />
               </ProtectedRoute>
             }
-          />
+          />          */}
         </Routes>
+
       </Router>
     </UserContextProvider>
   );

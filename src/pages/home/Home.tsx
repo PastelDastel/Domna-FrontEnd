@@ -1,22 +1,24 @@
-import './Home.css'; // Import CSS for styling
-
+import Navbar from "../../components/Navbar";
+import SocialIcons from "../../components/SocialIcons";
+import Footer from "../../components/Footer";
+import { ParallaxProvider } from "react-scroll-parallax";
+import ParallaxSection from "../../components/ParallaxSection";
 const Home = () => {
-    return (
-        <div className="hero-section">
-            <img 
-                src="https://placehold.co/1800x800/242424/333" 
-                alt="Placeholder" 
-                className="hero-image" 
-            />
-            <div className="hero-overlay">
-                <h1 className="hero-title">Riscopri la tua bellezza. Parte da te.</h1>
-                <p className="hero-subtitle">
-                    Inizia a prenderti cura del tuo corpo, ricevi subito tre video gratuiti
-                </p>
-                <button className="hero-button">Scopri di più</button>
-            </div>
-        </div>
-    );
+  return (
+    <ParallaxProvider>
+      <Navbar />
+      <ParallaxSection text="Domna" background="https://placehold.co/600x400/blue/blue" coords={[-60, 60]} />
+      <div>Ciao</div>
+      <ParallaxSection text="Domna" background="https://placehold.co/600x400/gray/gray" coords={[0, 60]} />
+      <ParallaxSection text="Domna" background="https://placehold.co/600x400/blue/blue" coords={[0, 60]} />
+      <ParallaxSection text="Domna" background="https://placehold.co/600x400/gray/gray" coords={[0, 60]} />
+      <ParallaxSection text="Domna" background="https://placehold.co/600x400/blue/blue" coords={[0, 60]} />
+      <ParallaxSection text="Domna" background="https://placehold.co/600x400/gray/gray" coords={[0, 60]} />
+      <ParallaxSection text="Domna" background="https://placehold.co/600x400/blue/blue" coords={[0, 60]} />
+      <SocialIcons />
+      <Footer />
+    </ParallaxProvider>
+  );
 };
 
 export default Home;
