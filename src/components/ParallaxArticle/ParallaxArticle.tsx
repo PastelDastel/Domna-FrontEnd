@@ -1,7 +1,7 @@
 import { Parallax } from "react-scroll-parallax";
-import "./ParallaxSection.css"; // Create this file for custom styles
+import "./ParallaxArticle.css"; // Create this file for custom styles
 
-const ParallaxSection = ({
+const ParallaxArticle = ({
   text,
   background,
   coords,
@@ -24,4 +24,4 @@ const ParallaxSection = ({
   );
 };
 
-export default ParallaxSection;
+export default ParallaxArticle;

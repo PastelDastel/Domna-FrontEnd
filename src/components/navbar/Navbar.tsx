@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 import './Navbar.css';
-import logo from '../assets/logo-removebg.png'; 
+import logo from '../../assets/logo-removebg.png'; 
 
 const Navbar = () => {
     const { user, logout } = useContext(UserContext);
@@ -11,7 +11,7 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="navbar-logo">
                 <Link to="/">
-                    <img src={logo} alt="DOMNA Logo" className="logo-img" /> {/* Use the logo */}
+                    <img src={logo} alt="DOMNA Logo" className="logo-img" />
                 </Link>
             </div>
             <ul className="navbar-links">
