@@ -10,6 +10,7 @@ import Courses from "./pages/courses/Courses"; // Ensure this exists
 import Contact from "./pages/contact/Contact";
 import MyCourse from "./pages/mycourses/mycourse";
 import ProtectedRoute from "./components/ProtectedRoutes";
+import Checkout from "./pages/checkout/checkout";
 const App: React.FC = () => {
   return (
     <UserContextProvider>
@@ -37,6 +38,13 @@ const App: React.FC = () => {
               </ProtectedRoute>
             }
           />
+          <Route 
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }/>
         </Routes>
       </Router>
     </UserContextProvider>

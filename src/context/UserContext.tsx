@@ -6,7 +6,7 @@ interface AuthContextType {
   login: (credentials: any) => Promise<void>;
   logout: () => void;
   register: (credentials: any) => Promise<void>;
-  refreshAccessToken: () => Promise<void>; // Function to refresh token
+  refreshAccessToken: () => Promise<boolean>;
 }
 
 const defaultAuthContextValue: AuthContextType = {
@@ -15,7 +15,7 @@ const defaultAuthContextValue: AuthContextType = {
   login: async () => {},
   logout: () => {},
   register: async () => {},
-  refreshAccessToken: async () => {},
+  refreshAccessToken: async () => false,
 };
 
 export const UserContext = createContext<AuthContextType>(defaultAuthContextValue);
@@ -29,7 +29,7 @@ const UserContextProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (credentials: any) => {
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         "https://1edf17b2-a202-47d1-94db-4087c4ce79af.eu-central-1.cloud.genez.io/auth/login",
         {
           method: "POST",
@@ -51,7 +51,7 @@ const UserContextProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setUser(data.user);
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-      localStorage.setItem("user", JSON.stringify(data.user)); // Store user data
+      localStorage.setItem("user", JSON.stringify(data.user));
     } catch (error) {
       console.error("Error during login:", error);
     }
@@ -65,12 +65,11 @@ const UserContextProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.removeItem("user");
   };
 
-  // Function to refresh access token
-  const refreshAccessToken = async () => {
+  const refreshAccessToken = async (): Promise<boolean> => {
     const refreshToken = localStorage.getItem("refreshToken");
     if (!refreshToken) {
       logout();
-      return;
+      return false;
     }
 
     try {
@@ -86,22 +85,26 @@ const UserContextProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       );
 
       if (!response.ok) {
+        console.log("Failed to refresh token, logging out...");
         logout();
-        throw new Error("Token refresh failed: " + response.statusText);
+        return false;
       }
 
       const data = await response.json();
+      console.log("Token refreshed successfully:", data.accessToken);
       setAccessToken(data.accessToken);
-      localStorage.setItem("accessToken", data.accessToken); // Update stored access token
+      localStorage.setItem("accessToken", data.accessToken);
+      return true;
     } catch (error) {
       console.error("Error refreshing token:", error);
       logout();
+      return false;
     }
   };
 
   const register = async (credentials: any) => {
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         "https://1edf17b2-a202-47d1-94db-4087c4ce79af.eu-central-1.cloud.genez.io/auth/register",
         {
           method: "POST",
@@ -123,7 +126,7 @@ const UserContextProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setUser(data.user);
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-      localStorage.setItem("user", JSON.stringify(data.user)); // Store user data
+      localStorage.setItem("user", JSON.stringify(data.user));
     } catch (error) {
       console.error("Error during registration:", error);
     }
@@ -135,15 +138,42 @@ const UserContextProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setUser(JSON.parse(storedUser));
     }
 
-    // Token refresh interval
     const interval = setInterval(() => {
       if (accessToken) {
         refreshAccessToken();
       }
-    }, 15 * 60 * 1000); // Refresh every 15 minutes
+    }, 10 * 60 * 1000); // Refresh every 10 minutes
 
     return () => clearInterval(interval);
   }, [accessToken]);
+
+  const fetchWithAuth = async (url: string, options: any) => {
+    options.headers = {
+      ...options.headers,
+      Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
+    };
+
+    try {
+      const response = await fetch(url, options);
+
+      if (response.status === 401) {
+        console.log("401 Unauthorized detected, attempting token refresh...");
+        const refreshSuccess = await refreshAccessToken();
+
+        if (refreshSuccess) {
+          options.headers.Authorization = `Bearer ${accessToken}`;
+          return await fetch(url, options);
+        } else {
+          throw new Error("Token refresh failed, unable to retry request.");
+        }
+      }
+
+      return response;
+    } catch (error) {
+      console.error("Error during fetchWithAuth:", error);
+      throw error;
+    }
+  };
 
   return (
     <UserContext.Provider value={{ user, accessToken, login, logout, refreshAccessToken, register }}>
