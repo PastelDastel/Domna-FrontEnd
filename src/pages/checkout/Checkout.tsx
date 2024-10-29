@@ -30,7 +30,7 @@ const Checkout: React.FC = () => {
     const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null;
   
     if (!user) {
-      alert("Devi essere autenticato per acquistare un corso.");
+      alert("Devi essere autenticato per acquistare un corso."); // Show alert or redirect to login page
       navigate("/login");
       return;
     }
