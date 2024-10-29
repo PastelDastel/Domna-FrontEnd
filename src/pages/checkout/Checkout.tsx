@@ -35,7 +35,7 @@ const Checkout: React.FC = () => {
       return;
     }
   
-    const token = localStorage.getItem("token"); // Assuming JWT token is stored in localStorage as 'token'
+    const token = localStorage.getItem("accessToken"); // Assuming JWT token is stored in localStorage as 'token'
     const stripe = await stripePromise;
     if (!stripe) {
       console.error("Stripe non è stato caricato correttamente.");
@@ -44,7 +44,7 @@ const Checkout: React.FC = () => {
   
     try {
       const response = await fetch(
-        `http://localhost:8083/.functions/function-main/protected/subscribe/${user._id}`,
+        `https://1edf17b2-a202-47d1-94db-4087c4ce79af.eu-central-1.cloud.genez.io/protected/subscribe/${user._id}`,
         {
           method: "POST",
           headers: {
