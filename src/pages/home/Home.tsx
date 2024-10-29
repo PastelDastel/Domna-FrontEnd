@@ -3,7 +3,6 @@ import SocialIcons from "../../components/socialicons/SocialIcons";
 import Footer from "../../components/footer/Footer";
 import { ParallaxProvider } from "react-scroll-parallax";
 import FirstSection from "../../components/FirstSection/FirstSection";
-import ParallaxDivisor from "../../components/ParallaxDivisor/ParallaxDivisor";
 import ParallaxArticle from "../../components/ParallaxArticle/ParallaxArticle";
 
 const Home = () => {
