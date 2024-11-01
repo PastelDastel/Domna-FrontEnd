@@ -1,0 +1,145 @@
+/* Register.module.css */
+
+/* Container styling */
+.registerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #f4f4f9;
+}
+
+.registerForm {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.registerForm h2 {
+    margin-bottom: 24px;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+/* Error message */
+.errorMessage {
+    color: #a94442;
+    background-color: #fbe9e7;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+/* Labels and inputs */
+.label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #555;
+    text-align: left;
+}
+
+.inputField {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Password toggle styling */
+.passwordContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.showPassword {
+    position: absolute;
+    right: 10px;
+    font-size: 0.8rem;
+    color: #007bff;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Register button */
+.registerButton {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.registerButton:hover {
+    background-color: #0056b3;
+}
+
+/* Link styling */
+.links {
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+.link {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.link:hover {
+    color: #0056b3;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .registerForm {
+        padding: 20px;
+    }
+
+    .registerForm h2 {
+        font-size: 1.5rem;
+    }
+
+    .errorMessage {
+        font-size: 0.85rem;
+    }
+
+    .label,
+    .inputField,
+    .registerButton,
+    .link {
+        font-size: 0.9rem;
+    }
+}
+
+/* Other styles for validation icons and instructions */
+.valid {
+    color: green;
+}
+
+.invalid {
+    color: red;
+}
+
+.instructions {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.offscreen {
+    display: none;
+}

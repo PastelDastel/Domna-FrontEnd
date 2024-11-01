@@ -1,0 +1,71 @@
+/* Center the profile container */
+.profileContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+  }
+  
+  .profileForm {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .profileForm h2 {
+    margin-bottom: 24px;
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  /* User info styling */
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .userInfoLine {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .userInfoLabel {
+    font-weight: bold;
+    color: #333;
+    margin-right: 8px;
+  }
+  
+  /* Button styling */
+  .profileButton {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #d75494;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .profileButton:hover {
+    background-color: #f29aa0;
+  }
+  
+  /* Style for "no data" message */
+  .noData {
+    font-size: 1rem;
+    color: #888;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  

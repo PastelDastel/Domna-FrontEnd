@@ -1,0 +1,49 @@
+/* Container for the users list */
+.usersContainer {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Title for the users list */
+.usersTitle {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+/* Styling for the user list items */
+.userList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.userListItem {
+    font-size: 1rem;
+    color: #555;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for each user item */
+.userListItem:hover {
+    background-color: #f9f9f9;
+}
+
+/* Style for "no data" message */
+.noDataMessage {
+    font-size: 1rem;
+    color: #888;
+    text-align: center;
+    margin-top: 1rem;
+}
