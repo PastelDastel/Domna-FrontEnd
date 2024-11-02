@@ -13,10 +13,11 @@ import PersistLogin from "./components/PersistLogin";
 import { Routes, Route } from "react-router-dom";
 import Profile from "./components/Profile";
 
+
 const ROLES = {
-  User: 2001,
-  Editor: 1984,
-  Admin: 5150,
+  User: 'User',
+  Instructor: 'Instructor',
+  Admin: 'Admin',
 };
 
 function App() {

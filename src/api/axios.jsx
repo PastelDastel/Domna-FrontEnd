@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'https://1edf17b2-a202-47d1-94db-4087c4ce79af.eu-central-1.cloud.genez.io';
+const BASE_URL = 'https://domna-api.onrender.com/';
 
 export default axios.create({
     baseURL: BASE_URL

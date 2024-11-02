@@ -4,14 +4,20 @@ import useAuth from "../hooks/useAuth";
 const RequireAuth = ({ allowedRoles }) => {
     const { auth } = useAuth();
     const location = useLocation();
+    console.log("auth:", auth);
 
-    return (
-        auth?.roles?.find(role => allowedRoles?.includes(role))
-            ? <Outlet />
-            : auth?.accessToken //changed from user to accessToken to persist login after refresh
-                ? <Navigate to="/unauthorized" state={{ from: location }} replace />
-                : <Navigate to="/login" state={{ from: location }} replace />
-    );
-}
+    const rolesArray = Array.isArray(auth?.roles) ? auth.roles : [auth.roles];
+    const hasRequiredRole = rolesArray.some(role => allowedRoles.includes(role));
+
+    if (hasRequiredRole) {
+        return <Outlet />;
+    }
+
+    if (auth?.accessToken) {
+        return <Navigate to="/unauthorized" state={{ from: location }} replace />;
+    }
+
+    return <Navigate to="/login" state={{ from: location }} replace />;
+};
 
 export default RequireAuth;
