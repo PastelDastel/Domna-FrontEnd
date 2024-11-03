@@ -12,38 +12,39 @@ const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
-    const userRef = useRef();
+    const emailRef = useRef();
     const errRef = useRef();
 
-    const [user, setUser] = useState('');
-    const [pwd, setPwd] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
     useEffect(() => {
-        userRef.current.focus();
+        emailRef.current.focus();
     }, [])
 
     useEffect(() => {
         setErrMsg('');
-    }, [user, pwd])
+    }, [email, password])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ user, pwd }),
+                JSON.stringify({ email, password }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
             );
+            console.log(response.data);
             const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            const id = response?.data?.id;
-            setAuth({ user, pwd, roles, accessToken, id });
-            setUser('');
-            setPwd('');
+            const roles = response?.data?.user?.roles;
+            const id = response?.data?.user?.id;
+            setAuth({ email, roles, accessToken, id });
+            setEmail('');
+            setPassword('');
             navigate(from, { replace: true });
         } catch (err) {
             if (!err?.response) {
@@ -73,14 +74,14 @@ const Login = () => {
                 <p ref={errRef} className={errMsg ? styles.errmsg : styles.offscreen} aria-live="assertive">{errMsg}</p>
                 <h2>Sign In</h2>
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="username" className={styles.label}>Username:</label>
+                    <label htmlFor="email" className={styles.label}>Email:</label>
                     <input
-                        type="text"
-                        id="username"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={(e) => setUser(e.target.value)}
-                        value={user}
+                        type="email"
+                        id="email"
+                        ref={emailRef}
+                        autoComplete="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
                         required
                         className={styles.inputField}
                     />
@@ -90,8 +91,8 @@ const Login = () => {
                         <input
                             type="password"
                             id="password"
-                            onChange={(e) => setPwd(e.target.value)}
-                            value={pwd}
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
                             required
                             className={styles.inputField}
                         />

@@ -1,73 +1,72 @@
-
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    width: 100%;
-    background-color: transparent;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  z-index: 10;
+  height: 100px;
+  font-weight: 400;
+  font-size: 10px;
+  text-transform: uppercase;
 }
 
-.navbarLogo {
-    font-size: 24px;
-    font-weight: bold;
+.navbar .logo img {
+  height: 100px;
+  width: auto;
+  margin-top: 13px;
+  margin-left: -13px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
-.navbarLogo a {
-    color: #d75494;
-    text-decoration: none;
-    font-size: 22px;
+.navbar .navMenu {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 110px;
+  font-family: "Josefin Sans", sans-serif;
+  gap: 50px;
 }
 
-.navbarLinks {
-    list-style: none;
-    display: flex;
-    gap: 30px;
+/* Styling for nav links */
+.navbar .navMenu li .navLink,
+.navbar .navMenu li button {
+  background: none;
+  border: none;
+  color: #d75494;
+  font-size: 15px;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  margin: 0;
+  line-height: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 0;
+  display: inline-block;
+  position: relative;
 }
 
-.navbarLinks li {
-    display: inline;
+/* Hover effect */
+.navbar .navMenu li .navLink:hover,
+.navbar .navMenu li button:hover {
+  color: #f29aa0;
 }
 
-.navbarLinks li a {
-    text-decoration: none;
-    color: #d75494;
-    font-size: 16px;
-    text-transform: uppercase;
-    transition: color 0.3s ease;
+/* Active link styling */
+.activeNavLink {
+  font-weight: bold;
+  color: #ff69b4;
+  position: relative;
+
+  text-decoration: underline !important;
 }
 
-.navbarLinks li a:hover {
-    color: #f29aa0;
+/* Hover effect for underline on active link */
+.navbar .navMenu li .navLink:hover::after,
+.navbar .navMenu li button:hover::after {
+  width: 100%;
+  height: 1px;
+  background-color: #f29aa0;
 }
-
-.navbarAuth {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.navbarAuth a,
-.navbarAuth button {
-    text-decoration: none;
-    color: #d75494;
-    font-size: 16px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.navbarAuth a:hover,
-.navbarAuth button:hover {
-    color: #f29aa0;
-}
-
-.logoImg {
-    height: 75px;
-    width: auto;
-}
-

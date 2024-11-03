@@ -1,80 +1,121 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import logo from "../assets/logo-removebg.png";
-import styles from "../style/Navbar.module.css"; // Import as styles
+import logo from "../assets/PNG/logo-removebg.png";
+import styles from "../style/Navbar.module.css";
 import useLogout from "../hooks/useLogout";
 
 const Navbar = () => {
   const { auth } = useAuth();
   const logout = useLogout();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     await logout();
     navigate("/linkpage");
   };
 
+  // Function to check if the link is active
+  const isActive = (path) => location.pathname === path;
+
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.navbarLogo}>
-        <Link to="/">
-          <img src={logo} alt="DOMNA Logo" className={styles.logoImg} />
-        </Link>
-      </div>
-      <ul className={styles.navbarLinks}>
-        <li>
-          <Link to="/discover">Scopri chi sono</Link>
-        </li>
-        <li>
-          <Link to="/style">Stile alimentare</Link>
-        </li>
-        <li>
-          <Link to="/method">Metodo</Link>
-        </li>
-        <li>
-          <Link to="/blog">Blog</Link>
-        </li>
-        <li>
-          <Link to="/contact">Contatti</Link>
-        </li>
-        <li>
-          <Link to="/courses">Corsi</Link>
-        </li>
-
-        {/* Show these links only if the user has the Admin role */}
-        {auth?.roles?.includes(5150) && (
-          <>
-            <li>
-              <Link to="/createcourse">Create Course</Link>
-            </li>
-            <li>
-              <Link to="/admin">Dashboard</Link>
-            </li>
-          </>
-        )}
-
-        {/* Authentication links */}
-        {!auth?.accessToken ? (
-          <div className={styles.navbarAuth}>
-            <li>
-              <Link to="/login">Log in</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-          </div>
-        ) : (
-          <div className={styles.navbarAuth}>
-            <li>
-              <Link to={`/profile/${auth.id}`}>Profile</Link>
-            </li>
-            <li>
-              <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
-            </li>
-          </div>
-        )}
-      </ul>
-    </nav>
+    <section>
+      <nav className={styles.navbar}>
+        <div className={styles.logo}>
+          <img src={logo} alt="Domna Logo" />
+        </div>
+        <ul className={styles.navMenu}>
+          <li>
+            <Link
+              to="/"
+              className={`${styles.navLink} ${isActive("/") ? styles.activeNavLink : ""}`}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/about"
+              className={`${styles.navLink} ${isActive("/about") ? styles.activeNavLink : ""}`}
+            >
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/courses"
+              className={`${styles.navLink} ${isActive("/courses") ? styles.activeNavLink : ""}`}
+            >
+              Courses
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/blog"
+              className={`${styles.navLink} ${isActive("/blog") ? styles.activeNavLink : ""}`}
+            >
+              Blog
+            </Link>
+          </li>
+          {auth?.roles?.includes("Admin") && (
+            <>
+              <li>
+                <Link
+                  to="/createcourse"
+                  className={`${styles.navLink} ${isActive("/createcourse") ? styles.activeNavLink : ""}`}
+                >
+                  Create Course
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard"
+                  className={`${styles.navLink} ${isActive("/dashboard") ? styles.activeNavLink : ""}`}
+                >
+                  Dashboard
+                </Link>
+              </li>
+            </>
+          )}
+          {!auth?.accessToken ? (
+            <>
+              <li>
+                <Link
+                  to="/login"
+                  className={`${styles.navLink} ${isActive("/login") ? styles.activeNavLink : ""}`}
+                >
+                  Log in
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/register"
+                  className={`${styles.navLink} ${isActive("/register") ? styles.activeNavLink : ""}`}
+                >
+                  Register
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link
+                  to={`/profile/${auth.id}`}
+                  className={`${styles.navLink} ${isActive(`/profile/${auth.id}`) ? styles.activeNavLink : ""}`}
+                >
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <button onClick={handleLogout} className={styles.navLink}>
+                  LOGOUT
+                </button>
+              </li>
+            </>
+          )}
+        </ul>
+      </nav>
+    </section>
   );
 };
 

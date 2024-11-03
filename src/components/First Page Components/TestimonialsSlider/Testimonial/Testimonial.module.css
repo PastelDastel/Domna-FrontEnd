@@ -1,0 +1,47 @@
+.testimonial {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 30px 100px;
+    text-align: center;
+    width:  900px;
+    height: 400px;
+    margin: 0 auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #f3c7dc; /* Pink border around the image */
+    margin-bottom: 15px;
+  }
+  
+  .name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #333333;
+  }
+  
+  .role {
+    font-size: 1rem;
+    color: #888888;
+    margin-bottom: 15px;
+  }
+  
+  .text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333333;
+    margin-bottom: 20px;
+  }
+  
+  .stars {
+    color: #f4c150; /* Gold color for the stars */
+  }
+  
+  .stars i {
+    margin: 0 2px;
+  }
+  

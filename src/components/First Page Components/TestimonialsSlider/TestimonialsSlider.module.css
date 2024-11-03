@@ -1,0 +1,19 @@
+.testimonialSlider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 900px;
+    margin: 50px auto;
+    padding: 40px;
+    opacity: 1;
+    transition: opacity 1s ease-in-out; /* Smooth fade */
+  }
+  
+  .fadeOut {
+    opacity: 0;
+  }
+  
+  .fadeIn {
+    opacity: 1;
+  }
+  

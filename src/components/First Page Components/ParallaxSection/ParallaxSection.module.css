@@ -1,0 +1,16 @@
+.parallaxSection1MarginFiller {
+  position: relative;
+  height: 400px;
+  background: no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 90px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reviewTestimonialText {
+  font-size: 35pt;
+  color: white;
+  font-weight: bold;
+}
