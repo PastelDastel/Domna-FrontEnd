@@ -185,7 +185,7 @@ const Register = () => {
             </form>
             <div className={styles.links}>
               Already registered?
-              <Link to="/" className={styles.link}>
+              <Link to="/login" className={styles.link}>
                 Sign In
               </Link>
             </div>

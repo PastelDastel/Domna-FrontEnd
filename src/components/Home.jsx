@@ -1,9 +1,9 @@
-import Hero from "./First Page Components/Hero/Hero";
-import ParallaxSection from "./First Page Components/ParallaxSection/ParallaxSection";
-import FadeInSection from "./First Page Components/FadeInSection/FadeInSection";
-import Section from "./First Page Components/Section/Section";
-import TestimonialsSlider from "./First Page Components/TestimonialsSlider/TestimonialsSlider";
-import ContactSection from "./First Page Components/ContactSection/ContactSection";
+import Hero from "./Home Page Components/Hero/Hero";
+import ParallaxSection from "./Home Page Components/ParallaxSection/ParallaxSection";
+import FadeInSection from "./Home Page Components/FadeInSection/FadeInSection";
+import Section from "./Home Page Components/Section/Section";
+import TestimonialsSlider from "./Home Page Components/TestimonialsSlider/TestimonialsSlider";
+import ContactSection from "./Home Page Components/ContactSection/ContactSection";
 const Home = () => {
   return (
     <>

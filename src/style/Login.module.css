@@ -1,122 +1,109 @@
-/* Login.module.css */
-
-/* Center the login container */
-.loginContainer {
+.loginSection {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100vw;
   height: 100vh;
-  background-color: #f4f4f9;
+  background: #fdd5e5;
 }
 
 .loginForm {
-  width: 100%;
-  max-width: 400px;
-  padding: 40px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.loginForm h2 {
-  margin-bottom: 24px;
-  font-size: 1.8rem;
-  color: #333;
-}
-
-/* Label styling */
-.label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 0.9rem;
-  color: #555;
-  text-align: left;
-}
-
-/* Input field styling */
-.inputField {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 16px;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.passwordContainer {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  position: relative;
+  background-color: #ff4da6;
+  width: 340px;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center; /* Centers all text inside the form */
 }
 
-.showPassword {
-  position: absolute;
-  right: 10px;
-  font-size: 0.8rem;
-  color: #007bff;
-  cursor: pointer;
-  user-select: none;
+.loginForm h1 {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
-
-/* Remember me checkbox */
-.rememberMe {
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-  color: #555;
+.loginForm > p {
+  color: Red;
+  font-size: 24px;
   margin-bottom: 20px;
 }
 
-.rememberMe input[type="checkbox"] {
-  margin-right: 8px;
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers labels and inputs */
+  width: 300px;
+  margin-bottom: 15px;
 }
 
-/* Button styling */
-.loginButton {
-  width: 100%;
-  padding: 12px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #007bff;
+.label {
+  color: white;
+  font-size: 16px;
+  margin-bottom: 5px;
+  align-self: flex-start; /* Align label to the start within the container */
+}
+
+.inputField {
+  width: 90%; /* Slightly shorter width for visual alignment */
+  padding: 10px;
+  border-radius: 5px;
   border: none;
-  border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.inputField:focus {
+  outline: 2px solid #ffd6e8;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 0.9em;
+  margin-top: 10px;
+  gap: 8px;
+}
+.rememberMe input {
+  margin-left: 4px;
+  margin-bottom: 4px;
+}
+
+.loginButton {
+  background-color: #ff1a75;
+  color: white;
+  font-size: 1em;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
+  width: 98%; /* Matches input width */
+  margin-top: 15px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s;
 }
 
 .loginButton:hover {
-  background-color: #0056b3;
+  background-color: #e6006b;
 }
 
-/* Links styling */
 .links {
-  margin-top: 20px;
-  font-size: 0.9rem;
+  color: white;
+  font-size: 0.9em;
+  margin-top: 15px;
+  text-align: center;
 }
 
 .link {
-  color: #007bff;
+  color: #ffd6e8;
   text-decoration: none;
-  margin: 0 10px;
-  transition: color 0.3s;
+  font-weight: bold;
+  margin-left: 5px;
 }
 
 .link:hover {
-  color: #0056b3;
-}
-
-.errmsg {
-  color: #b00020;
-  background-color: #fce4ec;
-  padding: 0.5rem;
-  border-radius: 5px;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.offscreen {
-  display: none;
+  text-decoration: underline;
 }
