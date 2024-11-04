@@ -12,7 +12,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await logout();
-    navigate("/linkpage");
+    navigate("/");
   };
 
   // Function to check if the link is active
@@ -22,13 +22,17 @@ const Navbar = () => {
     <section>
       <nav className={styles.navbar}>
         <div className={styles.logo}>
-          <img src={logo} alt="Domna Logo" />
+          <Link to="/">
+            <img src={logo} alt="Domna Logo" />
+          </Link>
         </div>
         <ul className={styles.navMenu}>
           <li>
             <Link
               to="/"
-              className={`${styles.navLink} ${isActive("/") ? styles.activeNavLink : ""}`}
+              className={`${styles.navLink} ${
+                isActive("/") ? styles.activeNavLink : ""
+              }`}
             >
               Home
             </Link>
@@ -36,7 +40,9 @@ const Navbar = () => {
           <li>
             <Link
               to="/about"
-              className={`${styles.navLink} ${isActive("/about") ? styles.activeNavLink : ""}`}
+              className={`${styles.navLink} ${
+                isActive("/about") ? styles.activeNavLink : ""
+              }`}
             >
               About
             </Link>
@@ -44,7 +50,9 @@ const Navbar = () => {
           <li>
             <Link
               to="/courses"
-              className={`${styles.navLink} ${isActive("/courses") ? styles.activeNavLink : ""}`}
+              className={`${styles.navLink} ${
+                isActive("/courses") ? styles.activeNavLink : ""
+              }`}
             >
               Courses
             </Link>
@@ -52,7 +60,9 @@ const Navbar = () => {
           <li>
             <Link
               to="/blog"
-              className={`${styles.navLink} ${isActive("/blog") ? styles.activeNavLink : ""}`}
+              className={`${styles.navLink} ${
+                isActive("/blog") ? styles.activeNavLink : ""
+              }`}
             >
               Blog
             </Link>
@@ -62,7 +72,9 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/createcourse"
-                  className={`${styles.navLink} ${isActive("/createcourse") ? styles.activeNavLink : ""}`}
+                  className={`${styles.navLink} ${
+                    isActive("/createcourse") ? styles.activeNavLink : ""
+                  }`}
                 >
                   Create Course
                 </Link>
@@ -70,7 +82,9 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/dashboard"
-                  className={`${styles.navLink} ${isActive("/dashboard") ? styles.activeNavLink : ""}`}
+                  className={`${styles.navLink} ${
+                    isActive("/dashboard") ? styles.activeNavLink : ""
+                  }`}
                 >
                   Dashboard
                 </Link>
@@ -82,7 +96,9 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/login"
-                  className={`${styles.navLink} ${isActive("/login") ? styles.activeNavLink : ""}`}
+                  className={`${styles.navLink} ${
+                    isActive("/login") ? styles.activeNavLink : ""
+                  }`}
                 >
                   Log in
                 </Link>
@@ -90,7 +106,9 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/register"
-                  className={`${styles.navLink} ${isActive("/register") ? styles.activeNavLink : ""}`}
+                  className={`${styles.navLink} ${
+                    isActive("/register") ? styles.activeNavLink : ""
+                  }`}
                 >
                   Register
                 </Link>
@@ -101,7 +119,9 @@ const Navbar = () => {
               <li>
                 <Link
                   to={`/profile/${auth.id}`}
-                  className={`${styles.navLink} ${isActive(`/profile/${auth.id}`) ? styles.activeNavLink : ""}`}
+                  className={`${styles.navLink} ${
+                    isActive(`/profile/${auth.id}`) ? styles.activeNavLink : ""
+                  }`}
                 >
                   Profile
                 </Link>

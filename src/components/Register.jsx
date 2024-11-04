@@ -184,17 +184,21 @@ const Register = () => {
                   <FontAwesomeIcon
                     icon={faCheck}
                     className={
-                      validMatch && matchPassword
+                      (validMatch && matchPassword
                         ? styles.valid
-                        : styles.offscreen
+                        : styles.offscreen) +
+                      " " +
+                      styles.FontIcon
                     }
                   />
                   <FontAwesomeIcon
                     icon={faTimes}
                     className={
-                      validMatch || !matchPassword
+                      (validMatch || !matchPassword
                         ? styles.offscreen
-                        : styles.invalid
+                        : styles.invalid) +
+                      " " +
+                      styles.FontIcon
                     }
                   />
                 </label>

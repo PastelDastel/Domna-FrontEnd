@@ -1,52 +1,33 @@
-/* Center the missing container */
-.missingContainer {
+.container{
+    width: 100vw;
+    height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f4f4f9;
-}
-
-/* Styling for the missing message box */
-.missingBox {
-    width: 100%;
-    max-width: 400px;
-    padding: 40px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
-    font-family: Arial, sans-serif;
-    color: #333;
 }
 
-.missingBox h1 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 16px;
+h1 {
+    font-size: 6em;
+    color: #ff6b6b;
 }
 
-.missingBox p {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 24px;
+p {
+    font-size: 1.5em;
+    margin: 10px 0 20px;
 }
 
-/* Flex container for the link */
-.flexGrow {
-    display: flex;
-    justify-content: center;
-}
-
-/* Styling for the homepage link */
-.homeLink {
-    font-size: 1rem;
-    color: #007bff;
+.backHome {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #f29aa0;
     text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
+    border-radius: 5px;
+    font-size: 1em;
 }
 
-.homeLink:hover {
-    color: #0056b3;
+.backHome:hover {
+    background-color: #f18bbe;
 }

@@ -3,13 +3,42 @@ import axios from "axios";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import styles from "../style/Profile.module.css"; // Import the CSS module
+import useLogout from "../hooks/useLogout";
+
+const Months = [
+  "Gennaio",
+  "Febbraio",
+  "Marzo",
+  "Aprile",
+  "Maggio",
+  "Giugno",
+  "Luglio",
+  "Agosto",
+  "Settembre",
+  "Ottobre",
+  "Novembre",
+  "Dicembre",
+];
 
 const Profile = () => {
+  const logout = useLogout();
   const [user, setUser] = useState(null);
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
+
+  const displayDate = (date) => {
+    // date: 21/12/2024, 02:47
+    // returns 21 Dicembre 2024, 02:47
+    const [day, month, year] = date.split("/");
+    return `${day} ${Months[parseInt(month) - 1]} ${year}`;
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -20,11 +49,9 @@ const Profile = () => {
         const response = await axiosPrivate.get(`/users/${id}`, {
           signal: controller.signal,
         });
-        if (isMounted) setUser(response.data);
+        if (isMounted) setUser(response.data.user);
       } catch (err) {
-        if (axios.isCancel(err)) {
-            
-        } else {
+        if (!axios.isCancel(err)) {
           console.error("Error fetching user data:", err);
           navigate("/login", { state: { from: location }, replace: true });
         }
@@ -41,25 +68,61 @@ const Profile = () => {
 
   return (
     <div className={styles.profileContainer}>
-      <section className={styles.profileForm}>
-        <h2 className={styles.profileTitle}>User Profile</h2>
+      <div className={styles.profileSidebar}>
         {user ? (
-          <div className={styles.userInfo}>
-            <div className={styles.userInfoLine}>
-              <span className={styles.userInfoLabel}>Username:</span> {user.username}
-            </div>
-            <div className={styles.userInfoLine}>
-              <span className={styles.userInfoLabel}>Email:</span> {user.email}
-            </div>
-            {/* Add additional user details as needed */}
-          </div>
+          <>
+            <img
+              src="https://placehold.co/150x150/ffaaff/ff4d94"
+              alt="Foto Profilo"
+              className={styles.profilePic}
+            />
+            <h2>{user.username}</h2>
+            <p>User ID: {user.id}</p>
+            <p>Email: {user.email}</p>
+            <p>Telefono: {user.phone}</p>
+            <p>Data creazione: {displayDate(user.creation_date)}</p>
+
+            <button className={styles.editButton}>Modifica Password</button>
+            <button className={styles.editButton} onClick={handleLogout}>
+              Logout
+            </button>
+          </>
         ) : (
           <p className={styles.noData}>No user data to display</p>
         )}
-        <button className={styles.profileButton} onClick={() => navigate("/edit-profile")}>
-          Edit Profile
-        </button>
-      </section>
+      </div>
+      <div className={styles.profileContent}>
+        {user ? (
+          <>
+            <h1>Dettagli del Corso</h1>
+            <p>
+              <strong>Corso Selezionato:</strong> Corso di Yoga Avanzato
+            </p>
+            <p>
+              <strong>Data di Rinnovo:</strong> 15 Novembre 2024
+            </p>
+            <p>
+              <strong>Dettagli:</strong> Questo corso include accesso illimitato
+              a lezioni settimanali e supporto personalizzato con l'istruttore.
+            </p>
+            <p>
+              <strong>Video Corsi: </strong>
+            </p>
+            <p>
+              <strong>Entra nella live : </strong>
+              <a
+                href="https://us02web.zoom.us/j/85228193827?pwd=1DgSrBrwr8CREvFihMR9lv1jfPGC7m.1"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Clicca qui!
+              </a>
+            </p>
+          </>
+        ) : (
+          <p className={styles.noCourseData}>No course data to display</p>
+        )}
+      </div>
     </div>
   );
 };

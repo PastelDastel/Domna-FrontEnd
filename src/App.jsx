@@ -40,10 +40,8 @@ function App() {
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
             <Route path="admin" element={<Admin />} />
           </Route>
+          <Route path="*" element={<Missing />} />
         </Route>
-
-        {/* catch all */}
-        <Route path="*" element={<Missing />} />
       </Route>
     </Routes>
   );

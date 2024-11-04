@@ -1,71 +1,80 @@
-/* Center the profile container */
 .profileContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f9;
-  }
-  
-  .profileForm {
-    width: 100%;
-    max-width: 400px;
-    padding: 40px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .profileForm h2 {
-    margin-bottom: 24px;
-    font-size: 1.8rem;
-    color: #333;
-  }
-  
-  /* User info styling */
-  .userInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-  
-  .userInfoLine {
-    font-size: 1rem;
-    color: #555;
-  }
-  
-  .userInfoLabel {
-    font-weight: bold;
-    color: #333;
-    margin-right: 8px;
-  }
-  
-  /* Button styling */
-  .profileButton {
-    width: 100%;
-    padding: 12px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #d75494;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .profileButton:hover {
-    background-color: #f29aa0;
-  }
-  
-  /* Style for "no data" message */
-  .noData {
-    font-size: 1rem;
-    color: #888;
-    text-align: center;
-    margin-top: 1rem;
-  }
-  
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: antiquewhite;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.profileSidebar {
+  width: 25%;
+  background-color: #ffc2d1;
+  padding: 135px 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profileSidebar h2 {
+  color: #ff4d94;
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+.profileSidebar p {
+  color: #333;
+  font-size: 1.2em;
+  margin-bottom: 25px;
+}
+
+.profilePic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 30px;
+  border: 4px solid #ff4d94;
+}
+
+.editButton {
+  font-family: "Josefin Sans";
+  background-color: #ff4d94;
+  color: #fff;
+  border: 0;
+  border-radius: 20px;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s;
+  width: 50%;
+  margin: 10px 0 20px;
+}
+.editButton:hover {
+  background-color: #ff1a66;
+}
+
+.profileContent {
+  width: 75%;
+  padding: 50px;
+  max-width: 1600px;
+  background-color: #fff0f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profileContent h1 {
+  color: #ff4d94;
+  font-size: 2.2em;
+  margin-bottom: 30px;
+}
+
+.profileContent p {
+  color: #333;
+  font-size: 1.2em;
+  margin: 15px 0;
+}
+
+.profileContent p strong {
+  color: #ff4d94;
+}

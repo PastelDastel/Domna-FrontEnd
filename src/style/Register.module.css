@@ -23,7 +23,8 @@
 .registerForm h1 {
   color: white;
   font-size: 24px;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
+  margin-top: 20px;
 }
 .registerForm > p {
   color: Red;
