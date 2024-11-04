@@ -1,0 +1,8 @@
+.coursesContainer {
+  width: 100vw;
+  height: 100vh;
+  background-color: #fdd5e5;
+  display: flex;
+  align-items: center;
+  font: 100%/1.6 "Roboto", sans-serif;
+}

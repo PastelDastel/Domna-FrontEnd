@@ -1,0 +1,7 @@
+.coursesWrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 400px); /* Ensures 3 columns of equal width */
+  grid-gap: 2em; /* Spacing between columns */
+  padding: 2em;
+  margin: 0 auto;
+}

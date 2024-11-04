@@ -1,0 +1,90 @@
+.pricingTableItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff8f0; /* Lavender Blush */
+  padding: 1em;
+  border-radius: 1.5em;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 200ms cubic-bezier(0.02, 0.01, 0.47, 1),
+    transform 200ms cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+.pricingTableItem:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+  transform: translate(0, -10px);
+}
+.pricingTableImg {
+  margin: 1.5em auto 2em;
+  width: 50%;
+}
+.pricingTableTitle {
+  margin: 0;
+  font-size: 1.5em;
+  color: #c71585; /* Rosa brillante per i titoli */
+  text-transform: capitalize;
+}
+.pricingTableDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+.pricingTablePrice {
+  color: #ff6eb4;
+  font-size: 2.2em;
+  margin: 0.5em auto;
+  font-weight: bold;
+}
+.pricingTableLabel {
+  margin: 0;
+  color: hsl(216, 3%, 63%);
+  font-size: 1em;
+}
+.pricingTableProducts {
+  margin: 1.2em 0;
+  padding: 0;
+  list-style-type: none;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pricingTableProductIncluded {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+.pricingTableProductIncluded:before {
+  margin-right: 0.5em;
+  content: "⭕";
+  color: #ff69b4;
+}
+.pricingTableProductExcluded {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+strike {
+  text-decoration: line-through;
+}
+.pricingTableProductExcluded:before {
+  margin-right: 0.5em;
+  content: "❌";
+  color: #000;
+}
+.pricingTableButton {
+  background: #ff6eb4; /* Rosa scuro per il pulsante */
+  color: #fff;
+  margin-top: auto;
+  padding: 0.8em 1.5em;
+  text-decoration: none;
+  width: 80%;
+  border-radius: 1.87em;
+  text-align: center;
+  transition: background 0.2s ease-in-out;
+}
+.pricingTableButton:hover {
+  background: #ad1457; /* Rosa brillante per il pulsante */
+}
