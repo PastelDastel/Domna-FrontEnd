@@ -1,16 +1,14 @@
 import { useRef, useState, useEffect } from "react";
-import {
-  faCheck,
-  faTimes,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../style/Register.module.css"; // Import the CSS module
 
 const REGISTER_URL = "/register";
 
 const Register = () => {
+  const navigate = useNavigate();
   const userRef = useRef();
   const errRef = useRef();
   const [username, setUsername] = useState("");
@@ -34,8 +32,27 @@ const Register = () => {
     setErrMsg("");
   }, [username, email, phone, password, matchPassword]);
 
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+      return () => clearTimeout(timer); // Clear timeout if component unmounts
+    }
+  }, [success, navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!username || !email || !phone || !password || !matchPassword) {
+      setErrMsg("Tutti i campi sono obbligatori");
+      errRef.current.focus();
+      return;
+    }
+    if (!validMatch) {
+      setErrMsg("Le password non corrispondono");
+      errRef.current.focus();
+      return;
+    }
     try {
       const response = await axios.post(
         REGISTER_URL,
@@ -66,14 +83,9 @@ const Register = () => {
   return (
     <>
       {success ? (
-        <section className={styles.registerContainer}>
-          <h1>Success!</h1>
-          <p>
-            <Link to="/" className={styles.link}>
-              Sign In
-            </Link>
-          </p>
-        </section>
+        <div className={styles.successMessage}>
+          <p>Registrazione avvenuta con successo! Verrai reindirizzato...</p>
+        </div>
       ) : (
         <div className={styles.registerContainer}>
           <section className={styles.registerForm}>
@@ -84,109 +96,126 @@ const Register = () => {
             >
               {errMsg}
             </p>
-            <h2>Register</h2>
+            <h1>Registra un nuovo account</h1>
             <form onSubmit={handleSubmit}>
-              <label htmlFor="username" className={styles.label}>
-                Username:
-              </label>
-              <input
-                type="text"
-                id="username"
-                autoComplete="off"
-                onChange={(e) => setUsername(e.target.value)}
-                value={username}
-                required
-                ref={userRef}
-                className={styles.inputField}
-              />
-
-              <label htmlFor="email" className={styles.label}>
-                Email:
-              </label>
-              <input
-                type="email"
-                id="email"
-                autoComplete="email"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                required
-                className={styles.inputField}
-              />
-
-              <label htmlFor="phone" className={styles.label}>
-                Phone:
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                autoComplete="phone"
-                onChange={(e) => setPhone(e.target.value)}
-                value={phone}
-                required
-                className={styles.inputField}
-              />
-
-              <label htmlFor="password" className={styles.label}>
-                Password:
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  className={password ? styles.valid : styles.offscreen}
+              <div className={styles.inputContainer}>
+                <label htmlFor="username" className={styles.label}>
+                  Nome Completo
+                </label>
+                <input
+                  placeholder="Inserisci il tuo Nome e Cognome"
+                  type="text"
+                  id="username"
+                  autoComplete="off"
+                  onChange={(e) => setUsername(e.target.value)}
+                  value={username}
+                  required
+                  ref={userRef}
+                  className={styles.inputField}
                 />
-                <FontAwesomeIcon
-                  icon={faTimes}
-                  className={password ? styles.offscreen : styles.invalid}
-                />
-              </label>
-              <input
-                type="password"
-                id="password"
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete="new-password"
-                value={password}
-                required
-                className={styles.inputField}
-              />
+              </div>
 
-              <label htmlFor="confirm_pwd" className={styles.label}>
-                Confirm Password:
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  className={
-                    validMatch && matchPassword
-                      ? styles.valid
-                      : styles.offscreen
-                  }
+              <div className={styles.inputContainer}>
+                <label htmlFor="email" className={styles.label}>
+                  Email
+                </label>
+                <input
+                  placeholder="Inserisci la tua email"
+                  type="email"
+                  id="email"
+                  autoComplete="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  required
+                  className={styles.inputField}
                 />
-                <FontAwesomeIcon
-                  icon={faTimes}
-                  className={
-                    validMatch || !matchPassword
-                      ? styles.offscreen
-                      : styles.invalid
-                  }
+              </div>
+              <div className={styles.inputContainer}>
+                <label htmlFor="phone" className={styles.label}>
+                  Telefono
+                </label>
+                <input
+                  placeholder="Inserisci il tuo numero di telefono"
+                  type="tel"
+                  id="phone"
+                  autoComplete="phone"
+                  onChange={(e) => setPhone(e.target.value)}
+                  value={phone}
+                  required
+                  className={styles.inputField}
                 />
-              </label>
-              <input
-                type="password"
-                id="confirm_pwd"
-                onChange={(e) => setMatchPassword(e.target.value)}
-                value={matchPassword}
-                required
-                aria-invalid={validMatch ? "false" : "true"}
-                className={styles.inputField}
-              />
+              </div>
 
-              <button
-                disabled={!username || !email || !phone || !password || !validMatch}
-                className={styles.registerButton}
-              >
-                Sign Up
-              </button>
+              <div className={styles.inputContainer}>
+                <label htmlFor="password" className={styles.label}>
+                  Password
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className={
+                      (password ? styles.valid : styles.offscreen) +
+                      " " +
+                      styles.FontIcon
+                    }
+                  />
+                  <FontAwesomeIcon
+                    icon={faTimes}
+                    className={
+                      (password ? styles.offscreen : styles.invalid) +
+                      " " +
+                      styles.FontIcon
+                    }
+                  />
+                </label>
+                <input
+                  placeholder="Inserisci la tua password"
+                  type="password"
+                  id="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="new-password"
+                  value={password}
+                  required
+                  className={styles.inputField}
+                />
+              </div>
+
+              <div className={styles.inputContainer}>
+                <label htmlFor="confirm_pwd" className={styles.label}>
+                  Confirm Password:
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className={
+                      validMatch && matchPassword
+                        ? styles.valid
+                        : styles.offscreen
+                    }
+                  />
+                  <FontAwesomeIcon
+                    icon={faTimes}
+                    className={
+                      validMatch || !matchPassword
+                        ? styles.offscreen
+                        : styles.invalid
+                    }
+                  />
+                </label>
+                <input
+                  placeholder="Conferma la tua password"
+                  type="password"
+                  id="confirm_pwd"
+                  onChange={(e) => setMatchPassword(e.target.value)}
+                  value={matchPassword}
+                  required
+                  aria-invalid={validMatch ? "false" : "true"}
+                  className={styles.inputField}
+                />
+              </div>
+
+              <button className={styles.registerButton}>Registrati</button>
             </form>
             <div className={styles.links}>
-              Already registered?
+              Hai già un account?
               <Link to="/login" className={styles.link}>
-                Sign In
+                Accedi qui
               </Link>
             </div>
           </section>
