@@ -1,0 +1,105 @@
+/* ProductComponent.module.css */
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.leftColumn {
+    width: 45%;
+}
+
+.rightColumn {
+    width: 45%;
+}
+
+.heading {
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.price {
+    color: #5b1f18;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.priceDel {
+    color: #999;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.quantityLabel {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.quantityInput {
+    margin: 10px 0;
+    padding: 5px;
+    width: 60px;
+    border: 1px solid #5b1f18;
+    font-size: 16px;
+    text-align: center;
+}
+
+.addToCartBtn {
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #5b1f18;
+    border: 1px solid #5b1f18;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.addToCartBtn:hover {
+    background-color: #5b1f18;
+    color: #fff;
+}
+
+.featuresList {
+    list-style-type: disc;
+    margin: 20px 0;
+    padding-left: 20px;
+    color: #5b1f18;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.sectionTitle {
+    margin-top: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-top: 1px solid #5b1f18;
+    border-bottom: 1px solid #5b1f18;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sectionTitleIcon {
+    font-size: 20px;
+    font-weight: bold;
+    color: #5b1f18;
+}
+
+.dropdownContent {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #5b1f18;
+    line-height: 1.6;
+    border-left: 2px solid #5b1f18;
+    padding-left: 10px;
+}

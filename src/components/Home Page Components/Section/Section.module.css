@@ -6,7 +6,7 @@
   position: relative;
   width: 640px;
   height: 400px;
-  margin: 0 auto;
+  margin: 100px auto;
   display: flex;
   align-items: center;
 }

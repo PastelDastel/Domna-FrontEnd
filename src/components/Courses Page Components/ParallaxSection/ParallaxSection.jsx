@@ -20,15 +20,11 @@ const ParallaxSection = ({ imageUrl, text, id, startOffset = 0 }) => {
     <div
       className={styles.parallaxSection1MarginFiller}
       id={id}
-      style={{
-        backgroundImage: `url("${imageUrl}")`,
-        margin: "0"
-      }}
+      style={{ backgroundImage: `url("${imageUrl}")`, margin: "0px 50px" }}
     >
       <p className={styles.reviewTestimonialText}>{text}</p>
     </div>
   );
-  
 };
 
 export default ParallaxSection;

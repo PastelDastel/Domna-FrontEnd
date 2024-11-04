@@ -7,7 +7,7 @@ import ContactSection from "./Home Page Components/ContactSection/ContactSection
 const Home = () => {
   return (
     <>
-      <Hero />
+      <Hero text="Domna" animatedText="Allenamento funzionale femminile." textAlignment="left"/>
       <ParallaxSection
         imageUrl="https://placehold.co/1920x1080/ffa0b1/f08b92"
         text="Allenati Con DOMNA"

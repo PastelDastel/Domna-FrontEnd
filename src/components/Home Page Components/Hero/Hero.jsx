@@ -1,11 +1,16 @@
 import styles from "./Hero.module.css";
 import { useEffect } from "react";
 import LetterAnimation from "../LetterAnimation/LetterAnimation";
-const Hero = () => {
+
+const Hero = ({ text, animatedText, textAlignment }) => {
+  console.log(text, animatedText);
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.pageYOffset;
-      document.getElementById("heroS").style.backgroundPositionY = `-${scrollPosition * 0.3}px`;
+      document.getElementById("heroS").style.backgroundPositionY = `-${
+        scrollPosition * 0.3
+      }px`;
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -13,9 +18,17 @@ const Hero = () => {
   }, []);
   return (
     <div className={styles.hero} id="heroS">
-      <div className={styles.heroText}>
-        <h1>DOMNA</h1>
-        <LetterAnimation text="Allenamento funzionale femminile."/>
+      <div
+        className={
+          textAlignment === "left"
+            ? styles.heroTextLeft
+            : textAlignment === "center"
+            ? styles.heroTextCenter
+            : styles.heroTextRight // Assume "right" is the fallback alignment if needed
+        }
+      >
+        <h1>{text}</h1>
+        <LetterAnimation text={animatedText} />
       </div>
       <div className={styles.socialIcons}>
         <a href="https://www.facebook.com/domnaallenamentofunzionalefemminile">
