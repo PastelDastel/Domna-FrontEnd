@@ -8,10 +8,12 @@ const RequireAuth = ({ allowedRoles }) => {
     console.log("Require auth -> allowedRoles", allowedRoles);
     console.log("Require auth -> auth?.roles", auth?.roles);
 
-    const hasRequiredRole = Array.isArray(auth?.roles)
-        ? auth.roles.some(role => allowedRoles.includes(role))
+    const hasRequiredRole = auth?.roles && typeof auth.roles === 'object'
+        ? Object.keys(auth.roles).some(role => allowedRoles.includes(role))
         : allowedRoles.includes(auth?.roles);
+    
     console.log("Require auth -> hasRequiredRole", hasRequiredRole);
+    
     if (hasRequiredRole) {
         return <Outlet />;
     }

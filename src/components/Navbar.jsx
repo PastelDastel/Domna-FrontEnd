@@ -9,7 +9,7 @@ const Navbar = () => {
   const logout = useLogout();
   const navigate = useNavigate();
   const location = useLocation();
-
+  console.log(auth);
   const handleLogout = async () => {
     await logout();
     navigate("/");
@@ -67,7 +67,7 @@ const Navbar = () => {
               Blog
             </Link>
           </li>
-          {auth?.roles?.includes("Admin") && (
+          {auth?.roles?.Admin && (
             <>
               <li>
                 <Link
