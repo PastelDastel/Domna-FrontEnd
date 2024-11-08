@@ -5,17 +5,21 @@ import useAuth from "./useAuth";
 
 const useAxiosPrivate = () => {
     const refresh = useRefreshToken();
-    const { auth } = useAuth();
+    const { auth, logoutPending } = useAuth();
 
     useEffect(() => {
-
         const requestIntercept = axiosPrivate.interceptors.request.use(
             config => {
+                if (logoutPending) {
+                    console.log("Request blocked due to logout pending.");
+                    return new Promise(() => {}); // Block the request by returning a pending Promise
+                }
                 if (!config.headers['Authorization']) {
                     config.headers['Authorization'] = `Bearer ${auth?.accessToken}`;
                 }
                 return config;
-            }, (error) => Promise.reject(error)
+            },
+            (error) => Promise.reject(error)
         );
 
         const responseIntercept = axiosPrivate.interceptors.response.use(
@@ -35,10 +39,10 @@ const useAxiosPrivate = () => {
         return () => {
             axiosPrivate.interceptors.request.eject(requestIntercept);
             axiosPrivate.interceptors.response.eject(responseIntercept);
-        }
-    }, [auth, refresh])
+        };
+    }, [auth, refresh, logoutPending]);
 
     return axiosPrivate;
-}
+};
 
 export default useAxiosPrivate;

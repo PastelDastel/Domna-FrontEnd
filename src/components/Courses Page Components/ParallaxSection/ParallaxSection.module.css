@@ -4,12 +4,11 @@
   background: no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
+  margin: 130px 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
 }
-
 .reviewTestimonialText {
   font-size: 35pt;
   color: white;

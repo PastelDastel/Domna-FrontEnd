@@ -27,7 +27,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
-
   const displayDate = (date) => {
     // date: 21/12/2024, 02:47
     // returns 21 Dicembre 2024, 02:47
@@ -50,6 +49,7 @@ const Profile = () => {
           signal: controller.signal,
         });
         if (isMounted) setUser(response.data.user);
+        console.log(response.data.user);
       } catch (err) {
         if (!axios.isCancel(err)) {
           console.error("Error fetching user data:", err);
@@ -77,7 +77,7 @@ const Profile = () => {
               className={styles.profilePic}
             />
             <h2>{user.username}</h2>
-            <p>User ID: {user.id}</p>
+            <p className={styles.userID}>User ID: {user.id}</p>
             <p>Email: {user.email}</p>
             <p>Telefono: {user.phone}</p>
             <p>Data creazione: {displayDate(user.creation_date)}</p>
