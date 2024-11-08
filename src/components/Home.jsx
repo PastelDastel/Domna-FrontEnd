@@ -4,10 +4,16 @@ import FadeInSection from "./Home Page Components/FadeInSection/FadeInSection";
 import Section from "./Home Page Components/Section/Section";
 import TestimonialsSlider from "./Home Page Components/TestimonialsSlider/TestimonialsSlider";
 import ContactSection from "./Home Page Components/ContactSection/ContactSection";
+import MetaPixel from "./MetaPixel";
 const Home = () => {
   return (
     <>
-      <Hero text="Domna" animatedText="Allenamento funzionale femminile." textAlignment="left"/>
+      <MetaPixel pixelId={"410616855425028"} />
+      <Hero
+        text="Domna"
+        animatedText="Allenamento funzionale femminile."
+        textAlignment="left"
+      />
       <ParallaxSection
         imageUrl="https://placehold.co/1920x1080/ffa0b1/f08b92"
         text="Allenati Con DOMNA"

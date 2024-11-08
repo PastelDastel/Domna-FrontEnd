@@ -4,7 +4,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import styles from "../style/Profile.module.css"; // Import the CSS module
 import useLogout from "../hooks/useLogout";
-
+import MetaPixel from "./MetaPixel";
 const Months = [
   "Gennaio",
   "Febbraio",
@@ -67,63 +67,75 @@ const Profile = () => {
   }, [id, axiosPrivate, navigate, location]);
 
   return (
-    <div className={styles.profileContainer}>
-      <div className={styles.profileSidebar}>
-        {user ? (
-          <>
-            <img
-              src="https://placehold.co/150x150/ffaaff/ff4d94"
-              alt="Foto Profilo"
-              className={styles.profilePic}
-            />
-            <h2>{user.username}</h2>
-            <p className={styles.userID}>User ID: {user.id}</p>
-            <p>Email: {user.email}</p>
-            <p>Telefono: {user.phone}</p>
-            <p>Data creazione: {displayDate(user.creation_date)}</p>
+    <>
+      <MetaPixel
+        pixelId={"410616855425028"}
+        events={[
+          {
+            type: "ThisDudeIsOnTheProfilePage",
+            params: { userId: user?.id },
+          },
+        ]}
+      />
+      <div className={styles.profileContainer}>
+        <div className={styles.profileSidebar}>
+          {user ? (
+            <>
+              <img
+                src="https://placehold.co/150x150/ffaaff/ff4d94"
+                alt="Foto Profilo"
+                className={styles.profilePic}
+              />
+              <h2>{user.username}</h2>
+              <p className={styles.userID}>User ID: {user.id}</p>
+              <p>Email: {user.email}</p>
+              <p>Telefono: {user.phone}</p>
+              <p>Data creazione: {displayDate(user.creation_date)}</p>
 
-            <button className={styles.editButton}>Modifica Password</button>
-            <button className={styles.editButton} onClick={handleLogout}>
-              Logout
-            </button>
-          </>
-        ) : (
-          <p className={styles.noData}>No user data to display</p>
-        )}
+              <button className={styles.editButton}>Modifica Password</button>
+              <button className={styles.editButton} onClick={handleLogout}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <p className={styles.noData}>No user data to display</p>
+          )}
+        </div>
+        <div className={styles.profileContent}>
+          {user ? (
+            <>
+              <h1>Dettagli del Corso</h1>
+              <p>
+                <strong>Corso Selezionato:</strong> Corso di Yoga Avanzato
+              </p>
+              <p>
+                <strong>Data di Rinnovo:</strong> 15 Novembre 2024
+              </p>
+              <p>
+                <strong>Dettagli:</strong> Questo corso include accesso
+                illimitato a lezioni settimanali e supporto personalizzato con
+                l'istruttore.
+              </p>
+              <p>
+                <strong>Video Corsi: </strong>
+              </p>
+              <p>
+                <strong>Entra nella live : </strong>
+                <a
+                  href="https://us02web.zoom.us/j/85228193827?pwd=1DgSrBrwr8CREvFihMR9lv1jfPGC7m.1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Clicca qui!
+                </a>
+              </p>
+            </>
+          ) : (
+            <p className={styles.noCourseData}>No course data to display</p>
+          )}
+        </div>
       </div>
-      <div className={styles.profileContent}>
-        {user ? (
-          <>
-            <h1>Dettagli del Corso</h1>
-            <p>
-              <strong>Corso Selezionato:</strong> Corso di Yoga Avanzato
-            </p>
-            <p>
-              <strong>Data di Rinnovo:</strong> 15 Novembre 2024
-            </p>
-            <p>
-              <strong>Dettagli:</strong> Questo corso include accesso illimitato
-              a lezioni settimanali e supporto personalizzato con l'istruttore.
-            </p>
-            <p>
-              <strong>Video Corsi: </strong>
-            </p>
-            <p>
-              <strong>Entra nella live : </strong>
-              <a
-                href="https://us02web.zoom.us/j/85228193827?pwd=1DgSrBrwr8CREvFihMR9lv1jfPGC7m.1"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Clicca qui!
-              </a>
-            </p>
-          </>
-        ) : (
-          <p className={styles.noCourseData}>No course data to display</p>
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 
