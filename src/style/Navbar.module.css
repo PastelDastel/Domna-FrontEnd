@@ -1,72 +1,272 @@
-.navbar {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 50px;
-  z-index: 10;
-  height: 100px;
-  font-weight: 400;
-  font-size: 10px;
-  text-transform: uppercase;
+  .navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    z-index: 10;
+    height: 100px;
+    font-weight: 400;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+
+  .navbar .logo img {
+    height: 100px;
+    width: auto;
+    margin-top: 13px;
+    margin-left: -13px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .hamburger .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #d75494;
+    transition: all 0.3s ease;
+  }
+
+  .navMenu {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 110px;
+    font-family: "Josefin Sans", sans-serif;
+    gap: 50px;
+  }
+
+  .navMenu.activeMenu {
+    display: block;
+  }
+
+
+
+
+  /* Media query per dispositivi molto piccoli (fino a 375px) */
+ /* Media query per dispositivi molto piccoli (fino a 375px) */
+ @media (max-width: 375px) {
+  .navbar {
+    position: relative;
+    overflow-x: hidden;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    display: flex;
+    justify-content: space-between; /* Spazio tra logo e hamburger */
+    align-items: center;
+    padding: 10px 20px; /* Riduce il padding */
+    z-index: 10;
+    height: 80px; /* Riduce l'altezza */
+    background-color: aquamarine;
+  }
+
+  .navbar .logo {
+    display: flex;
+    justify-content: center; /* Centra il logo */
+    align-items: center;
+    flex-grow: 1; /* Permette al logo di occupare spazio centrale */
+  }
+
+  .navbar .logo img {
+    height: 40px; /* Ridimensiona il logo */
+    width: auto;
+    margin: 0 auto; 
+  }
+
+  .hamburger {
+    display: flex; /* Mostra l'icona hamburger */
+    position: absolute;
+    left: 710px; /* Posizione l'icona hamburger */
+    margin-right: 10px; /* Aggiunge spaziatura dalla destra */
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1000; /* Porta l'hamburger sopra il menu */
+  }
+
+  .navMenu {
+    list-style: none;
+    display: none; /* Nasconde il menu per impostazione predefinita */
+    flex-direction: column;
+    position: fixed;
+    top: -100%; /* Inizialmente fuori dallo schermo */
+    left: 0;
+    width: 100%; /* Riempi la larghezza */
+    height: 100%; /* Riempi l'altezza */
+    background-color: #ffd1dc; /* Sfondo rosa */
+    z-index: 999; /* Porta il menu sopra gli altri elementi */
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    transition: top 0.5s ease-in-out; /* Transizione per l'apertura */
+  }
+
+  .navMenu.activeMenu {
+    display: flex;
+    top: 0; /* Porta il menu in vista */
+  }
+
+  .navMenu li {
+    margin: 15px 0; /* Spazio tra gli elementi */
+    font-size: 24px; /* Dimensione del testo adattata */
+    color: #d75494; /* Colore del testo */
+    text-align: center; /* Centra i testi */
+  }
+
+  .navMenu li a {
+    text-decoration: none; /* Rimuove la sottolineatura */
+    color: #d75494; /* Colore del link */
+    transition: color 0.3s ease; /* Transizione per il cambio di colore */
+  }
+
+  .navMenu li a:hover {
+    color: #000; /* Cambia colore al passaggio del mouse */
+  }
 }
 
-.navbar .logo img {
-  height: 100px;
-  width: auto;
-  margin-top: 13px;
-  margin-left: -13px;
-  display: inline-block;
-  vertical-align: middle;
-}
 
-.navbar .navMenu {
-  list-style: none;
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 110px;
-  font-family: "Josefin Sans", sans-serif;
-  gap: 50px;
-}
 
-/* Styling for nav links */
-.navbar .navMenu li .navLink,
-.navbar .navMenu li button {
-  background: none;
-  border: none;
-  color: #d75494;
-  font-size: 15px;
-  transition: color 0.3s ease, border-bottom 0.3s ease;
-  margin: 0;
-  line-height: 100px;
-  cursor: pointer;
-  text-decoration: none;
-  padding: 0;
-  display: inline-block;
-  position: relative;
-}
 
-/* Hover effect */
-.navbar .navMenu li .navLink:hover,
-.navbar .navMenu li button:hover {
-  color: #f29aa0;
-}
 
-/* Active link styling */
-.activeNavLink {
-  font-weight: bold;
-  color: #ff69b4;
-  position: relative;
 
-  text-decoration: underline !important;
-}
 
-/* Hover effect for underline on active link */
-.navbar .navMenu li .navLink:hover::after,
-.navbar .navMenu li button:hover::after {
-  width: 100%;
-  height: 1px;
-  background-color: #f29aa0;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* Media query per dispositivi piccoli (fino a 425px) */
+  @media (max-width: 425px) {
+    .heroText h1 {
+      font-size: 40px;
+    }
+  }
+
+  /* Media query per smartphone in modalità portrait (fino a 480px) */
+  @media (max-width: 480px) {
+    .heroText h1 {
+      font-size: 45px;
+    }
+  }
+
+  /* Media query per dispositivi medi (fino a 768px) */
+  @media (max-width: 768px) {
+    .heroText h1 {
+      font-size: 50px;
+    }
+  }
+
+  /* Media query per tablet (fino a 1024px) */
+  @media (max-width: 1024px) {
+    .heroText h1 {
+      font-size: 55px;
+    }
+  }
+
+  /* Media query per laptop piccoli (fino a 1366px) */
+  @media (max-width: 1366px) {
+    .heroText h1 {
+      font-size: 58px;
+    }
+  }
+
+  /* Media query per laptop grandi (fino a 1440px) */
+  @media (max-width: 1440px) {
+    .heroText h1 {
+      font-size: 60px;
+    }
+  }
+
+  /* Media query per monitor Full HD (fino a 1920px) */
+  @media (max-width: 1920px) {
+    .heroText h1 {
+      font-size: 65px;
+    }
+  }
+
+  /* Media query per monitor WQHD (fino a 2560px) */
+  @media (max-width: 2560px) {
+    .heroText h1 {
+      font-size: 70px;
+    }
+  }
+
+  /* Media query per monitor 4K (fino a 3840px) */
+  @media (max-width: 3840px) {
+    .heroText h1 {
+      font-size: 80px;
+    }
+  }
+
+  /* Media query per monitor ultra-large (oltre 3840px) */
+  @media (min-width: 3841px) {
+    .heroText h1 {
+      font-size: 90px;
+    }
+  }
+
+
+
+
+
+
+
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex; 
+      margin-left: auto; /* Spinge l'hamburger tutto a destra */
+    }
+    .navbar{
+      margin-left: 600px;
+    }
+    .navMenu {
+      display: none; /* Nascondi il menu orizzontale */
+      flex-direction: column;
+      background-color: white; /* Puoi personalizzare il colore di sfondo */
+      position: absolute;
+      top: 100px; /* Posizionamento sotto la navbar */
+      right: 0;
+      width: 100%; /* Puoi adattare la larghezza */
+      padding: 20px;
+      z-index: 9;
+    }
+
+
+    .navMenu.activeMenu {
+      display: flex; /* Mostra il menu quando è attivo */
+    }
+
+    .navbar {
+      padding: 10px 20px; /* Riduce la spaziatura */
+      height: 80px; /* Riduce l'altezza */
+      font-size: 8px; /* Riduce la dimensione del font */
+    }
+
+    .navbar .logo img {
+      height: 100px; /* Riduce la dimensione del logo */
+      margin-left: -50px;
+      
+    }
+
+    .navMenu li {
+      margin: 10px 0; /* Aggiunge spaziatura tra gli elementi del menu */
+    }
+  }

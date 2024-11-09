@@ -1,15 +1,15 @@
-import Hero from "./Home Page Components/Hero/Hero";
+/* import Hero from "./Home Page Components/Hero/Hero";
 import ParallaxSection from "./Home Page Components/ParallaxSection/ParallaxSection";
 import FadeInSection from "./Home Page Components/FadeInSection/FadeInSection";
 import Section from "./Home Page Components/Section/Section";
 import TestimonialsSlider from "./Home Page Components/TestimonialsSlider/TestimonialsSlider";
 import ContactSection from "./Home Page Components/ContactSection/ContactSection";
-import MetaPixel from "./MetaPixel";
+ */import MetaPixel from "./MetaPixel";
 const Home = () => {
   return (
     <>
-      <MetaPixel pixelId={"410616855425028"} />
-      <Hero
+      <MetaPixel pixelId={"410616855425028"} /> 
+{/*       <Hero
         text="Domna"
         animatedText="Allenamento funzionale femminile."
         textAlignment="left"
@@ -71,7 +71,7 @@ const Home = () => {
       <FadeInSection>
         <ContactSection />
       </FadeInSection>
-    </>
+ */}    </>
   );
 };
 
