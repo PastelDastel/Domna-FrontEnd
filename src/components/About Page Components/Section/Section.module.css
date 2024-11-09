@@ -1,0 +1,73 @@
+/* Container setup */
+.container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 100px auto;
+    align-items: flex-start;
+    width: 100%; /* Full width for responsiveness */
+  }
+  
+  /* Reverse layout for alternating sections */
+  .reverse {
+    flex-direction: row-reverse;
+  }
+  
+  /* Image section styling */
+  .imageSection {
+    width: 50%; /* Half-width for balance */
+    height: auto;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* Text section styling */
+  .textSection {
+    width: 40%; /* Adjusted to balance with image */
+    background-color: #f3c7dc;
+    padding: 30px;
+    margin-left: -150px; /* Move text section over image */
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+  }
+  
+  /* Header style */
+  .textSection h2 {
+    font-size: 1.8rem;
+    color: #555; /* Slightly darker color for readability */
+    margin-bottom: 20px;
+  }
+  
+  /* Paragraph styling */
+  .paragraph {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-weight: normal; /* Softer font weight */
+  }
+  
+  /* Button styling */
+  .button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .navLink {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #e892bb;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navLink:hover {
+    background-color: #e892bb;
+    color: #ffffff;
+  }
+  

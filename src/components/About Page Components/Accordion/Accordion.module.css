@@ -1,0 +1,38 @@
+.accordion {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.accordionItem {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px; /* Add space between items */
+  width: 700px;
+}
+
+.accordionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center align items vertically */
+  padding: 15px;
+  cursor: pointer;
+  color: #8b1d1d;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.accordionContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 15px;
+  color: #333;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.accordionToggle {
+  margin-left: auto; /* Push the toggle to the right */
+  font-size: 1.2rem;
+}

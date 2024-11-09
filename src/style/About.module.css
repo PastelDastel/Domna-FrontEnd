@@ -1,0 +1,167 @@
+/* Container setup with relative positioning */
+.container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin: 100px auto;
+  display: flex;
+  align-items: center;
+}
+.paragraphFirst {
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+/* Image section styling */
+.imageSection {
+  position: relative;
+  margin: -20px;
+  top: 0;
+  left: -100px;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+strong {
+  text-decoration: underline;
+  color: #8b1d1d;
+}
+/* Text section styling */
+.textSection {
+  position: absolute;
+  width: 403px;
+  background-color: #f3c7dc;
+  height: 700px;
+  padding: 20px 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  z-index: 2;
+}
+.textSectionSecond{
+    position: absolute;
+    width: 403px;
+    background-color: #f3c7dc;
+    height: 600px;
+    padding: 20px 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    z-index: 2;
+}
+/* Header style */
+
+.textSectionSecond h2 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-align: left;
+  margin: 20px 0;
+}
+.textSection h2 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-align: left;
+  margin: 20px 0;
+}
+/* Paragraph styling */
+.paragraph {
+  font-size: 14.5px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+/* Button styling */
+.button {
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+}
+
+.navLink {
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: #e892bb;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navLink:hover {
+  background-color: #e892bb;
+  color: #ffffff;
+}
+.separatorHr,
+.separatorHrSecond {
+  margin: 50px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.separatorLine,
+.separatorLineSecond {
+  border: 0;
+  border-top: 1px solid #ccc;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.mindsetContainer {
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    minmax(0, 550px)
+  ); /* Each column can grow but has a max width of 550px */
+  gap: 80px; /* Adjust this value for the space between columns */
+  justify-content: center; /* Centers the columns */
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.mindsetColumn {
+  margin: 0 auto;
+  max-width: 550px;
+  width: 100%; /* Ensures it stretches to fit the grid column */
+}
+
+.mindsetTitle {
+  font-size: 1.5em;
+  text-align: center;
+  color: #b56576; /* Dark pink for the title */
+  margin-bottom: 20px;
+}
+
+.mindsetText {
+  font-size: 1em;
+  color: #4a4a4a; /* Darker grey for readability */
+  line-height: 1.6;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.mindsetLink {
+  color: #b56576; /* Match the title color */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.mindsetLink:hover {
+  text-decoration: underline;
+}
+.serviceCards{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
