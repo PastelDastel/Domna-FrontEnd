@@ -14,6 +14,8 @@ const Accordion = ({ items }) => {
     }
   };
 
+
+
   return (
     <div className={styles.accordion}>
       {items.map((item, index) => (
