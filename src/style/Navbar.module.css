@@ -197,6 +197,8 @@
 
 
 
+
+
   /* Iphone xr fixato */
   @media (max-width: 896px) and (orientation: landscape) {
     .hamburger {
@@ -391,7 +393,7 @@
   .logo {
     flex-shrink: 1;
     height: 120px; /* Puoi regolare l'altezza per i telefoni in orizzontale */
-    margin-left: 260px; /* Allinea il logo a sinistra */
+    margin-left: 3000px; /* Allinea il logo a sinistra */
   }
 
   .navMenu {
@@ -586,4 +588,55 @@
   body, html {
     overflow-x: hidden;
   }
+}
+
+@media (max-width: 667px) and (orientation: landscape) {
+  body, html {
+    overflow-x: hidden;
+  }
+  .logo {
+    flex-shrink: 1;
+    height:120px; /* Puoi regolare l'altezza per i telefoni in orizzontale */
+    margin-left: 150px; /* Allinea il logo a sinistra */
+  }
+
+  .hamburger {
+    position: relative;
+    margin-left: auto;
+    margin-right: 195px;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    z-index: 101;
+  }
+  .navMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente gli elementi */
+    align-items: center;
+    gap: 20px; /* Aggiunge spazio tra gli elementi per una migliore leggibilità */
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+  }
+
+  .navMenu.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navMenu a {
+    color: white;
+    text-decoration: none;
+    font-size: 22px; /* Dimensione del testo per una migliore leggibilità */
+    margin: 10px 0; /* Spaziatura verticale */
+  }
+
 }
