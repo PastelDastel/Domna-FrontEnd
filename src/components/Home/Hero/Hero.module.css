@@ -1,642 +1,642 @@
+.hero {
+  position: relative;
+  height: 100vh;
+  background-image: url("https://placehold.co/1920x1080/ffa0b1/f08b92");
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 100vw;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.animatedText {
+  color: white;
+}
+
+.heroTextLeft {
+  float: left;
+  margin-right: auto;
+  margin-left: 50px;
+  text-align: left;
+  z-index: 10;
+}
+.heroTextCenter {
+  position: absolute;
+  margin: 0 auto;
+  text-align: center;
+  z-index: 10;
+}
+.heroTextRight {
+  position: absolute;
+
+  text-align: right;
+  z-index: 10;
+}
+
+.heroText h1 {
+  font-size: 60px;
+  color: #f29aa0;
+  margin: 0;
+}
+
+.navbar {
+  background-color: aqua;
+}
+.socialIcons {
+  position: absolute;
+  right: 60px;
+  bottom: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+.socialIcons a {
+  color: #d75494;
+  font-size: 30px;
+  margin: 15px 0;
+  transition: color 0.3s ease;
+}
+
+.socialIcons a:hover {
+  color: #f29aa0;
+}
+
+.bounceArrow {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+  animation: bounce 2s infinite;
+  z-index: 10;
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0) translateX(-50%);
+  }
+  50% {
+    transform: translateY(-20px) translateX(-50%);
+  }
+}
+
+@media (max-width: 360px) {
   .hero {
     position: relative;
-    height: 100vh;
-    background-image: url("https://placehold.co/1920x1080/ffa0b1/f08b92");
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    width: 100vw;
-    background-size: cover;
-    background-attachment: fixed;
-  }
-  .hero::before {
-    content: "";
-    position: absolute;
+    width: 100%;
+    height: 100vh; /* Assicura che la sezione copra l'altezza dello schermo */
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
+    transform: none;
   }
 
-  .animatedText {
-    color: white;
-  }
-
-  .heroTextLeft {
-    float: left;
-    margin-right: auto;
-    margin-left: 50px;
-    text-align: left;
-    z-index: 10;
-  }
-  .heroTextCenter {
-    position: absolute;
-    margin: 0 auto;
-    text-align: center;
-    z-index: 10;
-  }
+  .heroTextLeft,
+  .heroTextCenter,
   .heroTextRight {
     position: absolute;
-
-    text-align: right;
-    z-index: 10;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-63%, -50%); /* Sposta l'elemento al centro */
+    width: 35%; /* Riduce la larghezza per adattare il testo */
+    text-align: center; /* Centra il testo */
   }
 
-  .heroText h1 {
-    font-size: 60px;
-    color: #f29aa0;
-    margin: 0;
-  }
-
-  .navbar {
-    background-color: aqua;
-  }
-  .socialIcons {
+  .heroTextLeft h1 {
     position: absolute;
-    right: 60px;
-    bottom: 45%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 10;
-  }
-  .socialIcons a {
-    color: #d75494;
-    font-size: 30px;
-    margin: 15px 0;
-    transition: color 0.3s ease;
-  }
-
-  .socialIcons a:hover {
-    color: #f29aa0;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-50%, -170%); /* Sposta l'elemento al centro */
+    font-size: 3rem; /* Riduce ulteriormente la dimensione del titolo */
+    margin-bottom: 5px;
   }
 
   .bounceArrow {
     position: absolute;
-    bottom: 80px;
+    bottom: 110px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 30px;
     animation: bounce 2s infinite;
     z-index: 10;
   }
-  @keyframes bounce {
-    0%,
-    100% {
-      transform: translateY(0) translateX(-50%);
-    }
-    50% {
-      transform: translateY(-20px) translateX(-50%);
-    }
-  }
-
-  @media (max-width: 360px) {
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 100vh; /* Assicura che la sezione copra l'altezza dello schermo */
-      top: 0;
-      left: 0;
-      transform: none;
-    }
-
-    .heroTextLeft,
-    .heroTextCenter,
-    .heroTextRight {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-63%, -50%); /* Sposta l'elemento al centro */
-      width: 35%; /* Riduce la larghezza per adattare il testo */
-      text-align: center; /* Centra il testo */
-    }
-
-    .heroTextLeft h1 {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-50%, -170%); /* Sposta l'elemento al centro */
-      font-size: 3rem; /* Riduce ulteriormente la dimensione del titolo */
-      margin-bottom: 5px;
-    }
-
-    .bounceArrow {
-      position: absolute;
-      bottom: 110px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 30px;
-      animation: bounce 2s infinite;
-      z-index: 10;
-    }
-
-    .animatedText {
-      font-size: 12px; /* Riduce la dimensione del testo animato */
-    }
-
-    .socialIcons {
-      position: absolute;
-      bottom: 38%; /* Sposta le icone più in basso, se necessario */
-      left: 60.7%;
-      transform: translateX(-50%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: row; /* Dispone le icone in riga */
-      gap: 20px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 30px; /* Adatta la dimensione delle icone */
-      
-      transition: color 0.3s ease;
-    }
-
-  }
-
-
-  @media (max-width: 480px) {
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 100vh; /* Assicura che la sezione copra l'altezza dello schermo */
-      top: 0;
-      left: 0;
-      transform: none;
-    }
-
-    .heroTextLeft,
-    .heroTextCenter,
-    .heroTextRight {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-63%, -50%); /* Sposta l'elemento al centro */
-      width: 35%; /* Riduce la larghezza per adattare il testo */
-      text-align: center; /* Centra il testo */
-    }
-
-    .heroTextLeft h1 {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-50%, -170%); /* Sposta l'elemento al centro */
-      font-size: 3rem; /* Riduce ulteriormente la dimensione del titolo */
-      margin-bottom: 5px;
-    }
-
-    .bounceArrow {
-      position: absolute;
-      bottom: 110px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 30px;
-      animation: bounce 2s infinite;
-      z-index: 10;
-    }
-
-    .animatedText {
-      font-size: 12px; /* Riduce la dimensione del testo animato */
-    }
-
-    .socialIcons {
-      position: absolute;
-      bottom: 38%; /* Sposta le icone più in basso, se necessario */
-      left: 60.7%;
-      transform: translateX(-50%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: row; /* Dispone le icone in riga */
-      gap: 20px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 30px; /* Adatta la dimensione delle icone */
-      
-      transition: color 0.3s ease;
-    }
-  }
-
-
-  @media (min-width: 480px) and (max-width: 932px) and (orientation: landscape) {
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 100vh; /* Assicura che la sezione copra l'altezza dello schermo */
-      top: 0;
-      left: 0;
-      transform: none;
-    }
-
-    .heroTextLeft,
-    .heroTextCenter,
-    .heroTextRight {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-63%, -70%); /* Sposta l'elemento al centro */
-      width: 35%; /* Riduce la larghezza per adattare il testo */
-      text-align: center; /* Centra il testo */
-    }
-
-    .heroTextLeft h1 {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-50%, -180%); /* Sposta l'elemento al centro */
-      font-size: 3rem; /* Riduce ulteriormente la dimensione del titolo */
-      margin-bottom: 5px;
-    }
-
-    .bounceArrow {
-      position: absolute;
-      bottom: 120px;
-      left: 50.5%;
-      transform: translateX(-50%);
-      font-size: 25px;
-      animation: bounce 2s infinite;
-      z-index: 10;
-    }
-
-    .animatedText {
-      font-size: 12px; /* Riduce la dimensione del testo animato */
-    }
-
-    .socialIcons {
-      position: absolute;
-      bottom: 38%; /* Sposta le icone più in basso, se necessario */
-      left: 60.7%;
-      transform: translateX(0%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: column; /* Dispone le icone in riga */
-      gap: 2px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 30px; /* Adatta la dimensione delle icone */
-      
-      transition: color 0.3s ease;
-    }
-  }
-
-  /* Iphone xr fixato */
-  @media (max-width: 896px) and (orientation: landscape) {
-    .socialIcons {
-      position: absolute;
-      bottom: 38%; /* Sposta le icone più in basso, se necessario */
-      left: 80.7%;
-      transform: translateX(0%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: column; /* Dispone le icone in riga */
-      gap: 2px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 30px; /* Adatta la dimensione delle icone */
-      
-      transition: color 0.3s ease;
-    }
-  }
-
-  @media (max-width: 932px) and (orientation: landscape) {
-    .socialIcons {
-      position: absolute;
-      bottom: 38%; /* Sposta le icone più in basso, se necessario */
-      left: 80.7%;
-      transform: translateX(0%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: column; /* Dispone le icone in riga */
-      gap: 2px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 30px; /* Adatta la dimensione delle icone */
-      
-      transition: color 0.3s ease;
-    }
-  }
-
-  @media (max-width: 844px) and (orientation: landscape) {
-    .socialIcons {
-      position: absolute;
-      bottom: 38%; /* Sposta le icone più in basso, se necessario */
-      left: 80.7%;
-      transform: translateX(0%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: column; /* Dispone le icone in riga */
-      gap: 2px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 30px; /* Adatta la dimensione delle icone */
-      
-      transition: color 0.3s ease;
-    }
-  }
-
-  @media (max-width: 740px) and (orientation: landscape) {
-    .socialIcons {
-      position: absolute;
-      bottom: 38%; /* Sposta le icone più in basso, se necessario */
-      left: 73.7%;
-      transform: translateX(0%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: column; /* Dispone le icone in riga */
-      gap: 2px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 30px; /* Adatta la dimensione delle icone */
-      
-      transition: color 0.3s ease;
-    }
-  }
-
-  @media (max-width: 667px) and (orientation: landscape) {
-    .socialIcons {
-      position: absolute;
-      bottom: 38%; /* Sposta le icone più in basso, se necessario */
-      left: 67.7%;
-      transform: translateX(0%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: column; /* Dispone le icone in riga */
-      gap: 2px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 30px; /* Adatta la dimensione delle icone */
-      
-      transition: color 0.3s ease;
-    }
-  }
-
-  /* Tablet Iniza Qua */
-
-  @media (min-width: 600px) and (max-width: 1024px) and (orientation: portrait) {
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 100vh; /* Assicura che la sezione copra l'altezza dello schermo */
-      top: 0;
-      left: 0;
-      transform: none;
-    }
-
-    .heroTextLeft,
-    .heroTextCenter,
-    .heroTextRight {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-58%, -70%); /* Sposta l'elemento al centro */
-      width: 55%; /* Riduce la larghezza per adattare il testo */
-      text-align: center; /* Centra il testo */
-    }
-
-    .heroTextLeft h1 {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-50%, -180%); /* Sposta l'elemento al centro */
-      font-size: 4rem; /* Riduce ulteriormente la dimensione del titolo */
-      margin-bottom: 5px;
-    }
-
-    .bounceArrow {
-      position: absolute;
-      bottom: 120px;
-      left: 50.5%;
-      transform: translateX(-50%);
-      font-size: 25px;
-      animation: bounce 2s infinite;
-      z-index: 10;
-    }
-
-    .animatedText {
-      font-size: 12px; /* Riduce la dimensione del testo animato */
-    }
-
-    .socialIcons {
-      position: absolute;
-      bottom: 40%; /* Sposta le icone più in basso, se necessario */
-      left: 72.7%;
-      transform: translateX(-150%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: row; /* Dispone le icone in riga */
-      gap: 50px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 40px; /* Adatta la dimensione delle icone */
-      
-      transition: color 0.3s ease;
-    }
-
-  }
-
-  /* tablet in modalità  landscape */
-  @media (min-width: 600px) and (max-width: 1368px) and (orientation: landscape) {
-    .heroTextLeft,
-    .heroTextCenter,
-    .heroTextRight {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-58%, -70%); /* Sposta l'elemento al centro */
-      width: 55%; /* Riduce la larghezza per adattare il testo */
-      text-align: center; /* Centra il testo */
-    }
-
-    .heroTextLeft h1 {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-50%, -180%); /* Sposta l'elemento al centro */
-      font-size: 4rem; /* Riduce ulteriormente la dimensione del titolo */
-      margin-bottom: 5px;
-    }
-
-    .bounceArrow {
-      position: absolute;
-      bottom: 120px;
-      left: 50.5%;
-      transform: translateX(-50%);
-      font-size: 25px;
-      animation: bounce 2s infinite;
-      z-index: 10;
-    }
-
-    .animatedText {
-      font-size: 12px; /* Riduce la dimensione del testo animato */
-    }
-
-    .socialIcons {
-      position: absolute;
-      bottom: 40%; /* Sposta le icone più in basso, se necessario */
-      left: 93.7%;
-      transform: translateX(-150%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: column; /* Dispone le icone in riga */
-      gap: 20px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 40px; /* Adatta la dimensione delle icone */
-      
-      transition: color 0.3s ease;
-    }
-
-    
-  }
-
-  @media(min-width:481px) and (max-width:992px){
-
-
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 100vh; /* Assicura che la sezione copra l'altezza dello schermo */
-      top: 0;
-      left: 0;
-      transform: none;
-    }
-
-    .heroTextLeft,
-    .heroTextCenter,
-    .heroTextRight {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-58%, -70%); /* Sposta l'elemento al centro */
-      width: 50%; /* Riduce la larghezza per adattare il testo */
-      text-align: center; /* Centra il testo */
-    }
-
-    .heroTextLeft h1 {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-50%, -180%); /* Sposta l'elemento al centro */
-      font-size: 4rem; /* Riduce ulteriormente la dimensione del titolo */
-      margin-bottom: 5px;
-    }
-
-    .bounceArrow {
-      position: absolute;
-      bottom: 120px;
-      left: 50.5%;
-      transform: translateX(-50%);
-      font-size: 25px;
-      animation: bounce 2s infinite;
-      z-index: 10;
-    }
-
-    .animatedText {
-      font-size: 12px; /* Riduce la dimensione del testo animato */
-    }
-
-    .socialIcons {
-      position: absolute;
-      bottom: 40%; /* Sposta le icone più in basso, se necessario */
-      left: 53.7%;
-      transform: translateX(-25%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: row; /* Dispone le icone in riga */
-      gap: 20px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 40px; /* Adatta la dimensione delle icone */
-      
-      transition: color 0.3s ease;
-    }
-  }
-
-  /* laptop responsive here */
-
-  @media (min-width: 1369px) and (max-width: 1600px) {
-    
-    .hero {
-      width: 100vw; /* Assicura che la larghezza copra l'intera viewport */
-      height: 100vh; /* Assicura che l'altezza copra l'intera viewport */
-      background-size: cover; /* Fa sì che l'immagine di sfondo copra l'intero elemento */
-      background-position: center; /* Centra l'immagine di sfondo */
-    }
-
-
-    .heroTextLeft,
-    .heroTextCenter,
-    .heroTextRight {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-58%, -70%); /* Sposta l'elemento al centro */
-      width: 50%; /* Riduce la larghezza per adattare il testo */
-      text-align: center; /* Centra il testo */
-    }
-
-    .heroTextLeft h1 {
-      position: absolute;
-      top: 50%; /* Centra verticalmente */
-      left: 50%; /* Centra orizzontalmente */
-      transform: translate(-50%, -180%); /* Sposta l'elemento al centro */
-      font-size: 4rem; /* Riduce ulteriormente la dimensione del titolo */
-      margin-bottom: 5px;
-    }
 
   .animatedText {
-    font-size: 24px; /* Adatta la dimensione del testo animato */
-  }
+    font-size: 12px; /* Riduce la dimensione del testo animato */
   }
 
-  @media (min-width: 1600px) {
-    
-    .socialIcons {
-      position: absolute;
-      bottom: 40%; /* Sposta le icone più in basso, se necessario */
-      left: 93.7%;
-      transform: translateX(-150%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: column; /* Dispone le icone in riga */
-      gap: 20px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 40px; /* Adatta la dimensione delle icone */
-      margin-right: 100px;
-      transition: color 0.3s ease;
-    }
+  .socialIcons {
+    position: absolute;
+    bottom: 38%; /* Sposta le icone più in basso, se necessario */
+    left: 60.7%;
+    transform: translateX(-50%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: row; /* Dispone le icone in riga */
+    gap: 20px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
   }
-  @media (min-width: 992px) and (max-width: 1368px) {
+  .socialIcons a {
+    color: #d75494;
+    font-size: 30px; /* Adatta la dimensione delle icone */
     
-    .socialIcons {
-      position: absolute;
-      bottom: 40%; /* Sposta le icone più in basso, se necessario */
-      left: 93.7%;
-      transform: translateX(-150%); /* Centra orizzontalmente */
-      display: flex;
-      flex-direction: column; /* Dispone le icone in riga */
-      gap: 20px; /* Aggiunge uno spazio tra le icone */
-      z-index: 10;
-    }
-    .socialIcons a {
-      color: #d75494;
-      font-size: 40px; /* Adatta la dimensione delle icone */
-      margin-right: 100px;
-      transition: color 0.3s ease;
-    }
+    transition: color 0.3s ease;
   }
+
+}
+
+
+@media (max-width: 480px) {
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Assicura che la sezione copra l'altezza dello schermo */
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+
+  .heroTextLeft,
+  .heroTextCenter,
+  .heroTextRight {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-63%, -50%); /* Sposta l'elemento al centro */
+    width: 35%; /* Riduce la larghezza per adattare il testo */
+    text-align: center; /* Centra il testo */
+  }
+
+  .heroTextLeft h1 {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-50%, -170%); /* Sposta l'elemento al centro */
+    font-size: 3rem; /* Riduce ulteriormente la dimensione del titolo */
+    margin-bottom: 5px;
+  }
+
+  .bounceArrow {
+    position: absolute;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    animation: bounce 2s infinite;
+    z-index: 10;
+  }
+
+  .animatedText {
+    font-size: 12px; /* Riduce la dimensione del testo animato */
+  }
+
+  .socialIcons {
+    position: absolute;
+    bottom: 38%; /* Sposta le icone più in basso, se necessario */
+    left: 60.7%;
+    transform: translateX(-50%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: row; /* Dispone le icone in riga */
+    gap: 20px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
+  }
+  .socialIcons a {
+    color: #d75494;
+    font-size: 30px; /* Adatta la dimensione delle icone */
+    
+    transition: color 0.3s ease;
+  }
+}
+
+
+@media (min-width: 480px) and (max-width: 932px) and (orientation: landscape) {
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Assicura che la sezione copra l'altezza dello schermo */
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+
+  .heroTextLeft,
+  .heroTextCenter,
+  .heroTextRight {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-63%, -70%); /* Sposta l'elemento al centro */
+    width: 35%; /* Riduce la larghezza per adattare il testo */
+    text-align: center; /* Centra il testo */
+  }
+
+  .heroTextLeft h1 {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-50%, -180%); /* Sposta l'elemento al centro */
+    font-size: 3rem; /* Riduce ulteriormente la dimensione del titolo */
+    margin-bottom: 5px;
+  }
+
+  .bounceArrow {
+    position: absolute;
+    bottom: 120px;
+    left: 50.5%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    animation: bounce 2s infinite;
+    z-index: 10;
+  }
+
+  .animatedText {
+    font-size: 12px; /* Riduce la dimensione del testo animato */
+  }
+
+  .socialIcons {
+    position: absolute;
+    bottom: 38%; /* Sposta le icone più in basso, se necessario */
+    left: 60.7%;
+    transform: translateX(0%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: column; /* Dispone le icone in riga */
+    gap: 2px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
+  }
+  .socialIcons a {
+    color: #d75494;
+    font-size: 30px; /* Adatta la dimensione delle icone */
+    
+    transition: color 0.3s ease;
+  }
+}
+
+/* Iphone xr fixato */
+@media (max-width: 896px) and (orientation: landscape) {
+  .socialIcons {
+    position: absolute;
+    bottom: 38%; /* Sposta le icone più in basso, se necessario */
+    left: 80.7%;
+    transform: translateX(0%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: column; /* Dispone le icone in riga */
+    gap: 2px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
+  }
+  .socialIcons a {
+    color: #d75494;
+    font-size: 30px; /* Adatta la dimensione delle icone */
+    
+    transition: color 0.3s ease;
+  }
+}
+
+@media (max-width: 932px) and (orientation: landscape) {
+  .socialIcons {
+    position: absolute;
+    bottom: 38%; /* Sposta le icone più in basso, se necessario */
+    left: 80.7%;
+    transform: translateX(0%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: column; /* Dispone le icone in riga */
+    gap: 2px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
+  }
+  .socialIcons a {
+    color: #d75494;
+    font-size: 30px; /* Adatta la dimensione delle icone */
+    
+    transition: color 0.3s ease;
+  }
+}
+
+@media (max-width: 844px) and (orientation: landscape) {
+  .socialIcons {
+    position: absolute;
+    bottom: 38%; /* Sposta le icone più in basso, se necessario */
+    left: 80.7%;
+    transform: translateX(0%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: column; /* Dispone le icone in riga */
+    gap: 2px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
+  }
+  .socialIcons a {
+    color: #d75494;
+    font-size: 30px; /* Adatta la dimensione delle icone */
+    
+    transition: color 0.3s ease;
+  }
+}
+
+@media (max-width: 740px) and (orientation: landscape) {
+  .socialIcons {
+    position: absolute;
+    bottom: 38%; /* Sposta le icone più in basso, se necessario */
+    left: 73.7%;
+    transform: translateX(0%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: column; /* Dispone le icone in riga */
+    gap: 2px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
+  }
+  .socialIcons a {
+    color: #d75494;
+    font-size: 30px; /* Adatta la dimensione delle icone */
+    
+    transition: color 0.3s ease;
+  }
+}
+
+@media (max-width: 667px) and (orientation: landscape) {
+  .socialIcons {
+    position: absolute;
+    bottom: 38%; /* Sposta le icone più in basso, se necessario */
+    left: 67.7%;
+    transform: translateX(0%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: column; /* Dispone le icone in riga */
+    gap: 2px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
+  }
+  .socialIcons a {
+    color: #d75494;
+    font-size: 30px; /* Adatta la dimensione delle icone */
+    
+    transition: color 0.3s ease;
+  }
+}
+
+/* Tablet Iniza Qua */
+
+@media (min-width: 600px) and (max-width: 1024px) and (orientation: portrait) {
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Assicura che la sezione copra l'altezza dello schermo */
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+
+  .heroTextLeft,
+  .heroTextCenter,
+  .heroTextRight {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-58%, -70%); /* Sposta l'elemento al centro */
+    width: 55%; /* Riduce la larghezza per adattare il testo */
+    text-align: center; /* Centra il testo */
+  }
+
+  .heroTextLeft h1 {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-50%, -180%); /* Sposta l'elemento al centro */
+    font-size: 4rem; /* Riduce ulteriormente la dimensione del titolo */
+    margin-bottom: 5px;
+  }
+
+  .bounceArrow {
+    position: absolute;
+    bottom: 120px;
+    left: 50.5%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    animation: bounce 2s infinite;
+    z-index: 10;
+  }
+
+  .animatedText {
+    font-size: 12px; /* Riduce la dimensione del testo animato */
+  }
+
+  .socialIcons {
+    position: absolute;
+    bottom: 40%; /* Sposta le icone più in basso, se necessario */
+    left: 72.7%;
+    transform: translateX(-150%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: row; /* Dispone le icone in riga */
+    gap: 50px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
+  }
+  .socialIcons a {
+    color: #d75494;
+    font-size: 40px; /* Adatta la dimensione delle icone */
+    
+    transition: color 0.3s ease;
+  }
+
+}
+
+/* tablet in modalità  landscape */
+@media (min-width: 600px) and (max-width: 1368px) and (orientation: landscape) {
+  .heroTextLeft,
+  .heroTextCenter,
+  .heroTextRight {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-58%, -70%); /* Sposta l'elemento al centro */
+    width: 55%; /* Riduce la larghezza per adattare il testo */
+    text-align: center; /* Centra il testo */
+  }
+
+  .heroTextLeft h1 {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-50%, -180%); /* Sposta l'elemento al centro */
+    font-size: 4rem; /* Riduce ulteriormente la dimensione del titolo */
+    margin-bottom: 5px;
+  }
+
+  .bounceArrow {
+    position: absolute;
+    bottom: 120px;
+    left: 50.5%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    animation: bounce 2s infinite;
+    z-index: 10;
+  }
+
+  .animatedText {
+    font-size: 12px; /* Riduce la dimensione del testo animato */
+  }
+
+  .socialIcons {
+    position: absolute;
+    bottom: 40%; /* Sposta le icone più in basso, se necessario */
+    left: 93.7%;
+    transform: translateX(-150%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: column; /* Dispone le icone in riga */
+    gap: 20px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
+  }
+  .socialIcons a {
+    color: #d75494;
+    font-size: 40px; /* Adatta la dimensione delle icone */
+    
+    transition: color 0.3s ease;
+  }
+
+  
+}
+
+@media(min-width:481px) and (max-width:992px){
+
+
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Assicura che la sezione copra l'altezza dello schermo */
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+
+  .heroTextLeft,
+  .heroTextCenter,
+  .heroTextRight {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-58%, -70%); /* Sposta l'elemento al centro */
+    width: 50%; /* Riduce la larghezza per adattare il testo */
+    text-align: center; /* Centra il testo */
+  }
+
+  .heroTextLeft h1 {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-50%, -180%); /* Sposta l'elemento al centro */
+    font-size: 4rem; /* Riduce ulteriormente la dimensione del titolo */
+    margin-bottom: 5px;
+  }
+
+  .bounceArrow {
+    position: absolute;
+    bottom: 120px;
+    left: 50.5%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    animation: bounce 2s infinite;
+    z-index: 10;
+  }
+
+  .animatedText {
+    font-size: 12px; /* Riduce la dimensione del testo animato */
+  }
+
+  .socialIcons {
+    position: absolute;
+    bottom: 40%; /* Sposta le icone più in basso, se necessario */
+    left: 53.7%;
+    transform: translateX(-25%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: row; /* Dispone le icone in riga */
+    gap: 20px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
+  }
+  .socialIcons a {
+    color: #d75494;
+    font-size: 40px; /* Adatta la dimensione delle icone */
+    
+    transition: color 0.3s ease;
+  }
+}
+
+/* laptop responsive here */
+
+@media (min-width: 1369px) and (max-width: 1600px) {
+  
+  .hero {
+    width: 100vw; /* Assicura che la larghezza copra l'intera viewport */
+    height: 100vh; /* Assicura che l'altezza copra l'intera viewport */
+    background-size: cover; /* Fa sì che l'immagine di sfondo copra l'intero elemento */
+    background-position: center; /* Centra l'immagine di sfondo */
+  }
+
+
+  .heroTextLeft,
+  .heroTextCenter,
+  .heroTextRight {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-58%, -70%); /* Sposta l'elemento al centro */
+    width: 50%; /* Riduce la larghezza per adattare il testo */
+    text-align: center; /* Centra il testo */
+  }
+
+  .heroTextLeft h1 {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-50%, -180%); /* Sposta l'elemento al centro */
+    font-size: 4rem; /* Riduce ulteriormente la dimensione del titolo */
+    margin-bottom: 5px;
+  }
+
+.animatedText {
+  font-size: 24px; /* Adatta la dimensione del testo animato */
+}
+}
+
+@media (min-width: 1600px) {
+  
+  .socialIcons {
+    position: absolute;
+    bottom: 40%; /* Sposta le icone più in basso, se necessario */
+    left: 93.7%;
+    transform: translateX(-150%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: column; /* Dispone le icone in riga */
+    gap: 20px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
+  }
+  .socialIcons a {
+    color: #d75494;
+    font-size: 40px; /* Adatta la dimensione delle icone */
+    margin-right: 100px;
+    transition: color 0.3s ease;
+  }
+}
+@media (min-width: 992px) and (max-width: 1368px) {
+  
+  .socialIcons {
+    position: absolute;
+    bottom: 40%; /* Sposta le icone più in basso, se necessario */
+    left: 93.7%;
+    transform: translateX(-150%); /* Centra orizzontalmente */
+    display: flex;
+    flex-direction: column; /* Dispone le icone in riga */
+    gap: 20px; /* Aggiunge uno spazio tra le icone */
+    z-index: 10;
+  }
+  .socialIcons a {
+    color: #d75494;
+    font-size: 40px; /* Adatta la dimensione delle icone */
+    margin-right: 100px;
+    transition: color 0.3s ease;
+  }
+}
