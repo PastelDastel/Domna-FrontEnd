@@ -501,14 +501,142 @@
     
   }
 
+  @media(min-width:481px) and (max-width:992px){
+
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh; /* Assicura che la sezione copra l'altezza dello schermo */
+      top: 0;
+      left: 0;
+      transform: none;
+    }
+
+    .heroTextLeft,
+    .heroTextCenter,
+    .heroTextRight {
+      position: absolute;
+      top: 50%; /* Centra verticalmente */
+      left: 50%; /* Centra orizzontalmente */
+      transform: translate(-58%, -70%); /* Sposta l'elemento al centro */
+      width: 50%; /* Riduce la larghezza per adattare il testo */
+      text-align: center; /* Centra il testo */
+    }
+
+    .heroTextLeft h1 {
+      position: absolute;
+      top: 50%; /* Centra verticalmente */
+      left: 50%; /* Centra orizzontalmente */
+      transform: translate(-50%, -180%); /* Sposta l'elemento al centro */
+      font-size: 4rem; /* Riduce ulteriormente la dimensione del titolo */
+      margin-bottom: 5px;
+    }
+
+    .bounceArrow {
+      position: absolute;
+      bottom: 120px;
+      left: 50.5%;
+      transform: translateX(-50%);
+      font-size: 25px;
+      animation: bounce 2s infinite;
+      z-index: 10;
+    }
+
+    .animatedText {
+      font-size: 12px; /* Riduce la dimensione del testo animato */
+    }
+
+    .socialIcons {
+      position: absolute;
+      bottom: 40%; /* Sposta le icone più in basso, se necessario */
+      left: 53.7%;
+      transform: translateX(-25%); /* Centra orizzontalmente */
+      display: flex;
+      flex-direction: row; /* Dispone le icone in riga */
+      gap: 20px; /* Aggiunge uno spazio tra le icone */
+      z-index: 10;
+    }
+    .socialIcons a {
+      color: #d75494;
+      font-size: 40px; /* Adatta la dimensione delle icone */
+      
+      transition: color 0.3s ease;
+    }
+  }
+
   /* laptop responsive here */
 
   @media (min-width: 1369px) and (max-width: 1600px) {
     
+    .hero {
+      width: 100vw; /* Assicura che la larghezza copra l'intera viewport */
+      height: 100vh; /* Assicura che l'altezza copra l'intera viewport */
+      background-size: cover; /* Fa sì che l'immagine di sfondo copra l'intero elemento */
+      background-position: center; /* Centra l'immagine di sfondo */
+    }
 
+
+    .heroTextLeft,
+    .heroTextCenter,
+    .heroTextRight {
+      position: absolute;
+      top: 50%; /* Centra verticalmente */
+      left: 50%; /* Centra orizzontalmente */
+      transform: translate(-58%, -70%); /* Sposta l'elemento al centro */
+      width: 50%; /* Riduce la larghezza per adattare il testo */
+      text-align: center; /* Centra il testo */
+    }
+
+    .heroTextLeft h1 {
+      position: absolute;
+      top: 50%; /* Centra verticalmente */
+      left: 50%; /* Centra orizzontalmente */
+      transform: translate(-50%, -180%); /* Sposta l'elemento al centro */
+      font-size: 4rem; /* Riduce ulteriormente la dimensione del titolo */
+      margin-bottom: 5px;
+    }
+
+  .animatedText {
+    font-size: 24px; /* Adatta la dimensione del testo animato */
+  }
   }
 
   @media (min-width: 1600px) {
     
-
+    .socialIcons {
+      position: absolute;
+      bottom: 40%; /* Sposta le icone più in basso, se necessario */
+      left: 93.7%;
+      transform: translateX(-150%); /* Centra orizzontalmente */
+      display: flex;
+      flex-direction: column; /* Dispone le icone in riga */
+      gap: 20px; /* Aggiunge uno spazio tra le icone */
+      z-index: 10;
+    }
+    .socialIcons a {
+      color: #d75494;
+      font-size: 40px; /* Adatta la dimensione delle icone */
+      margin-right: 100px;
+      transition: color 0.3s ease;
+    }
+  }
+  @media (min-width: 992px) and (max-width: 1368px) {
+    
+    .socialIcons {
+      position: absolute;
+      bottom: 40%; /* Sposta le icone più in basso, se necessario */
+      left: 93.7%;
+      transform: translateX(-150%); /* Centra orizzontalmente */
+      display: flex;
+      flex-direction: column; /* Dispone le icone in riga */
+      gap: 20px; /* Aggiunge uno spazio tra le icone */
+      z-index: 10;
+    }
+    .socialIcons a {
+      color: #d75494;
+      font-size: 40px; /* Adatta la dimensione delle icone */
+      margin-right: 100px;
+      transition: color 0.3s ease;
+    }
   }
