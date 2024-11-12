@@ -5,6 +5,7 @@ import Section from "./Section/Section";
 import TestimonialsSlider from "./TestimonialSection/TestimonialsSlider";
 import ContactSection from "./Contact Section/ContactSection";
  import MetaPixel from "../Global Components/MetaPixel";
+import { motion } from "framer-motion";
 const Home = () => {
   return (
     <>
