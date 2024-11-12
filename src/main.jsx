@@ -1,10 +1,9 @@
-import  React from "react";
+/* eslint-disable no-unused-vars */
 import { createRoot } from "react-dom/client";
-import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
-
+import styles from './index.module.css'; // Global CSS
 
 createRoot(document.getElementById("root")).render(
     <BrowserRouter>
