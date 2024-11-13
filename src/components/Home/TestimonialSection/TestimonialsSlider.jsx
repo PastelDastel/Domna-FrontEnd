@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Testimonial from "./Testimonial/Testimonial";
-import styles from "./TestimonialsSlider.module.css";
 
 const testimonialsData = [
   {
@@ -49,14 +48,12 @@ const TestimonialSlider = () => {
   const { image, name, role, text, rating } = testimonialsData[currentIndex];
 
   return (
-    <div className={`${styles.testimonialSlider} ${fade ? styles.fadeIn : styles.fadeOut}`}>
-      <Testimonial
-        image={image}
-        name={name}
-        role={role}
-        text={text}
-        rating={rating}
-      />
+    <div
+      className={`flex justify-center items-center w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto p-4 sm:p-8 md:p-10 lg:p-12 transition-opacity duration-1000 ${
+        fade ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <Testimonial image={image} name={name} role={role} text={text} rating={rating} />
     </div>
   );
 };

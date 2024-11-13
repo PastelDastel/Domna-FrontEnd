@@ -47,17 +47,17 @@ const Navbar = () => {
   }, [isMenuOpen]);
 
   return (
-    <section className="bg-black text-white" onClick={() => setIsMenuOpen(false)}>
-      <nav className="flex items-center justify-between px-8 py-4 relative" ref={menuRef} onClick={(e) => e.stopPropagation()}>
+    <section className="bg-slate-900 text-white z-50" onClick={() => setIsMenuOpen(false)}>
+      <nav className="flex items-center justify-between px-8 py-4 relative z-50" ref={menuRef} onClick={(e) => e.stopPropagation()}>
         {/* Logo Section */}
-        <div className="flex items-center">
+        <div className="flex items-center z-50">
           <Link to="/" onClick={() => handleCustomEvent('Home Button')}>
-            <img src={logo} alt="Domna Logo" className="h-10" />
+            <img src={logo} alt="Domna Logo" className="h-16 md:h-24 lg:h-32" />
           </Link>
         </div>
 
         {/* Hamburger Button */}
-        <div className="md:hidden block cursor-pointer" onClick={toggleMenu}>
+        <div className="md:hidden block cursor-pointer z-50" onClick={toggleMenu}>
           <div className="w-6 h-0.5 bg-white mb-1"></div>
           <div className="w-6 h-0.5 bg-white mb-1"></div>
           <div className="w-6 h-0.5 bg-white"></div>
@@ -65,7 +65,7 @@ const Navbar = () => {
 
         {/* Full-Screen Navigation Menu */}
         <div
-          className={`fixed top-0 left-0 w-full h-full bg-black flex flex-col items-center justify-center space-y-8 transition-opacity duration-300 ease-in-out ${
+          className={`fixed top-0 left-0 w-full h-full bg-transparent flex flex-col items-center justify-center space-y-8 transition-opacity duration-500 ease-in-out z-50 ${
             isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
           } md:static md:opacity-100 md:visible md:flex md:flex-row md:space-y-0 md:space-x-6 md:bg-transparent md:h-auto md:w-auto md:items-center md:justify-between`}
         >

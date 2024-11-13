@@ -29,7 +29,7 @@ const Home = () => {
         imageUrl="https://placehold.co/1920x1080/ffa0b1/f08b92"
         text="Allenati Con DOMNA"
         id="ParallaxFirstDivisor"
-        startOffset={100}
+        startOffset={0}
       />
       <FadeInSection>
         <motion.div initial="hidden" whileInView="visible" variants={animationVariants}>
@@ -41,10 +41,9 @@ const Home = () => {
             link="/courses"
             imageUrl="https://placehold.co/1920x1080/f08b92/ffa0b1"
             reverse={false}
-            top={150}
-            left={475}
           />
         </motion.div>
+
       </FadeInSection>
       <FadeInSection>
         <motion.div initial="hidden" whileInView="visible" variants={animationVariants}>
@@ -56,10 +55,7 @@ const Home = () => {
             link="/about"
             imageUrl="https://placehold.co/1920x1080/ffa0b1/f08b92"
             reverse={true}
-            top={125}
-            left={-400}
-          />
-        </motion.div>
+          /></motion.div>
       </FadeInSection>
       <FadeInSection>
         <motion.div initial="hidden" whileInView="visible" variants={animationVariants}>
@@ -71,16 +67,13 @@ const Home = () => {
             link="/qna"
             imageUrl="https://placehold.co/1920x1080/f08b92/ffa0b1"
             reverse={false}
-            top={125}
-            left={475}
-          />
-        </motion.div>
+          /></motion.div>
       </FadeInSection>
       <ParallaxSection
-        imageUrl="https://placehold.co/4000x4000/f08b92/ffa0b1"
+        imageUrl="https://placehold.co/1920x1080/f08b92/ffa0b1"
         text="Recensioni Clienti DOMNA"
         id="ParallaxSecondDivisor"
-        startOffset={1000}
+        startOffset={2500}
       />
       <FadeInSection>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 1.2 } }}>

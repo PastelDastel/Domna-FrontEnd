@@ -1,10 +1,9 @@
 import { useEffect } from "react";
-import styles from "./ParallaxSection.module.css";
 
 const ParallaxSection = ({ imageUrl, text, id, startOffset = 0 }) => {
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.pageYOffset;
+      const scrollPosition = window.scrollY;
       const parallaxElement = document.getElementById(id);
 
       if (parallaxElement && scrollPosition > startOffset) {
@@ -18,17 +17,15 @@ const ParallaxSection = ({ imageUrl, text, id, startOffset = 0 }) => {
 
   return (
     <div
-      className={styles.parallaxSection1MarginFiller}
       id={id}
-      style={{
-        backgroundImage: `url("${imageUrl}")`,
-        margin: "0"
-      }}
+      className="relative h-[400px] bg-cover bg-center bg-fixed flex justify-center items-center"
+      style={{ backgroundImage: `url("${imageUrl}")` }}
     >
-      <p className={styles.reviewTestimonialText}>{text}</p>
+      <p className="text-4xl sm:text-5xl md:text-6xl lg:text-[35pt] text-white font-bold text-center">
+        {text}
+      </p>
     </div>
   );
-  
 };
 
 export default ParallaxSection;
