@@ -4,7 +4,7 @@ const Layout = () => {
     return (
         <main className="App">
             <Navbar />
-            <Outlet />
+            {/*<Outlet />*/}
         </main>
     )
 }

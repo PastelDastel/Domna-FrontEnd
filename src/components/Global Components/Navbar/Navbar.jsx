@@ -1,8 +1,7 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import useAuth from "../../../hooks/useAuth";
 import logo from "../../../assets/PNG/logo-removebg.png";
-import styles from "./Navbar.module.css";
 import useLogout from "../../../hooks/useLogout";
 
 const Navbar = () => {
@@ -11,6 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const handleLogout = async () => {
     await logout();
@@ -24,142 +24,171 @@ const Navbar = () => {
   };
 
   const toggleMenu = () => {
-    console.log("cliccato");
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Close the menu when clicking outside of it
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [isMenuOpen]);
+
   return (
-    <section>
-      <nav className={styles.navbar}>
-        <div className={styles.logo}>
+    <section className="bg-black text-white" onClick={() => setIsMenuOpen(false)}>
+      <nav className="flex items-center justify-between px-8 py-4 relative" ref={menuRef} onClick={(e) => e.stopPropagation()}>
+        {/* Logo Section */}
+        <div className="flex items-center">
           <Link to="/" onClick={() => handleCustomEvent('Home Button')}>
-            <img src={logo} alt="Domna Logo" />
+            <img src={logo} alt="Domna Logo" className="h-10" />
           </Link>
         </div>
-        <div className={styles.hamburger} onClick={toggleMenu}>
-          <div className={styles.bar}></div>
-          <div className={styles.bar}></div>
-          <div className={styles.bar}></div>
+
+        {/* Hamburger Button */}
+        <div className="md:hidden block cursor-pointer" onClick={toggleMenu}>
+          <div className="w-6 h-0.5 bg-white mb-1"></div>
+          <div className="w-6 h-0.5 bg-white mb-1"></div>
+          <div className="w-6 h-0.5 bg-white"></div>
         </div>
-        <ul className={`${styles.navMenu} ${isMenuOpen ? styles.active : ''}`}>
-          <li>
-            <Link
-              to="/"
-              className={`${styles.navLink} ${isActive("/") ? styles.activeNavLink : ""}`}
-              onClick={() => {
-                handleCustomEvent('Home');
-                setIsMenuOpen(false);
-              }}
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/about"
-              className={`${styles.navLink} ${isActive("/about") ? styles.activeNavLink : ""}`}
-              onClick={() => {
-                handleCustomEvent('About');
-                setIsMenuOpen(false);
-              }}
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/courses"
-              className={`${styles.navLink} ${isActive("/courses") ? styles.activeNavLink : ""}`}
-              onClick={() => {
-                handleCustomEvent('Courses');
-                setIsMenuOpen(false);
-              }}
-            >
-              Courses
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/blog"
-              className={`${styles.navLink} ${isActive("/blog") ? styles.activeNavLink : ""}`}
-              onClick={() => {
-                handleCustomEvent('Blog');
-                setIsMenuOpen(false);
-              }}
-            >
-              Blog
-            </Link>
-          </li>
-          {auth?.roles?.Admin && (
+
+        {/* Full-Screen Navigation Menu */}
+        <div
+          className={`fixed top-0 left-0 w-full h-full bg-black flex flex-col items-center justify-center space-y-8 transition-transform duration-300 ${
+            isMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          } md:static md:translate-x-0 md:flex md:flex-row md:space-y-0 md:space-x-6 md:bg-transparent md:h-auto md:w-auto md:items-center md:justify-between`}
+        >
+          <ul className="flex flex-col items-center space-y-8 md:flex-row md:space-y-0 md:space-x-6">
             <li>
               <Link
-                to="/dashboard"
-                className={`${styles.navLink} ${isActive("/dashboard") ? styles.activeNavLink : ""}`}
+                to="/"
+                className={`text-xl hover:text-white ${isActive("/") ? 'font-bold border-b-2 border-purple-500' : ''}`}
                 onClick={() => {
-                  handleCustomEvent('Dashboard');
+                  handleCustomEvent('Home');
                   setIsMenuOpen(false);
                 }}
               >
-                Dashboard
+                Home
               </Link>
             </li>
-          )}
-          {!auth?.accessToken ? (
-            <>
+            <li>
+              <Link
+                to="/about"
+                className={`text-xl hover:text-white ${isActive("/about") ? 'font-bold border-b-2 border-purple-500' : ''}`}
+                onClick={() => {
+                  handleCustomEvent('About');
+                  setIsMenuOpen(false);
+                }}
+              >
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/courses"
+                className={`text-xl hover:text-white ${isActive("/courses") ? 'font-bold border-b-2 border-purple-500' : ''}`}
+                onClick={() => {
+                  handleCustomEvent('Courses');
+                  setIsMenuOpen(false);
+                }}
+              >
+                Courses
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/blog"
+                className={`text-xl hover:text-white ${isActive("/blog") ? 'font-bold border-b-2 border-purple-500' : ''}`}
+                onClick={() => {
+                  handleCustomEvent('Blog');
+                  setIsMenuOpen(false);
+                }}
+              >
+                Blog
+              </Link>
+            </li>
+            {auth?.roles?.Admin && (
               <li>
                 <Link
-                  to="/login"
-                  className={`${styles.navLink} ${isActive("/login") ? styles.activeNavLink : ""}`}
+                  to="/dashboard"
+                  className={`text-xl hover:text-white ${isActive("/dashboard") ? 'font-bold border-b-2 border-purple-500' : ''}`}
                   onClick={() => {
-                    handleCustomEvent('Log in');
+                    handleCustomEvent('Dashboard');
                     setIsMenuOpen(false);
                   }}
                 >
-                  Log in
+                  Dashboard
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/register"
-                  className={`${styles.navLink} ${isActive("/register") ? styles.activeNavLink : ""}`}
-                  onClick={() => {
-                    handleCustomEvent('Register');
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Register
-                </Link>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <Link
-                  to={`/profile/${auth.id}`}
-                  className={`${styles.navLink} ${isActive(`/profile/${auth.id}`) ? styles.activeNavLink : ""}`}
-                  onClick={() => {
-                    handleCustomEvent('Profile');
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    handleCustomEvent('Logout');
-                    handleLogout();
-                    setIsMenuOpen(false);
-                  }}
-                  className={styles.navLink}
-                >
-                  LOGOUT
-                </button>
-              </li>
-            </>
-          )}
-        </ul>
+            )}
+            {auth?.accessToken ? (
+              <>
+                <li>
+                  <Link
+                    to={`/profile/${auth.id}`}
+                    className={`text-xl hover:text-white ${isActive(`/profile/${auth.id}`) ? 'font-bold border-b-2 border-purple-500' : ''}`}
+                    onClick={() => {
+                      handleCustomEvent('Profile');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      handleCustomEvent('Logout');
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="text-xl border border-white rounded px-4 py-2 hover:bg-white hover:text-black transition"
+                  >
+                    Log out
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link
+                    to="/login"
+                    className={`text-xl hover:text-white ${isActive("/login") ? 'font-bold border-b-2 border-purple-500' : ''}`}
+                    onClick={() => {
+                      handleCustomEvent('Log in');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Log in
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/register"
+                    className={`text-xl hover:text-white ${isActive("/register") ? 'font-bold border-b-2 border-purple-500' : ''}`}
+                    onClick={() => {
+                      handleCustomEvent('Register');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Register
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
       </nav>
     </section>
   );
