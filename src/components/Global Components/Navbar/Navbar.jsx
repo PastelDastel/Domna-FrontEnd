@@ -65,9 +65,9 @@ const Navbar = () => {
 
         {/* Full-Screen Navigation Menu */}
         <div
-          className={`fixed top-0 left-0 w-full h-full bg-black flex flex-col items-center justify-center space-y-8 transition-transform duration-300 ${
-            isMenuOpen ? 'translate-x-0' : '-translate-x-full'
-          } md:static md:translate-x-0 md:flex md:flex-row md:space-y-0 md:space-x-6 md:bg-transparent md:h-auto md:w-auto md:items-center md:justify-between`}
+          className={`fixed top-0 left-0 w-full h-full bg-black flex flex-col items-center justify-center space-y-8 transition-opacity duration-300 ease-in-out ${
+            isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+          } md:static md:opacity-100 md:visible md:flex md:flex-row md:space-y-0 md:space-x-6 md:bg-transparent md:h-auto md:w-auto md:items-center md:justify-between`}
         >
           <ul className="flex flex-col items-center space-y-8 md:flex-row md:space-y-0 md:space-x-6">
             <li>
