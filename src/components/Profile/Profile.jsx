@@ -45,7 +45,7 @@ const Profile = () => {
 
     const getUser = async () => {
       try {
-        const response = await axiosPrivate.get(`/users/${id}`, {
+        const response = await axiosPrivate.get(`/api/users/${id}`, {
           signal: controller.signal,
         });
         if (isMounted) setUser(response.data.user);

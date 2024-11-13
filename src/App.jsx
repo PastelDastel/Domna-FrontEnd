@@ -28,19 +28,17 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="unauthorized" element={<Unauthorized />} />
           <Route path="courses" element={<Courses />} />
-          <Route path="about" element={<About />}/>
+          <Route path="about" element={<About />} />
           <Route path="blog" element={<Blog />} />
           <Route path="/" element={<Home />} />
 
-          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+          <Route element={<RequireAuth allowedRoles={[4934503821911649, 6792941695628669]} />}>
             <Route path="/profile/:id" element={<Profile />} />
           </Route>
-          <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
-            <Route path="editor" element={<Editor />} />
-          </Route>
-          <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+          <Route element={<RequireAuth allowedRoles={[6792941695628669]} />}>
             <Route path="dashboard" element={<Admin />} />
           </Route>
+
           <Route path="*" element={<Missing />} />
         </Route>
       </Route>
