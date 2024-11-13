@@ -18,10 +18,10 @@ const ParallaxSection = ({ imageUrl, text, id, startOffset = 0 }) => {
   return (
     <div
       id={id}
-      className="relative h-[400px] bg-cover bg-center bg-fixed flex justify-center items-center"
+      className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] bg-cover bg-center bg-fixed flex justify-center items-center"
       style={{ backgroundImage: `url("${imageUrl}")` }}
     >
-      <p className="text-4xl sm:text-5xl md:text-6xl lg:text-[35pt] text-white font-bold text-center">
+      <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white font-bold text-center px-4 sm:px-8">
         {text}
       </p>
     </div>

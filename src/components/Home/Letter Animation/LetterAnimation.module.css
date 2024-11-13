@@ -16,3 +16,85 @@
     margin-left: 2px;
   }
   
+
+
+
+  @media screen and (max-width: 430px) {
+    .letter {
+      font-size: 0.8rem; /* Riduce ulteriormente la dimensione del font */
+      letter-spacing: -0.5px; /* Riduce lo spazio tra le lettere */
+      line-height: 1.1; /* Altezza della linea più compatta */
+      /* Rimuovi white-space se è troppo restrittivo */
+    }
+  
+    .letterContainer {
+      padding: 0 30px; /* Aggiungi un padding laterale per evitare il testo troppo vicino ai bordi */
+    }
+  }
+  
+  @media screen and (max-width: 412px) {
+    .letter {
+      font-size: 0.8rem; /* Riduce ulteriormente la dimensione del font */
+      letter-spacing: -0.5px; /* Riduce lo spazio tra le lettere */
+      line-height: 1.1; /* Altezza della linea più compatta */
+      /* Rimuovi white-space se è troppo restrittivo */
+    }
+  
+    .letterContainer {
+      padding: 0 20px; /* Aggiungi un padding laterale per evitare il testo troppo vicino ai bordi */
+    }
+  }
+ 
+  
+
+  @media screen and (max-width: 375px) {
+    .letter {
+      font-size: 0.8rem;
+      letter-spacing: -0.5px;
+      line-height: 1.2; 
+    }
+    .letterContainer {
+      padding: 0 5px; /* Aggiungi un padding laterale per evitare il testo troppo vicino ai bordi */
+    }
+  }
+
+
+  @media screen and (max-width: 414px) {
+    .letter {
+      font-size: 0.8rem; /* Riduce ulteriormente la dimensione del font */
+      letter-spacing: -0.5px; /* Riduce lo spazio tra le lettere */
+      line-height: 1.1; /* Altezza della linea più compatta */
+      /* Rimuovi white-space se è troppo restrittivo */
+    }
+  
+    .letterContainer {
+      padding: 0 20px; /* Aggiungi un padding laterale per evitare il testo troppo vicino ai bordi */
+    }
+  }
+
+  @media screen and (max-width: 390px) {
+    .letter {
+      font-size: 0.85rem;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .letterContainer {
+      padding: 0 10px; /* Aggiungi un padding laterale per evitare il testo troppo vicino ai bordi */
+    }
+  }
+
+
+  @media screen and (max-width: 360px) {
+    .letter {
+      font-size: 0.8rem; /* Riduce ulteriormente la dimensione del font */
+      letter-spacing: -0.5px; /* Riduce lo spazio tra le lettere */
+      line-height: 1.1; /* Altezza della linea più compatta */
+      /* Rimuovi white-space se è troppo restrittivo */
+    }
+  
+    .letterContainer {
+      padding: 0 0px; /* Aggiungi un padding laterale per evitare il testo troppo vicino ai bordi */
+    }
+  }
