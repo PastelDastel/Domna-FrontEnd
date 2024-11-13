@@ -46,6 +46,9 @@ const Navbar = () => {
     };
   }, [isMenuOpen]);
 
+  // Role check function
+  const hasRole = (roleValue) => auth?.roles && auth.roles === roleValue;
+
   return (
     <section className="bg-slate-900 text-white z-50" onClick={() => setIsMenuOpen(false)}>
       <nav className="flex items-center justify-between px-8 py-4 relative z-50" ref={menuRef} onClick={(e) => e.stopPropagation()}>
@@ -118,7 +121,8 @@ const Navbar = () => {
                 Blog
               </Link>
             </li>
-            {auth?.roles?.Admin && (
+            {/* Check for admin role */}
+            {hasRole(6792941695628669) && (
               <li>
                 <Link
                   to="/dashboard"
