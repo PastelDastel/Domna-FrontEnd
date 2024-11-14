@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Testimonial from "./Testimonial/Testimonial";
+import style from "./TestimonialsSlider.module.css";
 
 const testimonialsData = [
   {
@@ -31,16 +32,16 @@ const TestimonialSlider = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setFade(false); // Start fade out effect
+      setFade(false); // Start fade-out effect
 
       setTimeout(() => {
-        // Update to the next testimonial
+        // Move to the next testimonial after the fade-out
         setCurrentIndex((prevIndex) =>
           prevIndex === testimonialsData.length - 1 ? 0 : prevIndex + 1
         );
-        setFade(true); // Fade in the new testimonial
-      }, 1000); // Matches the fade-out duration
-    }, 5000); // Each testimonial shows for 5 seconds
+        setFade(true); // Trigger fade-in effect
+      }, 1000); // Match the fade-out duration
+    }, 5000); // Show each testimonial for 5 seconds
 
     return () => clearInterval(interval);
   }, []);
@@ -48,11 +49,7 @@ const TestimonialSlider = () => {
   const { image, name, role, text, rating } = testimonialsData[currentIndex];
 
   return (
-    <div
-      className={`flex justify-center items-center w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto p-4 sm:p-8 md:p-10 lg:p-12 transition-opacity duration-1000 ${
-        fade ? "opacity-100" : "opacity-0"
-      }`}
-    >
+    <div className={`${style.testimonialsWrapper} ${fade ? style.fadeIn : style.fadeOut}`}>
       <Testimonial image={image} name={name} role={role} text={text} rating={rating} />
     </div>
   );

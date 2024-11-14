@@ -1,84 +1,71 @@
 .contactSection {
-    background-color: #f4d6e4; /* Light pink background */
-    padding: 80px 20px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #f4d6e4;
+  padding: 80px 20px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
 }
 
 .container {
-    max-width: 500px;
-    width: 100%;
-    margin: 0 auto;
-}
-
-.contactTitle {
-    font-size: 24px;
-    color: #4e2a2a; /* Darker shade for text title */
-    margin: 20px 0;
-}
-
-.contactSubtitle {
-    font-size: 16px;
-    color: #7c3a3a; /* Slightly lighter shade */
-    margin: 16px 0;
+  position: relative;
+  height: 500px;
+  padding: 20px 0;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .contactForm {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.inputGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.nameGroup input,
-.contactForm input {
-    padding: 12px;
-    border: 1px solid #e892bb; /* Pink border */
-    border-radius: 5px;
-    font-size: 1rem;
-    margin: 5px;
-    background-color: #ffffff; /* White background */
-    color: #333333; /* Dark text */
+.inputGroup input {
+  padding: 12px;
+  border: 1px solid #d75494;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 20px;
+  width: 90%;
 }
 
 .contactButton {
-    padding: 12px 40px;
-    background-color: transparent;
-    border: 2px solid #e892bb; /* Pink outline */
-    color: #e892bb; /* Pink text */
-    font-weight: bold;
-    font-size: 1rem;
-    border-radius: 5px;
-    
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    width: 175px;
-    margin: 0 auto;
+  padding: 12px 40px;
+  background-color: transparent;
+  border: 2px solid #9b6464;
+  color: #9b6464;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width:20%;
+  margin: 0 auto;
 }
 
 .contactButton:hover {
-    background-color: #e892bb;
-    color: #ffffff;
+  background-color: #e892bb;
+  color: white;
 }
 
 .footerDetails {
-    margin-top: 30px;
-    font-size: 0.9rem;
-    color: #7c3a3a;
+  margin-top: 30px;
+  font-size: 14px;
 }
 
-.privacyLink {
-    color: #e892bb;
-    text-decoration: none;
+.footerDetails .navlink {
+  color: #9b6464;
+  text-decoration: none;
 }
 
-.privacyLink:hover {
-    text-decoration: underline;
+.footerDetails .navlink:hover {
+  text-decoration: underline;
+}
+
+.contactSubtitle{
+    font-size: 16px;
 }

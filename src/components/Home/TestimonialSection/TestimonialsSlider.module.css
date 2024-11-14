@@ -1,19 +1,23 @@
-.testimonialSlider {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 900px;
-    margin: 50px auto;
-    padding: 40px;
-    opacity: 1;
-    transition: opacity 1s ease-in-out; /* Smooth fade */
-  }
-  
-  .fadeOut {
-    opacity: 0;
-  }
-  
-  .fadeIn {
-    opacity: 1;
-  }
-  
+.testimonialsWrapper {
+  position: relative;
+  max-width: 1000px;
+  width: 900px;
+  margin: 50px auto;
+  overflow: hidden;
+  background-color: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  height: 400px;
+  opacity: 0; /* Start with hidden */
+  transition: opacity 1s ease-in-out; /* Smooth transition */
+}
+
+.fadeIn {
+  opacity: 1; /* Fade in */
+}
+
+.fadeOut {
+  opacity: 0; /* Fade out */
+}

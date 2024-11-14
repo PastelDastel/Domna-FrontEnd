@@ -1,88 +1,106 @@
-/* Container setup with relative positioning */
 .container {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 150px;
   position: relative;
-  margin: 100px auto;
-  display: flex;
-  align-items: center;
+  height: 500px;
+  padding: 20px 0;
 }
-* {
-  font-family: 'Josefin Sans', sans-serif;
-}
-
-/* Reverse layout for alternating sections */
-.reverse {
-  flex-direction: row-reverse;
-}
-
-/* Image section styling */
-.imageSection {
-  position: relative;
-  top: 0;
-  left: 0;
+.container {
+  max-width: 500px;
   width: 100%;
-  height: 100%;
+  margin: 0 auto;
+}
+.imageSectionFirst,
+.imageSectionSecond,
+.imageSectionThird {
+  width: 600px;
+  height: 400px;
   background-size: cover;
-  background-position: center;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
-  z-index: 1;
+  filter: blur(0.5px);
+  position: absolute;
 }
 
-/* Text section styling */
+.imageSectionFirst {
+  background: url("../../../assets/PNG/Dalle2.png") no-repeat center center;
+}
+
+.imageSectionSecond {
+  background: url("../../../assets/PNG/Dalle3.png") no-repeat center center;
+}
+
+.imageSectionThird {
+  background: url("../../../assets/PNG/Dalle5.png") no-repeat center center;
+}
+
 .textSection {
   position: absolute;
+  top: 150px;
   width: 420px;
   background-color: #f3c7dc;
   padding: 30px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 2;
-  font-family: Josefin Sans;
+  text-align: center;
 }
 
-/* Adjust textSection for reverse layout */
-.reverse .textSection {
-  right: auto;
+.textSection.first {
+  left: 450px;
 }
 
-/* Header style */
+.imageSection.first {
+  top: 0;
+  left: 0;
+}
+.textSection.third {
+  left: 450px;
+}
+
+.imageSection.third {
+  top: 0;
+  left: 0;
+}
+
+.textSection.second {
+  right: 450px;
+}
+
+.imageSection.second {
+  top: 0;
+  right: 0;
+}
+
 .textSection h2 {
   font-size: 1.8rem;
-  color: #ffffff;
-  margin: 20px;
+  color: white;
+  margin-bottom: 20px;
 }
 
-/* Paragraph styling */
-.paragraph {
+.textSection p {
   font-size: 14.5px;
-  color: #555;
   line-height: 1.6;
+  color: #555;
   margin-bottom: 20px;
   font-weight: bold;
-  margin: 20px 0;
 }
 
-/* Button styling */
 .button {
   display: flex;
   justify-content: center;
-  padding: 10px 20px;
 }
 
-.navLink {
+.button .navlink {
   text-decoration: none;
   padding: 10px 20px;
-  background-color: #ffffff;
+  background-color: #fff7fb;
   color: #e892bb;
   font-weight: bold;
   border-radius: 4px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
 }
 
-.navLink:hover {
-  background-color: #e892bb;
-  color: #ffffff;
+.button .navlink:hover {
+  background-color: #ffffff;
+}
+
+.div-separator {
+  border: 1px solid #ccc;
+  width: 75%;
 }

@@ -1,0 +1,15 @@
+* {
+  font-family: "Josefin Sans", sans-serif;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
+body {
+  background-image: linear-gradient(to top, #fff5f8, #ffe6f0);
+  margin: -18px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
