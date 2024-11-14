@@ -5,6 +5,7 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import styles from "./Profile.module.css"; // Import the CSS module
 import useLogout from "../../hooks/useLogout";
 import MetaPixel from "../Global Components/MetaPixel";
+
 const Months = [
   "Gennaio",
   "Febbraio",
@@ -23,13 +24,13 @@ const Months = [
 const Profile = () => {
   const logout = useLogout();
   const [user, setUser] = useState(null);
+  const [courses, setCourses] = useState([]);
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
+
   const displayDate = (date) => {
-    // date: 21/12/2024, 02:47
-    // returns 21 Dicembre 2024, 02:47
     const [day, month, year] = date.split("/");
     return `${day} ${Months[parseInt(month) - 1]} ${year}`;
   };
@@ -43,13 +44,15 @@ const Profile = () => {
     let isMounted = true;
     const controller = new AbortController();
 
-    const getUser = async () => {
+    const getUserData = async () => {
       try {
         const response = await axiosPrivate.get(`/api/users/${id}`, {
           signal: controller.signal,
         });
-        if (isMounted) setUser(response.data.user);
-        console.log(response.data.user);
+        if (isMounted) {
+          setUser(response.data.user);
+          console.log("User data:", response.data.user);
+        }
       } catch (err) {
         if (!axios.isCancel(err)) {
           console.error("Error fetching user data:", err);
@@ -58,7 +61,24 @@ const Profile = () => {
       }
     };
 
-    getUser();
+    const getUserCourses = async () => {
+      try {
+        const response = await axiosPrivate.get(`/api/users/${id}/courses`, {
+          signal: controller.signal,
+        });
+        if (isMounted) {
+          setCourses(response.data);
+          console.log("User courses:", response.data);
+        }
+      } catch (err) {
+        if (!axios.isCancel(err)) {
+          console.error("Error fetching user courses:", err);
+        }
+      }
+    };
+
+    getUserData();
+    getUserCourses();
 
     return () => {
       isMounted = false;
@@ -102,33 +122,36 @@ const Profile = () => {
           )}
         </div>
         <div className={styles.profileContent}>
-          {user ? (
+          {courses.length > 0 ? (
             <>
-              <h1>Dettagli del Corso</h1>
-              <p>
-                <strong>Corso Selezionato:</strong> Corso di Yoga Avanzato
-              </p>
-              <p>
-                <strong>Data di Rinnovo:</strong> 15 Novembre 2024
-              </p>
-              <p>
-                <strong>Dettagli:</strong> Questo corso include accesso
-                illimitato a lezioni settimanali e supporto personalizzato con
-                l&apos;istruttore.
-              </p>
-              <p>
-                <strong>Video Corsi: </strong>
-              </p>
-              <p>
-                <strong>Entra nella live : </strong>
-                <a
-                  href="https://us02web.zoom.us/j/85228193827?pwd=1DgSrBrwr8CREvFihMR9lv1jfPGC7m.1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Clicca qui!
-                </a>
-              </p>
+              <h1>I Tuoi Corsi</h1>
+              {courses.map((course) => (
+                <div key={course._id} className={styles.courseDetail}>
+                  <h2>{course.title}</h2>
+                  <p>
+                    <strong>Descrizione:</strong> {course.description}
+                  </p>
+                  <p>
+                    <strong>Durata:</strong> {course.duration}
+                  </p>
+                  <p>
+                    <strong>Sezione:</strong> {course.section}
+                  </p>
+                  <p>
+                    <strong>Insegnante:</strong> {course.instructor}
+                  </p>
+                  <p>
+                    <strong>Benefici:</strong> {course.benefits.join(", ")}
+                  </p>
+                  <p>
+                    <strong>Benefici esclusi:</strong>{" "}
+                    {course.excluded_benefits.join(", ")}
+                  </p>
+                  <p>
+                    <strong>Prezzo:</strong> €{course.price.toFixed(2)}
+                  </p>
+                </div>
+              ))}
             </>
           ) : (
             <p className={styles.noCourseData}>No course data to display</p>

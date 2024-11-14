@@ -1,0 +1,87 @@
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    height: 100px;
+    font-weight: 400;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+  button{
+    all: unset;
+    margin: 0;
+    padding: 0;
+  }
+  .logo img {
+    height: 100px;
+    width: auto;
+    margin-top: 50px;
+    margin-left: 20px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .hamburgerMenu {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #d75494;
+  }
+  
+  .navMenu {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 30px;
+    margin-top: 50px;
+    font-family: "Josefin Sans", sans-serif;
+    gap: 40px;
+    color: #f29aa0;
+  }
+  
+  .navMenu li .link {
+    text-decoration: none;
+    color: #d75494;
+    font-size: 15px;
+    transition: color 0.3s ease;
+    margin-right: 20px;
+    line-height: 100px;
+    position: relative; /* Added for underline styling */
+  }
+  
+  .navMenu li .link:hover {
+    color: #f29aa0;
+    cursor: pointer;
+  }
+  
+  .navMenu li .link.active {
+    text-decoration: none; /* Remove the default underline */
+    color: #d75494; /* Ensure active color is visible */
+    border-bottom: 2px solid #d75494; /* Custom underline */
+  }
+  
+  .navMenu.open {
+    display: block;
+  }
+  
+  @media (max-width: 768px) {
+    .hamburgerMenu {
+      display: block;
+    }
+  
+    .navMenu {
+      display: none;
+      flex-direction: column;
+      background-color: #fff;
+      position: absolute;
+      top: 100px;
+      right: 0;
+      width: 200px;
+      padding: 20px;
+    }
+  }
+  

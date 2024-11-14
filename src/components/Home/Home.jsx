@@ -20,8 +20,8 @@ const Home = () => {
         transition={{ duration: 1, ease: "easeOut" }}
       >
         <Hero
-          text="Domna"
-          animatedText="Allenamento funzionale femminile."
+          text="DOMNA"
+          animatedText="ALLENAMENTO FUNZIONALE FEMMINILE."
           textAlignment="left"
         />
       </motion.div>
