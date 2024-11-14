@@ -140,6 +140,18 @@ const Navbar = () => {
               <>
                 <li>
                   <Link
+                    to="/shopping-cart"
+                    className={`text-xl hover:text-white ${isActive("/shopping-cart") ? 'font-bold border-b-2 border-purple-500' : ''}`}
+                    onClick={() => {
+                      handleCustomEvent('Shopping Cart');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Shopping Cart
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     to={`/profile/${auth.id}`}
                     className={`text-xl hover:text-white ${isActive(`/profile/${auth.id}`) ? 'font-bold border-b-2 border-purple-500' : ''}`}
                     onClick={() => {

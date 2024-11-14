@@ -13,11 +13,19 @@ import Profile from "./components/Profile/Profile";
 import Courses from "./components/Courses/Courses";
 import About from "./components/About/About";
 import Blog from "./components/Blog/Blog";
+import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 const ROLES = {
   User: "User",
   Editor: "Editor",
   Admin: "Admin",
 };
+// every 30s make a get / to keep the backend online
+setInterval(() => {
+  fetch("http://localhost:3500/")
+    .then()
+}, 30000);
+
+
 
 function App() {
   return (
@@ -34,6 +42,7 @@ function App() {
 
           <Route element={<RequireAuth allowedRoles={[4934503821911649, 6792941695628669]} />}>
             <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/shopping-cart" element={<ShoppingCart/>} />
           </Route>
           <Route element={<RequireAuth allowedRoles={[6792941695628669]} />}>
             <Route path="dashboard" element={<Admin />} />
