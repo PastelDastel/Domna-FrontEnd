@@ -7,11 +7,12 @@
 .imageSection {
   width: 672px;
   height: 1008px;
-  background: url("../../../assets/JPG/IMG_7936.jpg") no-repeat center center;
+  background: url("../../../assets/JPG/IMG_7955.jpg") no-repeat center center;
   background-size: cover;
   position: absolute;
 }
-.textSection h2{
+
+.textSection h2 {
   font-size: 1.8rem;
   color: #fff;
   font-weight: 700;
@@ -20,6 +21,7 @@
   text-transform: uppercase;
   text-align: left;
 }
+
 .textSection {
   font-family: "Josefin Sans", sans-serif;
   position: absolute;
