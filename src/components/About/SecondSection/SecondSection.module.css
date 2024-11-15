@@ -1,0 +1,49 @@
+.mindsetContainer,
+.separatorMindset {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.separatorMindset {
+  padding: 20px 0;
+}
+.mindsetContainer {
+  align-items: flex-start;
+  gap: 5%;
+  max-width: 1200px;
+  margin: -300px auto;
+  padding-top: 20px;
+}
+.mindsetColumn {
+  width: 45%;
+  text-align: left;
+  padding: 20px;
+}
+h2 {
+  font-size: 1.5rem;
+  color: #c0777c;
+  font-weight: 700;
+  font-family: "Josefin Sans", sans-serif;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.mindsetLink,
+.mindsetText {
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: "Josefin Sans", sans-serif;
+}
+.mindsetText {
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.mindsetLink {
+  color: #8b1d1d;
+  text-decoration: underline;
+}
+.separator-final-section {
+  width: 100%;
+  height: 400px;
+}

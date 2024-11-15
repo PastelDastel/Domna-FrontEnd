@@ -27,40 +27,19 @@ const Home = () => {
       </motion.div>
       <ParallaxSection
         text="Allenati Con DOMNA"
-        id="ParallaxFirstDivisor"
-        startOffset={0}
+        id="first"
       />
 
       <Section />
 
       <ParallaxSection
-        text="Recensioni Clienti DOMNA" />
+        text="Recensioni Clienti DOMNA" id="second" />
 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 1.2 } }}>
         <TestimonialsSlider />
       </motion.div>
 
       <ContactSection />
-
-
-      {
-      /*
-      <ParallaxSection
-        imageUrl="https://placehold.co/1920x1080/f08b92/ffa0b1"
-        text="Recensioni Clienti DOMNA"
-        id="ParallaxSecondDivisor"
-        startOffset={2500}
-      />
-      <FadeInSection>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 1.2 } }}>
-          <TestimonialsSlider />
-        </motion.div>
-      </FadeInSection>
-      <FadeInSection>
-        <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { duration: 1 } }}>
-          <ContactSection />
-        </motion.div>
-      </FadeInSection> */}
     </>
   );
 };

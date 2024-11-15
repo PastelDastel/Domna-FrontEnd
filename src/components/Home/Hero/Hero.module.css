@@ -34,7 +34,7 @@
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
 }
-.hero-text {
+.heroText {
   position: absolute;
   left: 50px;
   bottom: 50%;
@@ -42,19 +42,19 @@
   z-index: 10;
 }
 
-.hero-text h1 {
+.heroText h1 {
   font-size: 60px;
   color: #f29aa0;
   margin: 0;
 }
 
-.hero-text p {
+.heroText p {
   font-size: 18px;
   margin-top: 5px;
 }
-.bounce-arrow {
+.bounceArrow {
   position: absolute;
-  bottom: -15px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 30px;
@@ -72,17 +72,17 @@
   }
 }
 
-.hero-text span {
+.heroText span {
   display: inline-block;
   transition: all 0.3s ease;
 }
 
-.hero-text span.visible {
+.heroText span.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-.social-icons {
+.socialIcons {
   position: absolute;
   right: 60px;
   bottom: 45%;
@@ -91,23 +91,21 @@
   gap: 50px;
 }
 
-.social-icons a {
+.socialIcons a {
   text-decoration: none;
   font-size: 35px;
   color: #d75494;
+  z-index: 10;
 }
 
-.social-icons a:hover {
+.socialIcons a:hover {
   color: #f29aa0;
 }
 
-.bounce-arrow i {
-  color: pink;
+.bounceArrow i {
+  color: #f29aa0;
 }
 
-#bounceArr {
-  position: absolute;
-  color: pink;
-  bottom: 80px;
-  cursor: pointer;
+.bounceArrow i:hover {
+  color: #d75494;
 }
