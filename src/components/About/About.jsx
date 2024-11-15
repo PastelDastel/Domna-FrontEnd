@@ -12,7 +12,7 @@ const About = () => {
         <div className={style.separatorHr}>
           <hr className={style.separatorMind} />
         </div>
-       {  <SecondSection /> }
+       { <SecondSection /> }
         <div className={style.separatorHrSecond}>
           <hr className={style.separatorMindSecond} />
         </div>
