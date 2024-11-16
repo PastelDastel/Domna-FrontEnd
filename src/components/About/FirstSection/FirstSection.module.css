@@ -1,7 +1,7 @@
 .container {
   position: relative;
   width: 900px;
-  height: 900px;
+  height: 600px;
   margin-bottom: 250px;
 }
 .imageSection {
@@ -10,15 +10,6 @@
   background: url("../../../assets/JPG/IMG_7936.jpg") no-repeat center center;
   background-size: cover;
   position: absolute;
-}
-.textSection h2{
-  font-size: 1.8rem;
-  color: #fff;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  text-align: left;
 }
 .textSection {
   font-family: "Josefin Sans", sans-serif;

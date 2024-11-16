@@ -4,14 +4,12 @@ import FirstSection from "./FirstSection/FirstSection";
 import SecondSection from "./SecondSection/SecondSection";
 import ThirdSection from "./ThirdSection/ThirdSection";
 import Accordion from "./Accordion/Accordion";
+import Hero from "./Hero/Hero";
 const About = () => {
   return (
     <div className={style.pageContainer}>
-      <Suspense fallback={<div>Loading...</div>}>
         <Hero text={"Conosci Marcella"} />
-      </Suspense>
       <div className={style.separatorHrFromHero}></div>
-      <Suspense fallback={<div>Loading...</div>}>
         <FirstSection />
         <div className={style.separatorHr}>
           <hr className={style.separatorMind} />
@@ -23,7 +21,6 @@ const About = () => {
         <ThirdSection />
         <Accordion items={["Allah", "Jesus"]}/>
       </div>
-    </>
   );
 };
 
