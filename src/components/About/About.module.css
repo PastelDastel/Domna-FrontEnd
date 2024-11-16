@@ -2,9 +2,8 @@
   width: 100%;
   height: 200px;
 }
-.separatorHr,
-.separatorHrSecond {
-  margin: 300px 0;
+.separatorHr {
+  margin-top: 300px;
   text-align: center;
   width: 100%;
 }
@@ -16,7 +15,9 @@
   margin: 0 auto;
 }
 .separatorHrSecond {
-  margin: 100px 0;
+  margin-bottom: 100px;
+  text-align: center;
+  width: 100%;
 }
 .pageContainer {
   display: flex;
