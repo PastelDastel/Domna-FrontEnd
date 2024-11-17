@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import styles from "./HeroParaless.module.css";
-import LetterAnimation from "../../Home/Letter Animation/LetterAnimation";
+import LetterAnimation from "../../Global Components/Letter Animation/LetterAnimation";
 
 const Hero = ({ text, animatedText, textAlignment }) => {
   return (

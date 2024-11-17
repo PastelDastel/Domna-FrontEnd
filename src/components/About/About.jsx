@@ -1,4 +1,3 @@
-import React, { Suspense } from "react";
 import style from "./About.module.css";
 import FirstSection from "./FirstSection/FirstSection";
 import SecondSection from "./SecondSection/SecondSection";
@@ -7,10 +6,10 @@ import Accordion from "./Accordion/Accordion";
 import Hero from "./Hero/Hero";
 import Parallax from "./Parallax/Parallax";
 import ArticleCard from "./ArticleCard/ArticleCard";
+import ContactParallax from "./ContactParallax/ContactParallax";
 import blog1 from "../../assets/JPG/blog1.jpg";
 import blog2 from "../../assets/JPG/blog2.jpg";
 import blog3 from "../../assets/JPG/blog3.jpeg";
-import ContactParallax from "./ContactParallax/ContactParallax";
 const About = () => {
   return (
     <div className={style.pageContainer}>
