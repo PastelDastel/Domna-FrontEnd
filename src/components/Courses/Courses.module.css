@@ -1,8 +1,36 @@
-.coursesContainer {
-  width: 100vw;
-  height: 100vh;
-  background-color: #fdd5e5;
+.pageContainer {
   display: flex;
+  width: 100vw;
+  background-image: linear-gradient(to top, #fff5f8, #ffe6f0);
+  padding: 0;
+  flex-direction: column;
   align-items: center;
-  font: 100%/1.6 "Roboto", sans-serif;
+  overflow-x: hidden;
 }
+
+.parallaxFirst {
+  position: relative;
+  height: 400px;
+  background: url("../../assets/JPG/paralla.jpg") no-repeat center center fixed;
+  background-size: cover;
+  margin: 130px 50px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reviewTestimonial {
+  font-size: 35pt;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  margin: 0;
+  font-weight: 900;
+}
+.fullWidthLine {
+  border-top: 1px solid #803838;
+  width: 58%;
+  margin: 20px 0;
+}
+

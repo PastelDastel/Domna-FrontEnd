@@ -1,30 +1,18 @@
-import LetterAnimation from "../../Global Components/Letter Animation/LetterAnimation";
+import React, { memo } from "react";
 import style from "./Hero.module.css";
-const Hero = ({ text, animatedText }) => {
-
-  return (
-
-    <div className={style.hero}>
-      <div className={style.heroText}>
-        <h1>{text}</h1>
-        <LetterAnimation text={animatedText} />
-      </div>
-      <div className={style.socialIcons}>
-        <a href="https://www.facebook.com/domnaallenamentofunzionalefemminile">
-          <i className="fab fa-facebook"></i>
-        </a>
-        <a href="https://www.instagram.com/domna_allenamentofemminile/">
-          <i className="fab fa-instagram"></i>
-        </a>
-        <a href="#" target="_blank"><i className="fab fa-tiktok"></i></a>
-      </div>
-      <div className={style.bounceArrow}>
-        <a href="#first" >
-          <i className="fas fa-chevron-down" id="bounceArr"></i>
-        </a>
-      </div>
-    </div>
-  );
+const Hero = ({ text }) => {
+    return (
+        <div className={style.hero}>
+            <div className={style.heroText}>
+                <h1>{text}</h1>
+            </div>
+            <div className={style.bounceArrow}>
+                <a href="#first">
+                    <i className="fas fa-chevron-down" id="bounceArr"></i>
+                </a>
+            </div>
+        </div>
+    );
 };
 
-export default Hero;
+export default memo(Hero);

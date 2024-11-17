@@ -1,0 +1,129 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+  min-width: 480px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.leftColumn {
+  width: 45%;
+}
+
+.productTitle {
+  font-size: 19.5px;
+  color: #050505;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 10px;
+  margin-right: 3.9px;
+}
+
+.originalPrice {
+  color: #5b1f18;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.discountedPrice {
+  color: #999;
+  margin-left: 10px;
+}
+
+.quantityContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.quantityLabel {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.quantityInput {
+  padding: 5px;
+  width: 50px;
+  border: 1px solid #5b1f18;
+}
+
+.addToCartBtn {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 30px;
+  background-color: #fff;
+  color: #803838;
+  border: 1px solid #803838;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin-top: 10px;
+}
+
+.addToCartBtn:hover {
+  background-color: #803838;
+  color: #fff;
+}
+
+.featuresList {
+  list-style-type: disc;
+  margin: 20px 0;
+  padding-left: 20px;
+  color: #5b1f18;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.sectionTitle {
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #803838;
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.sectionContent {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+.sectionContent.show {
+  opacity: 1;
+  max-height: 500px; /* Adjust as needed */
+}
+
+
+.courseSeparator {
+  width: 100%;
+  height: 50px;
+}
+
+.fullWidthLine {
+  border-top: 1px solid #803838;
+  width: 58%;
+  margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .leftColumn,
+  .rightColumn {
+    width: 100%;
+  }
+}
