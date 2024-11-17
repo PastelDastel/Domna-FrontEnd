@@ -1,32 +1,33 @@
 import React from 'react';
+import style from './ItemCard.module.css'; // Import the CSS module
 
 const ItemCard = ({ item, view, handleModify, handleDelete, handleClick }) => {
     return (
         <div
             onClick={() => handleClick(item)}
-            className="bg-white p-4 rounded shadow-lg flex flex-col justify-between cursor-pointer hover:shadow-xl transition-shadow"
+            className={style.card}
         >
             <div>
                 {view === 'courses' && (
                     <>
-                        <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                        <p className="text-sm text-gray-600">Instructor: {item.instructor}</p>
+                        <h3 className={style.title}>{item.title}</h3>
+                        <p className={style.subtitle}>Instructor: {item.instructor}</p>
                     </>
                 )}
                 {view === 'users' && (
                     <>
-                        <h3 className="text-lg font-semibold mb-2">{item.username}</h3>
-                        <p className="text-sm text-gray-600">Email: {item.email}</p>
+                        <h3 className={style.title}>{item.username}</h3>
+                        <p className={style.subtitle}>Email: {item.email}</p>
                     </>
                 )}
             </div>
-            <div className="flex justify-end space-x-2 mt-4">
+            <div className={style.buttonContainer}>
                 <button
                     onClick={(e) => {
                         e.stopPropagation(); // Prevent triggering the card click event
                         handleModify(item);
                     }}
-                    className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                    className={style.modifyButton}
                 >
                     Modify
                 </button>
@@ -35,7 +36,7 @@ const ItemCard = ({ item, view, handleModify, handleDelete, handleClick }) => {
                         e.stopPropagation(); // Prevent triggering the card click event
                         handleDelete(item._id);
                     }}
-                    className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                    className={style.deleteButton}
                 >
                     Delete
                 </button>

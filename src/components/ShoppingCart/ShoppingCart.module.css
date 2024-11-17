@@ -1,0 +1,136 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    margin-top: 100px; /* Adjust spacing as needed */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #d6456b; /* Adjust color to match theme */
+    text-align: center;
+}
+
+.error {
+    color: #f87171;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.ordersList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.orderItem {
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.orderItem:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.orderTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #d6456b;
+    margin-bottom: 0.5rem;
+}
+
+.orderText {
+    font-size: 0.95rem;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+}
+
+.editContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.input {
+    width: 3.5rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    text-align: center;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.button {
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.375rem;
+    color: #ffffff;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.button:hover {
+    transform: scale(1.05);
+}
+
+.saveButton {
+    background-color: #10b981;
+}
+
+.saveButton:hover {
+    background-color: #059669;
+}
+
+.editButton {
+    background-color: #fbbf24;
+}
+
+.editButton:hover {
+    background-color: #f59e0b;
+}
+
+.deleteButton {
+    background-color: #ef4444;
+}
+
+.deleteButton:hover {
+    background-color: #dc2626;
+}
+
+.checkoutButton {
+    margin-top: 2rem;
+    background-color: #3b82f6;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.checkoutButton:hover {
+    background-color: #2563eb;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

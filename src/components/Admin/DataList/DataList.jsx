@@ -1,21 +1,26 @@
 import React from 'react';
-import ItemCard from './ItemCard';
+import ItemCard from '../ItemCard/ItemCard';
+import style from './DataList.module.css'; // Import the CSS module
 
 const DataList = ({ view, data, loading, error, handleModify, handleDelete, handleClick }) => {
     if (loading) {
-        return <p>Loading...</p>;
+        return <p className={style.loading}>Loading...</p>;
     }
 
     if (error) {
-        return <p className="text-red-500">{error}</p>;
+        return <p className={style.error}>{error}</p>;
     }
 
     if (data.length === 0) {
-        return <p>Nessun {view === 'courses' ? 'corso' : view === 'users' ? 'utente' : 'articolo'} disponibile al momento.</p>;
+        return (
+            <p className={style.noData}>
+                Nessun {view === 'courses' ? 'corso' : view === 'users' ? 'utente' : 'articolo'} disponibile al momento.
+            </p>
+        );
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className={style.gridContainer}>
             {data.map((item) => (
                 <ItemCard
                     key={item._id}

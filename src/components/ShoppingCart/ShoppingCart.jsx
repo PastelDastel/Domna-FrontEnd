@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import axios from "axios";
+import styles from "./ShoppingCart.module.css"; // Import the CSS module
 
-// Replace with your actual Stripe publishable key stored securely
 const stripeKey = "pk_live_51OcQMBKn6sYGkBb0O6KhMw9kfYhDZj0R4E5CFLiw1pdETW0nKIWr2VPyNJPv1NVgD0vDaGNVqXltzHwFQd3TLp8H00PQnLudBr";
 const stripePromise = loadStripe(stripeKey);
 
@@ -35,13 +34,11 @@ const ShoppingCart = () => {
         setIsLoading(true);
         try {
             const stripe = await stripePromise;
-    
-            // Create a checkout session on the backend
+
             const response = await axiosPrivate.post('/api/stripe/create-checkout-session', {
-                priceId: 'price_1QEwYpKn6sYGkBb0YNfAHcGn' // Replace with the dynamic Price ID you want to use
+                priceId: 'price_1QEwYpKn6sYGkBb0YNfAHcGn' // Replace with your dynamic Price ID
             });
-    
-            // Redirect to Stripe Checkout
+
             const { id } = response.data;
             await stripe.redirectToCheckout({ sessionId: id });
         } catch (error) {
@@ -50,11 +47,11 @@ const ShoppingCart = () => {
             setIsLoading(false);
         }
     };
-    
+
     const handleDeleteOrder = async (orderId) => {
         try {
             await axiosPrivate.delete(`/api/orders/${orderId}`);
-            setOrders(orders.filter(order => order._id !== orderId)); // Update state after deletion
+            setOrders(orders.filter(order => order._id !== orderId));
         } catch (error) {
             console.error('Error deleting order:', error);
         }
@@ -70,39 +67,39 @@ const ShoppingCart = () => {
             const response = await axiosPrivate.put(`/api/orders/${editOrderId}`, {
                 quantity: editQuantity,
             });
-            setOrders(orders.map(order => 
+            setOrders(orders.map(order =>
                 order._id === editOrderId ? { ...order, quantity: response.data.quantity } : order
             ));
-            setEditOrderId(null); // Reset editing state
+            setEditOrderId(null);
         } catch (error) {
             console.error('Error updating order:', error);
         }
     };
 
     if (!auth?.accessToken) {
-        return <p className="text-center text-red-500">Please log in to view your shopping cart.</p>;
+        return <p className={styles.error}>Please log in to view your shopping cart.</p>;
     }
 
     return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Your Shopping Cart</h1>
+        <div className={styles.container}>
+            <h1 className={styles.title}>Your Shopping Cart</h1>
             {orders.length > 0 ? (
                 <div>
-                    <ul className="space-y-4">
+                    <ul className={styles.ordersList}>
                         {orders.map((order, index) => (
-                            <li key={index} className="p-4 border rounded-lg shadow">
-                                <h2 className="text-lg font-semibold">{order.productName}</h2>
-                                <p className="text-sm">Price: ${order.price}</p>
+                            <li key={index} className={styles.orderItem}>
+                                <h2 className={styles.orderTitle}>{order.productName}</h2>
+                                <p className={styles.orderText}>Price: ${order.price}</p>
                                 {editOrderId === order._id ? (
-                                    <div className="flex items-center space-x-2">
+                                    <div className={styles.editContainer}>
                                         <input
                                             type="number"
                                             value={editQuantity}
                                             onChange={(e) => setEditQuantity(Number(e.target.value))}
-                                            className="w-16 border rounded px-2 py-1"
+                                            className={styles.input}
                                         />
                                         <button
-                                            className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+                                            className={`${styles.button} ${styles.saveButton}`}
                                             onClick={handleUpdateOrder}
                                         >
                                             Save
@@ -110,17 +107,17 @@ const ShoppingCart = () => {
                                     </div>
                                 ) : (
                                     <>
-                                        <p className="text-sm">Quantity: {order.quantity}</p>
-                                        <p className="text-sm">Period: {order.period}</p>
-                                        <div className="flex space-x-2 mt-2">
+                                        <p className={styles.orderText}>Quantity: {order.quantity}</p>
+                                        <p className={styles.orderText}>Period: {order.period}</p>
+                                        <div className={styles.buttonGroup}>
                                             <button
-                                                className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+                                                className={`${styles.button} ${styles.editButton}`}
                                                 onClick={() => handleEditOrder(order)}
                                             >
                                                 Edit
                                             </button>
                                             <button
-                                                className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                                                className={`${styles.button} ${styles.deleteButton}`}
                                                 onClick={() => handleDeleteOrder(order._id)}
                                             >
                                                 Delete
@@ -132,7 +129,7 @@ const ShoppingCart = () => {
                         ))}
                     </ul>
                     <button
-                        className="mt-6 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 disabled:opacity-50"
+                        className={`${styles.checkoutButton} ${isLoading ? styles.disabled : ''}`}
                         onClick={handleCheckout}
                         disabled={isLoading}
                     >
@@ -140,7 +137,7 @@ const ShoppingCart = () => {
                     </button>
                 </div>
             ) : (
-                <p className="text-lg">Your cart is empty.</p>
+                <p className={styles.orderText}>Your cart is empty.</p>
             )}
         </div>
     );

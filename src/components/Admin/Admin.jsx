@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from './Sidebar';
-import Header from './Header';
-import DataList from './DataList';
-import DetailsModal from './DetailsModal';
-import ModalForm from './ModalForm';
+import Sidebar from './Sidebar/Sidebar';
+import Header from './Header/Header';
+import DataList from './DataList/DataList';
+import DetailsModal from './DetailsModal/DetailsModal';
+import ModalForm from './ModalForm/ModalForm';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useAuth from '../../hooks/useAuth';
+import SearchBar from './Searchbar/SearchBar';
+import style from './Admin.module.css'; // Import the CSS module
 
 const AdminPanel = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -60,9 +62,10 @@ const AdminPanel = () => {
     };
 
     return (
-        <div className="flex h-screen bg-pink-100">
+        <div className={style.adminPanel}>
             <Sidebar view={view} setView={setView} />
-            <main className="flex-1 p-6 overflow-y-auto">
+            <main className={style.mainContent}>
+                <SearchBar></SearchBar>
                 <Header view={view} handleAddNew={() => {
                     setSelectedItem(null);
                     setIsAdding(true);
@@ -78,7 +81,7 @@ const AdminPanel = () => {
                         setIsAdding(false);
                         setShowModal(true);
                     }}
-                    handleDelete={handleDelete} // Ensure handleDelete is passed to DataList
+                    handleDelete={handleDelete}
                     handleClick={handleCardClick}
                 />
                 {showDetailsModal && (

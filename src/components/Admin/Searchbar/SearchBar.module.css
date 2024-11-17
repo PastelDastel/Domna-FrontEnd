@@ -1,0 +1,14 @@
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.searchBar {
+  width: 60%;
+  padding: 10px;
+  border: 2px solid #e91e63;
+  border-radius: 8px;
+  outline: none;
+}
+

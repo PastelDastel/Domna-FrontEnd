@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
+import style from './ModalForm.module.css'; // Import the CSS module
 
 const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding, setData, data, auth }) => {
     const axiosPrivate = useAxiosPrivate();
-    
-    // Local state to manage form input
     const [formState, setFormState] = useState(selectedItem || {});
     const [benefitInput, setBenefitInput] = useState('');
     const [excludedBenefitInput, setExcludedBenefitInput] = useState('');
 
     useEffect(() => {
-        setFormState(selectedItem || {}); // Set formState to the selectedItem when it changes
+        setFormState(selectedItem || {});
     }, [selectedItem]);
 
     const handleInputChange = (e) => {
@@ -55,7 +54,6 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
                 setData(data.map((item) => (item._id === selectedItem._id ? itemData : item)));
             }
 
-            // Update selectedItem only after saving the changes
             setSelectedItem(itemData);
             setShowModal(false);
             alert(`${view === 'courses' ? 'Course' : view === 'users' ? 'User' : 'Blog'} ${isAdding ? 'added' : 'modified'} successfully!`);
@@ -66,9 +64,9 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-6 rounded shadow-lg w-1/2">
-                <h2 className="text-2xl font-bold mb-4">
+        <div className={style.overlay}>
+            <div className={style.modal}>
+                <h2 className={style.header}>
                     {isAdding ? 'Add New' : 'Modify'} {view === 'courses' ? 'Course' : view === 'users' ? 'User' : 'Blog'}
                 </h2>
                 <form
@@ -79,97 +77,97 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
                 >
                     {view === 'courses' && (
                         <>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Title:
                                 <input
                                     type="text"
                                     name="title"
                                     value={formState.title || ''}
                                     onChange={handleInputChange}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                 />
                             </label>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Description:
                                 <input
                                     type="text"
                                     name="description"
                                     value={formState.description || ''}
                                     onChange={handleInputChange}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                 />
                             </label>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Instructor:
                                 <input
                                     type="text"
                                     name="instructor"
                                     value={formState.instructor || ''}
                                     onChange={handleInputChange}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                 />
                             </label>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Duration:
                                 <input
                                     type="text"
                                     name="duration"
                                     value={formState.duration || ''}
                                     onChange={handleInputChange}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                 />
                             </label>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Price:
                                 <input
                                     type="number"
                                     name="price"
                                     value={formState.price || ''}
                                     onChange={handleInputChange}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                 />
                             </label>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Section:
                                 <input
                                     type="text"
                                     name="section"
                                     value={formState.section || ''}
                                     onChange={handleInputChange}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                 />
                             </label>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Benefits:
                                 <input
                                     type="text"
                                     value={benefitInput}
                                     onChange={(e) => setBenefitInput(e.target.value)}
                                     onKeyDown={(e) => handleKeyDown(e, 'benefits')}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                     placeholder="Type a benefit and press Enter"
                                 />
-                                <div className="flex flex-wrap gap-2 mb-4">
+                                <div className={style.flexContainer}>
                                     {formState.benefits && formState.benefits.map((benefit, index) => (
-                                        <span key={index} className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                                        <span key={index} className={style.benefit}>
                                             {benefit}
                                         </span>
                                     ))}
                                 </div>
                             </label>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Excluded Benefits:
                                 <input
                                     type="text"
                                     value={excludedBenefitInput}
                                     onChange={(e) => setExcludedBenefitInput(e.target.value)}
                                     onKeyDown={(e) => handleKeyDown(e, 'excluded_benefits')}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                     placeholder="Type an excluded benefit and press Enter"
                                 />
-                                <div className="flex flex-wrap gap-2 mb-4">
+                                <div className={style.flexContainer}>
                                     {formState.excluded_benefits && formState.excluded_benefits.map((benefit, index) => (
-                                        <span key={index} className="bg-red-100 text-red-800 px-2 py-1 rounded">
+                                        <span key={index} className={style.excludedBenefit}>
                                             {benefit}
                                         </span>
                                     ))}
@@ -179,76 +177,76 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
                     )}
                     {view === 'users' && (
                         <>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Username:
                                 <input
                                     type="text"
                                     name="username"
                                     value={formState.username || ''}
                                     onChange={handleInputChange}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                 />
                             </label>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Email:
                                 <input
                                     type="email"
                                     name="email"
                                     value={formState.email || ''}
                                     onChange={handleInputChange}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                 />
                             </label>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Phone:
                                 <input
                                     type="text"
                                     name="phone"
                                     value={formState.phone || ''}
                                     onChange={handleInputChange}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                 />
                             </label>
                         </>
                     )}
                     {view === 'blog' && (
                         <>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Title:
                                 <input
                                     type="text"
                                     name="title"
                                     value={formState.title || ''}
                                     onChange={handleInputChange}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                 />
                             </label>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Content:
                                 <textarea
                                     name="content"
                                     value={formState.content || ''}
                                     onChange={handleInputChange}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.textarea}
                                 />
                             </label>
-                            <label className="block mb-2">
+                            <label className={style.label}>
                                 Author:
                                 <input
                                     type="text"
                                     name="author"
                                     value={formState.author || ''}
                                     onChange={handleInputChange}
-                                    className="w-full border border-gray-300 p-2 rounded mb-4"
+                                    className={style.input}
                                 />
                             </label>
                         </>
                     )}
-                    <div className="flex justify-end space-x-2">
-                        <button type="button" onClick={() => setShowModal(false)} className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+                    <div className={style.buttonContainer}>
+                        <button type="button" onClick={() => setShowModal(false)} className={style.cancelButton}>
                             Cancel
                         </button>
-                        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        <button type="submit" className={style.saveButton}>
                             Save Changes
                         </button>
                     </div>
