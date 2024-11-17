@@ -5,7 +5,7 @@ const Blog = () => {
     <div>
       <Hero
         animatedText={"Articoli vari"}
-        text={"Blog"}
+        text={"Blog DOMNA"}
         textAlignment={"center"}
       />
       <BlogWrapper
