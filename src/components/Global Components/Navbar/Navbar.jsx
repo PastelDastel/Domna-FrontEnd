@@ -1,9 +1,10 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import logo from "../../../assets/PNG/logo-removebg.png";
+import styles from "./Navbar.module.css";
 import useLogout from "../../../hooks/useLogout";
-import style from "./Navbar.module.css"; // Ensure this is your normal CSS file
+import { Turn as Hamburger } from 'hamburger-react';
 
 const Navbar = () => {
   const { auth } = useAuth();
@@ -11,12 +12,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
 
   const handleLogout = async () => {
     await logout();
-    setIsMenuOpen(false);
     navigate("/");
+    setIsMenuOpen(false);
   };
 
   const isActive = (path) => location.pathname === path;
@@ -25,146 +25,120 @@ const Navbar = () => {
     console.log(`Button clicked: ${eventLabel}`);
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  // Close the menu when clicking outside of it
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    if (isMenuOpen) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [isMenuOpen]);
-
-  // Role check function
-  const hasRole = (roleValue) => auth?.roles && auth.roles === roleValue;
-
   return (
-    <nav className={style.navbar} ref={menuRef} onClick={(e) => e.stopPropagation()}>
-      {/* Logo Section */}
-      <div className={style.logo}>
-        <Link to="/" onClick={() => handleCustomEvent('Home Button')}>
-          <img src={logo} id="logonav" alt="Domna Logo" />
-        </Link>
-      </div>
+    <section>
+      <nav className={styles.navbar}>
+        {/* Logo Section */}
+        <div className={styles.logo}>
+          <Link to="/" onClick={() => handleCustomEvent("Home Button")}>
+            <img src={logo} alt="Domna Logo" />
+          </Link>
+        </div>
 
-      {/* Hamburger Menu */}
-      <div className={style.hamburgerMenu} id="hamburgerMenu" onClick={toggleMenu}>
-        <i className="fas fa-bars"></i>
-      </div>
+        {/* Hamburger Menu */}
+        <div className={styles.hamburgerMenu}>
+          <Hamburger
+            toggled={isMenuOpen}
+            toggle={setIsMenuOpen}
+            color="#d75494"
+            size={28}
+          />
+        </div>
 
-      {/* Navigation Menu */}
-      <ul className={`${style.navMenu} ${isMenuOpen ? style.open : ''}`} id="navMenu">
-        <li>
-          <Link
-            to="/"
-            className={`${style.link} ${isActive("/") ? style.active : ""}`}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/about"
-            className={`${style.link} ${isActive("/about") ? style.active : ""}`}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            About
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/courses"
-            className={`${style.link} ${isActive("/courses") ? style.active : ""}`}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Corsi
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/blog"
-            className={`${style.link} ${isActive("/blog") ? style.active : ""}`}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Blog
-          </Link>
-        </li>
-        {/* Check for admin role */}
-        {hasRole(6792941695628669) && (
+        {/* Navigation Menu */}
+        <ul className={`${styles.navMenu} ${isMenuOpen ? styles.open : ""}`}>
           <li>
             <Link
-              to="/dashboard"
-              className={`${style.link} ${isActive("/dashboard") ? style.active : ""}`}
+              to="/"
+              className={`${styles.link} ${isActive("/") ? styles.active : ""}`}
               onClick={() => setIsMenuOpen(false)}
             >
-              Dashboard
+              Home
             </Link>
           </li>
-        )}
-        {auth?.accessToken ? (
-          <>
+          <li>
+            <Link
+              to="/about"
+              className={`${styles.link} ${isActive("/about") ? styles.active : ""}`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/courses"
+              className={`${styles.link} ${isActive("/courses") ? styles.active : ""}`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Courses
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/blog"
+              className={`${styles.link} ${isActive("/blog") ? styles.active : ""}`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Blog
+            </Link>
+          </li>
+          {auth?.roles?.Admin && (
             <li>
               <Link
-                to="/shopping-cart"
-                className={`${style.link} ${isActive("/shopping-cart") ? style.active : ""}`}
+                to="/dashboard"
+                className={`${styles.link} ${isActive("/dashboard") ? styles.active : ""}`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Shopping Cart
+                Dashboard
               </Link>
             </li>
-            <li>
-              <Link
-                to={`/profile/${auth.id}`}
-                className={`${style.link} ${isActive(`/profile/${auth.id}`) ? style.active : ""}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Profile
-              </Link>
-            </li>
-            <li>
-              <Link to="/" onClick={handleLogout} className={style.link}>
-                LOGOUT
-              </Link>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              <Link
-                to="/login"
-                className={`${style.link} ${isActive("/login") ? style.active : ""}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Log in
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/register"
-                className={`${style.link} ${isActive("/register") ? style.active : ""}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Register
-              </Link>
-            </li>
-          </>
-        )}
-      </ul>
-    </nav>
+          )}
+          {!auth?.accessToken ? (
+            <>
+              <li>
+                <Link
+                  to="/login"
+                  className={`${styles.link} ${isActive("/login") ? styles.active : ""}`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Log in
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/register"
+                  className={`${styles.link} ${isActive("/register") ? styles.active : ""}`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Register
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link
+                  to={`/profile/${auth.id}`}
+                  className={`${styles.link} ${isActive(`/profile/${auth.id}`) ? styles.active : ""}`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className={styles.link}
+                >
+                  LOGOUT
+                </button>
+              </li>
+            </>
+          )}
+        </ul>
+      </nav>
+    </section>
   );
 };
 

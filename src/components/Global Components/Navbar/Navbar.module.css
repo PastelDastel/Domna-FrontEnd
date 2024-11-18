@@ -1,87 +1,832 @@
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+/* TODO ----  CIAO PAVAL RICORDATI DI ALLINEARE I LINK PER OGNI DIMENSIONE DEL RESPONSIVE :)  */
+
+
+
+
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+/* ! ----  HIDDEN NELLE DIMENSIONI GRANDI E FARE I LANDSCAPE DELLE DIMENSIONI :) */
+
+
+
 .navbar {
-    position: absolute;
-    top: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  height: 100px;
+  font-weight: 400;
+  font-size: 10px;
+  text-transform: uppercase;
+ 
+}
+
+button {
+  all: unset;
+  margin: 0;
+  padding: 0;
+}
+
+.logo img {
+  height: 100px;
+  width: auto;
+  margin-top: 50px;
+  margin-left: 40px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.hamburgerMenu {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #d75494;
+  position: relative; /* Per contenere le barre posizionate assolutamente */
+  width: 30px; /* Larghezza del contenitore */
+  height: 24px; /* Altezza del contenitore per le tre barre */
+}
+
+.bar {
+  position: absolute;
+  width: 100%; /* Larghezza delle barre */
+  height: 4px; /* Spessore delle barre */
+  background-color: #d75494; /* Colore rosa */
+  left: 0; /* Allinea le barre a sinistra */
+  transition: 0.3s; /* Aggiunge una transizione per eventuali animazioni */
+}
+
+/* Posizionamento delle barre */
+.bar:nth-child(1) {
+  top: 0; /* Posizione della prima barra */
+}
+
+.bar:nth-child(2) {
+  top: 10px; /* Posizione della seconda barra */
+}
+
+.bar:nth-child(3) {
+  top: 20px; /* Posizione della terza barra */
+}
+
+.navMenu {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 30px;
+  margin-top: 0px;
+  font-family: "Josefin Sans", sans-serif;
+  margin-top: 50px;
+  color: #f29aa0;
+}
+
+.navMenu li .link {
+ 
+ 
+  text-decoration: none;
+  color: #d75494;
+  font-size: 15px;
+  transition: color 0.3s ease;
+  margin-right: 50px;
+  line-height: 100px;
+  position: relative; /* Added for underline styling */
+}
+
+.navMenu li .link:hover {
+  color: #f29aa0;
+  cursor: pointer;
+}
+
+.navMenu li .link.active {
+  text-decoration: none; /* Remove the default underline */
+  color: #d75494; /* Ensure active color is visible */
+  border-bottom: 2px solid #d75494; /* Custom underline */
+}
+
+.navMenu.open {
+  display: flex; /* Cambia a 'flex' per mostrare il menu */
+  opacity: 1; /* Imposta l'opacità a 1 per renderlo visibile */
+  visibility: visible; /* Rendi il menu visibile */
+  transition: opacity 0.3s ease; /* Aggiungi una transizione fluida */
+}
+
+@media (min-width: 1600px) {
+  body, hmtl{
+    overflow-x: hidden;
+  }
+}
+
+@media (min-width: 1369px) and (max-width: 1600px) {
+  /* Stili per le dimensioni tra 1369px e 1600px */
+}
+
+
+
+@media (min-width: 1025px) and (max-width: 1368px) and (orientation: portrait) {
+  .navbar {
+    position: relative;
     width: 100%;
+    height: 150px;
+   
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 10;
-    height: 100px;
-    font-weight: 400;
-    font-size: 10px;
-    text-transform: uppercase;
+    padding: 0 10px;
+    z-index: 100;
   }
-  button{
-    all: unset;
-    margin: 0;
-    padding: 0;
+
+  .logo {
+    flex-shrink: 1;
+    height: 180px;
+    overflow: hidden;
+    margin-left: 27%;
   }
-  .logo img {
-    height: 100px;
-    width: auto;
-    margin-top: 50px;
-    margin-left: 40px;
-    display: inline-block;
-    vertical-align: middle;
-  }
-  
+
   .hamburgerMenu {
-    display: none;
-    font-size: 28px;
-    cursor: pointer;
-    color: #d75494;
-  }
-  
-  .navMenu {
-    list-style: none;
+    position: relative;
+    margin-left: auto;
+    margin-right: 320px;
     display: flex;
-    justify-content: flex-end;
-    margin-right: 30px;
-    margin-top: 50px;
-    font-family: "Josefin Sans", sans-serif;
-    gap: 40px;
-    color: #f29aa0;
+    width: 30px;
+    height: 30px;
+    z-index: 101;
   }
-  
-  .navMenu li .link {
-    text-decoration: none;
-    color: #d75494;
-    font-size: 15px;
-    transition: color 0.3s ease;
-    margin-right: 20px;
-    line-height: 100px;
-    position: relative; /* Added for underline styling */
+
+  .navMenu {
+    /* Stile di base */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra orizzontalmente */
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    margin-top: 0px;
   }
-  
-  .navMenu li .link:hover {
-    color: #f29aa0;
-    cursor: pointer;
-  }
-  
-  .navMenu li .link.active {
-    text-decoration: none; /* Remove the default underline */
-    color: #d75494; /* Ensure active color is visible */
-    border-bottom: 2px solid #d75494; /* Custom underline */
-  }
-  
+
   .navMenu.open {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navMenu li .link {
+    color: white; /* Colore bianco per le scritte */
+    text-decoration: none;
+    font-size: 24px; /* Dimensione maggiore per visibilità */
+    
+    width: 100%; /* Lascia che i link si adattino al contenuto */
+    
+
+  }
+
+  .navMenu li .link:hover {
+    color: #f29aa0; /* Colore di hover */
+
+
+  }
+}
+
+
+/* ! FATTO */
+@media (min-width: 769px) and (max-width: 1024px) {
+  body, html{
+    overflow-x: hidden;
+  }
+  .navbar {
+    position: relative;
+    width: 100%;
+    height: 150px;
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 100;
+  }
+
+  .logo {
+    flex-shrink: 1;
+    height: 180px;
+    overflow: hidden;
+    margin-left: 7%;
+  }
+
+  .hamburgerMenu {
+    position: relative;
+    margin-left: auto;
+    margin-right: 180px;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    z-index: 101;
+  }
+
+  .navMenu {
+    /* Stile di base */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra orizzontalmente */
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    margin-top: 0px;
+  }
+
+  .navMenu.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navMenu li .link {
+    color: white; /* Colore bianco per le scritte */
+    text-decoration: none;
+    font-size: 24px; /* Dimensione maggiore per visibilità */
+    
+    width: 100%; /* Lascia che i link si adattino al contenuto */
+    
+
+  }
+
+  .navMenu li .link:hover {
+    color: #f29aa0; /* Colore di hover */
+
+
+  }
+}
+
+
+/* ! FATTO */
+@media (min-width: 600px) and (max-width: 768px) {
+  body, html{
+    overflow-x: hidden;
+  }
+  .navbar {
+    position: relative;
+    width: 100%;
+    height: 150px;
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 100;
+  }
+
+  .logo {
+    flex-shrink: 1;
+    height: 180px;
+    overflow: hidden;
+    margin-left: 15%;
+  }
+
+  .hamburgerMenu {
+    position: relative;
+    margin-left: auto;
+    margin-right: 210px;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    z-index: 101;
+  }
+
+  .navMenu {
+    /* Stile di base */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra orizzontalmente */
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    margin-top: 0px;
+  }
+
+  .navMenu.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navMenu li .link {
+    color: white; /* Colore bianco per le scritte */
+    text-decoration: none;
+    font-size: 24px; /* Dimensione maggiore per visibilità */
+    
+    width: 100%; /* Lascia che i link si adattino al contenuto */
+    
+
+  }
+
+  .navMenu li .link:hover {
+    color: #f29aa0; /* Colore di hover */
+
+
+  }
+}
+
+
+/* ! FATTO */
+@media (min-width: 550px) and (max-width: 599px) {
+
+  body, html{
+    overflow-x: hidden;
+  }
+  .navbar {
+    position: relative;
+    width: 100%;
+    height: 150px;
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 100;
+  }
+
+  .logo {
+    flex-shrink: 1;
+    height: 180px;
+    overflow: hidden;
+    margin-left: 20%;
+  }
+
+  .hamburgerMenu {
+    position: relative;
+    margin-left: auto;
+    margin-right: 240px;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    z-index: 101;
+  }
+
+  .navMenu {
+    /* Stile di base */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra orizzontalmente */
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    margin-top: 0px;
+  }
+
+  .navMenu.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navMenu li .link {
+    color: white; /* Colore bianco per le scritte */
+    text-decoration: none;
+    font-size: 24px; /* Dimensione maggiore per visibilità */
+    
+    width: 100%; /* Lascia che i link si adattino al contenuto */
+    
+
+  }
+
+  .navMenu li .link:hover {
+    color: #f29aa0; /* Colore di hover */
+
+
+  }
+}
+
+
+/* ! FATTO */
+@media (min-width: 430px) and (max-width: 549px) {
+
+  body, html{
+    overflow-x: hidden;
+  }
+  .navbar {
+    position: relative;
+    width: 100%;
+    height: 150px;
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 100;
+  }
+
+  .logo {
+    flex-shrink: 1;
+    height: 180px;
+    overflow: hidden;
+    margin-left: 24%;
+  }
+
+  .hamburgerMenu {
+    position: relative;
+    margin-left: auto;
+    margin-right: 380px;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    z-index: 101;
+  }
+
+  .navMenu {
+    /* Stile di base */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra orizzontalmente */
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    margin-top: 0px;
+  }
+
+  .navMenu.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navMenu li .link {
+    color: white; /* Colore bianco per le scritte */
+    text-decoration: none;
+    font-size: 24px; /* Dimensione maggiore per visibilità */
+    
+    width: 100%; /* Lascia che i link si adattino al contenuto */
+    
+
+  }
+
+  .navMenu li .link:hover {
+    color: #f29aa0; /* Colore di hover */
+
+
+  }
+}
+
+
+/* ! FATTO */
+@media (min-width: 375px) and (max-width: 429px) {
+
+ 
+  body, html{
+    overflow-x: hidden;
+  }
+  .navbar {
+    position: relative;
+    width: 100%;
+    height: 150px;
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 100;
+  }
+
+  .logo {
+    flex-shrink: 1;
+    height: 180px;
+    overflow: hidden;
+    margin-left: 27%;
+  }
+
+  .hamburgerMenu {
+    position: relative;
+    margin-left: auto;
+    margin-right: 370px;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    z-index: 101;
+  }
+
+  .navMenu {
+    /* Stile di base */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra orizzontalmente */
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    margin-top: 0px;
+  }
+
+  .navMenu.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navMenu li .link {
+    color: white; /* Colore bianco per le scritte */
+    text-decoration: none;
+    font-size: 24px; /* Dimensione maggiore per visibilità */
+    
+    width: 100%; /* Lascia che i link si adattino al contenuto */
+    
+
+  }
+
+  .navMenu li .link:hover {
+    color: #f29aa0; /* Colore di hover */
+
+
   }
   
-  @media (max-width: 768px) {
-    .hamburgerMenu {
-      display: block;
-    }
   
-    .navMenu {
-      display: none;
-      flex-direction: column;
-      background-color: #fff;
-      position: absolute;
-      top: 100px;
-      right: 0;
-      width: 200px;
-      padding: 20px;
-    }
+}
+
+
+/* ! FATTO */
+@media (min-width: 360px) and (max-width: 374px) {
+
+  body, html{
+    overflow-x: hidden;
+  }
+  .navbar {
+    position: relative;
+    width: 100%;
+    height: 150px;
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 100;
+  }
+
+  .logo {
+    flex-shrink: 1;
+    height: 180px;
+    overflow: hidden;
+    margin-left: 27%;
+  }
+
+  .hamburgerMenu {
+    position: relative;
+    margin-left: auto;
+    margin-right: 370px;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    z-index: 101;
+  }
+
+  .navMenu {
+    /* Stile di base */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra orizzontalmente */
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    margin-top: 0px;
+  }
+
+  .navMenu.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navMenu li .link {
+    color: white; /* Colore bianco per le scritte */
+    text-decoration: none;
+    font-size: 24px; /* Dimensione maggiore per visibilità */
+    
+    width: 100%; /* Lascia che i link si adattino al contenuto */
+    
+
+  }
+
+  .navMenu li .link:hover {
+    color: #f29aa0; /* Colore di hover */
+
+
+  }
+}
+
+
+/* ! FATTO */
+@media (max-width: 359px) {
+  body, html {
+    overflow-x: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    
+  }
+
+  .navbar {
+    background-color: rgb(0, 47, 255);
+    position: relative;
+    width: 100%;
+    height: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 100;
+  }
+
+  .logo {
+    flex-shrink: 1;
+    height: 180px;
+    overflow: hidden;
+    margin-left: 30%;
+  }
+
+  .hamburgerMenu {
+    position: relative;
+    margin-left: auto;
+    margin-right: 360px;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    z-index: 101;
+  }
+
+  .navMenu {
+    /* Stile di base */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra orizzontalmente */
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    margin-top: 0px;
+  }
+
+  .navMenu.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navMenu li .link {
+    color: white; /* Colore bianco per le scritte */
+    text-decoration: none;
+    font-size: 24px; /* Dimensione maggiore per visibilità */
+    
+    width: 100%; /* Lascia che i link si adattino al contenuto */
+    
+
+  }
+
+  .navMenu li .link:hover {
+    color: #f29aa0; /* Colore di hover */
+
+
   }
   
+}
+
