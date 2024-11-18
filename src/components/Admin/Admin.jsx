@@ -26,7 +26,7 @@ const AdminPanel = () => {
             setLoading(true);
             setError(null);
             try {
-                const endpoint = view === 'courses' ? '/api/courses' : view === 'users' ? '/api/users' : '/api/blogs';
+                const endpoint = view === 'courses' ? '/api/courses' : view === 'users' ? '/api/users' : '/blog';
                 const response = await axiosPrivate.get(endpoint);
                 setData(response.data);
             } catch (err) {
@@ -51,7 +51,7 @@ const AdminPanel = () => {
                 ? `/api/courses/${id}`
                 : view === 'users'
                 ? `/api/users/${id}`
-                : `/api/blogs/${id}`;
+                : `/api/blog/${id}`;
             await axiosPrivate.delete(endpoint);
             setData(data.filter(item => item._id !== id));
             alert(`${view === 'courses' ? 'Course' : view === 'users' ? 'User' : 'Blog'} deleted successfully!`);

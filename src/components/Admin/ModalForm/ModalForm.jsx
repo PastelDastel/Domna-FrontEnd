@@ -109,13 +109,18 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
                             </label>
                             <label className={style.label}>
                                 Duration:
-                                <input
-                                    type="text"
+                                <select
                                     name="duration"
                                     value={formState.duration || ''}
                                     onChange={handleInputChange}
                                     className={style.input}
-                                />
+                                >
+                                    <option value="" disabled>Select duration</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="3 months">3 Months</option>
+                                    <option value="6 months">6 Months</option>
+                                    <option value="1 year">1 Year</option>
+                                </select>
                             </label>
                             <label className={style.label}>
                                 Price:
@@ -123,6 +128,16 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
                                     type="number"
                                     name="price"
                                     value={formState.price || ''}
+                                    onChange={handleInputChange}
+                                    className={style.input}
+                                />
+                            </label>
+                            <label className={style.label}>
+                                Stripe Price Id:
+                                <input
+                                    type="text"
+                                    name="stripePriceId"
+                                    value={formState.stripePriceId || ''}
                                     onChange={handleInputChange}
                                     className={style.input}
                                 />
@@ -228,16 +243,6 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
                                     value={formState.content || ''}
                                     onChange={handleInputChange}
                                     className={style.textarea}
-                                />
-                            </label>
-                            <label className={style.label}>
-                                Author:
-                                <input
-                                    type="text"
-                                    name="author"
-                                    value={formState.author || ''}
-                                    onChange={handleInputChange}
-                                    className={style.input}
                                 />
                             </label>
                         </>

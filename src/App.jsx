@@ -13,6 +13,7 @@ import Courses from "./components/Courses/Courses";
 import About from "./components/About/About";
 import Blog from "./components/Blog/Blog";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
+import BlogArticlePage from "./components/BlogArticlePage/BlogArticlePage";
 // every 30s make a get / to keep the backend online
 setInterval(() => {
   fetch("https://domna-api.onrender.com")
@@ -33,6 +34,7 @@ function App() {
           <Route path="unauthorized" element={<Unauthorized />} />
           <Route path="courses" element={<Courses />} />
           <Route path="about" element={<About />} />
+          <Route path="/blog/article/:id" element={<BlogArticlePage />} />
           <Route path="blog" element={<Blog />} />
           <Route path="/" element={<Home />} />
 
