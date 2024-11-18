@@ -97,6 +97,10 @@ const DetailsModal = ({ item, view, setShowDetailsModal }) => {
                                 <span className={style.value}>${item.price}</span>
                             </div>
                             <div className={style.infoRow}>
+                                <p className={style.label}>Stripe Price Id:</p>
+                                <span className={style.value}>{item.stripePriceId}</span>
+                            </div>
+                            <div className={style.infoRow}>
                                 <p className={style.label}>Section:</p>
                                 <span className={style.value}>{item.section}</span>
                             </div>

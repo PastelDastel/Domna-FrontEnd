@@ -10,10 +10,13 @@ const Course = ({ course }) => {
         benefits = [],
         excluded_benefits = [],
         price,
+        stripePriceId,
         discountedPrice,
         _id: courseId,
         description,
+        duration, // Add billingInterval as a prop from the course data
     } = course;
+    console.log("Course data:", course);
 
     const navigate = useNavigate();
     const { auth } = useAuth(); // Get the authentication status
@@ -30,8 +33,10 @@ const Course = ({ course }) => {
                     productName: title,
                     price: discountedPrice || price,
                     quantity,
+                    stripePriceId: stripePriceId,
                     userId: auth.id,
                     courseId,
+                    billingInterval : duration, // Include the billingInterval in the order data
                 };
 
                 const response = await axiosPrivate.post('/api/orders', orderData);

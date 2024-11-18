@@ -12,6 +12,7 @@ const ItemCard = ({ item, view, handleModify, handleDelete, handleClick }) => {
                     <>
                         <h3 className={style.title}>{item.title}</h3>
                         <p className={style.subtitle}>Instructor: {item.instructor}</p>
+                        <p className={style.subtitle}>Price: {item.price}</p>
                     </>
                 )}
                 {view === 'users' && (

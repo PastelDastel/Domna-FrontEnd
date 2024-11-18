@@ -3,7 +3,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import styles from "./ShoppingCart.module.css"; // Import the CSS module
-
 const stripeKey = "pk_live_51OcQMBKn6sYGkBb0O6KhMw9kfYhDZj0R4E5CFLiw1pdETW0nKIWr2VPyNJPv1NVgD0vDaGNVqXltzHwFQd3TLp8H00PQnLudBr";
 const stripePromise = loadStripe(stripeKey);
 
@@ -18,7 +17,7 @@ const ShoppingCart = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axiosPrivate.get('/api/orders');
+                const response = await axiosPrivate.get('/api/orders/unpaid');
                 setOrders(response.data);
             } catch (error) {
                 console.error('Error fetching orders:', error);
@@ -34,20 +33,28 @@ const ShoppingCart = () => {
         setIsLoading(true);
         try {
             const stripe = await stripePromise;
-
             const response = await axiosPrivate.post('/api/stripe/create-checkout-session', {
-                priceId: 'price_1QEwYpKn6sYGkBb0YNfAHcGn' // Replace with your dynamic Price ID
+                lineItems: orders.map(order => ({
+                    priceId: order.stripePriceId,
+                    quantity: order.quantity,
+                    billingInterval: order.billingInterval,
+                })),
             });
 
-            const { id } = response.data;
-            await stripe.redirectToCheckout({ sessionId: id });
+            const { sessions } = response.data;
+            for (const session of sessions) {
+                if (session.sessionId) {
+                    await stripe.redirectToCheckout({ sessionId: session.sessionId });
+                } else {
+                    console.error("Session ID is missing in the response");
+                }
+            }
         } catch (error) {
             console.error('Error during checkout:', error);
         } finally {
             setIsLoading(false);
         }
     };
-
     const handleDeleteOrder = async (orderId) => {
         try {
             await axiosPrivate.delete(`/api/orders/${orderId}`);
