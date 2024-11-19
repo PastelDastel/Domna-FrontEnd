@@ -21,25 +21,26 @@ const Home = () => {
       >
         <Hero
           text="DOMNA"
-          animatedText="ALLENAMENTO FUNZIONALE FEMMINILE."
+          animatedText="ALLENAMENTO FUNZIONALE FEMMINILE"
           textAlignment="left"
         />
       </motion.div>
-      {/* <ParallaxSection
+
+     { <ParallaxSection
         text="Allenati Con DOMNA"
         id="first"
-      />
+      />}
 
       <Section />
 
       <ParallaxSection
         text="Recensioni Clienti DOMNA" id="second" />
 
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 1.2 } }}>
+    {/*   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 1.2 } }}>
         <TestimonialsSlider />
-      </motion.div>
+      </motion.div> */}
 
-      <ContactSection /> */}
+      <ContactSection />
     </>
   );
 };

@@ -77,7 +77,7 @@
 
 .socialIcons {
   position: absolute;
-  right: 60px;
+  right: auto;
   bottom: 45%;
   display: flex;
   flex-direction: column;
@@ -103,18 +103,112 @@
   color: #d75494;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1439px) {
   .hero {
-    height: calc(80vh - 100px); /* Adjust for smaller screens */
-    background-position: 50% 40%; /* Center the background */
+    height: 100vh; /* Adjust for smaller screens */
+    background-position: 60% 30%; /* Center the background */
     padding-top: 20px;
+  }
+
+  .heroText {
+    position: absolute;
+    left: unset;
+    bottom: unset;
+    text-align: center;
+    z-index: 10;
+  }
+
+  .heroText h1 {
+    font-size: 40px;
+    color: #f29aa0;
+    margin: 0;
+  }
+
+  .heroText p {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  .heroText span {
+    font-size: 10px;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  
+  .heroText span.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .socialIcons {
+    position: absolute;
+    right: auto !important; /* Lascia spazio per il posizionamento a sinistra se necessario */
+   
+    bottom: 35% !important; /* Altezza dal fondo */
+
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    z-index: 10; /* Assicurati che l'elemento sia visibile sopra gli altri */
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 359px) {
   .hero {
-    height: calc(60vh - 100px); /* Adjust for very small screens */
-    background-position: center;
+    height: 100vh; /* Adjust for very small screens */
+    background-position: 60% 30%;
     padding-top: 10px;
   }
+
+  .heroText {
+    position: absolute;
+    left: unset;
+    bottom: unset;
+    text-align: center;
+    z-index: 10;
+  }
+
+  .heroText h1 {
+    font-size: 40px;
+    color: #f29aa0;
+    margin: 0;
+  }
+
+  .heroText p {
+    font-size: 18px;
+    margin-top: 5px;
+  }
+  .heroText span {
+    font-size: 10px;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  
+  .heroText span.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .socialIcons {
+    position: absolute;
+    right:23%;
+    bottom: 35%;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+  }
+
+  
+}
+
+
+@media (max-height: 850px) {
+   .socialIcons {
+    position: absolute;
+    right:35.5%;
+    bottom: 38%;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+  }
+
 }

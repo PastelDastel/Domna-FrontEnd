@@ -104,3 +104,135 @@
   border: 1px solid #ccc;
   width: 75%;
 }
+
+
+
+
+
+@media (max-width: 1139px) {
+  .container {
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 70px; /* Spazio tra le sezioni */
+    
+   
+  }
+  .imageSectionFirst,
+  .imageSectionSecond,
+  .imageSectionThird {
+    width: 500px;
+    height: 400px;
+    background-size: cover;
+    filter: blur(0.5px);
+    position: absolute;
+  }
+  
+  .container:first-child {
+    margin-top: 30px;
+  }
+
+  .container:last-child {
+    margin-bottom: 35px;
+  }
+
+  .textSection.first,
+  .textSection.second,
+  .textSection.third {
+    width: 450px; /* Adatta la larghezza alla dimensione del contenitore */
+    margin-top: 150px; /* Aggiungi margine per separare le sezioni di testo dalle immagini */
+    background-color: #f3c7dc;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    text-align: center;
+    position: static; 
+  }
+
+  
+
+ 
+}
+
+
+@media (max-width: 359px) {
+  .container {
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px; /* Spazio tra le sezioni */
+  }
+
+  .imageSectionFirst,
+  .imageSectionSecond,
+  .imageSectionThird {
+    width: 100%; /* Imposta la larghezza al 100% del contenitore */
+    max-width: 325px; /* Limita la larghezza massima */
+    height: 250px; /* Aumenta l'altezza per vedere l'effetto */
+    min-height: 250px; /* Imposta un'altezza minima */
+    background-size: cover;
+    background-position: center; /* Posiziona l'immagine al centro */
+    filter: blur(0.5px);
+    position: static; /* Segue il flusso del layout */
+    border: 1px solid #ccc; /* Bordo temporaneo per la visualizzazione */
+  }
+
+  .textSection.first,
+  .textSection.second,
+  .textSection.third {
+    width: 90%; /* Adatta la larghezza alla dimensione del contenitore */
+    margin-top: 10px; /* Aggiungi margine per separare le sezioni di testo dalle immagini */
+    background-color: #f3c7dc;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    text-align: center;
+    position: static; /* Segue il flusso del layout */
+  }
+}
+
+
+
+
+
+
+@media (max-height: 850px) {
+
+  .container {
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px; /* Spazio tra le sezioni */
+  }
+
+  .imageSectionFirst,
+  .imageSectionSecond,
+  .imageSectionThird {
+    width: 100%; /* Imposta la larghezza al 100% del contenitore */
+    max-width: 325px; /* Limita la larghezza massima */
+    height: 250px; /* Aumenta l'altezza per vedere l'effetto */
+    min-height: 250px; /* Imposta un'altezza minima */
+    background-size: cover;
+    background-position: center; /* Posiziona l'immagine al centro */
+    filter: blur(0.5px);
+    position: static; /* Segue il flusso del layout */
+    border: 1px solid #ccc; /* Bordo temporaneo per la visualizzazione */
+  }
+
+  .textSection.first,
+  .textSection.second,
+  .textSection.third {
+    width: 90%; /* Adatta la larghezza alla dimensione del contenitore */
+    margin-top: 10px; /* Aggiungi margine per separare le sezioni di testo dalle immagini */
+    background-color: #f3c7dc;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    text-align: center;
+    position: static; /* Segue il flusso del layout */
+  }
+
+}

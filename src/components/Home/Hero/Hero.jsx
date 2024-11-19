@@ -5,7 +5,7 @@ const Hero = ({ text, animatedText }) => {
   return (
 
     <div className={style.hero}>
-      {/* <div className={style.heroText}>
+      <div className={style.heroText}>
         <h1>{text}</h1>
         <LetterAnimation text={animatedText} />
       </div>
@@ -22,7 +22,7 @@ const Hero = ({ text, animatedText }) => {
         <a href="#first" >
           <i className="fas fa-chevron-down" id="bounceArr"></i>
         </a>
-      </div> */}
+      </div>
     </div>
   );
 };
