@@ -30,7 +30,7 @@ const Navbar = () => {
       <nav className={styles.navbar}>
         {/* Logo Section */}
         <div className={styles.logo}>
-          <Link to="/" onClick={() => handleCustomEvent("Home Button")}>
+          <Link to="/" onClick={() => handleCustomEvent("Home Button")} className={styles.navLogo}>
             <img src={logo} alt="Domna Logo" />
           </Link>
         </div>
@@ -117,6 +117,15 @@ const Navbar = () => {
             </>
           ) : (
             <>
+              <li>
+                <Link
+                  to={`/shopping-cart`}
+                  className={`${styles.link} ${isActive(`/shopping-cart`) ? styles.active : ""}`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Shopping Cart
+                </Link>
+              </li>
               <li>
                 <Link
                   to={`/profile/${auth.id}`}

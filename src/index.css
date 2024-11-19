@@ -1,22 +1,20 @@
-:global(*){
-  font-family: "Josefin Sans", sans-serif;
-  scroll-behavior: smooth;
-  scrollbar-width: thin;
-}
-
-
 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Ensure consistent sizing */
   font-family: "Josefin Sans", sans-serif;
   scroll-behavior: smooth;
   scrollbar-width: thin;
+  scrollbar-color: #f39fc8 #f3c7dc;
 }
 
 body {
-  margin: -18px;
+  position: absolute; /* Avoid using `absolute` unless necessary */
+  width: 100%;
+  margin: 0; /* Remove negative margins */
   padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
 }
-
