@@ -30,7 +30,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
   text-align: center;
-  z-index: 10;
+  z-index: 1;
   transform-style: preserve-3d;
 }
 .heroText h1 {
@@ -57,10 +57,39 @@
     transform: translateY(-20px) translateX(-50%);
   }
 }
-.bounceArrow i{
-    color:#f29aa0;
+.bounceArrow i {
+  color: #f29aa0;
 }
 
-.bounceArrow i:hover{
-    color:#f29aa0;
+.bounceArrow i:hover {
+  color: #f29aa0;
+}
+
+@media (max-width: 1439px) {
+  .hero {
+    background-position-x: 45%;
+  }
+  .heroText h1 {
+    font-size: 40px;
+    z-index: 0;
+  }
+  .heroText {
+    position: absolute;
+    top: 50%;
+    right: auto;
+    text-align: center;
+    z-index: 1;
+    transform-style: preserve-3d;
+  }
+}
+
+@media (max-width: 359px) {
+
+  .hero {
+    background-position-x: 45%;
+  }
+  .heroText h1 {
+    font-size: 40px;
+    z-index: 0;
+  }
 }

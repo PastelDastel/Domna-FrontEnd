@@ -246,6 +246,8 @@ ul {
     color: #d75494; /* Change color on hover for better UX */
   }
 }
+
+
 @media (max-height: 850px) {
   .navMenu {
     position: absolute;
