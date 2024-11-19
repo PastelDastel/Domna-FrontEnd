@@ -25,7 +25,7 @@ const Home = () => {
           textAlignment="left"
         />
       </motion.div>
-      <ParallaxSection
+      {/* <ParallaxSection
         text="Allenati Con DOMNA"
         id="first"
       />
@@ -39,7 +39,7 @@ const Home = () => {
         <TestimonialsSlider />
       </motion.div>
 
-      <ContactSection />
+      <ContactSection /> */}
     </>
   );
 };
