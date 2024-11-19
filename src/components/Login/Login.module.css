@@ -107,3 +107,67 @@
 .link:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 1600px)
+{
+    /* !!! FAI QUESTO */
+}
+
+
+@media (max-width: 1139px)
+{
+
+  /* !!! FAI QUESTO */
+}
+
+
+@media (max-width: 359px) {
+  .loginForm {
+    width: 90%; 
+    padding: 20px;
+  }
+
+  .inputContainer {
+    width: 100%; 
+  }
+
+  .inputField {
+    width: 100%;
+    font-size: 14px;
+    padding: 12px; 
+  }
+
+  .inputField::placeholder {
+    color: #ffccd5;
+    font-weight: bold;
+    font-size: small;
+  }
+
+  .loginButton {
+    width: 88%; 
+    margin-top: 15px;
+    padding: 12px; 
+  }
+
+  .loginForm h1 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .links {
+    font-size: 0.8em; 
+  }
+
+  .link {
+    font-size: 0.8em; 
+  }
+}
+
+
+
+
+@media (max-height: 850px){}
