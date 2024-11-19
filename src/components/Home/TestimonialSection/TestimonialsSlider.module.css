@@ -30,7 +30,6 @@
     width: 100%;              
     margin: 50px auto;        
     padding: 20px;   
-         
     border-radius: 10px;      
     height: auto;             
   }
@@ -59,9 +58,9 @@
 @media (max-width: 359px) {
   .testimonialsWrapper {
     width: 100%;              
-    margin: 20px auto;        
+      
     padding: 20px;            
-    border-radius: 10px;      
+    border-radius: 10px;   
     height: auto;             
   }
 
