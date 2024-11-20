@@ -40,6 +40,31 @@ const Profile = () => {
     navigate("/");
   };
 
+  const sanitizeYouTubeUrl = (url) => {
+    try {
+      const parsedUrl = new URL(url);
+      const videoId = parsedUrl.searchParams.get("v");
+      return `https://www.youtube.com/watch?v=${videoId}`;
+    } catch (err) {
+      console.error("Invalid YouTube URL:", url);
+      return url; // Fallback to the original URL if parsing fails
+    }
+  };
+
+  const getVideoTitle = async (url) => {
+    try {
+      const sanitizedUrl = sanitizeYouTubeUrl(url);
+      const videoId = new URL(sanitizedUrl).searchParams.get("v");
+      const response = await axios.get(
+        `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
+      );
+      return response.data.title;
+    } catch (err) {
+      console.error("Error fetching video title:", err);
+      return "Video";
+    }
+  };
+
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
@@ -66,9 +91,26 @@ const Profile = () => {
         const response = await axiosPrivate.get(`/api/users/${id}/courses`, {
           signal: controller.signal,
         });
+
+        // Fetch video titles for each course
+        const updatedCourses = await Promise.all(
+          response.data.map(async (course) => {
+            if (course.videos && course.videos.length > 0) {
+              const videoTitles = await Promise.all(
+                course.videos.map((video) => getVideoTitle(video))
+              );
+              const sanitizedVideos = course.videos.map((video) =>
+                sanitizeYouTubeUrl(video)
+              );
+              return { ...course, videoTitles, sanitizedVideos };
+            }
+            return course;
+          })
+        );
+
         if (isMounted) {
-          setCourses(response.data);
-          console.log("User courses:", response.data);
+          setCourses(updatedCourses);
+          console.log("User courses:", updatedCourses);
         }
       } catch (err) {
         if (!axios.isCancel(err)) {
@@ -150,6 +192,23 @@ const Profile = () => {
                   <p>
                     <strong>Prezzo:</strong> €{course.price.toFixed(2)}
                   </p>
+                  {course.videoTitles && course.videoTitles.length > 0 && (
+                    <div className={styles.videosSection}>
+                      <h3>Video del corso:</h3>
+                      <ul className={styles.videoList}>
+                        {course.sanitizedVideos.map((video, index) => (
+                          <li key={index}>
+                            <button
+                              className={styles.videoButton}
+                              onClick={() => window.open(video, "_blank")}
+                            >
+                              {course.videoTitles[index]}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               ))}
             </>

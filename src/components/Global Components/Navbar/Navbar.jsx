@@ -18,7 +18,7 @@ const Navbar = () => {
     navigate("/");
     setIsMenuOpen(false);
   };
-
+  console.log(auth);
   const isActive = (path) => location.pathname === path;
 
   const handleCustomEvent = (eventLabel) => {
@@ -83,7 +83,7 @@ const Navbar = () => {
               Blog
             </Link>
           </li>
-          {auth?.roles?.Admin && (
+          {auth?.roles === 6792941695628669 && (
             <li>
               <Link
                 to="/dashboard"
