@@ -3,6 +3,8 @@ import useAuth from "../../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "./Login.module.css";
 import axios from "../../api/axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 const LOGIN_URL = "/auth";
 
@@ -85,32 +87,38 @@ const Login = () => {
             <label htmlFor="email" className={styles.label}>
               Email
             </label>
-            <input
-              type="email"
-              id="email"
-              ref={emailRef}
-              autoComplete="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-              placeholder="Inserisci la tua email"
-              className={styles.inputField}
-            />
+            <div className={styles.inputWrapper}>
+              <FontAwesomeIcon icon={faEnvelope} className={styles.icon} />
+              <input
+                type="email"
+                id="email"
+                ref={emailRef}
+                autoComplete="email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
+                placeholder="Inserisci la tua email"
+                className={styles.inputField}
+              />
+            </div>
           </div>
 
           <div className={styles.inputContainer}>
             <label htmlFor="password" className={styles.label}>
               Password
             </label>
-            <input
-              type="password"
-              id="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              required
-              placeholder="Inserisci la tua password"
-              className={styles.inputField}
-            />
+            <div className={styles.inputWrapper}>
+              <FontAwesomeIcon icon={faLock} className={styles.icon} />
+              <input
+                type="password"
+                id="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                required
+                placeholder="Inserisci la tua password"
+                className={styles.inputField}
+              />
+            </div>
           </div>
 
           <div className={styles.rememberMe}>

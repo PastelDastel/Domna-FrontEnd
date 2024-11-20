@@ -118,6 +118,36 @@
 }
 
 
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+}
+
+.inputWrapper .icon {
+  color: #ff4da6;
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+.inputField {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 1em;
+}
+
+.inputField::placeholder {
+  color: #aaa;
+  font-size: 0.9em;
+}
+
+
+
 @media (max-width: 1600px) {
   
   .registerButton {
@@ -125,7 +155,13 @@
     margin-top: 15px;
     padding: 12px;
   }
-  /* !!! FAI QUESTO */
+
+  .registerForm {
+    margin-top: 350px; /* Spazio superiore */
+    width: 70%;
+    padding: 20px;
+    border-radius: 12px;
+  }
 }
 
 @media (max-width: 1139px) {
@@ -134,53 +170,78 @@
     margin-top: 15px;
     padding: 12px;
   }
-  /* !!! FAI QUESTO */
+
+  .registerForm {
+    margin-top: 350px; /* Spazio superiore */
+    width: 70%;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+
 }
 
 @media (max-width: 359px) {
-
   .registerForm {
-    margin-top: 15px;
+    margin-top: 350px; /* Spazio superiore */
     width: 90%;
     padding: 20px;
+    border-radius: 12px;
   }
 
   .inputContainer {
     width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .inputWrapper {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+
+  .inputWrapper .icon {
+    font-size: 1.2em;
+    margin-right: 8px;
   }
 
   .inputField {
-    width: 100%;
     font-size: 14px;
     padding: 12px;
   }
 
   .inputField::placeholder {
     color: #ffccd5;
-    font-weight: bold;
-    font-size: small;
+    font-weight: normal;
+    font-size: 12px;
   }
 
-  .registerForm {
+  .registerButton {
     width: 88%;
-    margin-top: 15px;
     padding: 12px;
+    margin-top: 15px;
+    margin-bottom: 20px; /* Spazio extra sotto il pulsante */
+    border-radius: 10px;
   }
 
-  .loginForm h1 {
+  .registerForm h1 {
     font-size: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
   .label {
     font-size: 14px;
+    margin-bottom: 8px;
   }
 
   .links {
-    font-size: 0.8em;
+    font-size: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px; /* Spazio extra sotto i link */
   }
 
   .link {
-    font-size: 0.8em;
+    font-size: 12px;
   }
 }

@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useRef, useState, useEffect } from "react";
-import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTimes, faEnvelope, faUser, faPhone, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/axios";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./Register.module.css"; // Import the CSS module
+import styles from "./Register.module.css";
 
 const REGISTER_URL = "/register";
 
@@ -103,116 +103,94 @@ const Register = () => {
                 <label htmlFor="username" className={styles.label}>
                   Nome Completo
                 </label>
-                <input
-                  placeholder="Inserisci il tuo Nome e Cognome"
-                  type="text"
-                  id="username"
-                  autoComplete="off"
-                  onChange={(e) => setUsername(e.target.value)}
-                  value={username}
-                  required
-                  ref={userRef}
-                  className={styles.inputField}
-                />
+                <div className={styles.inputWrapper}>
+                  <FontAwesomeIcon icon={faUser} className={styles.icon} />
+                  <input
+                    placeholder="Inserisci il tuo Nome e Cognome"
+                    type="text"
+                    id="username"
+                    autoComplete="off"
+                    onChange={(e) => setUsername(e.target.value)}
+                    value={username}
+                    required
+                    ref={userRef}
+                    className={styles.inputField}
+                  />
+                </div>
               </div>
 
               <div className={styles.inputContainer}>
                 <label htmlFor="email" className={styles.label}>
                   Email
                 </label>
-                <input
-                  placeholder="Inserisci la tua email"
-                  type="email"
-                  id="email"
-                  autoComplete="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
-                  required
-                  className={styles.inputField}
-                />
+                <div className={styles.inputWrapper}>
+                  <FontAwesomeIcon icon={faEnvelope} className={styles.icon} />
+                  <input
+                    placeholder="Inserisci la tua email"
+                    type="email"
+                    id="email"
+                    autoComplete="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    required
+                    className={styles.inputField}
+                  />
+                </div>
               </div>
               <div className={styles.inputContainer}>
                 <label htmlFor="phone" className={styles.label}>
                   Telefono
                 </label>
-                <input
-                  placeholder="Inserisci il tuo numero di telefono"
-                  type="tel"
-                  id="phone"
-                  autoComplete="phone"
-                  onChange={(e) => setPhone(e.target.value)}
-                  value={phone}
-                  required
-                  className={styles.inputField}
-                />
+                <div className={styles.inputWrapper}>
+                  <FontAwesomeIcon icon={faPhone} className={styles.icon} />
+                  <input
+                    placeholder="Inserisci il tuo numero di telefono"
+                    type="tel"
+                    id="phone"
+                    autoComplete="phone"
+                    onChange={(e) => setPhone(e.target.value)}
+                    value={phone}
+                    required
+                    className={styles.inputField}
+                  />
+                </div>
               </div>
 
               <div className={styles.inputContainer}>
                 <label htmlFor="password" className={styles.label}>
                   Password
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className={
-                      (password ? styles.valid : styles.offscreen) +
-                      " " +
-                      styles.FontIcon
-                    }
-                  />
-                  <FontAwesomeIcon
-                    icon={faTimes}
-                    className={
-                      (password ? styles.offscreen : styles.invalid) +
-                      " " +
-                      styles.FontIcon
-                    }
-                  />
                 </label>
-                <input
-                  placeholder="Inserisci la tua password"
-                  type="password"
-                  id="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="new-password"
-                  value={password}
-                  required
-                  className={styles.inputField}
-                />
+                <div className={styles.inputWrapper}>
+                  <FontAwesomeIcon icon={faLock} className={styles.icon} />
+                  <input
+                    placeholder="Inserisci la tua password"
+                    type="password"
+                    id="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="new-password"
+                    value={password}
+                    required
+                    className={styles.inputField}
+                  />
+                </div>
               </div>
 
               <div className={styles.inputContainer}>
                 <label htmlFor="confirm_pwd" className={styles.label}>
-                  Confirm Password:
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className={
-                      (validMatch && matchPassword
-                        ? styles.valid
-                        : styles.offscreen) +
-                      " " +
-                      styles.FontIcon
-                    }
-                  />
-                  <FontAwesomeIcon
-                    icon={faTimes}
-                    className={
-                      (validMatch || !matchPassword
-                        ? styles.offscreen
-                        : styles.invalid) +
-                      " " +
-                      styles.FontIcon
-                    }
-                  />
+                  Conferma Password
                 </label>
-                <input
-                  placeholder="Conferma la tua password"
-                  type="password"
-                  id="confirm_pwd"
-                  onChange={(e) => setMatchPassword(e.target.value)}
-                  value={matchPassword}
-                  required
-                  aria-invalid={validMatch ? "false" : "true"}
-                  className={styles.inputField}
-                />
+                <div className={styles.inputWrapper}>
+                  <FontAwesomeIcon icon={faLock} className={styles.icon} />
+                  <input
+                    placeholder="Conferma la tua password"
+                    type="password"
+                    id="confirm_pwd"
+                    onChange={(e) => setMatchPassword(e.target.value)}
+                    value={matchPassword}
+                    required
+                    className={styles.inputField}
+                  />
+                </div>
               </div>
 
               <button className={styles.registerButton}>Registrati</button>
