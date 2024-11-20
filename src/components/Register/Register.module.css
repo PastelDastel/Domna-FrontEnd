@@ -149,39 +149,88 @@
 
 
 @media (max-width: 1600px) {
-  
-  .registerButton {
-    width: 88%;
-    margin-top: 15px;
-    padding: 12px;
+  html,
+  body {
+    height: 100%;
+    background-color: #fdd5e5;
+    margin: 0;
+    padding: 0;
   }
 
   .registerForm {
-    margin-top: 350px; /* Spazio superiore */
-    width: 70%;
-    padding: 20px;
-    border-radius: 12px;
+    margin-top: 100px; /* Riduce lo spazio superiore */
+    width: 60%; /* Aumenta la larghezza del modulo */
+    padding: 20px; /* Riduce leggermente il padding */
+    border-radius: 15px;
+    background-color: #ff4da6;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .inputWrapper {
+    width: 90%; /* Mantiene la larghezza degli input proporzionata */
+    padding: 10px;
+    border-radius: 8px;
+    margin: 0 auto;
+    border: none;
+    background-color: #fff;
+  }
+
+  .inputWrapper .icon {
+    font-size: 1.2em;
+    margin-right: 10px;
+  }
+
+  .inputField {
+    font-size: 14px;
+    padding: 10px;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+  }
+
+  .inputField:focus {
+    outline: 2px solid #ffd6e8;
+  }
+
+  .registerButton {
+    width: 50%; /* Riduce la larghezza del pulsante */
+    padding: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+
+  .registerForm h1 {
+    font-size: 22px; /* Mantiene un titolo proporzionato */
+    margin-bottom: 15px;
+  }
+
+  .label {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .links {
+    font-size: 12px;
+    margin-top: 20px;
+  }
+
+  .link {
+    font-size: 12px;
   }
 }
+
 
 @media (max-width: 1139px) {
-  .registerButton {
-    width: 88%;
-    margin-top: 15px;
-    padding: 12px;
+
+  html,
+  body {
+    height: 100%;
+
+    background-color: #fdd5e5; /* Colore coerente con il modulo */
   }
 
-  .registerForm {
-    margin-top: 350px; /* Spazio superiore */
-    width: 70%;
-    padding: 20px;
-    border-radius: 12px;
-  }
-  
-
-}
-
-@media (max-width: 359px) {
   .registerForm {
     margin-top: 350px; /* Spazio superiore */
     width: 90%;
@@ -189,16 +238,13 @@
     border-radius: 12px;
   }
 
-  .inputContainer {
-    width: 100%;
-    margin-bottom: 15px;
-  }
-
   .inputWrapper {
     width: 100%;
     padding: 12px;
     border-radius: 8px;
     margin: 0 auto;
+    border: none; /* Rimuove il bordo */
+    background-color: #fff; /* Mantieni uno sfondo neutro */
   }
 
   .inputWrapper .icon {
@@ -209,6 +255,13 @@
   .inputField {
     font-size: 14px;
     padding: 12px;
+    border: none; /* Rimuove il bordo interno */
+    box-shadow: none; /* Rimuove eventuali ombre */
+    background-color: transparent; /* Rende lo sfondo trasparente */
+  }
+
+  .inputField:focus {
+    outline: none; /* Rimuove il bordo di messa a fuoco */
   }
 
   .inputField::placeholder {
@@ -222,7 +275,86 @@
     padding: 12px;
     margin-top: 15px;
     margin-bottom: 20px; /* Spazio extra sotto il pulsante */
-    border-radius: 10px;
+  }
+
+  .registerForm h1 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .label {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .links {
+    font-size: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px; /* Spazio extra sotto i link */
+  }
+
+  .link {
+    font-size: 12px;
+  }
+
+}
+
+@media (max-width: 359px) {
+
+
+  html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fdd5e5; /* Colore coerente con il modulo */
+}
+
+
+  .registerForm {
+    margin-top: 350px; /* Spazio superiore */
+    width: 90%;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .inputWrapper {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 0 auto;
+    border: none; /* Rimuove il bordo */
+    background-color: #fff; /* Mantieni uno sfondo neutro */
+  }
+
+  .inputWrapper .icon {
+    font-size: 1.2em;
+    margin-right: 8px;
+  }
+
+  .inputField {
+    font-size: 14px;
+    padding: 12px;
+    border: none; /* Rimuove il bordo interno */
+    box-shadow: none; /* Rimuove eventuali ombre */
+    background-color: transparent; /* Rende lo sfondo trasparente */
+  }
+
+  .inputField:focus {
+    outline: none; /* Rimuove il bordo di messa a fuoco */
+  }
+
+  .inputField::placeholder {
+    color: #ffccd5;
+    font-weight: normal;
+    font-size: 12px;
+  }
+
+  .registerButton {
+    width: 88%;
+    padding: 12px;
+    margin-top: 15px;
+    margin-bottom: 20px; /* Spazio extra sotto il pulsante */
   }
 
   .registerForm h1 {
@@ -245,3 +377,4 @@
     font-size: 12px;
   }
 }
+

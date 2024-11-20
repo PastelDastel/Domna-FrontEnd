@@ -5,3 +5,17 @@
   padding: 2em;
   margin: 0 auto;
 }
+
+
+@media (max-width: 359px) {
+  .coursesWrapper {
+    display: grid;
+    grid-template-columns: 1fr; /* Una sola colonna che riempie lo spazio disponibile */
+    grid-gap: 2em; /* Spaziatura tra gli elementi */
+    padding: 2em;
+    margin: 0 auto; /* Centra il contenuto */
+    justify-content: center; /* Centra gli elementi orizzontalmente */
+    align-items: center; /* Centra gli elementi verticalmente */
+    text-align: center; /* Centra il testo */
+  }
+}
