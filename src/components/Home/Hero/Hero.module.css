@@ -77,11 +77,12 @@
 
 .socialIcons {
   position: absolute;
-  right: auto;
-  bottom: 45%;
+  right: 5% !important; /* Lascia spazio per il posizionamento a sinistra se necessario */
+  bottom: 37% !important; /* Altezza dal fondo */
   display: flex;
-  flex-direction: column;
+  flex-direction: column !important;
   gap: 50px;
+  z-index: 10; /* Assicurati che l'elemento sia visibile sopra gli altri */
 }
 
 .socialIcons a {
