@@ -42,24 +42,87 @@ strong {
 }
 
 
+@media (max-width: 1800px) {}
+
+
+@media (max-width: 700px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .imageSection {
+    width: 90%; 
+    height:700px; 
+    bottom: 5%;
+    left: 5%;
+    background: url("../../../assets/JPG/IMG_7936.jpg") no-repeat center center;
+    background-size: cover;
+    margin: 20px auto;
+  }
+
+  .textSection {
+    width: 70%;
+    height: 500px; 
+    background-color: #f3c7dc;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.5;
+    top: 59%;
+    overflow-y: scroll;
+    left: 0%;
+    margin-bottom: 60px; /* Aggiungi uno spazio maggiore */
+    position: relative; /* Evita che il testo fluisca sopra altre sezioni */
+  }
+
+  
+}
 @media (max-width: 359px) {
-  .container{
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    max-width: 359px;
+    margin: 0 auto;
   }
 
-  .imageSection{
-    width: 100%;
-    height: 100%;
-    scale: 0.9;
+  .imageSection {
+    width:50%; /* Riduce la larghezza */
+    height: 500px; /* Riduce l'altezza */
+
+    background: url("../../../assets/JPG/IMG_7936.jpg") no-repeat center center;
+    background-size: cover;
+    left: auto;
+    top: -30%;
   }
 
-  .textSection{
-    width: 100%;
-    height: 100%;
-    top: 80px;
-    left: 8%;
-    padding: 20px 10px;
-    scale: 0.8;
+  .textSection {
+    width: 75%; /* Riduce ulteriormente la larghezza */
+    max-width: 350px; /* Limite massimo per evitare di occupare troppo spazio */
+    height: auto; /* Adatta l'altezza al contenuto */
+    max-height: 400px; /* Limita l'altezza per mantenere compattezza */
+    background-color: #f3c7dc;
+    padding: 10px 15px; /* Margine interno bilanciato */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    font-size: 0.8rem; /* Riduce il testo per contenere meglio il contenuto */
+    line-height: 1.4; /* Migliora la leggibilità */
+    margin: 10px auto; /* Centra e riduce spazio attorno */
+    position: relative;
+    overflow-y: scroll;
+    word-wrap: break-word; /* Assicura che le parole non escano fuori dalla sezione */
+}
+
+  h2 {
+    font-size: 1rem; /* Riduce la dimensione del titolo */
+    text-align: center;
+    margin-bottom: 8px;
   }
-} 
+}
+

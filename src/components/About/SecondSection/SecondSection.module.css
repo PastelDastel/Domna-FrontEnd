@@ -48,3 +48,52 @@ h2 {
   width: 100%;
   height: 400px;
 }
+
+
+@media (max-width: 700px) {
+  .mindsetContainer {
+    flex-direction: column; /* Dispone gli elementi in colonna */
+    align-items: center; /* Centra il contenitore */
+    gap: 30px; /* Riduce lo spazio tra le sezioni */
+    padding: 10px; /* Riduce ulteriormente il padding */
+    margin-bottom: auto;
+  }
+
+ 
+  .mindsetColumn {
+    width: 60%; /* Ogni colonna prende il 60% della larghezza */
+    text-align: left; /* Mantiene il testo allineato a sinistra */
+    padding: 8px; /* Riduce il padding interno */
+  }
+
+  h2 {
+    font-size: 1rem; /* Riduce la dimensione del titolo per dispositivi più piccoli */
+    text-align: center; /* Mantiene il titolo centrato */
+    margin-bottom: 5px; /* Riduce lo spazio sotto il titolo */
+  }
+}
+
+
+@media (max-width: 359px) 
+{
+  .mindsetContainer {
+    flex-direction: column; /* Dispone gli elementi in colonna */
+    align-items: center; /* Centra il contenitore */
+    gap: 30px; /* Riduce lo spazio tra le sezioni */
+    padding: 10px; /* Riduce ulteriormente il padding */
+    margin-bottom: auto;
+  }
+
+ 
+  .mindsetColumn {
+    width: 30%; /* Ogni colonna prende il 60% della larghezza */
+    text-align: center; /* Mantiene il testo allineato a sinistra */
+    padding: 8px; /* Riduce il padding interno */
+  }
+
+  h2 {
+    font-size: 1rem; /* Riduce la dimensione del titolo per dispositivi più piccoli */
+    text-align: center; /* Mantiene il titolo centrato */
+    margin-bottom: 5px; /* Riduce lo spazio sotto il titolo */
+  }
+}
