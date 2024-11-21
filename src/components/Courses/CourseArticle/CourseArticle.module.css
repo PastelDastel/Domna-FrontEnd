@@ -115,3 +115,18 @@
   opacity: 0;
   transition: max-height 2s ease-in-out, opacity 2s ease-in-out;
 }
+
+
+@media (max-width: 359px) 
+{
+  .sectionTitle {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    color: black;
+    grid-column: span 2;
+  }
+}

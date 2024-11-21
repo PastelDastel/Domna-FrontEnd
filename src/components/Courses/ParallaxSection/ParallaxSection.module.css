@@ -1,6 +1,6 @@
 .parallaxSection1MarginFiller {
   position: relative;
-  height: 400px;
+  height: 700px;
   background: no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
@@ -13,4 +13,54 @@
   font-size: 35pt;
   color: white;
   font-weight: bold;
+}
+
+
+
+@media (max-width: 1439px) 
+{
+  .parallaxSection1MarginFiller {
+    position: relative;
+    height:500px;
+    width: auto;
+    background: no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../../assets/JPG/paralla.jpg');
+  }
+
+  .reviewTestimonialText {
+    font-size: 17pt;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+@media (max-width: 359px)
+{
+  .parallaxSection1MarginFiller {
+    position: relative;
+    height:1000px;
+    width: auto;
+    background: no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../../assets/JPG/paralla.jpg');
+  }
+
+  .reviewTestimonialText {
+    font-size: 16pt;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 }

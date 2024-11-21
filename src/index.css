@@ -20,9 +20,18 @@ body {
 }
 
 
+@media (min-width: 1600px) 
+{
+  *{
+    scrollbar-width: none;
+  
+  }
+}
+
 @media (max-width: 1439px) {
   
   *{
     scrollbar-width: none;
+  
   }
   }

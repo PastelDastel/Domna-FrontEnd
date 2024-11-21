@@ -105,6 +105,19 @@
 }
 
 
+@media (min-width: 1600px) 
+{
+  .socialIcons {
+    position: absolute;
+    right: 4% !important; /* Lascia spazio per il posizionamento a sinistra se necessario */
+    bottom: 45% !important; /* Altezza dal fondo */
+    display: flex;
+    flex-direction: column !important;
+    gap: 50px;
+    z-index: 10; /* Assicurati che l'elemento sia visibile sopra gli altri */
+  }
+}
+
 @media (max-width: 1600px)
 {
   .socialIcons {
