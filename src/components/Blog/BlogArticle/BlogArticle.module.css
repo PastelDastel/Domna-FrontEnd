@@ -1,10 +1,14 @@
 /* Blog Category */
 .blogPost {
   width: calc((100% - 100px) / 6);
+  min-width: 200px;
+  max-width: 300px;
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
   box-sizing: border-box;
+  /*2 per row*/
+  flex: 1 1 0;
 }
 
 .blogPost img {
@@ -52,11 +56,19 @@
   color: #333333;
 }
 .blogPost {
-    opacity: 1; /* Default opacity */
-    transition: opacity 0.5s ease-in-out; /* Adjust duration and easing for a smoother effect */
+  opacity: 1; /* Default opacity */
+  transition: opacity 0.5s ease-in-out; /* Adjust duration and easing for a smoother effect */
 }
 
 .extraPost {
-    display: none; /* Ensures hidden by default */
-    opacity: 0; /* Start with 0 opacity */
+  display: none; /* Ensures hidden by default */
+  opacity: 0; /* Start with 0 opacity */
+}
+
+@media (max-width: 1800px) {
+  .blogPost {
+    
+    width: 100%;
+    margin: auto;
+  }
 }

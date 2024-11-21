@@ -2,71 +2,46 @@ import style from "./BlogWrapper.module.css";
 import { useLayoutEffect, useRef, useState } from "react";
 import BlogArticle from "../BlogArticle/BlogArticle";
 
+// Move the getVisiblePosts function outside the component
+const getVisiblePosts = (width) => {
+    if (width <= 577) return 3;
+    if (width <= 822) return 4;
+    if (width <= 1066) return 5;
+    if (width <= 1311) return 6;
+    if (width <= 1555) return 7;
+    return 6; 
+};
+
 const BlogWrapper = ({ category, description }) => {
     const containerRef = useRef();
     const [isExpanded, setIsExpanded] = useState(false);
+    const [visiblePosts, setVisiblePosts] = useState(getVisiblePosts(window.innerWidth)); // Initialize visible posts
 
     useLayoutEffect(() => {
-        if (containerRef.current) {
-            // Select elements with class names that start with '_blogPost_'
-            const posts = containerRef.current.querySelectorAll("[class^='_blogPost_']");
-            console.log("All posts: ", posts); // Check if posts are now available
+        const updateVisiblePosts = () => {
+            const posts = containerRef.current?.querySelectorAll("[class^='_blogPost_']") || [];
             posts.forEach((post, index) => {
-                if (index >= 6) { // Hide articles starting from the 7th (index 6)
-                    console.log("Hiding post: ", post);
-                    post.classList.add(style.extraPost); // Apply module CSS class for hidden posts
+                if (index < visiblePosts || isExpanded) {
+                    post.style.display = "block"; // Show posts within the limit or all if expanded
+                } else {
+                    post.style.display = "none"; // Hide the rest
                 }
             });
-        }
-    }, []); // Runs synchronously after DOM updates but before painting
+        };
 
-    const getElementsWithClassRegex = (parent, regex) => {
-        // Get all elements within the parent
-        const allElements = parent.querySelectorAll('*');
-        // Filter elements that match the regex
-        return Array.from(allElements).filter(element => {
-            return Array.from(element.classList).some(className => regex.test(className));
-        });
-    };
+        updateVisiblePosts(); // Run initially
+
+        const handleResize = () => {
+            const newVisiblePosts = getVisiblePosts(window.innerWidth);
+            setVisiblePosts(newVisiblePosts); // Update visible posts count on resize
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [visiblePosts, isExpanded]); // Re-run effect when visiblePosts or isExpanded changes
 
     const toggleExtraPosts = (e) => {
-        const button = e.target;
-        // Get elements with class names that match the regex
-        const extraPosts = getElementsWithClassRegex(containerRef.current, /^_extraPost_/);
-
-        console.log("Found extra posts: ", extraPosts);
-
-        if (extraPosts.length === 0) {
-            console.error("No extra posts found. Check if the class name matches.");
-            return;
-        }
-
-        if (isExpanded) {
-            // Collapse only the extra posts
-            extraPosts.forEach((post) => fadeOut(post, 500)); // Match the duration in CSS transition
-            button.textContent = "Leggi tutti gli articoli";
-            setIsExpanded(false);
-        } else {
-            // Expand the extra posts
-            extraPosts.forEach((post) => fadeIn(post));
-            button.textContent = "Mostra meno articoli";
-            setIsExpanded(true);
-        }
-    };
-
-    const fadeIn = (element) => {
-        element.style.display = "block"; // Ensure the element is displayed
-        requestAnimationFrame(() => {
-            element.style.opacity = 1;
-        });
-    };
-
-    const fadeOut = (element) => {
-        element.style.opacity = 0;
-        // Optionally use a timeout to hide the element after the transition completes
-        setTimeout(() => {
-            element.style.display = "none"; // Hide after the transition completes
-        }, 500); // Match the duration in the CSS transition
+        setIsExpanded((prev) => !prev); // Toggle expanded state
     };
 
     return (
@@ -82,12 +57,12 @@ const BlogWrapper = ({ category, description }) => {
                         description={
                             "Scopri come l'allenamento funzionale può aiutarti a migliorare la tua resistenza e forza..."
                         }
-                        className={`${style.blogPost} ${index >= 6 ? style.extraPost : ''}`} // Pass conditional className
+                        className={`${style.blogPost} ${index >= visiblePosts ? style.extraPost : ''}`}
                     />
                 ))}
             </div>
             <button className={style.categoryLink} onClick={toggleExtraPosts}>
-                Leggi tutti gli articoli
+                {isExpanded ? "Mostra meno articoli" : "Leggi tutti gli articoli"}
             </button>
         </div>
     );

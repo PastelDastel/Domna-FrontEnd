@@ -57,10 +57,46 @@
     transform: translateY(-20px) translateX(-50%);
   }
 }
-.bounceArrow i{
-    color:#f29aa0;
+.bounceArrow i {
+  color: #f29aa0;
 }
 
-.bounceArrow i:hover{
-    color:#f29aa0;
+.bounceArrow i:hover {
+  color: #f29aa0;
+}
+
+@media (max-width: 800px) {
+  .hero {
+    height: 100vh; /* Adjust for smaller screens */
+    background-position: 60% 30%; /* Center the background */
+    padding-top: 20px;
+  }
+
+  .heroText {
+    left: 50%;
+    top: 65%;
+    z-index: 2;
+  }
+
+  .heroText h1 {
+    text-align: center;
+    font-size: 40px;
+    color: #f29aa0;
+    margin: 0;
+  }
+}
+
+@media (max-width: 359px) {
+  .hero {
+    height: 100vh; /* Adjust for very small screens */
+    background-position: 60% 30%;
+    padding-top: 10px;
+  }
+
+  .heroText {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    z-index: 2;
+  }
 }

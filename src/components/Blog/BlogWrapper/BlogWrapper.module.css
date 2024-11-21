@@ -1,7 +1,7 @@
 /* Blog Category */
 .blogCategory {
   padding: 50px 5%;
-  width: 90%;
+  width: 100%;
   text-align: left;
   background-color: #fff5f8;
   margin: 0;
@@ -23,12 +23,14 @@
 
 /* Blog Container */
 .blogContainer {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  
   gap: 20px;
   max-width: 100%;
   margin: 0 50px 0 50px; /* top right bottom left */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 /* Category Link */
@@ -51,4 +53,47 @@
 .extraPost {
   display: none; /* Ensures hidden by default */
   opacity: 0; /* Start with 0 opacity */
+}
+
+@media (max-width: 1800px) {
+  .blogCategory {
+    width: 100%;
+    text-align: left;
+    margin: 0;
+  }
+
+  .categoryTitle{
+    text-align: left;
+  }
+  .blogContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  /* Category Link */
+  .categoryLink {
+    display: unset;
+    font-weight: bold;
+    color: #6b6b6b;
+    border: 2px solid #6b6b6b;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-left: 50px;
+    margin-top: 30px;
+  }  
+}
+@media (max-width: 1066px) {
+  .blogCategory {
+    width: 100%;
+    text-align: center;
+  }
+  .categoryTitle{
+    text-align: center;
+  }
+  .categoryLink{
+    
+    margin-left: unset;
+  }
 }

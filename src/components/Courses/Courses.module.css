@@ -34,3 +34,58 @@
   margin: 20px 0;
 }
 
+@media (max-width: 1439px) {
+  .parallaxFirst {
+    height: 275px;
+    margin: 75px;
+  }
+
+}
+
+
+@media(max-width: 768px) {
+  .parallaxFirst {
+    height: 250px;
+    margin: 50px;
+  }
+  .firstP {
+    font-size: 32pt;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin: 0;
+    font-weight: 900;
+  }
+  .secondP{
+    font-size: 27pt;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin: 0;
+    font-weight: 900;
+  }
+}
+
+
+@media (max-width: 359px) {
+  .parallaxFirst {
+    height: 200px;
+    margin: 50px;
+  }
+  .firstP {
+    font-size: 30pt;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin: 0;
+    font-weight: 900;
+  }
+  .secondP{
+    font-size: 25pt;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin: 0;
+    font-weight: 900;
+  }
+}

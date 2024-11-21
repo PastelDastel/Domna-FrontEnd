@@ -39,7 +39,7 @@ const Courses = () => {
       <Hero text={"CORSI"} />
 
       <div className={style.parallaxFirst} id='first'>
-        <p className={style.reviewTestimonial}>DOMNA</p>
+        <p className={`${style.reviewTestimonial} ${style.firstP}`} id="firstP">DOMNA</p>
       </div>
 
       {
@@ -55,7 +55,7 @@ const Courses = () => {
 
 
       <div className={style.parallaxFirst}>
-        <p className={style.reviewTestimonial}>DOMNA + LIVE</p>
+        <p className={`${style.reviewTestimonial} ${style.secondP}`}>DOMNA + LIVE</p>
       </div>
 
       {

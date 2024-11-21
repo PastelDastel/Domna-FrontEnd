@@ -6,7 +6,6 @@ const Blog = () => {
       <Hero
         animatedText={"Articoli vari"}
         text={"Blog DOMNA"}
-        textAlignment={"center"}
       />
       <BlogWrapper
         category={"Allenamento"}

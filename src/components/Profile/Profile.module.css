@@ -1,8 +1,9 @@
 .profileContainer {
   display: flex;
+  flex-direction: row;
   width: 100vw;
   height: 100vh;
-  background-color: antiquewhite;
+  background-color: #fff0f5;
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -16,6 +17,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
+  height: 100vh;
 }
 .profileSidebar h2 {
   color: #ff4d94;
@@ -56,11 +59,11 @@
 .profileContent {
   width: 75%;
   padding: 50px;
-  max-width: 1600px;
+  margin-top: 100px;
   background-color: #fff0f5;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  overflow-y: scroll;
 }
 
 .profileContent h1 {
@@ -77,7 +80,8 @@
 
 .profileContent p strong {
   color: #ff4d94;
-}.videosSection {
+}
+.videosSection {
   margin-top: 20px;
 }
 
@@ -100,4 +104,87 @@
 
 .videoButton:hover {
   background-color: #0056b3;
+}
+
+@media (max-width: 1439px) {
+  .profileContainer {
+    display: flex;
+    flex-direction: row;
+
+    background-color: antiquewhite;
+  }
+  .profileSidebar {
+    width: 40%;
+    background-color: #ffc2d1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .profileContent {
+    width: 75%;
+    padding: 50px;
+    margin-top: unset;
+    background-color: #fff0f5;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+
+  .courseDetail h2 {
+    text-align: left;
+  }
+}
+@media (max-width: 1024px) {
+  .profileSidebar {
+    width: 40%;
+    background-color: #ffc2d1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .profileContent {
+    width: 60%;
+    padding: 50px;
+    background-color: #fff0f5;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+
+  .courseDetail h2 {
+    text-align: left;
+  }
+}
+@media (max-width: 700px) {
+  .profileContainer {
+    display: flex;
+    flex-direction: column;
+    width: unset;
+    height: unset;
+    background-color: antiquewhite;
+    overflow-y: scroll;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  .profileSidebar {
+    width: unset;
+    background-color: #ffc2d1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .profileContent {
+    width: unset;
+    background-color: #fff0f5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .courseDetail h2 {
+    text-align: left;
+  }
 }
