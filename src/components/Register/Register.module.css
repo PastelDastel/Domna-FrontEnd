@@ -159,7 +159,7 @@
 
   .registerForm {
     margin-top: 100px; /* Riduce lo spazio superiore */
-    width: 60%; /* Aumenta la larghezza del modulo */
+    width: 50%; /* Aumenta la larghezza del modulo */
     padding: 20px; /* Riduce leggermente il padding */
     border-radius: 15px;
     background-color: #ff4da6;
@@ -227,24 +227,28 @@
   html,
   body {
     height: 100%;
-
+    margin: 0;
+    padding: 0;
     background-color: #fdd5e5; /* Colore coerente con il modulo */
   }
 
+
   .registerForm {
-    margin-top: 350px; /* Spazio superiore */
-    width: 90%;
-    padding: 20px;
+    margin-top: 500px; /* Spazio superiore */
+    width: 67%;
+
     border-radius: 12px;
+
   }
 
   .inputWrapper {
     width: 100%;
-    padding: 12px;
+    height: 105%;
     border-radius: 8px;
-    margin: 0 auto;
+ 
     border: none; /* Rimuove il bordo */
     background-color: #fff; /* Mantieni uno sfondo neutro */
+    
   }
 
   .inputWrapper .icon {
@@ -253,15 +257,15 @@
   }
 
   .inputField {
-    font-size: 14px;
+    font-size: 5px;
     padding: 12px;
-    border: none; /* Rimuove il bordo interno */
-    box-shadow: none; /* Rimuove eventuali ombre */
+    border: none;
+    box-shadow: none; 
     background-color: transparent; /* Rende lo sfondo trasparente */
   }
 
   .inputField:focus {
-    outline: none; /* Rimuove il bordo di messa a fuoco */
+    outline: none; 
   }
 
   .inputField::placeholder {
@@ -271,10 +275,10 @@
   }
 
   .registerButton {
-    width: 88%;
+    width: max-content;
     padding: 12px;
     margin-top: 15px;
-    margin-bottom: 20px; /* Spazio extra sotto il pulsante */
+    margin-bottom: 20px;
   }
 
   .registerForm h1 {
@@ -303,19 +307,20 @@
 
 
   html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: #fdd5e5; /* Colore coerente con il modulo */
-}
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fdd5e5; /* Colore coerente con il modulo */
+  }
 
 
   .registerForm {
-    margin-top: 350px; /* Spazio superiore */
-    width: 90%;
+    margin-top: 500px; /* Spazio superiore */
+    width: 97%;
     padding: 20px;
     border-radius: 12px;
+
   }
 
   .inputWrapper {
@@ -325,6 +330,7 @@ body {
     margin: 0 auto;
     border: none; /* Rimuove il bordo */
     background-color: #fff; /* Mantieni uno sfondo neutro */
+    
   }
 
   .inputWrapper .icon {
@@ -333,15 +339,15 @@ body {
   }
 
   .inputField {
-    font-size: 14px;
+    font-size: 5px;
     padding: 12px;
-    border: none; /* Rimuove il bordo interno */
-    box-shadow: none; /* Rimuove eventuali ombre */
+    border: none;
+    box-shadow: none; 
     background-color: transparent; /* Rende lo sfondo trasparente */
   }
 
   .inputField:focus {
-    outline: none; /* Rimuove il bordo di messa a fuoco */
+    outline: none; 
   }
 
   .inputField::placeholder {
@@ -351,10 +357,10 @@ body {
   }
 
   .registerButton {
-    width: 88%;
+    width: max-content;
     padding: 12px;
     margin-top: 15px;
-    margin-bottom: 20px; /* Spazio extra sotto il pulsante */
+    margin-bottom: 20px;
   }
 
   .registerForm h1 {
