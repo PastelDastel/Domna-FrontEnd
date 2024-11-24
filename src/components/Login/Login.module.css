@@ -179,6 +179,37 @@
   }
 }
 
+
+@media (max-width: 700px)
+{
+  .loginButton {
+    width: 82%;
+    margin-top: 15px;
+    padding: 12px;
+  }
+  
+  .loginForm {
+    width: 55%;
+    height: 65%;
+  }
+}
+
+
+
+@media (max-width: 500px) {
+  .loginButton {
+    width: 82%;
+    margin-top: 15px;
+    padding: 12px;
+  }
+  
+  .loginForm {
+    width: 85%;
+    height: 65%;
+  }
+}
+
+
 @media (max-width: 359px) {
   .loginButton {
     width: 82%;
