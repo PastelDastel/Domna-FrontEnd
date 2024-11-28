@@ -101,13 +101,44 @@ const DetailsModal = ({ item, view, setShowDetailsModal }) => {
                 <span className={style.value}>{item.stripePriceId || "N/A"}</span>
               </div>
               <div className={style.infoRow}>
-                <p className={style.label}>Video links:</p>
-                <span className={style.value}>{item.videos || "N/A"}</span>
-              </div>
-              <div className={style.infoRow}>
                 <p className={style.label}>Section:</p>
                 <span className={style.value}>{item.section || "N/A"}</span>
               </div>
+              <div className={style.infoRow}>
+                <p className={style.label}>Categories:</p>
+                <span className={style.value}>
+                  {item.categories && item.categories.length > 0 ? (
+                    <ul className={style.categoryList}>
+                      {item.categories.map((category, index) => (
+                        <li key={index} className={style.categoryItem}>
+                          <strong>{category.name}:</strong>
+                          {category.videos && category.videos.length > 0 ? (
+                            <ul className={style.videoList}>
+                              {category.videos.map((video, videoIndex) => (
+                                <li key={videoIndex} className={style.videoItem}>
+                                  <a
+                                    href={video}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={style.videoLink}
+                                  >
+                                    {video}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <span>No videos</span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    "No categories"
+                  )}
+                </span>
+              </div>
+
             </>
           )}
         </section>

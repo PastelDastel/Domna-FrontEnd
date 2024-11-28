@@ -40,31 +40,6 @@ const Profile = () => {
     navigate("/");
   };
 
-  const sanitizeYouTubeUrl = (url) => {
-    try {
-      const parsedUrl = new URL(url);
-      const videoId = parsedUrl.searchParams.get("v");
-      return `https://www.youtube.com/watch?v=${videoId}`;
-    } catch (err) {
-      console.error("Invalid YouTube URL:", url);
-      return url; // Fallback to the original URL if parsing fails
-    }
-  };
-
-  const getVideoTitle = async (url) => {
-    try {
-      const sanitizedUrl = sanitizeYouTubeUrl(url);
-      const videoId = new URL(sanitizedUrl).searchParams.get("v");
-      const response = await axios.get(
-        `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
-      );
-      return response.data.title;
-    } catch (err) {
-      console.error("Error fetching video title:", err);
-      return "Video";
-    }
-  };
-
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
@@ -76,7 +51,6 @@ const Profile = () => {
         });
         if (isMounted) {
           setUser(response.data.user);
-          console.log("User data:", response.data.user);
         }
       } catch (err) {
         if (!axios.isCancel(err)) {
@@ -91,26 +65,8 @@ const Profile = () => {
         const response = await axiosPrivate.get(`/api/users/${id}/courses`, {
           signal: controller.signal,
         });
-
-        // Fetch video titles for each course
-        const updatedCourses = await Promise.all(
-          response.data.map(async (course) => {
-            if (course.videos && course.videos.length > 0) {
-              const videoTitles = await Promise.all(
-                course.videos.map((video) => getVideoTitle(video))
-              );
-              const sanitizedVideos = course.videos.map((video) =>
-                sanitizeYouTubeUrl(video)
-              );
-              return { ...course, videoTitles, sanitizedVideos };
-            }
-            return course;
-          })
-        );
-
         if (isMounted) {
-          setCourses(updatedCourses);
-          console.log("User courses:", updatedCourses);
+          setCourses(response.data);
         }
       } catch (err) {
         if (!axios.isCancel(err)) {
@@ -132,12 +88,7 @@ const Profile = () => {
     <>
       <MetaPixel
         pixelId={"410616855425028"}
-        events={[
-          {
-            type: "ThisDudeIsOnTheProfilePage",
-            params: { userId: user?.id },
-          },
-        ]}
+        events={[{ type: "ThisDudeIsOnTheProfilePage", params: { userId: user?.id } }]}
       />
       <div className={styles.profileContainer}>
         <div className={styles.profileSidebar}>
@@ -192,21 +143,32 @@ const Profile = () => {
                   <p>
                     <strong>Prezzo:</strong> €{course.price.toFixed(2)}
                   </p>
-                  {course.videoTitles && course.videoTitles.length > 0 && (
-                    <div className={styles.videosSection}>
-                      <h3>Video del corso:</h3>
-                      <ul className={styles.videoList}>
-                        {course.sanitizedVideos.map((video, index) => (
-                          <li key={index}>
-                            <button
-                              className={styles.videoButton}
-                              onClick={() => window.open(video, "_blank")}
-                            >
-                              {course.videoTitles[index]}
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
+                  {course.categories && course.categories.length > 0 && (
+                    <div className={styles.categoriesSection}>
+                      <h3>Categorie del corso:</h3>
+                      {course.categories.map((category, index) => (
+                        <div key={index} className={styles.categoryItem}>
+                          <p>
+                            <strong>{category.name}</strong>
+                          </p>
+                          {category.videos && category.videos.length > 0 ? (
+                            <ul className={styles.videoList}>
+                              {category.videos.map((video, videoIndex) => (
+                                <li key={videoIndex} className={styles.videoItem}>
+                                  <button
+                                    className={styles.videoButton}
+                                    onClick={() => window.open(video, "_blank")}
+                                  >
+                                    {video}
+                                  </button>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className={styles.noVideos}>No videos in this category</p>
+                          )}
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>

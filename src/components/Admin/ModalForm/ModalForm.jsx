@@ -2,15 +2,26 @@ import React, { useState, useEffect } from "react";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import style from "./ModalForm.module.css"; // Import the CSS module
 
-const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding, setData, data, auth }) => {
+const ModalForm = ({
+  view,
+  selectedItem,
+  setSelectedItem,
+  setShowModal,
+  isAdding,
+  setData,
+  data,
+  auth,
+}) => {
   const axiosPrivate = useAxiosPrivate();
   const [formState, setFormState] = useState(selectedItem || {});
   const [benefitInput, setBenefitInput] = useState("");
   const [excludedBenefitInput, setExcludedBenefitInput] = useState("");
-  const [videoInput, setVideoInput] = useState(""); // State for video input
+  const [categoryInput, setCategoryInput] = useState("");
+  const [videoInputs, setVideoInputs] = useState({}); // Object to track video inputs for each category
 
   useEffect(() => {
     setFormState(selectedItem || {});
+    setVideoInputs({}); // Reset videoInputs when the modal opens with a new item
   }, [selectedItem]);
 
   const isValidYouTubeURL = (url) => {
@@ -26,64 +37,106 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
     }));
   };
 
-  const handleKeyDown = (e, type) => {
-    if (e.key === "Enter" && e.target.value.trim()) {
-      e.preventDefault();
-      const value = e.target.value.trim();
-      if (type === "benefits") {
-        setFormState((prev) => ({
-          ...prev,
-          benefits: [...(prev.benefits || []), value],
-        }));
-        setBenefitInput("");
-      } else if (type === "excluded_benefits") {
-        setFormState((prev) => ({
-          ...prev,
-          excluded_benefits: [...(prev.excluded_benefits || []), value],
-        }));
-        setExcludedBenefitInput("");
-      } else if (type === "videos") {
-        if (isValidYouTubeURL(value)) {
-          setFormState((prev) => ({
-            ...prev,
-            videos: [...(prev.videos || []), value],
-          }));
-          setVideoInput("");
-        } else {
-          alert("Please enter a valid YouTube URL");
-        }
-      }
+  const handleAddToList = (value, listName) => {
+    if (!value.trim()) return;
+    setFormState((prev) => ({
+      ...prev,
+      [listName]: [...(prev[listName] || []), value.trim()],
+    }));
+  };
+
+  const handleRemoveFromList = (index, listName) => {
+    setFormState((prev) => ({
+      ...prev,
+      [listName]: (prev[listName] || []).filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleAddCategory = () => {
+    if (!categoryInput.trim()) return;
+    setFormState((prev) => ({
+      ...prev,
+      categories: [
+        ...(prev.categories || []),
+        { name: categoryInput.trim(), videos: [] },
+      ],
+    }));
+    setCategoryInput("");
+  };
+
+  const handleVideoInputChange = (value, categoryIndex) => {
+    setVideoInputs((prev) => ({
+      ...prev,
+      [categoryIndex]: value, // Update video input for the specific category
+    }));
+  };
+
+  const handleAddVideoToCategory = (categoryIndex) => {
+    const videoInput = videoInputs[categoryIndex] || "";
+    if (!isValidYouTubeURL(videoInput)) {
+      alert("Please enter a valid YouTube URL");
+      return;
     }
+    setFormState((prev) => {
+      const updatedCategories = [...(prev.categories || [])];
+      updatedCategories[categoryIndex].videos = [
+        ...(updatedCategories[categoryIndex].videos || []),
+        videoInput.trim(),
+      ];
+      return { ...prev, categories: updatedCategories };
+    });
+    setVideoInputs((prev) => ({
+      ...prev,
+      [categoryIndex]: "", // Clear the input for this category
+    }));
+  };
+
+  const handleRemoveVideoFromCategory = (categoryIndex, videoIndex) => {
+    setFormState((prev) => {
+      const updatedCategories = [...(prev.categories || [])];
+      updatedCategories[categoryIndex].videos = updatedCategories[
+        categoryIndex
+      ].videos.filter((_, i) => i !== videoIndex);
+      return { ...prev, categories: updatedCategories };
+    });
   };
 
   const handleSaveChanges = async () => {
     try {
-      const itemData = {
-        ...formState,
-        CreatedBy: auth.id,
-      };
+      const itemData = { ...formState, CreatedBy: auth.id };
+
       if (isAdding) {
         const response = await axiosPrivate.post(`/api/${view}`, itemData);
         setData([...data, response.data]);
       } else {
         await axiosPrivate.put(`/api/${view}/${selectedItem._id}`, itemData);
-        setData(data.map((item) => (item._id === selectedItem._id ? itemData : item)));
+        setData(
+          data.map((item) =>
+            item._id === selectedItem._id ? { ...item, ...itemData } : item
+          )
+        );
       }
 
-      setSelectedItem(itemData);
+      setSelectedItem(null);
       setShowModal(false);
       alert(
-        `${view === "courses" ? "Course" : view === "users" ? "User" : "Blog"} ${
-          isAdding ? "added" : "modified"
-        } successfully!`
+        `${
+          view === "courses" ? "Course" : view === "users" ? "User" : "Blog"
+        } ${isAdding ? "added" : "modified"} successfully!`
       );
     } catch (err) {
       console.error(`Error ${isAdding ? "adding" : "modifying"} ${view}:`, err);
-      alert(`Failed to ${isAdding ? "add" : "modify"} ${view}`);
+      alert(
+        err.response?.data?.message ||
+          `Failed to ${isAdding ? "add" : "modify"} ${view}`
+      );
     }
   };
 
-  return (
+  const handleCancel = () => {
+    setSelectedItem(null);
+    setShowModal(false);
+  };  return (
     <div className={style.overlay}>
       <div className={style.modal}>
         <h2 className={style.header}>
@@ -104,7 +157,7 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
                   type="text"
                   name="title"
                   value={formState.title || ""}
-                  onChange={handleInputChange}
+                  onChange={(e) => handleInputChange(e)}
                   className={style.input}
                 />
               </label>
@@ -114,7 +167,7 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
                   type="text"
                   name="description"
                   value={formState.description || ""}
-                  onChange={handleInputChange}
+                  onChange={(e) => handleInputChange(e)}
                   className={style.input}
                 />
               </label>
@@ -166,37 +219,6 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
                 />
               </label>
               <label className={style.label}>
-                Videos:
-                <input
-                  type="text"
-                  value={videoInput}
-                  onChange={(e) => setVideoInput(e.target.value)}
-                  onKeyDown={(e) => handleKeyDown(e, "videos")}
-                  className={style.input}
-                  placeholder="Enter a YouTube link and press Enter"
-                />
-                <div className={style.flexContainer}>
-                  {formState.videos &&
-                    formState.videos.map((video, index) => (
-                      <div key={index} className={style.videoItem}>
-                        <span>{video}</span>
-                        <button
-                          type="button"
-                          className={style.deleteButton}
-                          onClick={() => {
-                            setFormState((prev) => ({
-                              ...prev,
-                              videos: prev.videos.filter((_, i) => i !== index),
-                            }));
-                          }}
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    ))}
-                </div>
-              </label>
-              <label className={style.label}>
                 Section:
                 <input
                   type="text"
@@ -212,17 +234,29 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
                   type="text"
                   value={benefitInput}
                   onChange={(e) => setBenefitInput(e.target.value)}
-                  onKeyDown={(e) => handleKeyDown(e, "benefits")}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleAddToList(benefitInput, "benefits");
+                      setBenefitInput("");
+                    }
+                  }}
                   className={style.input}
                   placeholder="Type a benefit and press Enter"
                 />
                 <div className={style.flexContainer}>
-                  {formState.benefits &&
-                    formState.benefits.map((benefit, index) => (
-                      <span key={index} className={style.benefit}>
-                        {benefit}
-                      </span>
-                    ))}
+                  {(formState.benefits || []).map((benefit, index) => (
+                    <span key={index} className={style.benefit}>
+                      {benefit}
+                      <button
+                        type="button"
+                        className={style.deleteButton}
+                        onClick={() => handleRemoveFromList(index, "benefits")}
+                      >
+                        Remove
+                      </button>
+                    </span>
+                  ))}
                 </div>
               </label>
               <label className={style.label}>
@@ -231,18 +265,83 @@ const ModalForm = ({ view, selectedItem, setSelectedItem, setShowModal, isAdding
                   type="text"
                   value={excludedBenefitInput}
                   onChange={(e) => setExcludedBenefitInput(e.target.value)}
-                  onKeyDown={(e) => handleKeyDown(e, "excluded_benefits")}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleAddToList(excludedBenefitInput, "excluded_benefits");
+                      setExcludedBenefitInput("");
+                    }
+                  }}
                   className={style.input}
                   placeholder="Type an excluded benefit and press Enter"
                 />
                 <div className={style.flexContainer}>
-                  {formState.excluded_benefits &&
-                    formState.excluded_benefits.map((benefit, index) => (
-                      <span key={index} className={style.excludedBenefit}>
-                        {benefit}
-                      </span>
-                    ))}
+                  {(formState.excluded_benefits || []).map((excluded, index) => (
+                    <span key={index} className={style.excludedBenefit}>
+                      {excluded}
+                      <button
+                        type="button"
+                        className={style.deleteButton}
+                        onClick={() => handleRemoveFromList(index, "excluded_benefits")}
+                      >
+                        Remove
+                      </button>
+                    </span>
+                  ))}
                 </div>
+              </label>
+              <label className={style.label}>
+                Categories:
+                <input
+                  type="text"
+                  value={categoryInput}
+                  onChange={(e) => setCategoryInput(e.target.value)}
+                  placeholder="Category name"
+                  className={style.input}
+                />
+                <button
+                  type="button"
+                  onClick={handleAddCategory}
+                  className={style.addButton}
+                >
+                  Add Category
+                </button>
+                {(formState.categories || []).map((category, index) => (
+                  <div key={index}>
+                    <h4>{category.name}</h4>
+                    <input
+                      type="text"
+                      value={videoInputs[index] || ""}
+                      onChange={(e) =>
+                        handleVideoInputChange(e.target.value, index)
+                      }
+                      placeholder="YouTube Video URL"
+                      className={style.input}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleAddVideoToCategory(index)}
+                      className={style.addButton}
+                    >
+                      Add Video
+                    </button>
+                    <ul>
+                      {(category.videos || []).map((video, videoIndex) => (
+                        <li key={videoIndex}>
+                          {video}{" "}
+                          <button
+                            type="button"
+                            onClick={() =>
+                              handleRemoveVideoFromCategory(index, videoIndex)
+                            }
+                          >
+                            Remove
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </label>
             </>
           )}

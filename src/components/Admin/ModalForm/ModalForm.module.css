@@ -7,7 +7,14 @@
     justify-content: center;
     z-index: 1000;
 }
-
+.deleteButton{
+    background-color: #ef4444; /* bg-red-500 */
+    color: #ffffff; /* text-white */
+    padding: 0.5rem 1rem; /* px-4 py-2 */
+    border-radius: 0.375rem; /* rounded */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 .modal {
     background-color: #ffffff;
     padding: 1.5rem; /* Equivalent to p-6 */
