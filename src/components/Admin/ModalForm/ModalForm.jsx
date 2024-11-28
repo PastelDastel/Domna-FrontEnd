@@ -120,15 +120,14 @@ const ModalForm = ({
       setSelectedItem(null);
       setShowModal(false);
       alert(
-        `${
-          view === "courses" ? "Course" : view === "users" ? "User" : "Blog"
+        `${view === "courses" ? "Course" : view === "users" ? "User" : "Blog"
         } ${isAdding ? "added" : "modified"} successfully!`
       );
     } catch (err) {
       console.error(`Error ${isAdding ? "adding" : "modifying"} ${view}:`, err);
       alert(
         err.response?.data?.message ||
-          `Failed to ${isAdding ? "add" : "modify"} ${view}`
+        `Failed to ${isAdding ? "add" : "modify"} ${view}`
       );
     }
   };
@@ -136,7 +135,7 @@ const ModalForm = ({
   const handleCancel = () => {
     setSelectedItem(null);
     setShowModal(false);
-  };  return (
+  }; return (
     <div className={style.overlay}>
       <div className={style.modal}>
         <h2 className={style.header}>
@@ -400,8 +399,52 @@ const ModalForm = ({
                   className={style.textarea}
                 />
               </label>
+              <label className={style.label}>
+                Image URL:
+                <input
+                  type="text"
+                  name="image"
+                  value={formState.image || ""}
+                  onChange={handleInputChange}
+                  className={style.input}
+                  placeholder="Enter image URL"
+                />
+              </label>
+              <label className={style.label}>
+                Or Upload Local Image:
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      // Convert file to a URL for preview or upload to server
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        setFormState((prev) => ({
+                          ...prev,
+                          image: reader.result, // Temporary preview, or upload the file instead
+                        }));
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                  className={style.input}
+                />
+              </label>
+              {formState.image && (
+                <div className={style.imagePreview}>
+                  <p>Image Preview:</p>
+                  <img
+                    src={formState.image}
+                    alt="Blog Preview"
+                    className={style.previewImage}
+                  />
+                </div>
+              )}
             </>
           )}
+
           <div className={style.buttonContainer}>
             <button
               type="button"

@@ -7,9 +7,11 @@
   padding: 20px;
 }
 .leftColumn {
-  width: 45%;
+  width: 49%;
 }
-
+.rightColumn{
+  width: 40%;
+}
 .productTitle {
   font-size: 19.5px;
   color: #050505;

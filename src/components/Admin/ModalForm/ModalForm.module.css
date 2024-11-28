@@ -7,6 +7,10 @@
     justify-content: center;
     z-index: 1000;
 }
+.previewImage{
+    max-width: 550px;
+    max-height: 550px;
+}
 .deleteButton{
     background-color: #ef4444; /* bg-red-500 */
     color: #ffffff; /* text-white */

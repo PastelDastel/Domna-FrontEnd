@@ -50,28 +50,7 @@ const DetailsModal = ({ item, view, setShowDetailsModal }) => {
         <section className={style.content}>
           {view === "users" ? (
             <>
-              <div className={style.infoRow}>
-                <FontAwesomeIcon icon={faUser} className={style.icon} />
-                <p className={style.label}>Username:</p>
-                <span className={style.value}>{item.username || "N/A"}</span>
-              </div>
-              <div className={style.infoRow}>
-                <FontAwesomeIcon icon={faEnvelope} className={style.icon} />
-                <p className={style.label}>Email:</p>
-                <span className={style.value}>{item.email || "N/A"}</span>
-              </div>
-              <div className={style.infoRow}>
-                <FontAwesomeIcon icon={faPhone} className={style.icon} />
-                <p className={style.label}>Phone:</p>
-                <span className={style.value}>{item.phone || "N/A"}</span>
-              </div>
-              <div className={style.infoRow}>
-                <FontAwesomeIcon icon={faList} className={style.icon} />
-                <p className={style.label}>Roles:</p>
-                <span className={style.value}>
-                  {Array.isArray(item.roles) ? item.roles.join(", ") : item.roles || "N/A"}
-                </span>
-              </div>
+
             </>
           ) : (
             <>

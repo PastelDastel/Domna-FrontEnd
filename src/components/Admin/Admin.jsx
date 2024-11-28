@@ -8,7 +8,8 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useAuth from '../../hooks/useAuth';
 import SearchBar from './Searchbar/SearchBar';
 import style from './Admin.module.css'; // Import the CSS module
-
+import UsersPanel from './UsersPanel/UsersPanel';
+import BlogsPanel from './BlogsPanel/BlogsPanel';
 const AdminPanel = () => {
     const axiosPrivate = useAxiosPrivate();
     const { auth } = useAuth();
@@ -71,6 +72,12 @@ const AdminPanel = () => {
                     setIsAdding(true);
                     setShowModal(true);
                 }} />
+                {
+                    view === 'users' && <UsersPanel />
+                }
+                {
+                    view === 'blog' && <BlogsPanel />
+                }
                 <DataList
                     view={view}
                     data={data}
