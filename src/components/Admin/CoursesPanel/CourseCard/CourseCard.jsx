@@ -1,13 +1,14 @@
-import style from "./BlogCard.module.css";
+import style from "./CourseCard.module.css";
 
-const BlogCard = ({ blog, onView, onEdit, onDelete }) => {
+const CourseCard = ({ course, onView, onEdit, onDelete }) => {
+    console.log(course);
     return (
         <div className={style.card} onClick={onView}>
-            <h3 className={style.title}>{blog.title}</h3>
-            <p className={style.subtitle}>Content: <span dangerouslySetInnerHTML={{ __html: blog.content }} /></p>
-            <p className={style.image}>Image: <img src={blog.image} alt={blog._id} /></p>
+            <h3 className={style.title}>{course.title}</h3>
+            <p className={style.subtitle}>Instructor: {course.instructor}</p>
+            <p className={style.subtitle}>Price: {course.price}</p>
             <p className={style.subtitle}>
-                Created at: {new Date(blog.createdAt).toLocaleDateString()}
+                Created at: {new Date(course.CreatedAt).toLocaleDateString()}
             </p>
             <div className={style.buttonContainer}>
                 <button
@@ -35,4 +36,4 @@ const BlogCard = ({ blog, onView, onEdit, onDelete }) => {
     );
 };
 
-export default BlogCard;
+export default CourseCard;

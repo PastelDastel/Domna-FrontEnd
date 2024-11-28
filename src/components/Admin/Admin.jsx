@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar/Sidebar';
 import Header from './Header/Header';
-import DataList from './DataList/DataList';
-import DetailsModal from './DetailsModal/DetailsModal';
-import ModalForm from './ModalForm/ModalForm';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useAuth from '../../hooks/useAuth';
 import SearchBar from './Searchbar/SearchBar';
 import style from './Admin.module.css'; // Import the CSS module
 import UsersPanel from './UsersPanel/UsersPanel';
 import BlogsPanel from './BlogsPanel/BlogsPanel';
+import CoursesPanel from './CoursesPanel/CoursesPanel';
 const AdminPanel = () => {
     const axiosPrivate = useAxiosPrivate();
     const { auth } = useAuth();
@@ -41,33 +39,23 @@ const AdminPanel = () => {
         fetchData();
     }, [view, axiosPrivate]);
 
-    const handleCardClick = (item) => {
-        setSelectedItem(item);
-        setShowDetailsModal(true);
-    };
-
-    const handleDelete = async (id) => {
+    const handleNewItem = async (item) => {
         try {
-            const endpoint = view === 'courses'
-                ? `/api/courses/${id}`
-                : view === 'users'
-                ? `/api/users/${id}`
-                : `/api/blog/${id}`;
-            await axiosPrivate.delete(endpoint);
-            setData(data.filter(item => item._id !== id));
-            alert(`${view === 'courses' ? 'Course' : view === 'users' ? 'User' : 'Blog'} deleted successfully!`);
+            const endpoint = view === 'courses' ? '/api/courses' : view === 'users' ? '/api/users' : '/blog';
+            const response = await axiosPrivate.post(endpoint, item);
+            setData([...data, response.data]);
+            setShowModal(false);
         } catch (err) {
-            console.error(`Error deleting ${view}:`, err);
-            alert(`Failed to delete ${view}`);
+            console.error(`Error creating new ${view}:`, err);
         }
     };
-
     return (
         <div className={style.adminPanel}>
             <Sidebar view={view} setView={setView} />
             <main className={style.mainContent}>
                 <SearchBar></SearchBar>
-                <Header view={view} handleAddNew={() => {
+                <Header view={view} handleAddNew={(newItem) => {
+                    handleNewItem(newItem);
                     setSelectedItem(null);
                     setIsAdding(true);
                     setShowModal(true);
@@ -78,38 +66,8 @@ const AdminPanel = () => {
                 {
                     view === 'blog' && <BlogsPanel />
                 }
-                <DataList
-                    view={view}
-                    data={data}
-                    loading={loading}
-                    error={error}
-                    handleModify={(item) => {
-                        setSelectedItem(item);
-                        setIsAdding(false);
-                        setShowModal(true);
-                    }}
-                    handleDelete={handleDelete}
-                    handleClick={handleCardClick}
-                />
-                {showDetailsModal && (
-                    <DetailsModal
-                        item={selectedItem}
-                        view={view}
-                        setShowDetailsModal={setShowDetailsModal}
-                    />
-                )}
-                {showModal && (
-                    <ModalForm
-                        view={view}
-                        selectedItem={selectedItem}
-                        setSelectedItem={setSelectedItem}
-                        setShowModal={setShowModal}
-                        isAdding={isAdding}
-                        setData={setData}
-                        data={data}
-                        auth={auth}
-                    />
-                )}
+                {view === 'courses' && <CoursesPanel />}
+
             </main>
         </div>
     );

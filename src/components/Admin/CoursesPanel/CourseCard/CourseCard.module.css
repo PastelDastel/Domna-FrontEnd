@@ -25,16 +25,7 @@
   font-size: 0.875rem; /* text-sm */
   color: #4b5563; /* text-gray-600 */
 }
-.image {
-  max-width: 200px;
-  max-height: 200px;
-  border-radius: 0.5rem; /* rounded */
-}
 
-img {
-  max-width: 200px;
-  max-height: 200px;
-}
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
