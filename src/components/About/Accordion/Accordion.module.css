@@ -36,3 +36,75 @@
 .accordionToggle {
   font-size: 1.2rem;
 }
+
+
+@media (max-width: 1139px)
+{}
+
+
+@media (max-width: 600px) 
+{
+  .accordion {
+    width: 50%; /* Adatta l'accordion alla larghezza del dispositivo */
+    max-width: 100%; /* Evita che superi i bordi */
+    margin: 0 auto; /* Centra l'accordion */
+    padding: 0; /* Elimina spaziature laterali */
+  }
+
+  .accordionHeader {
+    padding: 10px; /* Riduci il padding per adattarlo al dispositivo */
+    font-size: 0.9rem; /* Riduci leggermente la dimensione del font */
+    justify-content: space-between; /* Allinea i contenuti correttamente */
+    flex-wrap: wrap; /* Permetti ai contenuti di andare a capo se necessario */
+  }
+
+  .accordionToggle {
+    font-size: 1rem; /* Dimensione appropriata per il simbolo del toggle */
+    margin: 0; /* Elimina margini extra */
+  }
+
+  .accordionContent {
+    padding: 10px; /* Riduci il padding interno per risparmiare spazio */
+    font-size: 0.8rem; /* Riduci la dimensione del testo */
+  }
+}
+@media (max-width: 360px) {
+  .accordion {
+    display: flex;
+    flex-direction: column; /* Disposizione verticale */
+    align-items: center; /* Centra gli elementi */
+    width: 30%; /* Larghezza completa */
+
+    max-width: 100%; /* Evita overflow */
+    margin: 0 auto; /* Rimuove margini extra */
+    padding: 0; /* Elimina spaziature laterali */
+  }
+
+  .accordionItem {
+    width: 90%; /* Adatta ogni elemento alla larghezza del contenitore */
+    margin-bottom: 10px; /* Spazio tra gli elementi */
+    border: none; /* Rimuovi eventuali bordi laterali */
+    border-bottom: 1px solid #ccc; /* Mantieni solo il bordo inferiore */
+  }
+
+  .accordionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Centra verticalmente il contenuto */
+    width: 100%; /* Larghezza completa */
+    padding: 10px 5px; /* Spaziatura ridotta */
+    font-size: 1rem; /* Font adatto a schermi piccoli */
+  }
+
+  .accordionToggle {
+    font-size: 1.2rem; /* Dimensione appropriata per il toggle */
+    margin: 0; /* Rimuovi margini extra */
+  }
+
+  .accordionContent {
+    padding: 10px; /* Riduci il padding interno */
+    font-size: 0.9rem; /* Leggermente più piccolo */
+    line-height: 1.5; /* Migliora la leggibilità */
+    max-width: 100%; /* Assicura che il contenuto non esca */
+  }
+}
