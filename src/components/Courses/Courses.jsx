@@ -14,7 +14,6 @@ const Courses = () => {
     const fetchCourses = async () => {
       try {
         const response = await axiosPrivate.get('/courses');
-        console.log(response.data);
         setCourses(response.data);
       } catch (err) {
         console.error('Error fetching courses:', err);

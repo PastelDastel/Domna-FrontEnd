@@ -16,7 +16,6 @@ const Course = ({ course }) => {
         description,
         duration, // Add billingInterval as a prop from the course data
     } = course;
-    console.log("Course data:", course);
 
     const navigate = useNavigate();
     const { auth } = useAuth(); // Get the authentication status

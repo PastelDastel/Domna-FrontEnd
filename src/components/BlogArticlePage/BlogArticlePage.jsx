@@ -11,7 +11,6 @@ const BlogArticlePage = () => {
     useEffect(() => {
 
         const response = axiosPrivate.get(`/blog/${id}`);
-        console.log(response.data);
 
     }, [id]);
 

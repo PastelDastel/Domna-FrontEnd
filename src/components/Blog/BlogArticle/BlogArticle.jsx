@@ -2,8 +2,6 @@ import style from "./BlogArticle.module.css";
 import { Link } from "react-router-dom";
 
 const BlogArticle = ({ img, title, description, className }) => {
-    console.log("Rendered className:", `${style.blogPost} ${className || ''}`);
-
     return (
         <div className={`${style.blogPost} ${className || ''}`}>
             <img src={img} alt={`${title} Immagine`} />

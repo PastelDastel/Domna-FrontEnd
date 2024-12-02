@@ -6,44 +6,45 @@ import styles from "./Profile.module.css"; // Import the CSS module
 import useLogout from "../../hooks/useLogout";
 import MetaPixel from "../Global Components/MetaPixel";
 
-const Months = [
-  "Gennaio",
-  "Febbraio",
-  "Marzo",
-  "Aprile",
-  "Maggio",
-  "Giugno",
-  "Luglio",
-  "Agosto",
-  "Settembre",
-  "Ottobre",
-  "Novembre",
-  "Dicembre",
-];
-
+const API_KEY = import.meta.env.VITE_API_KEY;
 const Profile = () => {
   const logout = useLogout();
   const [user, setUser] = useState(null);
   const [courses, setCourses] = useState([]);
+  const [videoTitles, setVideoTitles] = useState({});
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
-
-  const displayDate = (date) => {
-    const [day, month, year] = date.split("/");
-    return `${day} ${Months[parseInt(month) - 1]} ${year}`;
-  };
-
   const handleLogout = async () => {
     await logout();
     navigate("/");
   };
 
+  const fetchVideoTitle = async (videoUrl) => {
+    try {
+      const videoId = new URL(videoUrl).toString().split("/")[3];
+      if (!videoId) {
+        throw new Error("Invalid YouTube URL");
+      }
+      const response = await axios.get(
+        `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${API_KEY}&part=snippet`
+      );
+
+      if (response.data.items && response.data.items.length > 0) {
+        return response.data.items[0].snippet.title;
+      } else {
+        return "Unknown Title";
+      }
+    } catch (error) {
+      console.error("Error fetching video title:", error);
+      return "Error Fetching Title";
+    }
+  };
+
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
-
     const getUserData = async () => {
       try {
         const response = await axiosPrivate.get(`/api/users/${id}`, {
@@ -67,6 +68,19 @@ const Profile = () => {
         });
         if (isMounted) {
           setCourses(response.data);
+
+          // Fetch video titles
+          const titles = {};
+          for (const course of response.data) {
+            for (const category of course.categories || []) {
+              for (const video of category.videos || []) {
+                if (!titles[video]) {
+                  titles[video] = await fetchVideoTitle(video);
+                }
+              }
+            }
+          }
+          setVideoTitles(titles);
         }
       } catch (err) {
         if (!axios.isCancel(err)) {
@@ -103,8 +117,6 @@ const Profile = () => {
               <p className={styles.userID}>User ID: {user.id}</p>
               <p>Email: {user.email}</p>
               <p>Telefono: {user.phone}</p>
-              <p>Data creazione: {displayDate(user.creation_date)}</p>
-
               <button className={styles.editButton}>Modifica Password</button>
               <button className={styles.editButton} onClick={handleLogout}>
                 Logout
@@ -121,28 +133,6 @@ const Profile = () => {
               {courses.map((course) => (
                 <div key={course._id} className={styles.courseDetail}>
                   <h2>{course.title}</h2>
-                  <p>
-                    <strong>Descrizione:</strong> {course.description}
-                  </p>
-                  <p>
-                    <strong>Durata:</strong> {course.duration}
-                  </p>
-                  <p>
-                    <strong>Sezione:</strong> {course.section}
-                  </p>
-                  <p>
-                    <strong>Insegnante:</strong> {course.instructor}
-                  </p>
-                  <p>
-                    <strong>Benefici:</strong> {course.benefits.join(", ")}
-                  </p>
-                  <p>
-                    <strong>Benefici esclusi:</strong>{" "}
-                    {course.excluded_benefits.join(", ")}
-                  </p>
-                  <p>
-                    <strong>Prezzo:</strong> €{course.price.toFixed(2)}
-                  </p>
                   {course.categories && course.categories.length > 0 && (
                     <div className={styles.categoriesSection}>
                       <h3>Categorie del corso:</h3>
@@ -159,7 +149,7 @@ const Profile = () => {
                                     className={styles.videoButton}
                                     onClick={() => window.open(video, "_blank")}
                                   >
-                                    {video}
+                                    {videoTitles[video] || "Loading..."}
                                   </button>
                                 </li>
                               ))}

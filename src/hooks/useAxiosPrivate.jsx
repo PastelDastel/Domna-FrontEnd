@@ -11,7 +11,6 @@ const useAxiosPrivate = () => {
         const requestIntercept = axiosPrivate.interceptors.request.use(
             config => {
                 if (logoutPending) {
-                    console.log("Request blocked due to logout pending.");
                     return new Promise(() => {}); // Block the request by returning a pending Promise
                 }
                 if (!config.headers['Authorization']) {

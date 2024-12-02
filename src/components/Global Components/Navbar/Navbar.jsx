@@ -18,7 +18,6 @@ const Navbar = () => {
     navigate("/");
     setIsMenuOpen(false);
   };
-  console.log(auth);
   const isActive = (path) => location.pathname === path;
 
   const handleCustomEvent = (eventLabel) => {

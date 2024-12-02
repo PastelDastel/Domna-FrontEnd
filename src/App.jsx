@@ -18,7 +18,7 @@ import BlogArticlePage from "./components/BlogArticlePage/BlogArticlePage";
 setInterval(() => {
   fetch("https://domna-api.onrender.com")
     .then(
-      console.log("pinged backend to keep it online")
+      console.log("Server is still online")
     )
 }, 30000);
 
