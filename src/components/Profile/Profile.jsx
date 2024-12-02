@@ -6,7 +6,8 @@ import styles from "./Profile.module.css"; // Import the CSS module
 import useLogout from "../../hooks/useLogout";
 import MetaPixel from "../Global Components/MetaPixel";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY; // Your YouTube API Key
+
 const Profile = () => {
   const logout = useLogout();
   const [user, setUser] = useState(null);
@@ -16,17 +17,47 @@ const Profile = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
+
+  // Handle Logout
   const handleLogout = async () => {
     await logout();
     navigate("/");
   };
 
+  // ActiveCampaign Tracking Initialization
+
+
+  // ActiveCampaign Event Tracking
+  const trackActiveCampaignEvent = async (eventName, eventData) => {
+    try {
+
+
+      await axios.post(
+        "https://trackcmp.net/event",
+        {
+          actid: "3f5901308800b5096d17166205d8e92a4c6d24d3", // Your ActiveCampaign Event ID
+          key: "8dd441bb6c08df4dd84d9a68e8de317e4648e4abbb21c563b1645157a6666a07ce2916f2", // Replace with actual event key
+          event: eventName,
+          eventdata: JSON.stringify(eventData),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(`Event "${eventName}" tracked successfully.`);
+    } catch (error) {
+      console.error("Error tracking ActiveCampaign event:", error);
+    }
+  };
+
+  // Fetch Video Title from YouTube API
   const fetchVideoTitle = async (videoUrl) => {
     try {
-      const videoId = new URL(videoUrl).toString().split("/")[3];
-      if (!videoId) {
-        throw new Error("Invalid YouTube URL");
-      }
+      const videoId = new URL(videoUrl).pathname.split("/")[1];
+      if (!videoId) throw new Error("Invalid YouTube URL");
+
       const response = await axios.get(
         `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${API_KEY}&part=snippet`
       );
@@ -42,17 +73,17 @@ const Profile = () => {
     }
   };
 
+  // Fetch User and Courses Data
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
+
     const getUserData = async () => {
       try {
         const response = await axiosPrivate.get(`/api/users/${id}`, {
           signal: controller.signal,
         });
-        if (isMounted) {
-          setUser(response.data.user);
-        }
+        if (isMounted) setUser(response.data.user);
       } catch (err) {
         if (!axios.isCancel(err)) {
           console.error("Error fetching user data:", err);
@@ -69,7 +100,7 @@ const Profile = () => {
         if (isMounted) {
           setCourses(response.data);
 
-          // Fetch video titles
+          // Fetch video titles for all videos in courses
           const titles = {};
           for (const course of response.data) {
             for (const category of course.categories || []) {
@@ -97,14 +128,35 @@ const Profile = () => {
       controller.abort();
     };
   }, [id, axiosPrivate, navigate, location]);
+  useEffect(() => {
+    (function () {
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.async = true;
+      script.src =
+        "https://trackcmp.net/track.js?actid=3f5901308800b5096d17166205d8e92a4c6d24d3&trackcmp";
+      const firstScript = document.getElementsByTagName("script")[0];
+      firstScript.parentNode.insertBefore(script, firstScript);
 
+      script.onload = () => {
+        if (typeof trackcmp !== "undefined") {
+          trackcmp("identify", {
+            email: user?.email, // Pass user email
+            firstName: user?.username, // Pass user name
+          });
+        }
+      };
+    })();
+  }, [user]);
   return (
     <>
+      {/* MetaPixel Component */}
       <MetaPixel
         pixelId={"410616855425028"}
         events={[{ type: "ThisDudeIsOnTheProfilePage", params: { userId: user?.id } }]}
       />
       <div className={styles.profileContainer}>
+        {/* Sidebar */}
         <div className={styles.profileSidebar}>
           {user ? (
             <>
@@ -126,6 +178,8 @@ const Profile = () => {
             <p className={styles.noData}>No user data to display</p>
           )}
         </div>
+
+        {/* Main Content */}
         <div className={styles.profileContent}>
           {courses.length > 0 ? (
             <>
@@ -147,7 +201,17 @@ const Profile = () => {
                                 <li key={videoIndex} className={styles.videoItem}>
                                   <button
                                     className={styles.videoButton}
-                                    onClick={() => window.open(video, "_blank")}
+                                    onClick={() => {
+                                      window.open(video, "_blank");
+                                      trackActiveCampaignEvent("VideoWatched", {
+                                        videoUrl: video,
+                                        videoTitle: videoTitles[video] || "Unknown Title",
+                                        userId: user?.id,
+                                        userName: user?.username,
+                                        courseTitle: course.title,
+                                        categoryName: category.name,
+                                      });
+                                    }}
                                   >
                                     {videoTitles[video] || "Loading..."}
                                   </button>
@@ -160,6 +224,7 @@ const Profile = () => {
                         </div>
                       ))}
                     </div>
+
                   )}
                 </div>
               ))}
