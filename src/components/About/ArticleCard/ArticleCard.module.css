@@ -59,7 +59,6 @@
 }
 
 .navLink {
-  
   text-decoration: none;
   color: #fff;
   font-weight: 700;
@@ -68,4 +67,12 @@
 }
 .learnMore:hover {
   background-color: #d75494;
+}
+
+@media (max-width: 950px) {
+  .card {
+    width: 45%;
+    min-width: 300px;
+    margin: 10px;
+  }
 }

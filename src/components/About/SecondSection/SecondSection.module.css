@@ -1,4 +1,3 @@
-
 .mindsetContainer,
 .separatorMindset {
   display: flex;
@@ -49,21 +48,23 @@ h2 {
   height: 400px;
 }
 
-
-
-@media (max-width: 1800px) {
+@media (max-width: 950px) {
   .mindsetContainer {
-    align-items: flex-start;
-    gap: 5%;
-    max-width: 1200px;
-    margin: -300px auto;
-    padding-top: 20px;
-    margin-left: 10px;
+    flex-direction: column; /* Dispone gli elementi in colonna */
+    align-items: center; /* Centra il contenitore */
+    gap: 30px; /* Riduce lo spazio tra le sezioni */
+    padding: 10px; /* Riduce ulteriormente il padding */
+    margin-bottom: auto;
+  }
+  .mindsetText {
+    text-align: center;
+    font-size: 0.8rem;
   }
   .mindsetColumn {
-    width: 45%;
-    text-align: center;
-    padding: 20px;
+    width: 100%; /* Ogni colonna prende il 60% della larghezza */
+    text-align: center; /* Mantiene il testo allineato a sinistra */
+    padding: 8px; /* Riduce il padding interno */
+    margin-top: 30px;
   }
 
   h2 {
@@ -77,67 +78,5 @@ h2 {
     text-decoration: underline;
     text-align: center;
     font-size: 0.9rem;
-  }
-}
-
-
-@media (max-width: 700px) {
-  .mindsetContainer {
-    flex-direction: column; /* Dispone gli elementi in colonna */
-    align-items: center; /* Centra il contenitore */
-    gap: 30px; /* Riduce lo spazio tra le sezioni */
-    padding: 10px; /* Riduce ulteriormente il padding */
-    margin-bottom: auto;
-  }
-
- 
-  .mindsetColumn {
-    width: 40%; /* Ogni colonna prende il 60% della larghezza */
-    text-align: center; /* Mantiene il testo allineato a sinistra */
-    padding: 8px; /* Riduce il padding interno */
-  }
-
-  h2 {
-    font-size: 1rem; /* Riduce la dimensione del titolo per dispositivi più piccoli */
-    text-align: center; /* Mantiene il titolo centrato */
-    margin-bottom: 5px; /* Riduce lo spazio sotto il titolo */
-  }
-
-  .mindsetLink {
-    color: #8b1d1d;
-    text-decoration: underline;
-    text-align: center;
-    font-size: 0.9rem;
-  }
-}
-
-
-@media (max-width: 359px) 
-{
-  .mindsetContainer {
-    flex-direction: column; /* Dispone gli elementi in colonna */
-    align-items: center; /* Centra il contenitore */
-    gap: 30px; /* Riduce lo spazio tra le sezioni */
-    padding: 10px; /* Riduce ulteriormente il padding */
-    margin-bottom: auto;
-  }
-
- 
-  .mindsetColumn {
-    width: 30%; /* Ogni colonna prende il 60% della larghezza */
-    text-align: center; /* Mantiene il testo allineato a sinistra */
-    padding: 8px; /* Riduce il padding interno */
-  }
-
-  h2 {
-    font-size: 1rem; /* Riduce la dimensione del titolo per dispositivi più piccoli */
-    text-align: center; /* Mantiene il titolo centrato */
-    margin-bottom: 5px; /* Riduce lo spazio sotto il titolo */
-  }
-  .mindsetLink {
-    color: #8b1d1d;
-    text-decoration: underline;
-    text-align: center;
-    font-size: 1rem;
   }
 }

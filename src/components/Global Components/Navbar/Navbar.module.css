@@ -62,6 +62,7 @@ ul {
   margin-right: 50px;
   line-height: 100px;
   position: relative; /* Added for underline styling */
+  white-space: nowrap; /* Prevents text wrapping */
 }
 
 .navMenu li .link:hover {

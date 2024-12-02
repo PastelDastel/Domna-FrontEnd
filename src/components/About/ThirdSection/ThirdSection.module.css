@@ -2,7 +2,7 @@
   position: relative;
   width: 900px;
   height: 600px;
-  margin-bottom: 150px;
+  margin-bottom: 350px;
 }
 .imageSection {
   width: 672px;
@@ -11,30 +11,19 @@
   background-size: cover;
   position: absolute;
 }
-
-.textSection h2 {
-  font-size: 1.8rem;
-  color: #fff;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  text-align: left; 
-}
-
 .textSection {
   font-family: "Josefin Sans", sans-serif;
-  position: absolute; /* Keep this if the element should be positioned relative to its parent */
-  transform: translate(450px, 100px); /* Replaces 'top' and 'left' */
+  position: absolute;
+  top: 100px;
+  left: 450px;
   width: 403px;
   height: 700px;
   background-color: #f3c7dc;
-  padding: 20px 30px; /* Keeps the padding as is */
+  padding: 20px 30px; /* Ridotto padding laterale per rendere il testo più compatto */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 2;
-  text-align: left; /* Keeps text alignment to the left */
+  text-align: left; /* Allineato a sinistra per uno stile simile all'esempio */
 }
-
 .paragraphSectionPresentation {
   font-size: 1.1rem;
   color: #333;
@@ -52,114 +41,119 @@ strong {
   color: #8b1d1d;
 }
 
-
-
-
-
 @media (max-width: 950px) {
+  .container {
+    max-width: 950px;
+    width: 100vw;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+  }
   .imageSection {
+    position: relative;
     width: 500px; /* L'immagine occupa tutta la larghezza */
-    height: 400px; /* Altezza chiara e proporzionata */
-    margin-left: 200px;
-    background-size: cover; /* Assicura che l'immagine riempia l'area */
+    height: 400px;
+    background-size: cover;
     background-repeat: no-repeat; /* Evita ripetizioni */
     background-position: center; /* Posiziona l'immagine al centro */
-    top: -10px;
   }
-
   .textSection {
     position: relative; /* Posizionamento naturale */
-    width: 500px; /* Larghezza completa */
-    height:unset;
-    margin-left: -250px;
-    margin-top: 20px; /* Spazio tra l'immagine e il testo */
-    padding: 20px; /* Spazio interno per leggibilità */
-    box-sizing: border-box;
-    text-align: left;
-    top: 270px;
-    
-    overflow: hidden;
-    word-break: break-all;
-    word-spacing: normal;
-  }
-   
-  .textSection h2 b {
-    font-size: 1.36rem;
- 
-  }
-}
-
-
-
-
-
-@media (max-width: 600px) {
- 
-
-  .imageSection {
-    width: 400px; /* L'immagine occupa tutta la larghezza */
-    height: 400px; /* Altezza chiara e proporzionata */
-    margin-left: 250px;
-    background-size: cover; /* Assicura che l'immagine riempia l'area */
-    background-repeat: no-repeat; /* Evita ripetizioni */
-    background-position: center; /* Posiziona l'immagine al centro */
-    top: -80px;
-  }
-
-  .textSection {
-    position: relative; /* Posizionamento naturale */
-    width: 400px; /* Larghezza completa */
-    height:auto;
-    margin-left: -12.50rem;
-    margin-top: 20px; /* Spazio tra l'immagine e il testo */
-    padding: 20px; /* Spazio interno per leggibilità */
-    box-sizing: border-box;
-    text-align: left;
-    top: 200px;
-
-    overflow: hidden;
-    word-break: break-all;
-    word-spacing: normal;
-  }
-   
-  .textSection h2 b {
-    font-size: 1.36rem;
-  }
-}
-
-
-
-
-
-
-@media (max-width: 359px) {
- 
-
-  .imageSection {
-    width: 300px; /* L'immagine occupa tutta la larghezza */
-    height: 400px; /* Altezza chiara e proporzionata */
-    margin-left: 300px;
-    background-size: cover; /* Assicura che l'immagine riempia l'area */
-    background-repeat: no-repeat; /* Evita ripetizioni */
-    background-position: center; /* Posiziona l'immagine al centro */
-    top: -80px;
-  }
-
-  .textSection {
-    position: relative; /* Posizionamento naturale */
-    width: 300px; /* Larghezza definita */
-    height: auto; /* Altezza adattabile al contenuto */
-    margin-left: -9.36rem;
-    margin-top: 20px; /* Spazio tra l'immagine e il testo */
+    top: unset;
+    left: unset;
+    width: 500px; /* Larghezza definita */
+    height: 550px; /* Altezza adattabile al contenuto */
     padding: 20px; /* Spazio interno per leggibilità */
     box-sizing: border-box;
     text-align: left; /* Testo allineato a sinistra */
-    top: 200px;
     overflow: hidden; /* Evita che il contenuto ecceda */
     line-height: 1.5; /* Migliora la spaziatura tra le righe */
   }
-  
+
   .textSection h2 b {
     font-size: 1.36rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .container {
+    max-width: 650px;
+    width: 100vw;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  .imageSection {
+    position: relative;
+    width: 400px; /* L'immagine occupa tutta la larghezza */
+    height: 300px;
+    background-size: cover;
+    background-repeat: no-repeat; /* Evita ripetizioni */
+    background-position: center; /* Posiziona l'immagine al centro */
+  }
+  .textSection {
+    position: relative; /* Posizionamento naturale */
+    top: unset;
+    left: unset;
+    width: 400px; /* Larghezza definita */
+    height: 650px; /* Altezza adattabile al contenuto */
+    padding: 20px; /* Spazio interno per leggibilità */
+    box-sizing: border-box;
+    text-align: left; /* Testo allineato a sinistra */
+    overflow: hidden; /* Evita che il contenuto ecceda */
+    line-height: 1.5; /* Migliora la spaziatura tra le righe */
+  }
+
+  .textSection h2 b {
+    font-size: 1.36rem;
+  }
+}
+@media (max-width: 500px) {
+  .container {
+    max-width: 500px;
+    width: 100vw;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  .imageSection {
+    position: relative;
+    width: 300px; /* L'immagine occupa tutta la larghezza */
+    height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat; /* Evita ripetizioni */
+    background-position: center; /* Posiziona l'immagine al centro */
+  }
+  .textSection {
+    position: relative; /* Posizionamento naturale */
+    top: unset;
+    left: unset;
+    width: 300px; /* Larghezza definita */
+    height: 670px; /* Altezza adattabile al contenuto */
+    padding: 20px; /* Spazio interno per leggibilità */
+    box-sizing: border-box;
+    text-align: left; /* Testo allineato a sinistra */
+    overflow: hidden; /* Evita che il contenuto ecceda */
+    line-height: 1.5; /* Migliora la spaziatura tra le righe */
+  }
+
+  .textSection h2 b {
+    font-size: 1.1rem;
+  }
+
+  .paragraphSection {
+    font-size: 0.8rem;
   }
 }

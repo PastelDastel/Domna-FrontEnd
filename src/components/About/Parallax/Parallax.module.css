@@ -21,3 +21,13 @@
   align-items: center; /* Added for vertical alignment */
   text-align: center;
 }
+
+@media (max-width: 950px) {
+  .parallaxSection {
+    height: 250px;
+    margin-top: 0px;
+  }
+  .reviewText {
+    font-size: 1.5em;
+  }
+}
