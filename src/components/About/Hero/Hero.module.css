@@ -85,8 +85,13 @@
 
 @media (max-width: 359px) {
 
+  .hamburger{
+    margin-left: 1000px;
+  }
+
   .hero {
     background-position-x: 45%;
+
   }
   .heroText h1 {
     font-size: 40px;

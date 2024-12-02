@@ -53,3 +53,113 @@ strong {
 }
 
 
+
+
+
+@media (max-width: 950px) {
+  .imageSection {
+    width: 500px; /* L'immagine occupa tutta la larghezza */
+    height: 400px; /* Altezza chiara e proporzionata */
+    margin-left: 200px;
+    background-size: cover; /* Assicura che l'immagine riempia l'area */
+    background-repeat: no-repeat; /* Evita ripetizioni */
+    background-position: center; /* Posiziona l'immagine al centro */
+    top: -10px;
+  }
+
+  .textSection {
+    position: relative; /* Posizionamento naturale */
+    width: 500px; /* Larghezza completa */
+    height:unset;
+    margin-left: -250px;
+    margin-top: 20px; /* Spazio tra l'immagine e il testo */
+    padding: 20px; /* Spazio interno per leggibilità */
+    box-sizing: border-box;
+    text-align: left;
+    top: 270px;
+    
+    overflow: hidden;
+    word-break: break-all;
+    word-spacing: normal;
+  }
+   
+  .textSection h2 b {
+    font-size: 1.36rem;
+ 
+  }
+}
+
+
+
+
+
+@media (max-width: 600px) {
+ 
+
+  .imageSection {
+    width: 400px; /* L'immagine occupa tutta la larghezza */
+    height: 400px; /* Altezza chiara e proporzionata */
+    margin-left: 250px;
+    background-size: cover; /* Assicura che l'immagine riempia l'area */
+    background-repeat: no-repeat; /* Evita ripetizioni */
+    background-position: center; /* Posiziona l'immagine al centro */
+    top: -80px;
+  }
+
+  .textSection {
+    position: relative; /* Posizionamento naturale */
+    width: 400px; /* Larghezza completa */
+    height:auto;
+    margin-left: -12.50rem;
+    margin-top: 20px; /* Spazio tra l'immagine e il testo */
+    padding: 20px; /* Spazio interno per leggibilità */
+    box-sizing: border-box;
+    text-align: left;
+    top: 200px;
+
+    overflow: hidden;
+    word-break: break-all;
+    word-spacing: normal;
+  }
+   
+  .textSection h2 b {
+    font-size: 1.36rem;
+  }
+}
+
+
+
+
+
+
+@media (max-width: 359px) {
+ 
+
+  .imageSection {
+    width: 300px; /* L'immagine occupa tutta la larghezza */
+    height: 400px; /* Altezza chiara e proporzionata */
+    margin-left: 300px;
+    background-size: cover; /* Assicura che l'immagine riempia l'area */
+    background-repeat: no-repeat; /* Evita ripetizioni */
+    background-position: center; /* Posiziona l'immagine al centro */
+    top: -80px;
+  }
+
+  .textSection {
+    position: relative; /* Posizionamento naturale */
+    width: 300px; /* Larghezza definita */
+    height: auto; /* Altezza adattabile al contenuto */
+    margin-left: -9.36rem;
+    margin-top: 20px; /* Spazio tra l'immagine e il testo */
+    padding: 20px; /* Spazio interno per leggibilità */
+    box-sizing: border-box;
+    text-align: left; /* Testo allineato a sinistra */
+    top: 200px;
+    overflow: hidden; /* Evita che il contenuto ecceda */
+    line-height: 1.5; /* Migliora la spaziatura tra le righe */
+  }
+  
+  .textSection h2 b {
+    font-size: 1.36rem;
+  }
+}

@@ -27,7 +27,7 @@ const About = () => {
       <div className={style.separatorHrThird}>
         <hr className={style.separatorMindThird} />
       </div>
-      {/*
+
       <Accordion />
       <div className={style.separatorHrFourth}>
         <hr className={style.separatorMindFourth} />
@@ -55,7 +55,7 @@ const About = () => {
                 L’allenamento funzionale femminile considera le esigenze uniche delle donne, come metabolismo e ormoni, creando percorsi personalizzati. Questo tipo di allenamento punta a migliorare equilibrio fisiologico, forma fisica, energia, salute e autostima, con un approccio scientifico che offre risultati duraturi e benessere.
 `} />
       </div>
-      <ContactParallax /> */}
+      <ContactParallax />
     </div>
   );
 };

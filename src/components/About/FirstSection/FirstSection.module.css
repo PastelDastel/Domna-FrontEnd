@@ -41,48 +41,105 @@ strong {
   color: #8b1d1d;
 }
 
+@media (max-width: 1800px) {
 
-@media (max-width: 1800px) {}
+  .imageSection {
+    width: 672px;
+    height: 900px;
+    background: url("../../../assets/JPG/IMG_7936.jpg") no-repeat center center;
+    background-size: cover;
+    position: absolute;
+  }
+  .textSection {
+    font-family: "Josefin Sans", sans-serif;
+    position: absolute;
+    top: 100px;
+    left: 500px;
+    width: 403px;
+    height: 700px;
+    background-color: #f3c7dc;
+    padding: 20px 30px; /* Ridotto padding laterale per rendere il testo più compatto */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    text-align: left; /* Allineato a sinistra per uno stile simile all'esempio */
+  }
+
+}
 
 
-@media (max-width: 700px) {
+@media (max-width: 950px) {
   .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 700px;
     margin: 0 auto;
   }
 
   .imageSection {
-    width: 90%; 
-    height:700px; 
-    bottom: 5%;
-    left: 5%;
-    background: url("../../../assets/JPG/IMG_7936.jpg") no-repeat center center;
-    background-size: cover;
-    margin: 20px auto;
+    width: 550px; /* L'immagine occupa tutta la larghezza */
+    height: 450px; /* Altezza chiara e proporzionata */
+    margin-left: 20px;
+    background-size: cover; /* Assicura che l'immagine riempia l'area */
+    background-repeat: no-repeat; /* Evita ripetizioni */
+    background-position: center; /* Posiziona l'immagine al centro */
+    top: -100px;
   }
 
   .textSection {
-    width: 70%;
-    height: 500px; 
-    background-color: #f3c7dc;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    font-size: 1rem;
-    line-height: 1.5;
-    top: 59%;
-    overflow-y: scroll;
-    left: 0%;
-    margin-bottom: 60px; /* Aggiungi uno spazio maggiore */
-    position: relative; /* Evita che il testo fluisca sopra altre sezioni */
+    position: relative; /* Posizionamento naturale */
+    width: 550px; /* Larghezza completa */
+    height:auto;
+    margin-left: -55rem;
+    margin-top: 20px; /* Spazio tra l'immagine e il testo */
+    padding: 20px; /* Spazio interno per leggibilità */
+    box-sizing: border-box;
+    text-align: center;
+    top: 300px;
+
+    overflow: hidden;
+    word-break: break-all;
+    word-spacing: normal;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
   }
 
-  
+  .imageSection {
+    width: 400px; /* L'immagine occupa tutta la larghezza */
+    height: 400px; /* Altezza chiara e proporzionata */
+    margin-left: 20px;
+    background-size: cover; /* Assicura che l'immagine riempia l'area */
+    background-repeat: no-repeat; /* Evita ripetizioni */
+    background-position: center; /* Posiziona l'immagine al centro */
+    top: -100px;
+  }
+
+  .textSection {
+    position: relative; /* Posizionamento naturale */
+    width: 400px; /* Larghezza completa */
+    height:auto;
+    margin-left: -55rem;
+    margin-top: 20px; /* Spazio tra l'immagine e il testo */
+    padding: 20px; /* Spazio interno per leggibilità */
+    box-sizing: border-box;
+    text-align: left;
+    top: 200px;
+
+    overflow: hidden;
+    word-break: break-all;
+    word-spacing: normal;
+  }
 }
+
 @media (max-width: 359px) {
   .container {
     display: flex;
@@ -93,36 +150,37 @@ strong {
   }
 
   .imageSection {
-    width:50%; /* Riduce la larghezza */
-    height: 500px; /* Riduce l'altezza */
-
-    background: url("../../../assets/JPG/IMG_7936.jpg") no-repeat center center;
-    background-size: cover;
-    left: auto;
-    top: -30%;
+    width: 300px; /* L'immagine occupa tutta la larghezza */
+    height: 350px; /* Altezza chiara e proporzionata */
+    margin-left: 20px;
+    background-size: cover; /* Assicura che l'immagine riempia l'area */
+    background-repeat: no-repeat; /* Evita ripetizioni */
+    background-position: center; /* Posiziona l'immagine al centro */
+    top: -150px;
   }
 
-  .textSection {
-    width: 75%; /* Riduce ulteriormente la larghezza */
-    max-width: 350px; /* Limite massimo per evitare di occupare troppo spazio */
-    height: auto; /* Adatta l'altezza al contenuto */
-    max-height: 400px; /* Limita l'altezza per mantenere compattezza */
-    background-color: #f3c7dc;
-    padding: 10px 15px; /* Margine interno bilanciato */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    font-size: 0.8rem; /* Riduce il testo per contenere meglio il contenuto */
-    line-height: 1.4; /* Migliora la leggibilità */
-    margin: 10px auto; /* Centra e riduce spazio attorno */
+
+   .textSection {
+    
     position: relative;
-    overflow-y: scroll;
-    word-wrap: break-word; /* Assicura che le parole non escano fuori dalla sezione */
-}
+    top: 150px;
+    left: 450px;
+    width: 300px;
+    height: 700px;
+    word-break: normal;
+    margin-bottom: -250px;
+    background-color: #f3c7dc;
+    padding: 10px 0px; /* Ridotto padding laterale per rendere il testo più compatto */
+ 
+    text-align: center; /* Allineato a sinistra per uno stile simile all'esempio */
+
+  }
+
 
   h2 {
     font-size: 1rem; /* Riduce la dimensione del titolo */
     text-align: center;
     margin-bottom: 8px;
   }
-}
 
+}

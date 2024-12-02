@@ -19,8 +19,7 @@ const FirstSection = () => {
                 <p className={style.paragraphSection}>
                     Con il passare degli anni, ho unito la passione per la <strong>naturopatia</strong> a quella per il <strong>movimento</strong>. Per me, il
                     corpo è uno <strong>strumento straordinario</strong>, un veicolo che ci permette di <strong>esprimerci</strong>, di <strong>crescere</strong> e di <strong>scoprire</strong>
-                    chi siamo davvero. Ho sempre creduto che il <strong>movimento</strong> non fosse solo una questione fisica, ma anche <strong>mentale</strong>
-                    e <strong>spirituale</strong>.
+                    chi siamo davvero. Ho sempre creduto che il <strong>movimento</strong> non fosse solo una questione fisica, ma anche <strong>mentale</strong> e <strong> spirituale</strong>.
                 </p>
             </div>
         </div>
