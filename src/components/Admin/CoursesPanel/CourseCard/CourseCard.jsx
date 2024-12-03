@@ -1,7 +1,6 @@
 import style from "./CourseCard.module.css";
 
 const CourseCard = ({ course, onView, onEdit, onDelete }) => {
-    console.log(course);
     return (
         <div className={style.card} onClick={onView}>
             <h3 className={style.title}>{course.title}</h3>

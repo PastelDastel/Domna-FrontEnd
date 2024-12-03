@@ -17,7 +17,6 @@ const CoursesPanel = () => {
         const fetchCourses = async () => {
             try {
                 const response = await axiosPrivate.get("/api/courses");
-                console.log("Courses:", response.data);
                 setCourses(response.data);
             } catch (error) {
                 console.error("Error fetching courses:", error);

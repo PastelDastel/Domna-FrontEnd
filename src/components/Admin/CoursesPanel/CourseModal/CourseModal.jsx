@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import style from "./CourseModal.module.css";
 
-const CourseModal = ({ course, mode, onClose, onSave }) => {
+const CourseModal = ({ course, mode, onClose, onSave, subscribedUsers }) => {
     const [formData, setFormData] = useState(course);
+    console.log("Subscribed Users:", subscribedUsers);
 
+    const getSubscribedNames = (subscribedUsers) => {
+        return subscribedUsers.map((user) => user.username);
+    }
+
+
+    console.log("Course:", course);
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -57,6 +64,7 @@ const CourseModal = ({ course, mode, onClose, onSave }) => {
                             />
                             <ViewList label="Benefits" items={course.benefits || []} />
                             <ViewList label="Excluded Benefits" items={course.excluded_benefits || []} />
+                            <ViewList label="Subscribers" items={getSubscribedNames(subscribedUsers) || []} />
                             <ViewCategories label="Categories and Videos" categories={course.categories || []} />
                         </section>
 
