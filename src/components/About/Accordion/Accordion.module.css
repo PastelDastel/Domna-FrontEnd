@@ -36,6 +36,7 @@
 .accordionToggle {
   font-size: 1.2rem;
 }
+
 @media (max-width: 950px) {
   .accordion {
     width: 60%; /* Adatta l'accordion alla larghezza del dispositivo */
