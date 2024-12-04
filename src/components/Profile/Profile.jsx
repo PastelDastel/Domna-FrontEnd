@@ -29,7 +29,7 @@ const Profile = () => {
   // ActiveCampaign Event Tracking
   const trackActiveCampaignEvent = async (eventName, eventData) => {
     try {
-      await axios.post("/api/track-event", { eventName, eventData });
+      await axios.post("/api/activecampaign/track-event", { eventName, eventData });
       console.log(`Event "${eventName}" tracked successfully.`);
     } catch (error) {
       console.error("Error tracking ActiveCampaign event:", error);
