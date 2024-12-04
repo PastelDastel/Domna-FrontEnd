@@ -1,7 +1,84 @@
-.article{
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 150px;
+/* Contenitore principale */
+.article {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Josefin Sans', sans-serif;
+    line-height: 1.6;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Per centralizzare i contenuti */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Header */
+.header {
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    word-wrap: break-word;
+}
+
+.author {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.date {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+/* Contenuto */
+.content {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #555;
+    text-align: justify;
+}
+
+/* Footer */
+.footer {
+    margin-top: 20px;
+    border-top: 2px solid #f0f0f0;
+    padding-top: 10px;
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+}
+
+/* Stile per il caricamento */
+.loading {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #777;
+    margin-top: 50px;
+}
+
+/* Stile per gli errori */
+.error {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #d9534f;
+    margin-top: 50px;
+}
+
+/* Sfondo generale */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: #ffcce6; /* Colore rosa per lo sfondo */
 }
