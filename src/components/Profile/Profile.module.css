@@ -39,7 +39,9 @@
   border: 4px solid #ff4d94;
 }
 
-.editButton {
+.editButton,
+.liveButton,
+.logoutButton {
   font-family: "Josefin Sans";
   background-color: #ff4d94;
   color: #fff;
@@ -52,7 +54,9 @@
   width: 50%;
   margin: 10px 0 20px;
 }
-.editButton:hover {
+.editButton:hover,
+.liveButton:hover,
+.logoutButton:hover {
   background-color: #ff1a66;
 }
 
@@ -106,6 +110,10 @@
 
 .videoButton:hover {
   background-color: #0056b3;
+}
+.profileSidebar .noLive {
+  font-size: 1em;
+  color: #333333aa;
 }
 
 @media (max-width: 1439px) {
