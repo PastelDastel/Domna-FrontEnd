@@ -96,8 +96,12 @@ const Profile = () => {
         try {
           console.log("Fetching recordings...");
           const fetchedRecordings = await getRecordings();
-          setRecordings(fetchedRecordings || []); // Default to empty array if undefined
-          console.log("Fetched Recordings: ", fetchedRecordings);
+          const filteredRecordings = fetchedRecordings.filter(recording => {
+            // Exclude recordings that are in progress or incomplete
+            return recording.status !== "in-progress";
+          });
+          setRecordings(filteredRecordings || []); // Default to empty array if no valid recordings
+          console.log("Filtered Recordings: ", filteredRecordings);
         } catch (error) {
           console.error("Error fetching recordings:", error);
           setRecordings([]); // Set to empty array in case of error
