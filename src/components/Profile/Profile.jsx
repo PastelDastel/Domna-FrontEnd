@@ -1,84 +1,47 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import styles from "./Profile.module.css"; // Import the CSS module
 import useLogout from "../../hooks/useLogout";
 import MetaPixel from "../Global Components/MetaPixel";
-const API_KEY = import.meta.env.VITE_API_KEY; // Your YouTube API Key
 import VideoSDK from "./VideoSDK/VideoSDK";
+import { getRecordings } from "./VideoSDK/API";
 
 const Profile = () => {
   const logout = useLogout();
   const [user, setUser] = useState(null);
   const [courses, setCourses] = useState([]);
-  const [videoTitles, setVideoTitles] = useState({});
-  const [lives, setLives] = useState([]);
+  const [hasLiveBenefit, setHasLiveBenefit] = useState(false); // Separate state for LIVE benefit check
+  const [loadingRecordings, setLoadingRecordings] = useState(false);
+  const [recordings, setRecordings] = useState([]);
+  const [showLives, setShowLives] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState(null); // State to track the selected video
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
-  const [showLives, setShowLives] = useState(false);
+
   // Handle Logout
   const handleLogout = async () => {
     await logout();
     navigate("/");
   };
 
-  // ActiveCampaign Tracking Initialization
-
   const handleShowLives = () => {
-
-    if (showLives) {
-      setShowLives(false);
-    } else {
-      setShowLives(true);
-    }
-
-
-  };
-  // ActiveCampaign Event Tracking
-  const trackActiveCampaignEvent = async (eventName, eventData) => {
-    try {
-      await axios.post("/api/activecampaign/track-event", { eventName, eventData });
-      console.log(`Event "${eventName}" tracked successfully.`);
-    } catch (error) {
-      console.error("Error tracking ActiveCampaign event:", error);
-    }
-  };
-  // Fetch Video Title from YouTube API
-  const fetchVideoTitle = async (videoUrl) => {
-    try {
-      const videoId = new URL(videoUrl).pathname.split("/")[1];
-      if (!videoId) throw new Error("Invalid YouTube URL");
-
-      const response = await axios.get(
-        `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${API_KEY}&part=snippet`
-      );
-
-      if (response.data.items && response.data.items.length > 0) {
-        return response.data.items[0].snippet.title;
-      } else {
-        return "Unknown Title";
-      }
-    } catch (error) {
-      console.error("Error fetching video title:", error);
-      return "Error Fetching Title";
-    }
+    setShowLives(!showLives);
   };
 
-  // Fetch User and Courses Data
+  // Fetch User Data
   useEffect(() => {
-    let isMounted = true;
     const controller = new AbortController();
-    setShowLives(false);
 
-    const getUserData = async () => {
+    const fetchUserData = async () => {
       try {
         const response = await axiosPrivate.get(`/api/users/${id}`, {
           signal: controller.signal,
         });
-        if (isMounted) setUser(response.data.user);
+        setUser(response.data.user);
       } catch (err) {
         if (!axios.isCancel(err)) {
           console.error("Error fetching user data:", err);
@@ -87,61 +50,64 @@ const Profile = () => {
       }
     };
 
-    const getUserCourses = async () => {
+    fetchUserData();
+
+    return () => {
+      controller.abort();
+    };
+  }, [id, axiosPrivate, navigate, location]);
+
+  // Fetch Courses Data
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const fetchCourses = async () => {
       try {
         const response = await axiosPrivate.get(`/api/users/${id}/courses`, {
           signal: controller.signal,
         });
-        if (isMounted) {
-          setCourses(response.data);
+        const fetchedCourses = response.data;
+        setCourses(fetchedCourses);
 
-          // Fetch video titles for all videos in courses
-          const titles = {};
-          for (const course of response.data) {
-            for (const category of course.categories || []) {
-              for (const video of category.videos || []) {
-                if (!titles[video]) {
-                  titles[video] = await fetchVideoTitle(video);
-                }
-              }
-            }
-          }
-          setVideoTitles(titles);
-        }
+        // Check if any course has LIVE benefit
+        const liveBenefit = fetchedCourses.some(course =>
+          course.benefits.includes("LIVE")
+        );
+        setHasLiveBenefit(liveBenefit);
       } catch (err) {
         if (!axios.isCancel(err)) {
-          console.error("Error fetching user courses:", err);
+          console.error("Error fetching courses:", err);
         }
       }
     };
 
-    const getLives = async () => {
-      try {
-        const response = await axiosPrivate.get(`/api/lives`, {
-          signal: controller.signal,
-        });
-        if (isMounted) {
-          console.log("Lives:", response.data);
-          setLives(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching lives:", error);
-        setLives([]);
-      }
-    };
-
-    getUserData();
-    getUserCourses();
-    const checkIfLive = courses.some(course => course.benefits.includes('LIVE'));
-    if (checkIfLive) {
-      getLives();
-    }
+    fetchCourses();
 
     return () => {
-      isMounted = false;
       controller.abort();
     };
-  }, [id, axiosPrivate, navigate, location]);
+  }, [id, axiosPrivate]);
+
+  // Fetch Recordings if LIVE benefit exists
+  useEffect(() => {
+    if (hasLiveBenefit) {
+      const fetchRecordings = async () => {
+        setLoadingRecordings(true);
+        try {
+          console.log("Fetching recordings...");
+          const fetchedRecordings = await getRecordings();
+          setRecordings(fetchedRecordings);
+          console.log("Fetched Recordings: ", fetchedRecordings);
+        } catch (error) {
+          console.error("Error fetching recordings:", error);
+        } finally {
+          setLoadingRecordings(false);
+        }
+      };
+
+      fetchRecordings();
+    }
+  }, [hasLiveBenefit]);
 
   return (
     <>
@@ -163,15 +129,15 @@ const Profile = () => {
               <h2>{user.username}</h2>
               <p>Email: {user.email}</p>
               <p>Telefono: {user.phone}</p>
-              {
-
-                //if any of the courses has a 'LIVE' benefit, show the live button
-                courses.some(course => course.benefits.includes('LIVE')) ?
-                  (<button className={styles.liveButton} onClick={handleShowLives}>{showLives ? "Vai ai corsi" : "Vai alle live"}</button>) : (<>
-                    <p className={styles.noLive}>Per accedere alle LIVE bisogna aver acquistato un corso DOMNA LIVE</p>
-                  </>)
-
-              }
+              {hasLiveBenefit ? (
+                <button className={styles.liveButton} onClick={handleShowLives}>
+                  {showLives ? "Vai ai corsi" : "Vai alle live"}
+                </button>
+              ) : (
+                <p className={styles.noLive}>
+                  Per accedere alle LIVE bisogna aver acquistato un corso DOMNA LIVE
+                </p>
+              )}
               <button className={styles.editButton}>Modifica Password</button>
               <button className={styles.logoutButton} onClick={handleLogout}>
                 Logout
@@ -183,76 +149,118 @@ const Profile = () => {
         </div>
 
         <div className={styles.profileContent}>
-          {!showLives ? (<>
-            {courses.length > 0 ? (
-              <>
-                <h1>I Tuoi Corsi</h1>
-                {courses.map((course) => (
-                  <div key={course._id} className={styles.courseDetail}>
-                    <h2>{course.title}</h2>
-                    {course.categories && course.categories.length > 0 && (
-                      <div className={styles.categoriesSection}>
-                        <h3>Categorie del corso:</h3>
-                        {course.categories.map((category, index) => (
-                          <div key={index} className={styles.categoryItem}>
-                            <p>
-                              <strong>{category.name}</strong>
-                            </p>
-                            {category.videos && category.videos.length > 0 ? (
-                              <ul className={styles.videoList}>
-                                {category.videos.map((video, videoIndex) => (
-                                  <li key={videoIndex} className={styles.videoItem}>
-                                    <button
-                                      className={styles.videoButton}
-                                      onClick={() => {
-                                        window.open(video, "_blank");
-                                        trackActiveCampaignEvent("VideoWatched", {
-                                          videoUrl: video,
-                                          videoTitle: videoTitles[video] || "Unknown Title",
-                                          userId: user?.id,
-                                          userName: user?.username,
-                                          courseTitle: course.title,
-                                          categoryName: category.name,
-                                          email: user?.email,
-                                        });
-                                      }}
-                                    >
-                                      {videoTitles[video] || "Loading..."}
-                                    </button>
-                                  </li>
-                                ))}
-                              </ul>
-                            ) : (
-                              <p className={styles.noVideos}>No videos in this category</p>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </>
-            ) : (
-              <p className={styles.noCourseData}>Iscriviti ad un corso per accedere a questa sezione</p>
-            )}
-          </>) : (<>
-            {lives.length > -1 ?
-              (<>
-                <VideoSDK user={user} />
-              </>) :
-              (<>
-                <p className={styles.noLiveData}>Iscriviti ad un corso DOMNA LIVE per accedere a questa sezione</p>
-              </>)}
-          </>)}
+          {!showLives ? (
+            <>
+              {courses.length > 0 ? (
+                <>
+                  <h1>I Tuoi Corsi</h1>
+                  {courses.map(course => (
+                    <div key={course._id} className={styles.courseDetail}>
+                      <h2>{course.title}</h2>
+                      {course.categories && course.categories.length > 0 && (
+                        <div className={styles.categoriesSection}>
+                          <h3>Categorie del corso:</h3>
+                          {course.categories.map((category, index) => (
+                            <div key={index} className={styles.categoryItem}>
+                              <p>
+                                <strong>{category.name}</strong>
+                              </p>
+                              {category.videos && category.videos.length > 0 ? (
+                                <ul className={styles.videoList}>
+                                  {category.videos.map((video, videoIndex) => (
+                                    <li key={videoIndex} className={styles.videoItem}>
+                                      <button
+                                        className={styles.videoButton}
+                                        onClick={() => {
+                                          window.open(video, "_blank");
+                                        }}
+                                      >
+                                        Guarda il video
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <p className={styles.noVideos}>
+                                  No videos in this category
+                                </p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <p className={styles.noCourseData}>
+                  Iscriviti ad un corso per accedere a questa sezione
+                </p>
+              )}
+            </>
+          ) : (
+            <>
+              {loadingRecordings ? (
+                <p className={styles.loading}>Getting live recordings, please wait...</p>
+              ) : (
+                <>
+                  {hasLiveBenefit ? (
+                    <>
+                      <VideoSDK user={user} />
+                      {recordings.length > 0 ? (
+                        <>
+                          <h1>Registrazioni</h1>
+                          {recordings.map(recording => {
+                            const formattedDate = new Date(recording.file.createdAt).toLocaleDateString("it-IT", {
+                              day: "2-digit",
+                              month: "long",
+                              year: "numeric",
+                            });
 
+                            return (
+                              <div key={recording.id} className={styles.recordingDetail}>
+                                <button
+                                  className={styles.recordingButton}
+                                  onClick={() => setSelectedVideo(recording.file.fileUrl)}
+                                >
+                                  Live del {formattedDate}
+                                </button>
+                              </div>
+                            );
+                          })}
 
-
-
-
+                          {/* Section to display the selected video */}
+                          {selectedVideo && (
+                            <div className={styles.videoSection}>
+                              <video
+                                controls
+                                width="720"
+                                height="480"
+                                src={selectedVideo}
+                                className={styles.recordingVideo}
+                              >
+                                Your browser does not support the video tag.
+                              </video>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <p>Non ci sono registrazioni disponibili</p>
+                      )}
+                    </>
+                  ) : (
+                    <p className={styles.noLiveData}>
+                      Iscriviti ad un corso DOMNA LIVE per accedere a questa sezione
+                    </p>
+                  )}
+                </>
+              )}
+            </>
+          )}
         </div>
       </div>
-
     </>
   );
 };
+
 export default Profile;

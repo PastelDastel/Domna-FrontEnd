@@ -115,6 +115,41 @@
   font-size: 1em;
   color: #333333aa;
 }
+.recordingVideo {
+  max-width: 100%;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.recordingButton {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.recordingButton:hover {
+  background-color: #0056b3;
+}
+
+.recordingButton {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.recordingButton:hover {
+  background-color: #218838;
+}
 
 @media (max-width: 1439px) {
   .profileContainer {

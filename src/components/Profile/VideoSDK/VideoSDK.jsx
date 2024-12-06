@@ -6,7 +6,7 @@ import {
     useMeeting,
     useParticipant,
 } from "@videosdk.live/react-sdk";
-import { authToken, createMeeting } from "./API";
+import { authToken, createMeeting, startRecording, stopRecording } from "./API";
 import ReactPlayer from "react-player";
 
 function JoinScreen({ getMeetingAndToken }) {
@@ -90,13 +90,46 @@ function ParticipantView(props) {
     );
 }
 
-function Controls() {
+function Controls({ meetingId }) {
     const { leave, toggleMic, toggleWebcam } = useMeeting();
+    const [recording, setRecording] = useState(false);
+
+    const handleStartRecording = async () => {
+        try {
+            await startRecording(meetingId); // Call startRecording API
+            setRecording(true);
+            alert("Recording started");
+        } catch (error) {
+            console.error("Failed to start recording:", error);
+            alert("Could not start recording.");
+        }
+    };
+
+    const handleStopRecording = async () => {
+        try {
+            await stopRecording(meetingId); // Call stopRecording API
+            setRecording(false);
+            alert("Recording stopped");
+        } catch (error) {
+            console.error("Failed to stop recording:", error);
+            alert("Could not stop recording.");
+        }
+    };
+
     return (
         <div className={styles.controls}>
             <button onClick={() => leave()} className={styles.controlsButton}>Leave</button>
             <button onClick={() => toggleMic()} className={styles.controlsButton}>Toggle Mic</button>
             <button onClick={() => toggleWebcam()} className={styles.controlsButton}>Toggle Webcam</button>
+            {!recording ? (
+                <button onClick={handleStartRecording} className={styles.controlsButton}>
+                    Start Recording
+                </button>
+            ) : (
+                <button onClick={handleStopRecording} className={styles.controlsButton}>
+                    Stop Recording
+                </button>
+            )}
         </div>
     );
 }
@@ -121,7 +154,7 @@ function MeetingView(props) {
             <h3>Meeting Id: {props.meetingId}</h3>
             {joined && joined === "JOINED" ? (
                 <div>
-                    <Controls />
+                    <Controls meetingId={props.meetingId} />
                     {[...participants.keys()].map((participantId) => (
                         <ParticipantView
                             participantId={participantId}
@@ -140,7 +173,7 @@ function MeetingView(props) {
     );
 }
 
-function VideoSDK({user}) {
+function VideoSDK({ user }) {
     const [meetingId, setMeetingId] = useState(null);
 
     //Getting the meeting id by calling the api we just wrote
