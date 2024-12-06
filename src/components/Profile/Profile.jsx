@@ -96,10 +96,11 @@ const Profile = () => {
         try {
           console.log("Fetching recordings...");
           const fetchedRecordings = await getRecordings();
-          setRecordings(fetchedRecordings);
+          setRecordings(fetchedRecordings || []); // Default to empty array if undefined
           console.log("Fetched Recordings: ", fetchedRecordings);
         } catch (error) {
           console.error("Error fetching recordings:", error);
+          setRecordings([]); // Set to empty array in case of error
         } finally {
           setLoadingRecordings(false);
         }
