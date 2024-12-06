@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
+    "@mui/icons-material": "^6.1.10",
+    "@mui/material": "^6.1.10",
     "@stripe/stripe-js": "^4.10.0",
     "@videosdk.live/react-sdk": "^0.1.104",
     "@zoom/videosdk": "^1.12.14",
@@ -23,6 +27,7 @@
     "hamburger-react": "^2.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.2",
     "react-player": "^2.16.0",
     "react-router-dom": "^6.27.0",
     "react-transition-group": "^4.4.5",

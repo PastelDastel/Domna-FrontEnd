@@ -3,6 +3,7 @@ import style from "./CoursesPanel.module.css";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import CourseCard from "./CourseCard/CourseCard";
 import CourseModal from "./CourseModal/CourseModal";
+import SweetAlert from "../../Test/SweetAlert"; 
 
 const CoursesPanel = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -84,14 +85,7 @@ const CoursesPanel = () => {
                 />
             ))}
             {modalState.isVisible && (
-                <CourseModal
-                    course={selectedCourse}
-                    mode={modalState.mode}
-                    loading={loading}
-                    subscribedUsers={subscribedUsers}
-                    onClose={closeModal}
-                    onSave={handleSave}
-                />
+                <SweetAlert/>
             )}
         </div>
     );
