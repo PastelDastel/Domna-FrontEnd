@@ -75,4 +75,12 @@
     min-width: 300px;
     margin: 10px;
   }
+  .cardOverlay {
+  
+    width: calc(
+      100% + -1px
+    );
+  
+  }
+  
 }
