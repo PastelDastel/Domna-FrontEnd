@@ -8,12 +8,12 @@
     text-align: center;
 }
 
-h1 {
+.container h1 {
     font-size: 6em;
     color: #ff6b6b;
 }
 
-p {
+.container p {
     font-size: 1.5em;
     margin: 10px 0 20px;
 }

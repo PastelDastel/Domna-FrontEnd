@@ -6,30 +6,8 @@ import {
     useMeeting,
     useParticipant,
 } from "@videosdk.live/react-sdk";
-import { authToken, createMeeting, startRecording, stopRecording } from "./API";
+import { authToken, startRecording, stopRecording } from "./API";
 import ReactPlayer from "react-player";
-
-function JoinScreen({ getMeetingAndToken }) {
-    const [meetingId, setMeetingId] = useState(null);
-    const onClick = async () => {
-        await getMeetingAndToken(meetingId);
-    };
-    return (
-        <div className={styles.container}>
-            <input
-                type="text"
-                placeholder="Enter Meeting Id"
-                className={styles.inputField}
-                onChange={(e) => {
-                    setMeetingId(e.target.value);
-                }}
-            />
-            <button onClick={onClick} className={styles.headerButton}>Join</button>
-            {" or "}
-            <button onClick={onClick} className={styles.headerButton}>Create Meeting</button>
-        </div>
-    );
-}
 
 function ParticipantView(props) {
     const micRef = useRef(null);
@@ -96,7 +74,7 @@ function Controls({ meetingId }) {
 
     const handleStartRecording = async () => {
         try {
-            await startRecording(meetingId); // Call startRecording API
+            await startRecording(meetingId);
             setRecording(true);
             alert("Recording started");
         } catch (error) {
@@ -107,7 +85,7 @@ function Controls({ meetingId }) {
 
     const handleStopRecording = async () => {
         try {
-            await stopRecording(meetingId); // Call stopRecording API
+            await stopRecording(meetingId);
             setRecording(false);
             alert("Recording stopped");
         } catch (error) {
@@ -137,22 +115,33 @@ function Controls({ meetingId }) {
 function MeetingView(props) {
     const [joined, setJoined] = useState(null);
     const { join, participants } = useMeeting({
-        onMeetingJoined: () => {
-            setJoined("JOINED");
-        },
-        onMeetingLeft: () => {
-            props.onMeetingLeave();
-        },
+        onMeetingJoined: () => setJoined("JOINED"),
+        onMeetingLeft: () => props.onMeetingLeave(),
     });
+
     const joinMeeting = () => {
         setJoined("JOINING");
         join();
     };
 
+    // Function to get the current day of the week
+    const getDayName = () => {
+        const days = [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+        ];
+        return days[new Date().getDay()]; // Returns the current day
+    };
+
     return (
         <div className={styles.container}>
-            <h3>Meeting Id: {props.meetingId}</h3>
-            {joined && joined === "JOINED" ? (
+            <h3>{getDayName()}'s Live</h3>
+            {joined === "JOINED" ? (
                 <div>
                     <Controls meetingId={props.meetingId} />
                     {[...participants.keys()].map((participantId) => (
@@ -162,7 +151,7 @@ function MeetingView(props) {
                         />
                     ))}
                 </div>
-            ) : joined && joined === "JOINING" ? (
+            ) : joined === "JOINING" ? (
                 <p>Joining the meeting...</p>
             ) : (
                 <button onClick={joinMeeting} className={styles.headerButton}>
@@ -173,19 +162,9 @@ function MeetingView(props) {
     );
 }
 
-function VideoSDK({ user }) {
-    const [meetingId, setMeetingId] = useState(null);
-
-    //Getting the meeting id by calling the api we just wrote
-    const getMeetingAndToken = async (id) => {
-        const meetingId =
-            id == null ? await createMeeting({ token: authToken }) : id;
-        setMeetingId(meetingId);
-    };
-
-    //This will set Meeting Id to null when meeting is left or ended
+function VideoSDK({ user, meetingId }) {
     const onMeetingLeave = () => {
-        setMeetingId(null);
+        console.log("Meeting ended");
     };
 
     return authToken && meetingId ? (
@@ -201,7 +180,9 @@ function VideoSDK({ user }) {
             <MeetingView meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
         </MeetingProvider>
     ) : (
-        <JoinScreen getMeetingAndToken={getMeetingAndToken} />
+        <div className={styles.container}>
+            <p>Invalid Meeting ID</p>
+        </div>
     );
 }
 

@@ -29,6 +29,7 @@ const CoursesPanel = () => {
     const openModal = async (course, mode) => {
         setSelectedCourse(course);
         setModalState({ isVisible: true, mode });
+        console.log("course", course);
         setLoading(true);
 
         try {
@@ -85,7 +86,7 @@ const CoursesPanel = () => {
                 />
             ))}
             {modalState.isVisible && (
-                <SweetAlert/>
+                <SweetAlert isOpen={true} />
             )}
         </div>
     );

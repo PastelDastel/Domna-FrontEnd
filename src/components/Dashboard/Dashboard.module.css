@@ -1,0 +1,43 @@
+.container {
+  background-color: brown;
+  position: relative;
+  width: 100vw;
+  height: 85vh;
+  transform: translateY(15vh);
+  display: flex;
+}
+
+.content {
+  min-width: 412px;
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: lightcoral;
+  align-items: center;
+}
+
+.sidebar {
+  background-color: darkslateblue;
+  width: 15vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sidebarButton {
+  background-color: dodgerblue;
+  color: white;
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sidebarButton:hover {
+  background-color: blue;
+}
+
+.selected {
+  background-color: blue;
+}

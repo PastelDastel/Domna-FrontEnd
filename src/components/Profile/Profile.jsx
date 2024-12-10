@@ -6,7 +6,7 @@ import styles from "./Profile.module.css"; // Import the CSS module
 import useLogout from "../../hooks/useLogout";
 import MetaPixel from "../Global Components/MetaPixel";
 import VideoSDK from "./VideoSDK/VideoSDK";
-import { getRecordings } from "./VideoSDK/API";
+import { getLastRecordingBasedOnRoomId, getTodayRoomID } from "./VideoSDK/API";
 
 const Profile = () => {
   const logout = useLogout();
@@ -21,7 +21,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
-
   // Handle Logout
   const handleLogout = async () => {
     await logout();
@@ -35,7 +34,6 @@ const Profile = () => {
   // Fetch User Data
   useEffect(() => {
     const controller = new AbortController();
-
     const fetchUserData = async () => {
       try {
         const response = await axiosPrivate.get(`/api/users/${id}`, {
@@ -60,7 +58,7 @@ const Profile = () => {
   // Fetch Courses Data
   useEffect(() => {
     const controller = new AbortController();
-
+    getTodayRoomID();
     const fetchCourses = async () => {
       try {
         const response = await axiosPrivate.get(`/api/users/${id}/courses`, {
@@ -95,7 +93,7 @@ const Profile = () => {
         setLoadingRecordings(true);
         try {
           console.log("Fetching recordings...");
-          const fetchedRecordings = await getRecordings();
+          const fetchedRecordings = await getLastRecordingBasedOnRoomId();
           const filteredRecordings = fetchedRecordings.filter(recording => {
             // Exclude recordings that are in progress or incomplete
             return recording.status !== "in-progress";
@@ -211,7 +209,7 @@ const Profile = () => {
                 <>
                   {hasLiveBenefit ? (
                     <>
-                      <VideoSDK user={user} />
+                      <VideoSDK user={user} meetingId={getTodayRoomID()}/>
                       {recordings.length > 0 ? (
                         <>
                           <h1>Registrazioni</h1>

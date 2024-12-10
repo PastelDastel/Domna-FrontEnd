@@ -8,7 +8,7 @@ const SweetAlert = ({ isOpen, onClose }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  
   const onSubmit = (data) => {
     console.log("Dati inviati:", data);
     Swal.fire({
