@@ -5,7 +5,7 @@ const OverviewModal = ({ closeModal, user, courses, loading }) => {
     return (
         <div className={style.modal}>
             {loading ? (
-                <div className={style.loading}>Loading...</div>
+                <div className={style.loading}>Fetching data</div>
             ) : (
                 <>
                     <h1>Overview</h1>

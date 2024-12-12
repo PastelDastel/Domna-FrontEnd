@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import style from "./Dashboard.module.css";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Users from "./Users/Users";
+import Courses from "./Courses/Courses";
 const Dashboard = () => {
     const [selectedView, setSelectedView] = useState("overview");
 
@@ -12,7 +13,6 @@ const Dashboard = () => {
     return (
         <div className={style.container}>
             <Sidebar selectedView={selectedView} onViewChange={handleViewChange} />
-            {/* Add a unique key to force re-render */}
             <MainView selectedView={selectedView} key={selectedView} />
         </div>
     );
@@ -24,8 +24,8 @@ const MainView = ({ selectedView }) => {
             return <Overview />;
         case "users":
             return <Users />;
-        case "products":
-            return <Products />;
+        case "courses":
+            return <Courses />;
         case "transactions":
             return <Transactions />;
         default:
@@ -33,13 +33,28 @@ const MainView = ({ selectedView }) => {
     }
 };
 
-const Overview = () => (
+const Overview = () => {
+    const axios = useAxiosPrivate();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("/");
+                console.log(response.data);
+            } catch (err) {
+                console.error("Error fetching overview:", err);
+            }
+        };
+
+        fetchData();
+    }, [axios]);
+
+
+
     <div className={style.content}>
         <h1>Overview</h1>
     </div>
-);
+};
 
-const Products = () => <div className={style.content}><h1>Products</h1></div>;
 const Transactions = () => <div className={style.content}><h1>Transactions</h1></div>;
 
 const SidebarButton = ({ view, selectedView, onViewChange }) => {
@@ -56,7 +71,7 @@ const SidebarButton = ({ view, selectedView, onViewChange }) => {
 
 // Sidebar Component
 const Sidebar = ({ selectedView, onViewChange }) => {
-    const views = ["overview", "users", "products", "transactions"];
+    const views = ["overview", "users", "courses", "blogs"];
     return (
         <div className={style.sidebar}>
             {views.map((view) => (

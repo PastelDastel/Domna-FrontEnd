@@ -1,0 +1,281 @@
+/* General container styling */
+.container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: aquamarine;
+}
+
+.FormContainer form {
+  display: flex;
+  flex-direction: row;
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.leftColumn {
+  background: #bd3636;
+  width: 25vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.InputTitle,
+.InputDescription,
+.InputInstructor,
+.InputSection,
+.InputPrice,
+.InputDiscountedPrice,
+.InputStripePriceId,
+.InputBenefits,
+.ShowBenefits,
+.InputExcludedBenefits,
+.ShowExcludedBenefits {
+  padding: 15px;
+}
+
+.InputTitle {
+  background-color: #d4abab;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.InputDescription {
+  background-color: #d4abab;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.InputInstructor {
+  background-color: #d4abab;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.InputSection {
+  background-color: #d4abab;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.InputSection .Label {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.InputPrice {
+  background-color: #d4abab;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.InputDiscountedPrice {
+  background-color: #d4abab;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.InputStripePriceId {
+  background-color: #d4abab;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.InputBenefits {
+  background-color: #d4abab;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.ShowBenefits {
+  background-color: #d4abab;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.InputExcludedBenefits {
+  background-color: #d4abab;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.ShowExcludedBenefits {
+  background-color: #d4abab;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.Label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+.RadioGroup {
+  display: flex;
+  gap: 1rem;
+}
+.RadioLabel {
+  padding: 0.8rem 1.5rem;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.RadioInput {
+  display: none;
+}
+.RadioInput:checked + .RadioLabel {
+  background-color: #f472b6;
+  color: #fff;
+  border-color: #f472b6;
+  box-shadow: 0 4px 10px rgba(244, 114, 182, 0.5);
+}
+.RadioLabel:hover {
+  background-color: #f3f3f3;
+  border-color: #bbb;
+}
+
+.InputTitle .Input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.InputDescription .Textarea {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  min-height: 32px;
+}
+
+.InputInstructor .Input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.InputPrice .Input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.InputDiscountedPrice .Input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.InputPrice,
+.InputDiscountedPrice {
+  width: 100%;
+}
+
+.InputPrices {
+  display: flex;
+  flex-direction: row;
+}
+
+.InputStripePriceId .Input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.InputBenefits .Input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.ShowBenefits {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-self: start;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ShowBenefits div {
+  width: 20%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  word-break: keep-allF;
+}
+.InputExcludedBenefits .Input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.ShowExcludedBenefits {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-self: start;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ShowExcludedBenefits div {
+  width: 20%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  word-break: keep-all;
+}
+
+.rightColumn {
+  background: #f472b6;
+  width: 60vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+}

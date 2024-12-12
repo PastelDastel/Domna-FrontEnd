@@ -14,14 +14,49 @@ const Users = () => {
     const [globalLoading, setGlobalLoading] = useState(true); // General loading state
     const axiosPrivate = useAxiosPrivate();
 
-    const getUserCourses = async (userId) => {
-        try {
-            const response = await axiosPrivate.get(`/api/users/${userId}/courses`);
-            return response.data;
-        } catch (err) {
-            console.error("Error fetching user courses:", err);
-            return [];
+    const deleteUser = async (user) => {
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            html: `Are you sure you want to delete <strong>${user.username}</strong>?<br><em>You won't be able to revert this!</em>`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "Cancel",
+            reverseButtons: true, // Swaps the position of Cancel and Confirm
+        });
+
+        if (result.isConfirmed) {
+            try {
+                // Call your delete function here
+                await axiosPrivate.delete(`/api/users/${user._id}`);
+                Swal.fire({
+                    title: "Deleted!",
+                    text: `${user.username} has been deleted.`,
+                    icon: "success",
+                    confirmButtonColor: "#3085d6",
+                    willClose: () => reloadUsers(),
+                });
+            } catch (error) {
+                Swal.fire({
+                    title: "Error!",
+                    text: `Failed to delete ${user.username}. Please try again.`,
+                    icon: "error",
+                    confirmButtonColor: "#3085d6",
+                });
+                console.error("Delete error:", error);
+            }
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire({
+                title: "Cancelled",
+                text: `${user.username} didn't get deleted!`,
+                icon: "info",
+                confirmButtonColor: "#3085d6",
+            });
         }
+
+
     };
 
     const reloadUsers = () => {
@@ -29,62 +64,127 @@ const Users = () => {
     };
 
     const viewUser = async (user) => {
-        MySwal.fire({
-            title: "Loading...",
-            html: '<p>Fetching user details...</p>',
-            showConfirmButton: true,
-            confirmButtonText: "Close",
-            didOpen: () => Swal.showLoading(),
-            allowOutsideClick: true,
-        });
-
-        const courses = await getUserCourses(user._id);
+        const controller = new AbortController();
+        const signal = controller.signal;
 
         MySwal.fire({
-            title: "User Overview",
-            html: (
-                <Overview
-                    closeModal={() => Swal.close()}
-                    user={user}
-                    courses={courses}
-                />
-            ),
+            title: `<div class="${style.modalTitle}">Fetching Data</div>`,
+            html: `
+                <div class="${style.modalContent}">
+                    <div class="${style.spinner}"></div>
+                    <p class="${style.modalText}">Fetching user details...</p>
+                    <button id="cancel-button" class="${style.cancelButton}">Cancel</button>
+                </div>
+            `,
+            didOpen: () => {
+                document
+                    .getElementById("cancel-button")
+                    .addEventListener("click", () => {
+                        controller.abort();
+                        Swal.close();
+                    });
+            },
+            allowOutsideClick: () => !Swal.isLoading(),
             showConfirmButton: false,
+            allowEscapeKey: true,
+            willClose: () => controller.abort(),
         });
+
+        try {
+            const response = await axiosPrivate.get(`/api/users/${user._id}/courses`, { signal });
+            const courses = response.data;
+
+            MySwal.fire({
+                html: (
+                    <Overview
+                        closeModal={() => Swal.close()}
+                        user={user}
+                        courses={courses}
+                    />
+                ),
+                showConfirmButton: false,
+                allowOutsideClick: true,
+            });
+        } catch (err) {
+            if (err.name === "CanceledError") {
+                console.log("Fetch operation was cancelled");
+            } else {
+                console.error("Error fetching user courses:", err);
+                Swal.fire("Error", "Failed to fetch user data", "error");
+            }
+        }
     };
+
 
     const editUser = async (user) => {
-        MySwal.fire({
-            title: "Loading...",
-            html: '<p>Fetching user details...</p>',
-            showConfirmButton: true,
-            confirmButtonText: "Close",
-            didOpen: () => Swal.showLoading(),
-            allowOutsideClick: true,
-        });
-
-        const courses = await getUserCourses(user._id);
+        const controller = new AbortController();
+        const signal = controller.signal;
 
         MySwal.fire({
-            html: (
-                <EditModal
-                    closeModal={() => Swal.close()}
-                    user={user}
-                    courses={courses}
-                />
-            ),
+            title: `<div class="${style.modalTitle}">Fetching Data</div>`,
+            html: `
+                <div class="${style.modalContent}">
+                    <div class="${style.spinner}"></div>
+                    <p class="${style.modalText}">Fetching user details</p>
+                    <button id="cancel-button" class="${style.cancelButton}">Cancel</button>
+                </div>
+            `,
+            didOpen: () => {
+                document
+                    .getElementById("cancel-button")
+                    .addEventListener("click", () => {
+                        controller.abort();
+                        Swal.close();
+                    });
+            },
+            allowOutsideClick: () => !Swal.isLoading(),
             showConfirmButton: false,
+            allowEscapeKey: true,
+            willClose: () => controller.abort(),
         });
-    };
 
+        try {
+            const response = await axiosPrivate.get(`/api/users/${user._id}/courses`, { signal });
+            const courses = response.data;
+
+            MySwal.fire({
+                width: "50vw",
+                html: (
+                    <EditModal
+                        closeModal={() => Swal.close()}
+                        user={user}
+                        courses={courses}
+                        axios={axiosPrivate}
+                        onUserUpdated={reloadUsers} // Pass the reload function
+                    />
+                ),
+                showConfirmButton: false,
+                allowOutsideClick: true,
+            });
+        } catch (err) {
+            if (err.name === "CanceledError") {
+                console.log("Fetch operation was cancelled");
+            } else {
+                console.error("Error fetching user courses:", err);
+                Swal.fire("Error", "Failed to fetch user data", "error");
+            }
+        }
+    };
     const createUser = () => {
         MySwal.fire({
+            width: "50vw",
             html: (
                 <CreateModal
+                    onUserCreated={reloadUsers}
                     closeModal={() => Swal.close()}
+                    axios={axiosPrivate}
                 />
             ),
             showConfirmButton: false,
+            allowOutsideClick: true,
+            willClose: () => {
+                reloadUsers();
+            }
         });
     };
 
@@ -144,7 +244,7 @@ const Users = () => {
                                         Edit
                                     </button>
                                     <button
-                                        onClick={() => reloadUsers()}
+                                        onClick={() => deleteUser(user)}
                                         className={style.footerButton}
                                     >
                                         Delete
