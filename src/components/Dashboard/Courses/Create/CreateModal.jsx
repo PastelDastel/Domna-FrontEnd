@@ -65,6 +65,9 @@ const CreateModal = ({ axios, onCourseCreated, closeModal }) => {
 
     const [benefits, setBenefits] = useState([]);
     const [excludedBenefits, setExcludedBenefits] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [months, setMonths] = useState([]);
+    const [videos, setVideos] = useState([]);
     const formRef = useRef();
 
 
@@ -104,6 +107,72 @@ const CreateModal = ({ axios, onCourseCreated, closeModal }) => {
         } else {
             console.log(data);
         }
+    };
+
+    // Handle Add Category
+    const handleAddCategory = () => {
+        const categoryName = document.getElementsByName("categories_name")[0]?.value;
+        const categoryDescription = document.getElementsByName("categories_description")[0]?.value;
+
+        if (!categoryName.trim()) {
+            console.info("Category name is required");
+            return;
+        }
+
+        if (categories.find(category => category.name === categoryName)) {
+            console.info("Category already exists");
+            return;
+        }
+
+        setCategories(prevCategories => [
+            ...prevCategories,
+            { name: categoryName, description: categoryDescription, months: [] }
+        ]);
+    };
+
+    // Handle Add Month
+    const handleAddMonth = (categoryIndex) => {
+        const monthIndex = document.getElementsByName("month_index")[0]?.value;
+        const monthName = document.getElementsByName("month_name")[0]?.value;
+        const monthDescription = document.getElementsByName("month_description")[0]?.value;
+
+        if (!monthName.trim()) {
+            console.info("Month name is required");
+            return;
+        }
+
+        setCategories(prevCategories => {
+            const updatedCategories = [...prevCategories];
+            const targetCategory = updatedCategories[categoryIndex];
+
+            targetCategory.months.push({
+                index: monthIndex,
+                name: monthName,
+                description: monthDescription,
+                videos: []
+            });
+
+            return updatedCategories;
+        });
+    };
+
+    // Handle Add Video
+    const handleAddVideo = (categoryIndex, monthIndex) => {
+        const videoInput = document.getElementsByName("video")[0]?.value;
+
+        if (!videoInput.trim()) {
+            console.info("Video input is required");
+            return;
+        }
+
+        setCategories(prevCategories => {
+            const updatedCategories = [...prevCategories];
+            const targetMonth = updatedCategories[categoryIndex].months[monthIndex];
+
+            targetMonth.videos.push(videoInput);
+
+            return updatedCategories;
+        });
     };
 
     return (
@@ -246,7 +315,116 @@ const CreateModal = ({ axios, onCourseCreated, closeModal }) => {
                         </div>
                     </div>
                     <div className={style.rightColumn}>
-                        <h1>Work in progress...</h1>
+                        <div className={style.CategoryInput}>
+                            <div className={style.CategoryGroup}>
+                                <div className={style.CategoryInputName}>
+                                    <label>
+                                        Categories
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="categories_name"
+                                        placeholder="Category name"
+                                        className={style.Input}
+                                    />
+                                </div>
+                                <div className={style.InputCategoryDescription}>
+                                    <label>
+                                        Description
+                                    </label>
+                                    <textarea
+                                        name="categories_description"
+                                        placeholder="Category description"
+                                        className={style.Textarea}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className={style.CategoryButton} onClick={handleAddCategory}>Add Category</div>
+                        </div>
+                        <div className={style.ShowCategories}>
+                            {categories.map((category, categoryIndex) => {
+                                return (<>
+                                    <div key={categoryIndex}>
+                                        <div>
+                                            <h3>{category.name}</h3>
+                                            <p>{category.description}</p>
+                                        </div>
+                                        <div className={style.MonthInput}>
+                                            <div className={style.InputMonthIndex}>
+                                                <label>
+                                                    Month Index
+                                                </label>
+                                                <input
+                                                    type="number"
+                                                    name="month_index"
+                                                    placeholder="Month Index"
+                                                    className={style.Input}
+                                                />
+                                            </div>
+                                            <div className={style.InputMonthName}>
+                                                <label>
+                                                    Month Name
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="month_name"
+                                                    placeholder="Month Name"
+                                                    className={style.Input}
+                                                />
+                                            </div>
+                                            <div className={style.InputMonthDescription}>
+                                                <label>
+                                                    Description
+                                                </label>
+                                                <textarea
+                                                    name="month_description"
+                                                    placeholder="Month Description"
+                                                    className={style.Textarea}
+                                                />
+                                            </div>
+                                            <div className={style.MonthButton} onClick={() => handleAddMonth(categoryIndex)}>Add</div>
+                                        </div>
+                                        <div className={style.ShowMonths}>
+                                            {category.months.map((month, monthIndex) => {
+                                                return (<>
+                                                    <div key={monthIndex}>
+                                                        <div>
+                                                            <h4>{month.name}</h4>
+                                                            <p>Month n. {month.index}</p>
+                                                            <p>{month.description}</p>
+                                                        </div>
+                                                        <div className={style.VideoInput}>
+                                                            <div className={style.InputVideo}>
+                                                                <label>
+                                                                    Video
+                                                                </label>
+                                                                <input
+                                                                    type="text"
+                                                                    name="video"
+                                                                    placeholder="Video"
+                                                                    className={style.Input}
+                                                                />
+                                                            </div>
+                                                            <div className={style.VideoButton} onClick={() => handleAddVideo(categoryIndex, monthIndex)}>Add</div>
+                                                        </div>
+                                                        <div className={style.ShowVideos}>
+                                                            {month.videos.map((video, videoIndex) => {
+                                                                return (<>
+                                                                    <div key={videoIndex}>
+                                                                        {video}
+                                                                    </div>
+                                                                </>)
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                </>)
+                                            })}
+                                        </div>
+                                    </div>
+                                </>)
+                            })}
+                        </div>
                     </div>
                 </form>
                 <button className={style.Button} onClick={() => {
