@@ -180,141 +180,145 @@ const CreateModal = ({ axios, onCourseCreated, closeModal }) => {
             <h1>Create Course</h1>
             <div className={style.FormContainer}>
                 <form ref={formRef}>
-                    <div className={style.leftColumn}>
-                        <div className={style.InputTitle}>
-                            <label className={style.Label}>Title</label>
-                            <input
-                                className={style.Input}
-                                type="text"
-                                name="title"
-                                defaultValue={mockData.title}
-                                placeholder="Title"
-                            />
-                        </div>
-                        <div className={style.InputDescription}>
-                            <label className={style.Label}>Description</label>
-                            <textarea
-                                className={style.Textarea}
-                                name="description"
-                                defaultValue={mockData.description}
-                                placeholder="Description"
-                            />
-                        </div>
-                        <div className={style.InputSection}>
-                            <label className={style.Label}>Section</label>
-                            <div className={style.RadioGroup}>
+                    <div className={style.Group}>
+                        <div className={style.FirstSection}>
+                            <div className={style.InputTitle}>
+                                <label className={style.Label}>Title</label>
                                 <input
-                                    className={style.RadioInput}
-                                    type="radio"
-                                    name="section"
-                                    value="DOMNA"
-                                    id="domna"
-                                    defaultChecked
+                                    className={style.Input}
+                                    type="text"
+                                    name="title"
+                                    defaultValue={mockData.title}
+                                    placeholder="Title"
                                 />
-                                <label htmlFor="domna" className={style.RadioLabel}>
-                                    DOMNA
-                                </label>
+                            </div>
+                            <div className={style.InputDescription}>
+                                <label className={style.Label}>Description</label>
+                                <textarea
+                                    className={style.Textarea}
+                                    name="description"
+                                    defaultValue={mockData.description}
+                                    placeholder="Description"
+                                />
+                            </div>
+                            <div className={style.InputSection}>
+                                <label className={style.Label}>Section</label>
+                                <div className={style.RadioGroup}>
+                                    <input
+                                        className={style.RadioInput}
+                                        type="radio"
+                                        name="section"
+                                        value="DOMNA"
+                                        id="domna"
+                                        defaultChecked
+                                    />
+                                    <label htmlFor="domna" className={style.RadioLabel}>
+                                        DOMNA
+                                    </label>
 
+                                    <input
+                                        className={style.RadioInput}
+                                        type="radio"
+                                        name="section"
+                                        value="DOMNA LIVE"
+                                        id="domnaLive"
+                                    />
+                                    <label htmlFor="domnaLive" className={style.RadioLabel}>
+                                        DOMNA LIVE
+                                    </label>
+                                </div>
+                            </div>
+                            <div className={style.InputPrices}>
+                                <div className={style.InputPrice}>
+                                    <label className={style.Label}>Price</label>
+                                    <input
+                                        className={style.Input}
+                                        type="number"
+                                        name="price"
+                                        defaultValue={mockData.price}
+                                        placeholder="Price"
+                                        min={0}
+                                        step={0.01}
+                                    />
+                                </div>
+                                <div className={style.InputDiscountedPrice}>
+                                    <label className={style.Label}>Discounted Price</label>
+                                    <input
+                                        className={style.Input}
+                                        type="number"
+                                        name="discountedPrice"
+                                        defaultValue={mockData.discountedPrice}
+                                        placeholder="Discounted Price"
+                                        min={0}
+                                        step={0.01}
+                                    />
+                                </div>
+                            </div>
+                            <div className={style.InputStripePriceId}>
+                                <label className={style.Label}>Stripe Price Id</label>
                                 <input
-                                    className={style.RadioInput}
-                                    type="radio"
-                                    name="section"
-                                    value="DOMNA LIVE"
-                                    id="domnaLive"
+                                    className={style.Input}
+                                    type="text"
+                                    name="stripePriceId"
+                                    defaultValue={mockData.stripePriceId}
+                                    placeholder="Stripe Price Id"
                                 />
-                                <label htmlFor="domnaLive" className={style.RadioLabel}>
-                                    DOMNA LIVE
+                            </div>
+                        </div>
+                        <div className={style.SecondSection}>
+                            <div className={style.InputBenefits}>
+                                <label>
+                                    Benefits
                                 </label>
-                            </div>
-                        </div>
-                        <div className={style.InputPrices}>
-                            <div className={style.InputPrice}>
-                                <label className={style.Label}>Price</label>
                                 <input
+                                    type="text"
+                                    name="benefits"
+                                    defaultValue={mockData.benefits}
+                                    placeholder="Benefits"
                                     className={style.Input}
-                                    type="number"
-                                    name="price"
-                                    defaultValue={mockData.price}
-                                    placeholder="Price"
-                                    min={0}
-                                    step={0.01}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            handleBenefits(e);
+                                        }
+                                    }}
                                 />
                             </div>
-                            <div className={style.InputDiscountedPrice}>
-                                <label className={style.Label}>Discounted Price</label>
+                            <div className={style.ShowBenefits}>
+                                {benefits.map((benefit, index) => (
+                                    <div key={index} onClick={() => handleRemoveBenefit(index)}>
+                                        {benefit}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className={style.InputExcludedBenefits}>
+                                <label>
+                                    Excluded Benefits
+                                </label>
                                 <input
+                                    type="text"
+                                    name="excluded_benefits"
+                                    defaultValue={mockData.excluded_benefits}
+                                    placeholder="Excluded Benefits"
                                     className={style.Input}
-                                    type="number"
-                                    name="discountedPrice"
-                                    defaultValue={mockData.discountedPrice}
-                                    placeholder="Discounted Price"
-                                    min={0}
-                                    step={0.01}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            handleExcludedBenefits(e);
+                                        }
+                                    }}
                                 />
                             </div>
-                        </div>
-                        <div className={style.InputStripePriceId}>
-                            <label className={style.Label}>Stripe Price Id</label>
-                            <input
-                                className={style.Input}
-                                type="text"
-                                name="stripePriceId"
-                                defaultValue={mockData.stripePriceId}
-                                placeholder="Stripe Price Id"
-                            />
-                        </div>
-                        <div className={style.InputBenefits}>
-                            <label>
-                                Benefits
-                            </label>
-                            <input
-                                type="text"
-                                name="benefits"
-                                defaultValue={mockData.benefits}
-                                placeholder="Benefits"
-                                className={style.Input}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") {
-                                        handleBenefits(e);
-                                    }
-                                }}
-                            />
-                        </div>
-                        <div className={style.ShowBenefits}>
-                            {benefits.map((benefit, index) => (
-                                <div key={index} onClick={() => handleRemoveBenefit(index)}>
-                                    {benefit}
-                                </div>
-                            ))}
-                        </div>
-                        <div className={style.InputExcludedBenefits}>
-                            <label>
-                                Excluded Benefits
-                            </label>
-                            <input
-                                type="text"
-                                name="excluded_benefits"
-                                defaultValue={mockData.excluded_benefits}
-                                placeholder="Excluded Benefits"
-                                className={style.Input}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") {
-                                        handleExcludedBenefits(e);
-                                    }
-                                }}
-                            />
-                        </div>
-                        <div className={style.ShowExcludedBenefits}>
-                            {excludedBenefits.map((excluded_benefit, index) => (
-                                <div key={index} onClick={() => {
-                                    handleRemoveExcludedBenefit(index);
-                                }}>
-                                    {excluded_benefit}
-                                </div>
-                            ))}
+                            <div className={style.ShowExcludedBenefits}>
+                                {excludedBenefits.map((excluded_benefit, index) => (
+                                    <div key={index} onClick={() => {
+                                        handleRemoveExcludedBenefit(index);
+                                    }}>
+                                        {excluded_benefit}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
-                    <div className={style.rightColumn}>
+                    <div className={style.ThirdSection}>
                         <div className={style.CategoryInput}>
                             <div className={style.CategoryGroup}>
                                 <div className={style.CategoryInputName}>

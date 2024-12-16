@@ -9,7 +9,7 @@
 .leftColumn {
   width: 49%;
 }
-.rightColumn{
+.rightColumn {
   width: 40%;
 }
 .productTitle {
@@ -31,7 +31,11 @@
   color: #999;
   margin-left: 10px;
 }
-
+.noDiscountPrice {
+  color: #5b1f18;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
 .quantityContainer {
   display: flex;
   align-items: center;
@@ -116,6 +120,69 @@
   border-top: 1px solid #803838;
   width: 58%;
   margin: 20px 0;
+}
+
+/* Custom CTA styles */
+
+.discountBadge {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  margin-right: 8px;
+}
+
+.discountedPrice {
+  font-size: 1.5em;
+  color: #d9534f;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.originalPrice {
+  font-size: 1.2em;
+  color: #888;
+  text-decoration: line-through;
+}
+
+.urgencyMessage {
+  color: #d9534f;
+  font-weight: bold;
+  font-size: 1em;
+  margin: 10px 0;
+}
+
+.guarantee {
+  margin-top: 10px;
+  font-size: 1.1em;
+  color: #28a745;
+}
+
+.featuresList .icon {
+  color: green;
+  margin-right: 5px;
+}
+
+.strikethrough .icon {
+  color: red;
+}
+
+.reviews {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.dropdownIcon {
+  font-size: 1.2em;
+  transition: transform 0.3s ease;
+}
+
+.sectionTitle[aria-expanded="true"] .dropdownIcon {
+  transform: rotate(180deg);
 }
 
 @media (max-width: 768px) {

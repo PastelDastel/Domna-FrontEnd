@@ -7,7 +7,7 @@ import useLogout from "../../hooks/useLogout";
 import MetaPixel from "../Global Components/MetaPixel";
 import VideoSDK from "./VideoSDK/VideoSDK";
 import { getLastRecordingBasedOnRoomId, getTodayRoomID } from "./VideoSDK/API";
-
+import VideoTrack from "./VideoTrack"
 const Profile = () => {
   const logout = useLogout();
   const [user, setUser] = useState(null);
@@ -21,6 +21,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
+  const [activeVideoId, setActiveVideoId] = useState(null); // Tracks active video
   // Handle Logout
   const handleLogout = async () => {
     await logout();
@@ -85,7 +86,20 @@ const Profile = () => {
       controller.abort();
     };
   }, [id, axiosPrivate]);
+  // Scroll Listener (with passive: true)
+  useEffect(() => {
+    const handleScroll = () => {
+      console.log("User is scrolling the page with video.");
+    };
 
+    // Attach scroll listener with passive: true
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Cleanup the listener when the component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   // Fetch Recordings if LIVE benefit exists
   useEffect(() => {
     if (hasLiveBenefit) {
@@ -157,36 +171,37 @@ const Profile = () => {
               {courses.length > 0 ? (
                 <>
                   <h1>I Tuoi Corsi</h1>
-                  {courses.map(course => (
-                    <div key={course._id} className={styles.courseDetail}>
+                  {courses.map((course) => (
+                    <div key={course._id} style={{ marginBottom: "20px" }}>
                       <h2>{course.title}</h2>
                       {course.categories && course.categories.length > 0 && (
-                        <div className={styles.categoriesSection}>
-                          <h3>Categorie del corso:</h3>
+                        <div>
                           {course.categories.map((category, index) => (
-                            <div key={index} className={styles.categoryItem}>
-                              <p>
-                                <strong>{category.name}</strong>
-                              </p>
+                            <div key={index}>
+                              <h3>{category.name}</h3>
                               {category.videos && category.videos.length > 0 ? (
-                                <ul className={styles.videoList}>
+                                <ul>
                                   {category.videos.map((video, videoIndex) => (
-                                    <li key={videoIndex} className={styles.videoItem}>
+                                    <li key={videoIndex}>
                                       <button
-                                        className={styles.videoButton}
-                                        onClick={() => {
-                                          window.open(video, "_blank");
-                                        }}
+                                        onClick={() =>
+                                          setActiveVideoId((prev) =>
+                                            prev === video ? null : video
+                                          )
+                                        }
                                       >
-                                        Guarda il video
+                                        {activeVideoId === video
+                                          ? "Chiudi Video"
+                                          : "Guarda il Video"}
                                       </button>
+                                      {activeVideoId === video && (
+                                        <VideoTrack videoId={video} />
+                                      )}
                                     </li>
                                   ))}
                                 </ul>
                               ) : (
-                                <p className={styles.noVideos}>
-                                  No videos in this category
-                                </p>
+                                <p>No videos in this category</p>
                               )}
                             </div>
                           ))}
@@ -209,7 +224,7 @@ const Profile = () => {
                 <>
                   {hasLiveBenefit ? (
                     <>
-                      <VideoSDK user={user} meetingId={getTodayRoomID()}/>
+                      <VideoSDK user={user} meetingId={getTodayRoomID()} />
                       {recordings.length > 0 ? (
                         <>
                           <h1>Registrazioni</h1>
@@ -261,7 +276,7 @@ const Profile = () => {
             </>
           )}
         </div>
-      </div>
+      </div >
     </>
   );
 };

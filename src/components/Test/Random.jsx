@@ -13,10 +13,10 @@ const Course = ({ course }) => {
         _id: courseId,
         description,
         duration,
-        price,
-        discountedPrice
     } = course;
 
+    const price = 59; // Prezzo originale
+    const discountedPrice = 39; // Prezzo scontato
 
     const navigate = useNavigate();
     const { auth } = useAuth();
@@ -62,25 +62,18 @@ const Course = ({ course }) => {
             <div className={style.container}>
                 <div className={style.leftColumn}>
                     <h1 className={style.productTitle}>{title}</h1>
-                    {/* if discounted Price is null or doesnt exist 
-                    then we will not show the discount badge
-                    */
-                        discountedPrice ? (
-                            <p className={style.price}>
-                                <>
-                                    <span className={style.discountBadge}>
-                                        -{Math.round(((price - discountedPrice) / price) * 100)}%
-                                    </span>
-                                    <span className={style.discountedPrice}>${discountedPrice}</span>
-                                    <del className={style.originalPrice}>${price}</del>
-                                </>
-                            </p>
-                        ) : (
-                            <p className={style.price}>
-                                <span className={style.noDiscountPrice}>${price}</span>
-                            </p>
-                        )}
-
+                    <p className={style.price}>
+                        <>
+                            <span className={style.discountBadge}>
+                                -{Math.round(((price - discountedPrice) / price) * 100)}%
+                            </span>
+                            <span className={style.discountedPrice}>${discountedPrice}</span>
+                            <del className={style.originalPrice}>${price}</del>
+                        </>
+                    </p>
+                    <p className={style.urgencyMessage}>
+                        Offerta valida fino al <strong>31 dicembre!</strong>
+                    </p>
                     <p className={style.guarantee}>
                         ✅ 100% soddisfatti o rimborsati!
                     </p>
