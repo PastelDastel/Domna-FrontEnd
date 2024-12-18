@@ -1,75 +1,110 @@
-import React, { useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import ReactPlayer from "react-player";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
-const loadYouTubeAPI = () => {
-    return new Promise((resolve) => {
-        if (window.YT && window.YT.Player) {
-            resolve();
-        } else {
-            const script = document.createElement("script");
-            script.src = "https://www.youtube.com/iframe_api";
-            script.onload = resolve;
-            document.body.appendChild(script);
-        }
-    });
-};
+const VideoTrack = ({
+    isCompleted,
+    videoUrl,
+    videoId,
+    videoName,
+    onVideoUpdate,
+    isPlaying,
+    onPlay,
+}) => {
+    const axiosPrivate = useAxiosPrivate();
+    const [loading, setLoading] = useState(true);
+    const playerRef = useRef(null);
+    const intervalRef = useRef(null); // Ref for managing the interval
+    const actualTimeRef = useRef(0.1); // To track time watched since the last update
 
-const VideoPlayer = ({ videoId }) => {
-    useEffect(() => {
-        let player;
-
-        // Define the onPlayerStateChange function here
-        const onPlayerStateChange = (event) => {
-            if (event.data === window.YT.PlayerState.PLAYING) {
-                console.log("Video started at:", player.getCurrentTime(), "seconds");
-            } else if (event.data === window.YT.PlayerState.PAUSED) {
-                console.log("Video paused at:", player.getCurrentTime(), "seconds");
-            } else if (event.data === window.YT.PlayerState.ENDED) {
-                console.log("Video completed!");
-            }
-        };
-
-        // Load the YouTube API and initialize the player
-        loadYouTubeAPI().then(() => {
-            player = new window.YT.Player(`player-${videoId}`, {
-                videoId: videoId,
-                playerVars: {
-                    autoplay: 1,
-                    origin: window.location.origin,
-                },
-                events: {
-                    onStateChange: onPlayerStateChange, // Use the defined function
-                },
-            });
+    // Function to send tracking data
+    const sendTrackingData = async (status) => {
+        const timestamp = playerRef.current?.getCurrentTime() || 0.1;
+        let actualTime = actualTimeRef.current;
+        if (actualTime > 0.1) { actualTime -= 0.1; } // Subtract the initial 0.1 seconds
+    
+    try {
+        await axiosPrivate.post("/api/video/track", {
+            videoId,
+            videoUrl,
+            timestamp,
+            actualTime,
+            status,
         });
 
-        // Cleanup the player on unmount
-        return () => {
-            if (player) {
-                player.destroy();
-            }
-        };
-    }, [videoId]);
-
-    // Scroll Listener (with passive: true)
-    useEffect(() => {
-        const handleScroll = () => {
-            console.log("User is scrolling the page with video.");
-        };
-
-        // Attach scroll listener with passive: true
-        window.addEventListener("scroll", handleScroll, { passive: true });
-
-        // Cleanup the listener when the component unmounts
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-
-    return (
-        <div>
-            <div id={`player-${videoId}`} style={{ width: "100%", height: "360px" }}></div>
-        </div>
-    );
+        onVideoUpdate({
+            videoId,
+            status,
+            timestamp,
+            actualTime,
+        });
+    } catch (err) {
+        console.error("Error tracking video progress:", err);
+    } finally {
+        actualTimeRef.current = 0.1; // Reset actualTime no matter what
+    }
 };
 
-export default VideoPlayer;
+// Start periodic updates every 5 seconds
+const startTracking = () => {
+    if (!intervalRef.current) {
+        let count = 0;
+        intervalRef.current = setInterval(() => {
+            count += 0.5;
+            actualTimeRef.current += 0.5; // Increment watched time by 5 seconds
+            if (count === 5 && playerRef.current) {
+                sendTrackingData("In Progress");
+                count = 0;
+            }
+        }, 500);
+    }
+};
+
+// Stop periodic updates and send final data
+const stopTracking = (status) => {
+    if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+    }
+    if (playerRef.current) {
+        sendTrackingData(status); // Send the accumulated actual time
+    }
+};
+
+// Cleanup when visibility or component changes
+useEffect(() => {
+    if (!isPlaying) {
+        stopTracking("Paused");
+    }
+    return () => stopTracking("Paused");
+}, [isPlaying]);
+
+return (
+    <div style={{ margin: "10px" }}>
+        <button onClick={() => onPlay(videoId)}>
+            {isPlaying ? "Stop Video" : `Watch ${videoName}`}
+        </button>
+        {isPlaying && (
+            <div>
+                {loading && <p>Loading...</p>}
+                <ReactPlayer
+                    ref={playerRef}
+                    url={videoUrl}
+                    controls
+                    playing={isPlaying}
+                    width="80%"
+                    height="60vh"
+                    onReady={() => setLoading(false)}
+                    onPlay={() => {
+                        startTracking();
+                    }}
+                    onPause={() => stopTracking("Paused")}
+                    onEnded={() => stopTracking("Completed")}
+                />
+            </div>
+        )}
+    </div>
+);
+};
+
+export default VideoTrack;

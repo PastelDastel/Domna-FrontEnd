@@ -15,6 +15,7 @@ import Blog from "./components/Blog/Blog";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import BlogArticlePage from "./components/BlogArticlePage/BlogArticlePage";
 import Dashboard from "./components/Dashboard/Dashboard";
+import Random from "./components/Test/Random";
 // every 30s make a get / to keep the backend online
 setInterval(() => {
   fetch("https://domna-api.onrender.com")
@@ -46,6 +47,7 @@ function App() {
           <Route element={<RequireAuth allowedRoles={[6792941695628669]} />}>
             <Route path="dashboard" element={<Admin />} />
             <Route path="admin" element={<Dashboard />} />
+            <Route path="random" element={<Random />} />
           </Route>
 
           <Route path="*" element={<Missing />} />

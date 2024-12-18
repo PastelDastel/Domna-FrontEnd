@@ -1,133 +1,66 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
-import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import style from "./Course.module.css";
-
-const Course = ({ course }) => {
-    const {
-        title,
-        benefits = [],
-        excluded_benefits = [],
-        stripePriceId,
-        _id: courseId,
-        description,
-        duration,
-    } = course;
-
-    const price = 59; // Prezzo originale
-    const discountedPrice = 39; // Prezzo scontato
-
-    const navigate = useNavigate();
-    const { auth } = useAuth();
-    const axiosPrivate = useAxiosPrivate();
-    const [quantity, setQuantity] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-    const handleAddToCart = async () => {
-        if (auth?.accessToken) {
-            setIsLoading(true);
+import { useState, useEffect } from 'react';
+import style from './Random.module.css';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import ReactPlayer from 'react-player';
+const Random = () => {
+    const axios = useAxiosPrivate();
+    const [videos, setVideos] = useState([]);
+    useEffect(() => {
+        const fetchVideos = async () => {
             try {
-                const orderData = {
-                    productName: title,
-                    price: discountedPrice || price,
-                    quantity,
-                    stripePriceId: stripePriceId,
-                    userId: auth.id,
-                    courseId,
-                    billingInterval: duration,
-                };
-
-                const response = await axiosPrivate.post('/api/orders', orderData);
-                console.log('Order added:', response.data);
-                navigate("/shopping-cart");
+                const response = await axios.get('/api/video/videos');
+                setVideos(response.data.videos);
             } catch (error) {
-                console.error('Error adding to cart:', error);
-            } finally {
-                setIsLoading(false);
+                console.error('Failed to fetch videos:', error);
             }
-        } else {
-            navigate("/login");
-        }
-    };
+        };
+        fetchVideos();
+    }, [axios]);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        console.log(data);
 
-    const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
+        const response = await axios.post('/api/video/create', {
+            videoUrl: data.VideoUrl,
+            title: data.VideoTitle,
+            description: data.VideoDescription
+        })
+        console.log(response);
     };
-
+    console.log(videos);
     return (
-        <>
-            <hr className={style.fullWidthLine} />
-            <div className={style.container}>
-                <div className={style.leftColumn}>
-                    <h1 className={style.productTitle}>{title}</h1>
-                    <p className={style.price}>
-                        <>
-                            <span className={style.discountBadge}>
-                                -{Math.round(((price - discountedPrice) / price) * 100)}%
-                            </span>
-                            <span className={style.discountedPrice}>${discountedPrice}</span>
-                            <del className={style.originalPrice}>${price}</del>
-                        </>
-                    </p>
-                    <p className={style.urgencyMessage}>
-                        Offerta valida fino al <strong>31 dicembre!</strong>
-                    </p>
-                    <p className={style.guarantee}>
-                        ✅ 100% soddisfatti o rimborsati!
-                    </p>
-                    <div className={style.quantityContainer}>
-                        <label className={style.quantityLabel} htmlFor="quantity">Quantity:</label>
-                        <input
-                            className={style.quantityInput}
-                            type="number"
-                            id="quantity"
-                            name="quantity"
-                            value={quantity}
-                            min="1"
-                            onChange={(e) => setQuantity(Number(e.target.value))}
-                        />
-                    </div>
-                    <button
-                        className={style.addToCartBtn}
-                        onClick={handleAddToCart}
-                        disabled={isLoading}
-                    >
-                        {isLoading ? 'Salvando...' : 'Ottieni il corso ora!'}
-                    </button>
-                </div>
+        <div className={style.container}>
+            <form onSubmit={handleSubmit}>
+                <h2>Video URL</h2>
+                <input type="text" placeholder="Enter Video URL" name='VideoUrl' />
+                <h2>Title</h2>
+                <input type="text" placeholder="Enter Title" name='VideoTitle' />
+                <h2>Description</h2>
+                <textarea placeholder="Enter Description" name='VideoDescription' />
+                <button>Submit</button>
+            </form>
 
-                <div className={style.rightColumn}>
-                    <ul className={style.featuresList}>
-                        {benefits.map((benefit, index) => (
-                            <li key={index}>
-                                <span className={style.icon}>✔</span> {benefit}
-                            </li>
-                        ))}
-                        {excluded_benefits.map((excluded, index) => (
-                            <li key={`excluded-${index}`} className={style.strikethrough}>
-                                <span className={style.icon}>✖</span> {excluded}
-                            </li>
-                        ))}
-                    </ul>
-                    <div className={style.reviews}>
-                        <p><em>&quot;Fantastico corso, mi ha cambiato la vita!&quot;</em> - Maria</p>
-                        <p><em>&quot;Ho visto risultati dopo una settimana!&quot;</em> - Luca</p>
-                    </div>
+            <div>
+                <h2>Video List</h2>
+                <div className={style.videoList}>
+                    {videos.map((video) => (
+                        <div key={video.id}>
+                            <h3>{video.title}</h3>
+                            <p>{video.description}</p>
+                            <ReactPlayer
+                                url={'https://www.youtube.com/watch?v=I2O7blSSzpI'}
+                                controls
+                                width="100%"
+                                height="auto"
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
-            <hr className={style.fullWidthLine} />
-            <div className={style.sectionTitle} onClick={toggleDropdown} aria-expanded={isDropdownOpen}>
-                <span>Cosa aspettarsi</span>
-                <span className={style.dropdownIcon}>{isDropdownOpen ? '▲' : '▼'}</span>
-            </div>
-            <div className={`${style.sectionContent} ${isDropdownOpen ? style.show : ''}`}>
-                <div dangerouslySetInnerHTML={{ __html: description }}></div>
-            </div>
-            <div className={style.courseSeparator}></div>
-        </>
+        </div>
     );
 };
 
-export default Course;
+export default Random;

@@ -7,7 +7,7 @@ import useLogout from "../../hooks/useLogout";
 import MetaPixel from "../Global Components/MetaPixel";
 import VideoSDK from "./VideoSDK/VideoSDK";
 import { getLastRecordingBasedOnRoomId, getTodayRoomID } from "./VideoSDK/API";
-import VideoTrack from "./VideoTrack"
+import CourseList from "./CourseList";
 const Profile = () => {
   const logout = useLogout();
   const [user, setUser] = useState(null);
@@ -67,7 +67,7 @@ const Profile = () => {
         });
         const fetchedCourses = response.data;
         setCourses(fetchedCourses);
-
+        console.log("Fetched Courses:", fetchedCourses);
         // Check if any course has LIVE benefit
         const liveBenefit = fetchedCourses.some(course =>
           course.benefits.includes("LIVE")
@@ -170,45 +170,7 @@ const Profile = () => {
             <>
               {courses.length > 0 ? (
                 <>
-                  <h1>I Tuoi Corsi</h1>
-                  {courses.map((course) => (
-                    <div key={course._id} style={{ marginBottom: "20px" }}>
-                      <h2>{course.title}</h2>
-                      {course.categories && course.categories.length > 0 && (
-                        <div>
-                          {course.categories.map((category, index) => (
-                            <div key={index}>
-                              <h3>{category.name}</h3>
-                              {category.videos && category.videos.length > 0 ? (
-                                <ul>
-                                  {category.videos.map((video, videoIndex) => (
-                                    <li key={videoIndex}>
-                                      <button
-                                        onClick={() =>
-                                          setActiveVideoId((prev) =>
-                                            prev === video ? null : video
-                                          )
-                                        }
-                                      >
-                                        {activeVideoId === video
-                                          ? "Chiudi Video"
-                                          : "Guarda il Video"}
-                                      </button>
-                                      {activeVideoId === video && (
-                                        <VideoTrack videoId={video} />
-                                      )}
-                                    </li>
-                                  ))}
-                                </ul>
-                              ) : (
-                                <p>No videos in this category</p>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                  <CourseList courses={courses} />
                 </>
               ) : (
                 <p className={styles.noCourseData}>

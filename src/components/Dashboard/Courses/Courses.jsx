@@ -54,16 +54,57 @@ const Courses = () => {
     };
 
     const viewCourse = async (course) => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
         MySwal.fire({
-            html: (
-                <Overview
-                    closeModal={() => Swal.close()}
-                    course={course}
-                />
-            ),
+            title: `<div class="${style.modalTitle}">Fetching Data</div>`,
+            html: `
+                <div class="${style.modalContent}">
+                    <div class="${style.spinner}"></div>
+                    <p class="${style.modalText}">Fetching user details...</p>
+                    <button id="cancel-button" class="${style.cancelButton}">Cancel</button>
+                </div>
+            `,
+            didOpen: () => {
+                document
+                    .getElementById("cancel-button")
+                    .addEventListener("click", () => {
+                        controller.abort();
+                        Swal.close();
+                    });
+            },
+            allowOutsideClick: () => !Swal.isLoading(),
             showConfirmButton: false,
-            allowOutsideClick: true,
+            allowEscapeKey: true,
+            willClose: () => controller.abort(),
         });
+
+        try {
+            const response = await axiosPrivate.get(`/api/courses/${course._id}/users`, { signal });
+            const users = response.data;
+
+            MySwal.fire({
+                width: "80vw",
+                html: (
+
+                    <Overview
+                        closeModal={() => Swal.close()}
+                        users={users}
+                        course={course}
+                    />
+                ),
+                showConfirmButton: false,
+                allowOutsideClick: true,
+            });
+        } catch (err) {
+            if (err.name === "CanceledError") {
+                console.log("Fetch operation was cancelled");
+            } else {
+                console.error("Error fetching user courses:", err);
+                Swal.fire("Error", "Failed to fetch user data", "error");
+            }
+        }
     };
 
     const editCourse = async (course) => {
@@ -136,6 +177,9 @@ const Courses = () => {
                                     <div>Title: {course.title}</div>
                                     <div>Instructor: {course.instructor}</div>
                                     <div>Duration: {course.duration}</div>
+                                    <div>Price: {course.price}</div>
+                                    <div>Discounted Price: {course.discountedPrice}</div>
+                                    <div>Subscribers: {course.subscribers.length}</div>
                                 </div>
                                 <div className={style.footer}>
                                     <button
