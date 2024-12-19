@@ -89,9 +89,9 @@ const ShoppingCart = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Your Shopping Cart</h1>
             {orders.length > 0 ? (
-                <div>
+                <div className={styles.ordersContainer}>
+                    <h1 className={styles.title}>Your Shopping Cart</h1>
                     <ul className={styles.ordersList}>
                         {orders.map((order, index) => (
                             <li key={index} className={styles.orderItem}>

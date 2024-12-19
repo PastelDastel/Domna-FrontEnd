@@ -355,27 +355,29 @@ const CreateModal = ({ axios, onCourseCreated, closeModal }) => {
                                             <p>{category.description}</p>
                                         </div>
                                         <div className={style.MonthInput}>
-                                            <div className={style.InputMonthIndex}>
-                                                <label>
-                                                    Month Index
-                                                </label>
-                                                <input
-                                                    type="number"
-                                                    name="month_index"
-                                                    placeholder="Month Index"
-                                                    className={style.Input}
-                                                />
-                                            </div>
-                                            <div className={style.InputMonthName}>
-                                                <label>
-                                                    Month Name
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    name="month_name"
-                                                    placeholder="Month Name"
-                                                    className={style.Input}
-                                                />
+                                            <div className={style.MonthGroup}>
+                                                <div className={style.InputMonthIndex}>
+                                                    <label>
+                                                        Month Index
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        name="month_index"
+                                                        placeholder="Month Index"
+                                                        className={style.Input}
+                                                    />
+                                                </div>
+                                                <div className={style.InputMonthName}>
+                                                    <label>
+                                                        Month Name
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        name="month_name"
+                                                        placeholder="Month Name"
+                                                        className={style.Input}
+                                                    />
+                                                </div>
                                             </div>
                                             <div className={style.InputMonthDescription}>
                                                 <label>

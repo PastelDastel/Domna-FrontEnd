@@ -31,3 +31,49 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.ShowCategories {
+  background-color: magenta;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.MonthInput {
+  background-color: maroon;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.MonthGroup {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.InputMonthIndex {
+  background-color: lightcoral;
+}
+.InputMonthIndex input {
+  background-color: lightcoral;
+  width: 90%;
+}
+
+.InputMonthName input {
+  background-color: lightcoral;
+  width: 90%;
+}
+
+.InputMonthDescription {
+  background-color: lightcoral;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.InputMonthDescription textarea {
+  background-color: lightcoral;
+  width: 90%;
+  min-height: 100px;
+  resize: vertical;
+}
