@@ -69,7 +69,7 @@
   cursor: pointer;
   width: 88%;
   margin-top: 15px;
-  padding: 12px;  
+  padding: 12px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s;
 }
@@ -117,7 +117,6 @@
   text-decoration: underline;
 }
 
-
 .inputWrapper {
   display: flex;
   align-items: center;
@@ -145,8 +144,6 @@
   color: #aaa;
   font-size: 0.9em;
 }
-
-
 
 @media (min-width: 1600px) {
   html,
@@ -221,7 +218,6 @@
   }
 }
 
-
 @media (max-width: 1600px) {
   html,
   body {
@@ -295,9 +291,7 @@
   }
 }
 
-
 @media (max-width: 1139px) {
-
   html,
   body {
     height: 100%;
@@ -306,22 +300,19 @@
     background-color: #fdd5e5; /* Colore coerente con il modulo */
   }
 
-
   .registerForm {
     width: 67%;
 
     border-radius: 12px;
-
   }
 
   .inputWrapper {
     width: 100%;
     height: 105%;
     border-radius: 8px;
- 
+
     border: none; /* Rimuove il bordo */
     background-color: #fff; /* Mantieni uno sfondo neutro */
-    
   }
 
   .inputWrapper .icon {
@@ -333,12 +324,12 @@
     font-size: 12px;
     padding: 12px;
     border: none;
-    box-shadow: none; 
+    box-shadow: none;
     background-color: transparent; /* Rende lo sfondo trasparente */
   }
 
   .inputField:focus {
-    outline: none; 
+    outline: none;
   }
 
   .inputField::placeholder {
@@ -373,17 +364,9 @@
   .link {
     font-size: 12px;
   }
-
-
-
-
 }
 
-
-
-
-@media (max-width: 700px)
-{
+@media (max-width: 700px) {
   html,
   body {
     height: 100%;
@@ -392,12 +375,10 @@
     background-color: #fdd5e5; /* Colore coerente con il modulo */
   }
 
-
   .registerForm {
     width: 97%;
     padding: 20px;
     border-radius: 12px;
-
   }
 
   .inputWrapper {
@@ -407,7 +388,6 @@
     margin: 0 auto;
     border: none; /* Rimuove il bordo */
     background-color: #fff; /* Mantieni uno sfondo neutro */
-    
   }
 
   .inputWrapper .icon {
@@ -419,12 +399,12 @@
     font-size: 12px;
     padding: 12px;
     border: none;
-    box-shadow: none; 
+    box-shadow: none;
     background-color: transparent; /* Rende lo sfondo trasparente */
   }
 
   .inputField:focus {
-    outline: none; 
+    outline: none;
   }
 
   .inputField::placeholder {
@@ -460,8 +440,6 @@
     font-size: 12px;
   }
 }
-
-
 
 @media (max-width: 500px) {
   html,
@@ -472,13 +450,11 @@
     background-color: #fdd5e5; /* Colore coerente con il modulo */
   }
 
-
   .registerForm {
     margin-top: 300px;
     width: 97%;
     padding: 20px;
     border-radius: 12px;
-
   }
 
   .inputWrapper {
@@ -488,7 +464,6 @@
     margin: 0 auto;
     border: none; /* Rimuove il bordo */
     background-color: #fff; /* Mantieni uno sfondo neutro */
-    
   }
 
   .inputWrapper .icon {
@@ -500,12 +475,12 @@
     font-size: 12px;
     padding: 12px;
     border: none;
-    box-shadow: none; 
+    box-shadow: none;
     background-color: transparent; /* Rende lo sfondo trasparente */
   }
 
   .inputField:focus {
-    outline: none; 
+    outline: none;
   }
 
   .inputField::placeholder {
@@ -542,10 +517,7 @@
   }
 }
 
-
 @media (max-width: 359px) {
-
-
   html,
   body {
     height: 100%;
@@ -554,12 +526,10 @@
     background-color: #fdd5e5; /* Colore coerente con il modulo */
   }
 
-
   .registerForm {
     width: 97%;
     padding: 20px;
     border-radius: 12px;
-
   }
 
   .inputWrapper {
@@ -569,7 +539,6 @@
     margin: 0 auto;
     border: none; /* Rimuove il bordo */
     background-color: #fff; /* Mantieni uno sfondo neutro */
-    
   }
 
   .inputWrapper .icon {
@@ -581,12 +550,12 @@
     font-size: 12px;
     padding: 12px;
     border: none;
-    box-shadow: none; 
+    box-shadow: none;
     background-color: transparent; /* Rende lo sfondo trasparente */
   }
 
   .inputField:focus {
-    outline: none; 
+    outline: none;
   }
 
   .inputField::placeholder {
@@ -622,4 +591,3 @@
     font-size: 12px;
   }
 }
-

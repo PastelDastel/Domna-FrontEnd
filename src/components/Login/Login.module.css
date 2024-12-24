@@ -19,7 +19,12 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   text-align: center; /* Centers all text inside the form */
 }
-
+.loginSection .loginForm form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .loginForm h1 {
   color: white;
   font-size: 24px;
@@ -39,13 +44,6 @@
   margin-bottom: 15px;
 }
 
-.label {
-  color: white;
-  font-size: 16px;
-  margin-bottom: 5px;
-  align-self: flex-start; /* Align label to the start within the container */
-}
-
 .inputField {
   width: 90%; /* Slightly shorter width for visual alignment */
   padding: 10px;
@@ -60,17 +58,24 @@
 
 .rememberMe {
   display: flex;
+  flex-direction: row;
   align-items: center;
   color: white;
   font-size: 0.9em;
   margin-top: 10px;
-  gap: 8px;
+  background-color: aquamarine;
+  width: 50%;
 }
 .rememberMe input {
-  margin-left: 4px;
-  margin-bottom: 4px;
+  margin: 0;
 }
-
+.rememberMe .label {
+  color: white;
+  font-size: 16px;
+  background-color: chocolate;
+  margin: 0;
+  max-width: 100px;
+}
 .loginButton {
   background-color: #ff1a75;
   color: white;
@@ -109,7 +114,6 @@
   text-decoration: underline;
 }
 
-
 .inputWrapper {
   display: flex;
   align-items: center;
@@ -140,20 +144,20 @@
 
 @media (min-width: 1600px) {
   .loginButton {
-    width: 88%;
+    width: 250px;
     margin-top: 15px;
     padding: 12px;
   }
   .loginForm {
-    width: 50%;
-    height: 65%;
+    width: 30%;
+    height: 55%;
     padding: 20px;
   }
 }
 
 @media (max-width: 1600px) {
   .loginButton {
-    width: 88%;
+    width: 250px;
     margin-top: 15px;
     padding: 12px;
   }
@@ -168,57 +172,54 @@
 
 @media (max-width: 1139px) {
   .loginButton {
-    width: 82%;
+    width: 250px;
     margin-top: 15px;
     padding: 12px;
   }
-  
+
   .loginForm {
     width: 45%;
     height: 65%;
   }
 }
 
-
-@media (max-width: 700px)
-{
+@media (max-width: 700px) {
   .loginButton {
-    width: 82%;
+    width: 250px;
     margin-top: 15px;
     padding: 12px;
   }
-  
+
   .loginForm {
     width: 55%;
     height: 65%;
   }
 }
 
-
-
 @media (max-width: 500px) {
   .loginButton {
-    width: 82%;
+    width: 250px;
     margin-top: 15px;
     padding: 12px;
   }
-  
+
   .loginForm {
     width: 85%;
     height: 65%;
   }
 }
 
-
 @media (max-width: 359px) {
   .loginButton {
-    width: 82%;
+    width: 250px;
     margin-top: 15px;
     padding: 12px;
   }
-  
+
   .loginForm {
-    width:95%;
+    width: 100%;
+    max-width: 310px;
     height: 65%;
+    margin: 0 auto;
   }
 }
