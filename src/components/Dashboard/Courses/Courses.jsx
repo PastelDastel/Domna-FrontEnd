@@ -131,6 +131,66 @@ const Courses = () => {
                     onCourseCreated={reloadCourses}
                     closeModal={() => Swal.close()}
                     axios={axiosPrivate}
+                    mockData={{
+                        title: "Title",
+                        description: "Description",
+                        price: 1,
+                        discountedPrice: 0,
+                        stripePriceId: "stripePriceId",
+                        benefits: ["benefit1", "benefit2", "benefit3", "Longer Text here"],
+                        excluded_benefits: ["excluded_benefit1", "excluded_benefit2"],
+                        section: "DOMNA" || "DOMNA LIVE",
+                        categories: [
+                            {
+                                name: "Category1",
+                                description: "Category1 Description",
+                                months: [{
+                                    index: 1,
+                                    name: "Month1",
+                                    description: "Month1 Description1",
+                                    videos: [
+                                        "video1",
+                                        "video2",
+                                        "video3",
+                                        "video4",
+                                        "video5",
+                                    ]
+                                }
+                                ]
+                            },
+                            {
+                                name: "Category2",
+                                description: "Category2 Description",
+                                months: [{
+                                    index: 1,
+                                    name: "Month1",
+                                    description: "Month1 Description Category2",
+                                    videos: [
+                                        "video1",
+                                        "video2",
+                                        "video3",
+                                        "video4",
+                                        "video5",
+                                    ]
+                                },
+                                {
+                                    index: 2,
+                                    name: "Month2",
+                                    description: "Month2 Description Category2",
+                                    videos: [
+                                        "video6",
+                                        "video7",
+                                        "video8",
+                                        "video9",
+                                        "video10",
+                                    ]
+                                }
+                                ]
+                            }
+
+
+                        ],
+                    }}
                 />
             ),
             showConfirmButton: false,

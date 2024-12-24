@@ -104,9 +104,33 @@
   color: #d75494;
 }
 
+.ButtonCorsi {
+  width: 200px;
+  height: 50px;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  border: 1px solid black;
+}
+.navToCourses {
+  text-decoration: none;
+  color: plum;
+  font-size: 20px;
+}
 
-@media (min-width: 1600px) 
-{
+.ButtonCorsi:hover {
+  background-color: #f29aa0;
+}
+
+.navToCourses:hover {
+  color: white;
+}
+
+
+
+@media (min-width: 1600px) {
   .socialIcons {
     position: absolute;
     right: 4% !important; /* Lascia spazio per il posizionamento a sinistra se necessario */
@@ -118,8 +142,7 @@
   }
 }
 
-@media (max-width: 1600px)
-{
+@media (max-width: 1600px) {
   .socialIcons {
     position: absolute;
     right: 5% !important; /* Lascia spazio per il posizionamento a sinistra se necessario */
@@ -138,8 +161,6 @@
     z-index: 10;
   }
 }
-
-
 
 @media (max-width: 1439px) {
   .hero {
@@ -171,7 +192,7 @@
     display: inline-block;
     transition: all 0.3s ease;
   }
-  
+
   .heroText span.visible {
     opacity: 1;
     transform: translateY(0);
@@ -218,7 +239,7 @@
     display: inline-block;
     transition: all 0.3s ease;
   }
-  
+
   .heroText span.visible {
     opacity: 1;
     transform: translateY(0);
@@ -226,25 +247,10 @@
 
   .socialIcons {
     position: absolute;
-    right:23%;
+    right: 23%;
     bottom: 35%;
     display: flex;
     flex-direction: row;
     gap: 50px;
   }
-
-  
-}
-
-
-@media (max-height: 850px) {
-   .socialIcons {
-    position: absolute;
-    right:35.5%;
-    bottom: 38%;
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-  }
-
 }

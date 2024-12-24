@@ -1,5 +1,6 @@
 import LetterAnimation from "../../Global Components/Letter Animation/LetterAnimation";
 import style from "./Hero.module.css";
+import { Link } from "react-router-dom";
 const Hero = ({ text, animatedText }) => {
 
   return (
@@ -8,6 +9,10 @@ const Hero = ({ text, animatedText }) => {
       <div className={style.heroText}>
         <h1>{text}</h1>
         <LetterAnimation text={animatedText} />
+        <div className={style.ButtonCorsi}>
+          <Link to="/courses" className={style.navToCourses}>
+            Allenati ora</Link>
+        </div>
       </div>
       <div className={style.socialIcons}>
         <a href="https://www.facebook.com/domnaallenamentofunzionalefemminile">
