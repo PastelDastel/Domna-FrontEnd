@@ -2,17 +2,23 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./VideoSDK.module.css";
 import {
     MeetingProvider,
-    MeetingConsumer,
     useMeeting,
     useParticipant,
 } from "@videosdk.live/react-sdk";
-import { authToken, startRecording, stopRecording } from "./API";
+import {
+    authToken,
+    startRecording,
+    stopRecording,
+    createMeeting,
+    getStreamingStatus,
+    setStreamingStatus,
+} from "./API";
 import ReactPlayer from "react-player";
 
-function ParticipantView(props) {
+function ParticipantView({ participantId }) {
     const micRef = useRef(null);
     const { webcamStream, micStream, webcamOn, micOn, isLocal, displayName } =
-        useParticipant(props.participantId);
+        useParticipant(participantId);
 
     const videoStream = useMemo(() => {
         if (webcamOn && webcamStream) {
@@ -68,18 +74,18 @@ function ParticipantView(props) {
     );
 }
 
-function Controls({ meetingId }) {
+function Controls({ meetingId, user }) {
     const { leave, toggleMic, toggleWebcam } = useMeeting();
     const [recording, setRecording] = useState(false);
+
+    const isAdmin = user.roles.toString() === "6792941695628669";
 
     const handleStartRecording = async () => {
         try {
             await startRecording(meetingId);
             setRecording(true);
-            alert("Recording started");
         } catch (error) {
             console.error("Failed to start recording:", error);
-            alert("Could not start recording.");
         }
     };
 
@@ -87,87 +93,146 @@ function Controls({ meetingId }) {
         try {
             await stopRecording(meetingId);
             setRecording(false);
-            alert("Recording stopped");
         } catch (error) {
             console.error("Failed to stop recording:", error);
-            alert("Could not stop recording.");
         }
     };
 
     return (
         <div className={styles.controls}>
-            <button onClick={() => leave()} className={styles.controlsButton}>Leave</button>
-            <button onClick={() => toggleMic()} className={styles.controlsButton}>Toggle Mic</button>
-            <button onClick={() => toggleWebcam()} className={styles.controlsButton}>Toggle Webcam</button>
-            {!recording ? (
-                <button onClick={handleStartRecording} className={styles.controlsButton}>
-                    Start Recording
-                </button>
-            ) : (
-                <button onClick={handleStopRecording} className={styles.controlsButton}>
-                    Stop Recording
-                </button>
+            <button onClick={() => leave()} className={styles.controlsButton}>
+                Leave
+            </button>
+            <button onClick={() => toggleMic()} className={styles.controlsButton}>
+                Toggle Mic
+            </button>
+            <button onClick={() => toggleWebcam()} className={styles.controlsButton}>
+                Toggle Webcam
+            </button>
+            {isAdmin && (
+                !recording ? (
+                    <button onClick={handleStartRecording} className={styles.controlsButton}>
+                        Start Recording
+                    </button>
+                ) : (
+                    <button onClick={handleStopRecording} className={styles.controlsButton}>
+                        Stop Recording
+                    </button>
+                )
             )}
         </div>
     );
 }
 
-function MeetingView(props) {
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+
+function MeetingView({ meetingId, onMeetingLeave, user }) {
     const [joined, setJoined] = useState(null);
-    const { join, participants } = useMeeting({
+    const [isLive, setIsLive] = useState(false);
+    const axiosPrivate = useAxiosPrivate(); // Get axios instance
+
+    const { join, leave, participants } = useMeeting({
         onMeetingJoined: () => setJoined("JOINED"),
-        onMeetingLeft: () => props.onMeetingLeave(),
+        onMeetingLeft: () => {
+            setJoined(null);
+            if (user.roles.toString() === "6792941695628669") {
+                // Admin leaves
+                setStreamingStatus(axiosPrivate, false); // Update backend status
+                setIsLive(false);
+            } else {
+                alert("You have been disconnected as the live stream has ended.");
+            }
+            onMeetingLeave();
+        },
     });
 
-    const joinMeeting = () => {
-        setJoined("JOINING");
-        join();
+    const isAdmin = user.roles.toString() === "6792941695628669";
+
+    useEffect(() => {
+        const fetchLiveStatus = async () => {
+            const liveStatus = await getStreamingStatus(axiosPrivate); // Fetch live status
+            setIsLive(liveStatus);
+            if (!liveStatus && joined === "JOINED") {
+                // If live ends, disconnect all users
+                leave();
+            }
+        };
+
+        fetchLiveStatus();
+
+        // Polling for live status
+        const interval = setInterval(fetchLiveStatus, 5000); // Poll every 5 seconds
+        return () => clearInterval(interval); // Cleanup on unmount
+    }, [axiosPrivate, joined, leave]);
+
+    const startLiveStream = async () => {
+        try {
+            await setStreamingStatus(axiosPrivate, true); // Update live status on backend
+            setIsLive(true);
+            join(); // Admin auto-joins
+        } catch (error) {
+            console.error("Error starting live stream:", error);
+        }
     };
 
-    // Function to get the current day of the week
-    const getDayName = () => {
-        const days = [
-            "Sunday",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-        ];
-        return days[new Date().getDay()]; // Returns the current day
+    const endLiveStream = () => {
+        leave(); // Disconnect admin
+        setStreamingStatus(axiosPrivate, false); // Update backend to end live
+        setIsLive(false); // Update local state
     };
 
     return (
         <div className={styles.container}>
-            <h3>{getDayName()}'s Live</h3>
+            <h3>Today's Live</h3>
             {joined === "JOINED" ? (
                 <div>
-                    <Controls meetingId={props.meetingId} />
+                    <Controls meetingId={meetingId} user={user} />
+                    {isAdmin && (
+                        <button onClick={endLiveStream} className={styles.controlsButton}>
+                            End Live Stream
+                        </button>
+                    )}
                     {[...participants.keys()].map((participantId) => (
-                        <ParticipantView
-                            participantId={participantId}
-                            key={participantId}
-                        />
+                        <ParticipantView key={participantId} participantId={participantId} />
                     ))}
                 </div>
             ) : joined === "JOINING" ? (
                 <p>Joining the meeting...</p>
             ) : (
-                <button onClick={joinMeeting} className={styles.headerButton}>
-                    Join
-                </button>
+                <div>
+                    {isAdmin && !isLive && (
+                        <button
+                            onClick={startLiveStream}
+                            className={styles.headerButton}
+                        >
+                            Start Live Stream
+                        </button>
+                    )}
+                    {isLive && (
+                        <button
+                            onClick={join}
+                            className={styles.headerButton}
+                        >
+                            Join Meeting
+                        </button>
+                    )}
+                    {!isLive && !isAdmin && (
+                        <p>Live stream has not started yet. Please wait for the admin.</p>
+                    )}
+                </div>
             )}
         </div>
     );
 }
+
+
 
 function VideoSDK({ user, meetingId }) {
     const onMeetingLeave = () => {
         console.log("Meeting ended");
     };
 
-    return authToken && meetingId ? (
+    return authToken ? (
         <MeetingProvider
             config={{
                 meetingId,
@@ -177,7 +242,7 @@ function VideoSDK({ user, meetingId }) {
             }}
             token={authToken}
         >
-            <MeetingView meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
+            <MeetingView meetingId={meetingId} onMeetingLeave={onMeetingLeave} user={user} />
         </MeetingProvider>
     ) : (
         <div className={styles.container}>

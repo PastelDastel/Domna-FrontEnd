@@ -8,6 +8,9 @@ import MetaPixel from "../Global Components/MetaPixel";
 import VideoSDK from "./VideoSDK/VideoSDK";
 import { getLastRecordingBasedOnRoomId, getTodayRoomID } from "./VideoSDK/API";
 import CourseList from "./CourseList";
+import Swal from "sweetalert2";
+
+
 const Profile = () => {
   const logout = useLogout();
   const [user, setUser] = useState(null);
@@ -21,15 +24,66 @@ const Profile = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
-  const [activeVideoId, setActiveVideoId] = useState(null); // Tracks active video
-  // Handle Logout
+
+  const handleChangePassword = async () => {
+    const { value: formValues } = await Swal.fire({
+      title: `<div class="${styles.modalTitle}">Modifica Password</div>`,
+      html: `
+        <div class="${styles.modalContainer}">
+          <label for="currentPassword" class="${styles.label}">Vecchia Password</label>
+          <input type="password" id="currentPassword" class="${styles.inputField}" placeholder="Vecchia Password">
+
+          <label for="newPassword" class="${styles.label}">Nuova Password</label>
+          <input type="password" id="newPassword" class="${styles.inputField}" placeholder="Nuova Password">
+
+          <label for="confirmPassword" class="${styles.label}">Conferma Password</label>
+          <input type="password" id="confirmPassword" class="${styles.inputField}" placeholder="Conferma Password">
+        </div>
+      `,
+      focusConfirm: false,
+      showCancelButton: true, // Enables the "Nevermind" button
+      confirmButtonText: `<span class="${styles.confirmButton}">OK</span>`,
+      cancelButtonText: `<span class="${styles.cancelButton}">Nevermind</span>`, // Custom text for "Nevermind"
+      customClass: {
+        popup: styles.swalPopup,
+        cancelButton: styles.cancelButton, // Custom class for "Nevermind" button
+        confirmButton: styles.confirmButton, // Custom class for confirm button
+      },
+      preConfirm: () => {
+        const currentPassword = document.getElementById("currentPassword").value;
+        const newPassword = document.getElementById("newPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (!currentPassword || !newPassword || !confirmPassword) {
+          Swal.showValidationMessage("Tutti i campi sono obbligatori");
+          return false;
+        }
+        if (newPassword !== confirmPassword) {
+          Swal.showValidationMessage("Le password non corrispondono");
+          return false;
+        }
+        return { currentPassword, newPassword };
+      },
+    });
+
+    if (formValues) {
+      try {
+        const response = await axiosPrivate.post(`/api/users/${id}/password`, formValues);
+        console.log("Password change response:", response.data);
+      }
+      catch (error) {
+        console.error("Error changing password:", error);
+        Swal.fire("Errore!", "Qualcosa è andato storto. Riprova più tardi.", "error");
+      }
+      console.log(formValues);
+      Swal.fire("Successo!", `La tua password è stata cambiata in ${formValues.newPassword}`, "success");
+    }
+  };
+
+  // Other functions and useEffects remain unchanged
   const handleLogout = async () => {
     await logout();
     navigate("/");
-  };
-
-  const handleShowLives = () => {
-    setShowLives(!showLives);
   };
 
   // Fetch User Data
@@ -128,26 +182,17 @@ const Profile = () => {
 
   return (
     <>
-      {/* MetaPixel Component */}
-      <MetaPixel
-        pixelId={"410616855425028"}
-        events={[{ type: "ThisDudeIsOnTheProfilePage", params: { userId: user?.id } }]}
-      />
+      <MetaPixel pixelId={"410616855425028"} events={[{ type: "ThisDudeIsOnTheProfilePage", params: { userId: user?.id } }]} />
       <div className={styles.profileContainer}>
-        {/* Sidebar */}
         <div className={styles.profileSidebar}>
           {user ? (
             <>
-              <img
-                src="https://placehold.co/150x150/ffaaff/ff4d94"
-                alt="Foto Profilo"
-                className={styles.profilePic}
-              />
+              <img src="https://placehold.co/150x150/ffaaff/ff4d94" alt="Foto Profilo" className={styles.profilePic} />
               <h2>{user.username}</h2>
               <p>Email: {user.email}</p>
               <p>Telefono: {user.phone}</p>
               {hasLiveBenefit ? (
-                <button className={styles.liveButton} onClick={handleShowLives}>
+                <button className={styles.liveButton} onClick={() => setShowLives(!showLives)}>
                   {showLives ? "Vai ai corsi" : "Vai alle live"}
                 </button>
               ) : (
@@ -155,7 +200,9 @@ const Profile = () => {
                   Per accedere alle LIVE bisogna aver acquistato un corso DOMNA LIVE
                 </p>
               )}
-              <button className={styles.editButton}>Modifica Password</button>
+              <button className={styles.editButton} onClick={handleChangePassword}>
+                Modifica Password
+              </button>
               <button className={styles.logoutButton} onClick={handleLogout}>
                 Logout
               </button>
@@ -169,9 +216,7 @@ const Profile = () => {
           {!showLives ? (
             <>
               {courses.length > 0 ? (
-                <>
-                  <CourseList courses={courses} />
-                </>
+                <CourseList courses={courses} />
               ) : (
                 <p className={styles.noCourseData}>
                   Iscriviti ad un corso per accedere a questa sezione
@@ -209,13 +254,10 @@ const Profile = () => {
                             );
                           })}
 
-                          {/* Section to display the selected video */}
                           {selectedVideo && (
                             <div className={styles.videoSection}>
                               <video
                                 controls
-                                width="720"
-                                height="480"
                                 src={selectedVideo}
                                 className={styles.recordingVideo}
                               >
@@ -238,6 +280,7 @@ const Profile = () => {
             </>
           )}
         </div>
+
       </div >
     </>
   );

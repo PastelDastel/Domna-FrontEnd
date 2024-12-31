@@ -1,3 +1,96 @@
+/* Modal container */
+.modalContainer {
+  text-align: center;
+  padding: 20px;
+}
+/* Confirm Button */
+.confirmButton {
+  background-color: #6c63ff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.confirmButton:hover {
+  background-color: #5a55cc;
+}
+
+/* Cancel (Nevermind) Button */
+.cancelButton {
+  background-color: #7c2c2c;
+  color: #333;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.cancelButton:hover {
+  background-color: #bbb;
+}
+
+/* Inputs */
+.inputField {
+  display: block;
+  margin: 10px auto;
+  width: 80%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Labels */
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #555;
+  text-align: left;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Button styles */
+.confirmButton {
+  background-color: #6c63ff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.confirmButton:hover {
+  background-color: #5a55cc;
+}
+
+/* Modal title */
+.modalTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* For SweetAlert2 Popup */
+.swalPopup {
+  font-family: "Josefin Sans", sans-serif;
+  width: 450px;
+}
+
 .profileContainer {
   display: flex;
   flex-direction: row;
@@ -7,6 +100,7 @@
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  word-break: keep-all;
 }
 
 .profileSidebar {
@@ -59,177 +153,51 @@
 .logoutButton:hover {
   background-color: #ff1a66;
 }
+/* Styling for dropdown sections */
+
+.monthLocked {
+  color: #a0a0a0;
+  font-style: italic;
+  background-color: #f7f7f7;
+  padding: 8px 16px;
+  border-left: 3px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Locked video item */
+.videoItemLocked {
+  color: #a0a0a0;
+  font-style: italic;
+  background-color: #f9f9f9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin: 4px 0;
+}
 
 .profileContent {
   width: 75%;
-  padding: 50px;
-  margin-top: 100px;
-  background-color: #fff0f5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
   overflow-y: scroll;
+  padding-top: 150px;
 }
-
-.profileContent h1 {
-  color: #ff4d94;
-  font-size: 2.2em;
-  margin-bottom: 30px;
-}
-
-.profileContent p {
-  color: #333;
-  font-size: 1.2em;
-  margin: 15px 0;
-}
-
-.profileContent p strong {
-  color: #ff4d94;
-}
-.videosSection {
-  margin-top: 20px;
-}
-
-.videoList {
-  list-style: none;
-  padding: 0;
-}
-
-.videoButton {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  margin: 5px 0;
-  text-align: left;
-}
-
-.videoButton:hover {
-  background-color: #0056b3;
-}
-.profileSidebar .noLive {
-  font-size: 1em;
-  color: #333333aa;
-}
-.recordingVideo {
-  max-width: 100%;
-  margin-top: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-.recordingButton {
-  margin-top: 10px;
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.recordingButton:hover {
-  background-color: #0056b3;
-}
-
-.recordingButton {
-  margin-top: 10px;
-  padding: 10px 15px;
-  background-color: #28a745;
-  color: #fff;
-  font-size: 14px;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.recordingButton:hover {
-  background-color: #218838;
-}
-
-@media (max-width: 1439px) {
+@media (max-width: 1200px) {
   .profileContainer {
-    display: flex;
-    flex-direction: row;
-
-    background-color: antiquewhite;
+    flex-direction: column;
+    height: auto;
   }
   .profileSidebar {
-    width: 40%;
-    background-color: #ffc2d1;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    height: auto;
+    padding-top: 100px;
   }
   .profileContent {
-    width: 75%;
-    padding: 50px;
-    margin-top: unset;
-    background-color: #fff0f5;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-  }
-
-  .courseDetail h2 {
-    text-align: left;
-  }
-}
-@media (max-width: 1024px) {
-  .profileSidebar {
-    width: 40%;
-    background-color: #ffc2d1;
+    width: 100%;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 0;
+    overflow-x: hidden;
   }
-  .profileContent {
-    width: 60%;
-    padding: 50px;
-    background-color: #fff0f5;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-  }
-
-  .courseDetail h2 {
-    text-align: left;
-  }
-}
-@media (max-width: 700px) {
-  .profileContainer {
-    display: flex;
-    flex-direction: column;
-    width: unset;
-    height: unset;
-    background-color: antiquewhite;
-    overflow-y: scroll;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  }
-  .profileSidebar {
-    width: unset;
-    background-color: #ffc2d1;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .profileContent {
-    width: unset;
-    background-color: #fff0f5;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: left;
-  }
-
-  .courseDetail h2 {
-    text-align: left;
+  .profileContent h1 {
+    margin: 15px;
   }
 }

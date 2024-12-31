@@ -41,13 +41,13 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log(response.data);
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.user?.roles;
       const id = response?.data?.user?.id;
       setAuth({ email, roles, accessToken, id });
       setEmail("");
       setPassword("");
+      togglePersist();
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
@@ -121,17 +121,7 @@ const Login = () => {
             </div>
           </div>
 
-          <div className={styles.rememberMe}>
-            <label htmlFor="persist" className={styles.label}>
-              Ricorda dispositivo
-            </label>
-            <input
-              type="checkbox"
-              id="persist"
-              onChange={togglePersist}
-              checked={persist}
-            />
-          </div>
+
 
           <button className={styles.loginButton}>Accedi</button>
         </form>

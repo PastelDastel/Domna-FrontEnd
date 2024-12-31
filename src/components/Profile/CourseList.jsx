@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import VideoTrack from "./VideoTrack";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import style from "./CourseList.module.css";
+
 
 const CourseList = ({ courses }) => {
     const axiosPrivate = useAxiosPrivate();
@@ -32,7 +34,6 @@ const CourseList = ({ courses }) => {
                 video.videoId === updatedVideo.videoId ? updatedVideo : video
             );
 
-            // Update the completed videos set
             if (updatedVideo.status === "Completed") {
                 setCompletedVideos((prev) => new Set([...prev, updatedVideo.videoId]));
             }
@@ -46,25 +47,25 @@ const CourseList = ({ courses }) => {
             prevVideoId === videoId ? null : videoId
         );
     };
-    
+
 
     return (
         <>
             {courses.length > 0 ? (
                 <>
                     <h1>I Tuoi Corsi</h1>
-                    {courses.map((course) => (
-                        <div key={course._id} style={{ marginBottom: "20px" }}>
+                    {courses.map((course, courseIndex) => (
+                        <div key={course._id} style={{ marginBottom: "20px" }} className={style.courseCard}>
                             <h2>{course.title}</h2>
                             {course.categories.map((category, categoryIndex) => {
                                 let previousMonthCompleted = true;
 
                                 return (
-                                    <div key={categoryIndex}>
-                                        <h3>{category.name}</h3>
-                                        {category.monthlyPrograms.map((program, programIndex) => {
-                                            const isMonthUnlocked = previousMonthCompleted;
 
+                                    <div className={style.categoryCard}>
+                                        <h3>{category.name}</h3>
+                                        {category.monthlyPrograms.map((program, monthIndex) => {
+                                            const isMonthUnlocked = previousMonthCompleted;
                                             const monthCompleted = program.videos.every((video) =>
                                                 completedVideos.has(video._id)
                                             );
@@ -74,8 +75,8 @@ const CourseList = ({ courses }) => {
                                             let previousVideoCompleted = true;
 
                                             return (
-                                                <div key={programIndex} style={{ marginTop: "20px" }}>
-                                                    <h4>Mese {program.month}</h4>
+
+                                                <div style={{ marginTop: "20px" }} className={style.monthCard}>
                                                     {isMonthUnlocked ? (
                                                         <>
                                                             <p>{program.description}</p>
@@ -83,10 +84,7 @@ const CourseList = ({ courses }) => {
                                                                 {program.videos.map((video) => {
                                                                     const isCompleted = completedVideos.has(video._id);
                                                                     const isVideoUnlocked = previousVideoCompleted;
-
-                                                                    // Update for the next video
                                                                     previousVideoCompleted = isCompleted;
-
                                                                     return (
                                                                         <li key={video._id}>
                                                                             {isVideoUnlocked ? (
@@ -101,7 +99,8 @@ const CourseList = ({ courses }) => {
                                                                                 />
                                                                             ) : (
                                                                                 <p style={{ color: "gray" }}>
-                                                                                    🔒 {video.name} - Complete the previous video to unlock.
+                                                                                    🔒 {video.name} - Complete the
+                                                                                    previous video to unlock.
                                                                                 </p>
                                                                             )}
                                                                         </li>
@@ -116,9 +115,11 @@ const CourseList = ({ courses }) => {
                                                         </p>
                                                     )}
                                                 </div>
+
                                             );
                                         })}
                                     </div>
+
                                 );
                             })}
                         </div>
