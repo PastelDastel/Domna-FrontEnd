@@ -15,7 +15,7 @@ import {
 } from "./API";
 import ReactPlayer from "react-player";
 
-function ParticipantView({ participantId }) {
+function ParticipantView({ participantId, isAdmin = false }) {
     const micRef = useRef(null);
     const { webcamStream, micStream, webcamOn, micOn, isLocal, displayName } =
         useParticipant(participantId);
@@ -27,7 +27,6 @@ function ParticipantView({ participantId }) {
             return mediaStream;
         }
     }, [webcamStream, webcamOn]);
-
     useEffect(() => {
         if (micRef.current) {
             if (micOn && micStream) {
@@ -49,7 +48,7 @@ function ParticipantView({ participantId }) {
     return (
         <div className={styles.participantContainer}>
             <p className={styles.participantDetails}>
-                Participant: {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
                 {micOn ? "ON" : "OFF"}
             </p>
             <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
@@ -57,14 +56,12 @@ function ParticipantView({ participantId }) {
                 <ReactPlayer
                     className={styles.reactPlayer}
                     playsinline
-                    pip={false}
                     light={false}
-                    controls={false}
+                    controls={isAdmin}
                     muted={true}
                     playing={true}
                     url={videoStream}
-                    height={"700px"}
-                    width={"900px"}
+                    pip={false}
                     onError={(err) => {
                         console.log(err, "participant video error");
                     }}
@@ -74,7 +71,7 @@ function ParticipantView({ participantId }) {
     );
 }
 
-function Controls({ meetingId, user }) {
+function Controls({ meetingId, user, endLiveStream }) {
     const { leave, toggleMic, toggleWebcam } = useMeeting();
     const [recording, setRecording] = useState(false);
 
@@ -100,9 +97,7 @@ function Controls({ meetingId, user }) {
 
     return (
         <div className={styles.controls}>
-            <button onClick={() => leave()} className={styles.controlsButton}>
-                Leave
-            </button>
+
             <button onClick={() => toggleMic()} className={styles.controlsButton}>
                 Toggle Mic
             </button>
@@ -120,6 +115,16 @@ function Controls({ meetingId, user }) {
                     </button>
                 )
             )}
+            {isAdmin && (
+                <button onClick={endLiveStream} className={styles.controlsButton}>
+                    End Live Stream
+                </button>
+            )}
+            {
+                !isAdmin && <button onClick={() => leave()} className={styles.controlsButton}>
+                    Leave
+                </button>
+            }
         </div>
     );
 }
@@ -140,13 +145,22 @@ function MeetingView({ meetingId, onMeetingLeave, user }) {
                 setStreamingStatus(axiosPrivate, false); // Update backend status
                 setIsLive(false);
             } else {
-                alert("You have been disconnected as the live stream has ended.");
+                console.log("You have been disconnected as the live stream has ended.");
             }
             onMeetingLeave();
         },
     });
 
     const isAdmin = user.roles.toString() === "6792941695628669";
+    //take the first participant and switch it with 2nd index
+    /*
+    0:{"675b064c3443b7712857c253" => e4}
+    1:{"6734cb05fe1406b0b8998e47" => e4}
+
+    after switch
+    0:{"6734cb05fe1406b0b8998e47" => e4}
+    1:{"675b064c3443b7712857c253" => e4}
+    */
 
     useEffect(() => {
         const fetchLiveStatus = async () => {
@@ -180,49 +194,74 @@ function MeetingView({ meetingId, onMeetingLeave, user }) {
         setStreamingStatus(axiosPrivate, false); // Update backend to end live
         setIsLive(false); // Update local state
     };
-
+    console.log("PARTICIPANTS:", participants)
     return (
-        <div className={styles.container}>
+        <div className={styles.PreLiveContainer}>
             <h3>Today's Live</h3>
-            {joined === "JOINED" ? (
-                <div>
-                    <Controls meetingId={meetingId} user={user} />
-                    {isAdmin && (
-                        <button onClick={endLiveStream} className={styles.controlsButton}>
-                            End Live Stream
-                        </button>
-                    )}
-                    {[...participants.keys()].map((participantId) => (
-                        <ParticipantView key={participantId} participantId={participantId} />
-                    ))}
-                </div>
-            ) : joined === "JOINING" ? (
-                <p>Joining the meeting...</p>
-            ) : (
-                <div>
-                    {isAdmin && !isLive && (
-                        <button
-                            onClick={startLiveStream}
-                            className={styles.headerButton}
-                        >
-                            Start Live Stream
-                        </button>
-                    )}
-                    {isLive && (
-                        <button
-                            onClick={join}
-                            className={styles.headerButton}
-                        >
-                            Join Meeting
-                        </button>
-                    )}
-                    {!isLive && !isAdmin && (
-                        <p>Live stream has not started yet. Please wait for the admin.</p>
-                    )}
-                </div>
-            )}
+            <div className={styles.PreLiveSecondContainer}>
+                {joined === "JOINED" ? (
+                    <div className={styles.thirdContainer}>
+                        <Controls meetingId={meetingId} user={user} endLiveStream={() => {
+                            endLiveStream();
+                        }} />
+
+                        <div className={styles.meetingLayout}>
+
+                            {/* Admin's Video 
+                                 will return the first participantId
+                            
+                            */
+                                console.log(participants.keys().next().value)}
+                            {isAdmin && (
+                                <div className={styles.adminContainer}>
+                                    <ParticipantView participantId={participants.keys().next().value} isAdmin={true} />
+                                </div>
+                            )}
+
+                            {/* Other Participants */}
+                            <div className={styles.participantGrid}>
+                                {[...participants.keys()].map((participantId) => {
+                                    if (isAdmin && participantId === participants.keys().next().value) return null;
+                                    return (
+                                        <div key={participantId}>
+                                            <ParticipantView participantId={participantId} />
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
+
+                        </div>
+                    </div>
+                ) : joined === "JOINING" ? (
+                    <p>Joining the meeting...</p>
+                ) : (
+                    <div>
+                        {isAdmin && !isLive && (
+                            <button
+                                onClick={startLiveStream}
+                                className={styles.headerButton}
+                            >
+                                Start Live Stream
+                            </button>
+                        )}
+                        {isLive && (
+                            <button
+                                onClick={join}
+                                className={styles.headerButton}
+                            >
+                                Join Meeting
+                            </button>
+                        )}
+                        {!isLive && !isAdmin && (
+                            <p>Live stream has not started yet. Please wait for the admin.</p>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
+
 }
 
 
@@ -231,7 +270,7 @@ function VideoSDK({ user, meetingId }) {
     const onMeetingLeave = () => {
         console.log("Meeting ended");
     };
-
+    console.log("USER:", user)
     return authToken ? (
         <MeetingProvider
             config={{
@@ -239,6 +278,7 @@ function VideoSDK({ user, meetingId }) {
                 micEnabled: true,
                 webcamEnabled: true,
                 name: user.username,
+                participantId: user.id,
             }}
             token={authToken}
         >

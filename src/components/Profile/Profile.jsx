@@ -260,6 +260,10 @@ const Profile = () => {
                                 controls
                                 src={selectedVideo}
                                 className={styles.recordingVideo}
+                                disablePictureInPicture={true}
+                                controlsList="nodownload"
+                                //disable download possibility
+                                onContextMenu={e => e.preventDefault()}
                               >
                                 Your browser does not support the video tag.
                               </video>

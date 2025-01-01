@@ -1,136 +1,98 @@
-/* VideoSDK.module.css */
-
-/* Base container */
-.container {
-  font-family: Arial, sans-serif;
-  margin: 20px auto;
+.PreLiveContainer {
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.PreLiveContainer h3 {
+  padding: 10px;
+}
+.PreLiveSecondContainer {
+  background-color: aquamarine;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  max-width: 900px;
-  text-align: center;
-  box-sizing: border-box;
-}
-
-/* Buttons */
-.headerButton,
-.controlsButton {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  margin: 10px 5px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-
-.headerButton:hover,
-.controlsButton:hover {
-  background-color: #0056b3;
-}
-
-/* Input field */
-.inputField {
-  padding: 10px;
-  margin: 10px 0;
-  width: calc(100% - 22px);
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
-/* Participant view container */
-.participantContainer {
-  border: 1px solid #ddd;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: #fff;
-  text-align: left;
-}
-
-/* Participant details */
-.participantDetails {
-  font-size: 14px;
-  margin-bottom: 10px;
-  word-wrap: break-word;
-}
-
-/* Audio styles */
-.audio {
-  display: none;
-}
-
-/* React Player */
-.reactPlayer {
-  margin: 0 auto;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  max-width: 100%;
-  height: auto;
-}
-
-/* Controls container */
-.controls {
+  width: 100%;
   display: flex;
   justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap; /* Ensures buttons wrap on smaller screens */
-  margin-top: 20px;
+}
+.thirdContainer {
+  background-color: antiquewhite;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.controls {
+  background-color: chocolate;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+.controlsButton {
+  background-color: darkcyan;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+.controlsButton:last-of-type {
+  background-color: red;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+.controlsButton:hover {
+  background-color: darkgoldenrod;
+}
+.controlsButton:last-of-type:hover {
+  background-color: darkred;
+}
+.meetingLayout {
+  background-color: darkcyan;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.adminContainer {
+  background-color: darkgoldenrod;
+  padding: 20px;
+  width: 100%;
 }
 
-/* Responsive Media Queries */
-
-/* Small devices (phones, up to 576px) */
-@media (max-width: 576px) {
-  .container {
-    padding: 10px;
-    margin: 10px;
-    border-radius: 4px;
-  }
-
-  .headerButton,
-  .controlsButton {
-    padding: 8px 10px;
-    margin: 5px 2px;
-    font-size: 12px;
-  }
-
-  .participantDetails {
-    font-size: 12px;
-  }
+.adminContainer .reactPlayer {
+  min-width: 100%;
+  min-height: calc(100vw * 0.363);
+  background-color: darkmagenta;
 }
 
-/* Medium devices (tablets, up to 768px) */
-@media (max-width: 768px) {
-  .container {
-    max-width: 100%;
-    padding: 15px;
-  }
-
-  .headerButton,
-  .controlsButton {
-    padding: 9px 12px;
-    font-size: 13px;
-  }
-
-  .reactPlayer {
-    max-width: 100%;
-    height: auto;
-  }
+.participantGrid {
+  background-color: darkgray;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.participantGrid .participantContainer {
+  width: 100%;
+  background-color: darkgreen;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Large devices (desktops, up to 1200px) */
-@media (max-width: 1200px) {
-  .container {
-    max-width: 95%;
-  }
-
-  .controls {
-    justify-content: space-between; /* Better alignment on large tablets */
-  }
+.participantGrid .participantContainer .reactPlayer {
+  max-height: calc(100vw * 0.1);
+  max-width: calc(100vw * 0.3);
+  background-color: darkmagenta;
 }

@@ -95,6 +95,32 @@ export const startRecording = async (roomId) => {
             },
             body: JSON.stringify({
                 roomId,
+                webkitURL: null,
+                awsDirPath: null,
+                transcriptionL: null,
+                config: {
+                    // Layout Configuration
+                    layout: {
+                        type: "SPOTLIGHT", // "SPOTLIGHT" | "SIDEBAR",  Default : "GRID"
+                        priority: "PIN",
+                        gridSize: 1,
+                    },
+
+                    // Theme of recording
+                    theme: "DARK", //  "LIGHT" | "DEFAULT"
+
+                    // `mode` is used to either record video & audio both or only audio.
+                    mode: "video-and-audio", // "audio", Default : "video-and-audio"
+
+                    // Quality of recording and is only applicable to `video-and-audio` type mode.
+                    quality: "high", // "low" | "med",  Default : "med"
+
+                    // This mode refers to orientation of recording.
+                    // landscape : Record the meeting in horizontally
+                    // portrait : Record the meeting in vertically (Best for mobile view)
+                    orientation: "landscape", // "portrait",  Default : "landscape"
+                },
+
             }),
         });
         if (!res.ok) throw new Error("Failed to start recording");
