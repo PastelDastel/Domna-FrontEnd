@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./VideoSDK.module.css";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     MeetingProvider,
     useMeeting,
@@ -14,6 +16,11 @@ import {
     setStreamingStatus,
 } from "./API";
 import ReactPlayer from "react-player";
+
+const checkIfAdmin = (id) => {
+    const adminIds = ["6734cb05fe1406b0b8998e47"];
+    return adminIds.includes(id);
+};
 
 function ParticipantView({ participantId, isAdmin = false }) {
     const micRef = useRef(null);
@@ -45,38 +52,579 @@ function ParticipantView({ participantId, isAdmin = false }) {
         }
     }, [micStream, micOn]);
 
-    return (
-        <div className={styles.participantContainer}>
-            <p className={styles.participantDetails}>
-                {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
-                {micOn ? "ON" : "OFF"}
-            </p>
-            <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
-            {webcamOn && (
-                <ReactPlayer
-                    className={styles.reactPlayer}
-                    playsinline
-                    light={false}
-                    controls={isAdmin}
-                    muted={true}
-                    playing={true}
-                    url={videoStream}
-                    pip={false}
-                    onError={(err) => {
-                        console.log(err, "participant video error");
-                    }}
-                />
-            )}
-        </div>
+    return (<>
+        {isAdmin ? (<>
+            <div className={styles.adminContainer}>
+                <p className={styles.adminDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+        </>) : (<>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.participantContainer}>
+                <p className={styles.participantDetails}>
+                    {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+                    {micOn ? "ON" : "OFF"}
+                </p>
+                <audio ref={micRef} autoPlay playsInline muted={isLocal} className={styles.audio} />
+                {webcamOn ? (
+                    <ReactPlayer
+                        className={styles.reactPlayer}
+                        playsinline
+                        light={false}
+                        controls={isAdmin}
+                        muted={true}
+                        playing={true}
+                        url={videoStream}
+                        pip={false}
+                        onError={(err) => {
+                            console.log(err, "participant video error");
+                        }}
+                    />
+                ) : (
+                    <div className={styles.webcamPlaceholder}>
+                        <div className={styles.FaIconDiv}>
+                            <FontAwesomeIcon icon={faUser} className={styles.FAICON} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            
+        </>)}
+    </>
     );
 }
 
 function Controls({ meetingId, user, endLiveStream }) {
     const { leave, toggleMic, toggleWebcam } = useMeeting();
     const [recording, setRecording] = useState(false);
-
-    const isAdmin = user.roles.toString() === "6792941695628669";
-
+    const isAdmin = checkIfAdmin(user.id);
     const handleStartRecording = async () => {
         try {
             await startRecording(meetingId);
@@ -85,7 +633,6 @@ function Controls({ meetingId, user, endLiveStream }) {
             console.error("Failed to start recording:", error);
         }
     };
-
     const handleStopRecording = async () => {
         try {
             await stopRecording(meetingId);
@@ -94,14 +641,14 @@ function Controls({ meetingId, user, endLiveStream }) {
             console.error("Failed to stop recording:", error);
         }
     };
-
     return (
         <div className={styles.controls}>
-
             <button onClick={() => toggleMic()} className={styles.controlsButton}>
                 Toggle Mic
             </button>
-            <button onClick={() => toggleWebcam()} className={styles.controlsButton}>
+            <button onClick={() =>
+                toggleWebcam()
+            } className={styles.controlsButton}>
                 Toggle Webcam
             </button>
             {isAdmin && (
@@ -134,110 +681,110 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 function MeetingView({ meetingId, onMeetingLeave, user }) {
     const [joined, setJoined] = useState(null);
     const [isLive, setIsLive] = useState(false);
-    const axiosPrivate = useAxiosPrivate(); // Get axios instance
+    const axiosPrivate = useAxiosPrivate();
 
     const { join, leave, participants } = useMeeting({
         onMeetingJoined: () => setJoined("JOINED"),
         onMeetingLeft: () => {
             setJoined(null);
             if (user.roles.toString() === "6792941695628669") {
-                // Admin leaves
                 setStreamingStatus(axiosPrivate, false); // Update backend status
                 setIsLive(false);
-            } else {
-                console.log("You have been disconnected as the live stream has ended.");
             }
-            onMeetingLeave();
+            onMeetingLeave(); // Trigger custom onMeetingLeave handler
         },
     });
+    const amIAdmin = checkIfAdmin(user.id);
 
-    const isAdmin = user.roles.toString() === "6792941695628669";
-    //take the first participant and switch it with 2nd index
-    /*
-    0:{"675b064c3443b7712857c253" => e4}
-    1:{"6734cb05fe1406b0b8998e47" => e4}
+    const startLiveStream = async () => {
+        try {
+            await setStreamingStatus(axiosPrivate, true);
+            setIsLive(true);
+            join();
+        } catch (error) {
+            console.error("Failed to start live stream. Please try again later.", error);
+        }
+    };
 
-    after switch
-    0:{"6734cb05fe1406b0b8998e47" => e4}
-    1:{"675b064c3443b7712857c253" => e4}
-    */
+    const endLiveStream = async () => {
+        try {
+            await setStreamingStatus(axiosPrivate, false); // Update backend status
+            setIsLive(false);
+            leave(); // Ensure `leave` updates participant state
+        } catch (error) {
+            console.error("Failed to end live stream:", error);
+        }
+    };
+
+    const check = () => {
+        const parts = {};
+        participants.forEach((participant, id) => {
+            parts[id] = participant.displayName;
+        });
+        return parts;
+    };
+
+    const display = () => {
+        const parts = check();
+        const sortedKeys = sort(Object.keys(parts));
+        return (
+            <div className={styles.participantGrid}>
+                {sortedKeys.map((key) => (
+                    <ParticipantView
+                        key={key}
+                        participantId={key}
+                        isAdmin={checkIfAdmin(key)}
+                    />
+                ))}
+            </div>
+        );
+    };
+
+    const sort = (participantsArray) => {
+        return [...participantsArray].sort((a, b) => {
+            const isAdminA = checkIfAdmin(a);
+            const isAdminB = checkIfAdmin(b);
+            return isAdminB - isAdminA;
+        });
+    };
 
     useEffect(() => {
         const fetchLiveStatus = async () => {
-            const liveStatus = await getStreamingStatus(axiosPrivate); // Fetch live status
-            setIsLive(liveStatus);
-            if (!liveStatus && joined === "JOINED") {
-                // If live ends, disconnect all users
-                leave();
+            try {
+                const liveStatus = await getStreamingStatus(axiosPrivate);
+                setIsLive(liveStatus);
+                if (!liveStatus && joined === "JOINED") {
+                    leave(); // Disconnect if live ends
+                }
+            } catch (error) {
+                console.error("Error fetching live status:", error);
             }
         };
 
         fetchLiveStatus();
-
-        // Polling for live status
-        const interval = setInterval(fetchLiveStatus, 5000); // Poll every 5 seconds
-        return () => clearInterval(interval); // Cleanup on unmount
+        const interval = setInterval(fetchLiveStatus, 5000);
+        return () => clearInterval(interval);
     }, [axiosPrivate, joined, leave]);
 
-    const startLiveStream = async () => {
-        try {
-            await setStreamingStatus(axiosPrivate, true); // Update live status on backend
-            setIsLive(true);
-            join(); // Admin auto-joins
-        } catch (error) {
-            console.error("Error starting live stream:", error);
-        }
-    };
 
-    const endLiveStream = () => {
-        leave(); // Disconnect admin
-        setStreamingStatus(axiosPrivate, false); // Update backend to end live
-        setIsLive(false); // Update local state
-    };
-    console.log("PARTICIPANTS:", participants)
     return (
         <div className={styles.PreLiveContainer}>
             <h3>Today's Live</h3>
             <div className={styles.PreLiveSecondContainer}>
                 {joined === "JOINED" ? (
                     <div className={styles.thirdContainer}>
-                        <Controls meetingId={meetingId} user={user} endLiveStream={() => {
-                            endLiveStream();
-                        }} />
-
-                        <div className={styles.meetingLayout}>
-
-                            {/* Admin's Video 
-                                 will return the first participantId
-                            
-                            */
-                                console.log(participants.keys().next().value)}
-                            {isAdmin && (
-                                <div className={styles.adminContainer}>
-                                    <ParticipantView participantId={participants.keys().next().value} isAdmin={true} />
-                                </div>
-                            )}
-
-                            {/* Other Participants */}
-                            <div className={styles.participantGrid}>
-                                {[...participants.keys()].map((participantId) => {
-                                    if (isAdmin && participantId === participants.keys().next().value) return null;
-                                    return (
-                                        <div key={participantId}>
-                                            <ParticipantView participantId={participantId} />
-                                        </div>
-                                    );
-                                })}
-                            </div>
-
-
-                        </div>
+                        <Controls
+                            meetingId={meetingId}
+                            user={user}
+                            endLiveStream={endLiveStream}
+                        />
+                        <div className={styles.meetingLayout}>{display()}</div>
                     </div>
                 ) : joined === "JOINING" ? (
                     <p>Joining the meeting...</p>
                 ) : (
                     <div>
-                        {isAdmin && !isLive && (
+                        {amIAdmin && !isLive && (
                             <button
                                 onClick={startLiveStream}
                                 className={styles.headerButton}
@@ -253,7 +800,7 @@ function MeetingView({ meetingId, onMeetingLeave, user }) {
                                 Join Meeting
                             </button>
                         )}
-                        {!isLive && !isAdmin && (
+                        {!isLive && !amIAdmin && (
                             <p>Live stream has not started yet. Please wait for the admin.</p>
                         )}
                     </div>
@@ -261,16 +808,12 @@ function MeetingView({ meetingId, onMeetingLeave, user }) {
             </div>
         </div>
     );
-
 }
-
-
 
 function VideoSDK({ user, meetingId }) {
     const onMeetingLeave = () => {
         console.log("Meeting ended");
     };
-    console.log("USER:", user)
     return authToken ? (
         <MeetingProvider
             config={{
@@ -290,5 +833,4 @@ function VideoSDK({ user, meetingId }) {
         </div>
     );
 }
-
 export default VideoSDK;

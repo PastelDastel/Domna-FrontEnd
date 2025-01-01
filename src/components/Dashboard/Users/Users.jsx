@@ -148,7 +148,7 @@ const Users = () => {
             const courses = response.data;
 
             MySwal.fire({
-                width: "50vw",
+                width: "80vw",
                 html: (
                     <EditModal
                         closeModal={() => Swal.close()}

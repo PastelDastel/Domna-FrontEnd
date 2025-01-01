@@ -14,21 +14,19 @@
 .modalContent {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Left and Right Panels */
-  gap: 2rem;
 }
 
 .leftPanel {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .rightPanel {
   display: flex;
   flex-direction: column;
-  max-height: 400px;
   overflow-y: auto;
-  border-left: 1px solid #ddd;
-  padding-left: 1rem;
 }
 
 .label {
@@ -61,17 +59,18 @@
 .coursesContainer {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
 }
 
 .courseItem {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 0.5rem;
   background: #f9f9f9;
-  padding: 0.5rem;
   border: 1px solid #ddd;
   border-radius: 4px;
+  width: 550px;
 }
 
 .buttonContainer {
