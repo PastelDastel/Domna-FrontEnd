@@ -10,7 +10,7 @@ import { getLastRecordingBasedOnRoomId, getTodayRoomID } from "./VideoSDK/API";
 import CourseList from "./CourseList";
 import Swal from "sweetalert2";
 
-
+import Video from "./Test/Video";
 const Profile = () => {
   const logout = useLogout();
   const [user, setUser] = useState(null);
@@ -231,7 +231,10 @@ const Profile = () => {
                 <>
                   {hasLiveBenefit ? (
                     <>
-                      <VideoSDK user={user} meetingId={getTodayRoomID()} />
+                      <Video />
+                      {
+                        //<VideoSDK user={user} meetingId={getTodayRoomID()} />
+                      }
                       {recordings.length > 0 ? (
                         <>
                           <h1>Registrazioni</h1>
