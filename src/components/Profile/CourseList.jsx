@@ -3,13 +3,14 @@ import VideoTrack from "./VideoTrack";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import style from "./CourseList.module.css";
 
-
 const CourseList = ({ courses }) => {
     const axiosPrivate = useAxiosPrivate();
 
     const [videosProgress, setVideosProgress] = useState([]);
     const [completedVideos, setCompletedVideos] = useState(new Set());
-    const [currentPlayingVideoId, setCurrentPlayingVideoId] = useState(null); // Track the currently playing video ID
+    const [currentPlayingVideoId, setCurrentPlayingVideoId] = useState(null);
+    const [activeCourseId, setActiveCourseId] = useState(null);
+    const [activeCategoryId, setActiveCategoryId] = useState(null); // Track which category is active
 
     useEffect(() => {
         const fetchVideosProgress = async () => {
@@ -48,23 +49,70 @@ const CourseList = ({ courses }) => {
         );
     };
 
+    const handleBackToCourses = () => {
+        setActiveCourseId(null);
+        setActiveCategoryId(null);
+    };
+
+    const handleBackToCategories = () => {
+        setActiveCategoryId(null);
+    };
 
     return (
         <>
-            {courses.length > 0 ? (
+            {activeCourseId === null ? (
                 <>
                     <h1>I Tuoi Corsi</h1>
-                    {courses.map((course, courseIndex) => (
-                        <div key={course._id} style={{ marginBottom: "20px" }} className={style.courseCard}>
-                            <h2>{course.title}</h2>
-                            {course.categories.map((category, categoryIndex) => {
-                                let previousMonthCompleted = true;
+                    {courses.map((course) => (
+                        <div
+                            key={course._id}
+                            className={style.courseCard}
+                            onClick={() => setActiveCourseId(course._id)}
+                        >
+                            <h2 className={style.courseTitle}>{course.title}</h2>
+                            <p>{course.description}</p>
+                        </div>
+                    ))}
+                </>
+            ) : activeCategoryId === null ? (
+                <>
+                    <button onClick={handleBackToCourses} className={style.goBackButton}>
+                        Go Back
+                    </button>
+                    {courses
+                        .filter((course) => course._id === activeCourseId)
+                        .map((course) => (
+                            <div key={course._id} className={style.activeCourseDetails}>
+                                <h1>{course.title}</h1>
+                                <p>{course.description}</p>
+                                {course.categories.map((category) => (
+                                    <div
+                                        key={category.name}
+                                        className={style.categoryCard}
+                                        onClick={() => setActiveCategoryId(category.name)}
+                                    >
+                                        <h2>{category.name}</h2>
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                </>
+            ) : (
+                <>
+                    <button onClick={handleBackToCategories} className={style.goBackButton}>
+                        Go Back
+                    </button>
+                    {courses
+                        .filter((course) => course._id === activeCourseId)
+                        .map((course) =>
+                            course.categories
+                                .filter((category) => category.name === activeCategoryId)
+                                .map((category) => (
+                                    <div key={category.name} className={style.activeCategoryDetails}>
+                                        <h1>{category.name}</h1>
+                                        {category.monthlyPrograms.map((program) => {
+                                            let previousMonthCompleted = true;
 
-                                return (
-
-                                    <div className={style.categoryCard}>
-                                        <h3>{category.name}</h3>
-                                        {category.monthlyPrograms.map((program, monthIndex) => {
                                             const isMonthUnlocked = previousMonthCompleted;
                                             const monthCompleted = program.videos.every((video) =>
                                                 completedVideos.has(video._id)
@@ -75,8 +123,7 @@ const CourseList = ({ courses }) => {
                                             let previousVideoCompleted = true;
 
                                             return (
-
-                                                <div style={{ marginTop: "20px" }} className={style.monthCard}>
+                                                <div key={program.month} className={style.monthCard}>
                                                     {isMonthUnlocked ? (
                                                         <>
                                                             <p>{program.description}</p>
@@ -94,13 +141,15 @@ const CourseList = ({ courses }) => {
                                                                                     videoId={video._id}
                                                                                     videoName={video.name}
                                                                                     onVideoUpdate={handleVideoUpdate}
-                                                                                    isPlaying={currentPlayingVideoId === video._id}
+                                                                                    isPlaying={
+                                                                                        currentPlayingVideoId === video._id
+                                                                                    }
                                                                                     onPlay={() => handleVideoPlay(video._id)}
                                                                                 />
                                                                             ) : (
                                                                                 <p style={{ color: "gray" }}>
-                                                                                    🔒 {video.name} - Complete the
-                                                                                    previous video to unlock.
+                                                                                    🔒 {video.name} - Complete the previous
+                                                                                    video to unlock.
                                                                                 </p>
                                                                             )}
                                                                         </li>
@@ -110,23 +159,17 @@ const CourseList = ({ courses }) => {
                                                         </>
                                                     ) : (
                                                         <p style={{ color: "gray" }}>
-                                                            🔒 Mese {program.month} - Complete all videos from the
-                                                            previous month to unlock.
+                                                            🔒 Mese {program.month} - Complete all videos from the previous
+                                                            month to unlock.
                                                         </p>
                                                     )}
                                                 </div>
-
                                             );
                                         })}
                                     </div>
-
-                                );
-                            })}
-                        </div>
-                    ))}
+                                ))
+                        )}
                 </>
-            ) : (
-                <p>Iscriviti ad un corso per accedere a questa sezione</p>
             )}
         </>
     );

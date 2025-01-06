@@ -47,7 +47,6 @@ const Login = () => {
       setAuth({ email, roles, accessToken, id });
       setEmail("");
       setPassword("");
-      togglePersist();
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
@@ -63,12 +62,8 @@ const Login = () => {
     }
   };
 
-  const togglePersist = () => {
-    setPersist((prev) => !prev);
-  };
-
   useEffect(() => {
-    localStorage.setItem("persist", persist);
+    localStorage.setItem("persist", true);
   }, [persist]);
 
   return (
@@ -102,7 +97,6 @@ const Login = () => {
               />
             </div>
           </div>
-
           <div className={styles.inputContainer}>
             <label htmlFor="password" className={styles.label}>
               Password
@@ -120,9 +114,6 @@ const Login = () => {
               />
             </div>
           </div>
-
-
-
           <button className={styles.loginButton}>Accedi</button>
         </form>
         <div className={styles.links}>

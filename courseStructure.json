@@ -1,0 +1,8 @@
+{
+    "course":{
+        "Title": "Course Title",
+        "Description": "Course Description",
+        "Image" : "Course Image",
+        "Categories": ["Category1", "Category2"]
+    }
+}

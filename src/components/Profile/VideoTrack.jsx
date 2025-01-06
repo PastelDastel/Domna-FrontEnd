@@ -38,6 +38,7 @@ const VideoTrack = ({
                 timestamp,
                 actualTime,
             });
+            console.log("Video progress tracked successfully");
         } catch (err) {
             console.error("Error tracking video progress:", err);
         } finally {
