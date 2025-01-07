@@ -8,12 +8,17 @@ const Courses = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [domnaCourses, setDomnaCourses] = useState([]);
+  const [domnaLiveCourses, setDomnaLiveCourses] = useState([]);
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axiosPrivate.get('/courses');
-        console.log('Courses:', response.data);
-        setCourses(response.data.courses);
+        const Domna = await axiosPrivate.get('/courses/domna');
+        setDomnaCourses(Domna.data.courses);
+        console.log(Domna.data.courses);
+        const DomnaLive = await axiosPrivate.get('/courses/domna-live');
+        setDomnaLiveCourses(DomnaLive.data.courses);
+
       } catch (err) {
         console.error('Error fetching courses:', err);
         setError('Failed to load courses');
@@ -25,8 +30,6 @@ const Courses = () => {
   }, [axiosPrivate]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
-  const domnaCourses = courses.filter(course => course.section === 'DOMNA');
-  const domnaLiveCourses = courses.filter(course => course.section === 'DOMNA LIVE');
   return (
     <div className={style.pageContainer}>
       <Hero text={"CORSI"} />

@@ -6,6 +6,14 @@ import style from "./Course.module.css";
 
 const Course = ({ course }) => {
     const {
+        Title, Description, Price,
+        CourseId,
+        Interval
+    } = course;
+
+
+
+    const {
         title,
         benefits = [],
         excluded_benefits = [],
@@ -30,17 +38,14 @@ const Course = ({ course }) => {
             setIsLoading(true);
             try {
                 const orderData = {
-                    productName: title,
-                    price: discountedPrice || price,
-                    quantity,
-                    stripePriceId: stripePriceId,
+                    productName: Title,
+                    price: Price.Discounted || Price.Normal,
+                    stripePriceId: Price.Stripe,
                     userId: auth.id,
-                    courseId,
-                    billingInterval: duration,
+                    billingInterval: Interval,
+                    courseId: CourseId,
                 };
-
                 const response = await axiosPrivate.post('/api/orders', orderData);
-                console.log('Order added:', response.data);
                 navigate("/shopping-cart");
             } catch (error) {
                 console.error('Error adding to cart:', error);
@@ -61,15 +66,15 @@ const Course = ({ course }) => {
             <hr className={style.fullWidthLine} />
             <div className={style.container}>
                 <div className={style.leftColumn}>
-                    <h1 className={style.productTitle}>{title}</h1>
+                    <h1 className={style.productTitle}>{Title}</h1>
                     {/* if discounted Price is null or doesnt exist 
                     then we will not show the discount badge
                     */
-                        discountedPrice ? (
+                        Price.Discounted ? (
                             <p className={style.price}>
                                 <>
                                     <span className={style.discountBadge}>
-                                        -{Math.round(((price - discountedPrice) / price) * 100)}%
+                                        -{Math.round(((Price.Normal - Price.Discounted) / Price.Normal) * 100)}%
                                     </span>
                                     <span className={style.discountedPrice}>${discountedPrice}</span>
                                     <del className={style.originalPrice}>${price}</del>
@@ -77,25 +82,14 @@ const Course = ({ course }) => {
                             </p>
                         ) : (
                             <p className={style.price}>
-                                <span className={style.noDiscountPrice}>${price}</span>
+                                <span className={style.noDiscountPrice}>${Price.Normal}</span>
                             </p>
                         )}
 
                     <p className={style.guarantee}>
                         ✅ 100% soddisfatti o rimborsati!
                     </p>
-                    <div className={style.quantityContainer}>
-                        <label className={style.quantityLabel} htmlFor="quantity">Quantity:</label>
-                        <input
-                            className={style.quantityInput}
-                            type="number"
-                            id="quantity"
-                            name="quantity"
-                            value={quantity}
-                            min="1"
-                            onChange={(e) => setQuantity(Number(e.target.value))}
-                        />
-                    </div>
+
                     <button
                         className={style.addToCartBtn}
                         onClick={handleAddToCart}

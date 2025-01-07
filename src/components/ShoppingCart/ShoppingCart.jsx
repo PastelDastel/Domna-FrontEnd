@@ -11,9 +11,6 @@ const ShoppingCart = () => {
     const { auth } = useAuth();
     const axiosPrivate = useAxiosPrivate();
     const [isLoading, setIsLoading] = useState(false);
-    const [editOrderId, setEditOrderId] = useState(null);
-    const [editQuantity, setEditQuantity] = useState(1);
-
     useEffect(() => {
         const fetchOrders = async () => {
             try {
@@ -36,11 +33,9 @@ const ShoppingCart = () => {
             const response = await axiosPrivate.post('/api/stripe/create-checkout-session', {
                 lineItems: orders.map(order => ({
                     priceId: order.stripePriceId,
-                    quantity: order.quantity,
                     billingInterval: order.billingInterval,
                 })),
             });
-
             const { sessions } = response.data;
             for (const session of sessions) {
                 if (session.sessionId) {
@@ -64,25 +59,6 @@ const ShoppingCart = () => {
         }
     };
 
-    const handleEditOrder = (order) => {
-        setEditOrderId(order._id);
-        setEditQuantity(order.quantity);
-    };
-
-    const handleUpdateOrder = async () => {
-        try {
-            const response = await axiosPrivate.put(`/api/orders/${editOrderId}`, {
-                quantity: editQuantity,
-            });
-            setOrders(orders.map(order =>
-                order._id === editOrderId ? { ...order, quantity: response.data.quantity } : order
-            ));
-            setEditOrderId(null);
-        } catch (error) {
-            console.error('Error updating order:', error);
-        }
-    };
-
     if (!auth?.accessToken) {
         return <p className={styles.error}>Please log in to view your shopping cart.</p>;
     }
@@ -97,41 +73,20 @@ const ShoppingCart = () => {
                             <li key={index} className={styles.orderItem}>
                                 <h2 className={styles.orderTitle}>{order.productName}</h2>
                                 <p className={styles.orderText}>Price: ${order.price}</p>
-                                {editOrderId === order._id ? (
-                                    <div className={styles.editContainer}>
-                                        <input
-                                            type="number"
-                                            value={editQuantity}
-                                            onChange={(e) => setEditQuantity(Number(e.target.value))}
-                                            className={styles.input}
-                                        />
+
+                                <>
+                                    <p className={styles.orderText}>Quantity: {order.quantity}</p>
+                                    <p className={styles.orderText}>Period: {order.period}</p>
+                                    <div className={styles.buttonGroup}>
                                         <button
-                                            className={`${styles.button} ${styles.saveButton}`}
-                                            onClick={handleUpdateOrder}
+                                            className={`${styles.button} ${styles.deleteButton}`}
+                                            onClick={() => handleDeleteOrder(order._id)}
                                         >
-                                            Save
+                                            Delete
                                         </button>
                                     </div>
-                                ) : (
-                                    <>
-                                        <p className={styles.orderText}>Quantity: {order.quantity}</p>
-                                        <p className={styles.orderText}>Period: {order.period}</p>
-                                        <div className={styles.buttonGroup}>
-                                            <button
-                                                className={`${styles.button} ${styles.editButton}`}
-                                                onClick={() => handleEditOrder(order)}
-                                            >
-                                                Edit
-                                            </button>
-                                            <button
-                                                className={`${styles.button} ${styles.deleteButton}`}
-                                                onClick={() => handleDeleteOrder(order._id)}
-                                            >
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </>
-                                )}
+                                </>
+
                             </li>
                         ))}
                     </ul>

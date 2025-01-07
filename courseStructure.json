@@ -1,8 +1,28 @@
 {
-    "course":{
-        "Title": "Course Title",
-        "Description": "Course Description",
-        "Image" : "Course Image",
-        "Categories": ["Category1", "Category2"]
-    }
+  "Course": {
+    "Title": "Course Title",
+    "Description": "Course Description",
+    "Image": "Course Image",
+    "Benefits" : ["ID", "ID", "ID"],
+    "Categories": ["ID", "ID", "ID"],
+    "Subscribers": ["ID", "ID", "ID"],
+    "Price" : {
+        "Stripe": "Stripe Price",
+        "Discounted": "Discount Price",
+        "Normal": "Normal Price"
+    },
+    "_id": "ID"
+  },
+  "Category": {
+    "Title": "Category Title",
+    "Description": "Category Description",
+    "Videos": ["ID", "ID", "ID"],
+    "_id": "ID"
+  },
+  "Video": {
+    "Title": "Video Title",
+    "Description": "Video Description",
+    "URL": "Video URL",
+    "_id": "ID"
+  }
 }
