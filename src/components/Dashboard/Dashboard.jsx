@@ -3,6 +3,7 @@ import style from "./Dashboard.module.css";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Users from "./Users/Users";
 import Courses from "./Courses/Courses";
+import Benefits from "./Benefits/Benefits";
 const Dashboard = () => {
     const [selectedView, setSelectedView] = useState("overview");
 
@@ -26,6 +27,8 @@ const MainView = ({ selectedView }) => {
             return <Users />;
         case "courses":
             return <Courses />;
+        case "benefits":
+            return <Benefits />;
         case "transactions":
             return <Transactions />;
         default:
@@ -39,7 +42,6 @@ const Overview = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get("/");
-                console.log(response.data);
             } catch (err) {
                 console.error("Error fetching overview:", err);
             }
@@ -71,7 +73,7 @@ const SidebarButton = ({ view, selectedView, onViewChange }) => {
 
 // Sidebar Component
 const Sidebar = ({ selectedView, onViewChange }) => {
-    const views = ["overview", "users", "courses", "blogs"];
+    const views = ["overview", "users", "courses", "benefits", "categories", "blogs", "transactions"];
     return (
         <div className={style.sidebar}>
             {views.map((view) => (

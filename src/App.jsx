@@ -45,8 +45,8 @@ function App() {
             <Route path="/shopping-cart" element={<ShoppingCart />} />
           </Route>
           <Route element={<RequireAuth allowedRoles={[6792941695628669]} />}>
-            <Route path="dashboard" element={<Admin />} />
-            <Route path="admin" element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="admin" element={<Admin />} />
             <Route path="random" element={<Random />} />
           </Route>
 

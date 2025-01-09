@@ -1,36 +1,37 @@
 import style from "./Overview.module.css";
+import { useEffect, useState } from "react";
 
-const OverviewModal = ({ closeModal, course, users }) => {
+const OverviewModal = ({ closeModal, course, users, benefits, categories }) => {
+    useEffect(() => {
+        console.log(course);
+        console.log(users);
+
+    }, [course]);
+    const displayBenefits = () => {
+        return benefits.map((benefit) => (
+            <div key={benefit._id} className={style.benefit}>
+                <h3>{benefit.Name}</h3>
+                <p>{benefit.Description}</p>
+                <p>{benefit.Type}</p>
+            </div>
+        ));
+    };
     return (
         <div className={style.modal}>
             {/* Two-column content */}
             <div className={style.content}>
                 {/* Left Column - General Course Data */}
                 <div className={style.column}>
-                    <h1>Overview of {course.title}</h1>
+                    <h1>Overview of {course.Title}</h1>
                     <p><strong>Id:</strong> {course._id}</p>
-                    <p><strong>Title:</strong> {course.title}</p>
-                    <p><strong>Description:</strong> {course.description}</p>
-                    <p><strong>Instructor:</strong> {course.instructor}</p>
-                    <p><strong>Duration:</strong> {course.duration}</p>
-                    <p><strong>Subscribers:</strong> {course.subscribers.length}</p>
-                    <p><strong>Price:</strong> {course.price}</p>
-
+                    <p><strong>Title:</strong> {course.Title}</p>
+                    <p><strong>Description:</strong> {course.Description}</p>
+                    <p><strong>Subscribers:</strong> {course.Subscribers.length}</p>
+                    <p><strong>Price:</strong> {course.Price.Discounted ? course.Price.Discounted : course.Price.Normal}</p>
                     <h2>Benefits</h2>
-                    <ul>
-                        {course.benefits.map((benefit) => (
-                            <li key={benefit}>{benefit}</li>
-                        ))}
-                    </ul>
+                    {benefits.length > 0 ? displayBenefits() : (<>No benefits</>)}
 
-                    <h2>Excluded Benefits</h2>
-                    <ul>
-                        {course.excluded_benefits.map((benefit) => (
-                            <li key={benefit}>{benefit}</li>
-                        ))}
-                    </ul>
-
-                    {course.subscribers.length > 0 ? (
+                    {course.Subscribers.length > 0 ? (
                         <>
                             <h2>Users</h2>
                             <ul>
@@ -47,7 +48,7 @@ const OverviewModal = ({ closeModal, course, users }) => {
                 {/* Right Column - Categories */}
                 <div className={style.column}>
                     <h2>Categories</h2>
-                    {course.categories.length > 0 ? (
+                    {course.Categories.length > 0 ? (
                         <ul>
                             {course.categories.map((category) => (
                                 <li key={category._id} className={style.category}>

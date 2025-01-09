@@ -118,7 +118,7 @@ const EditModal = ({ closeModal, user, axios, onUserUpdated }) => {
                                             checked={updatedUser.enrolledCourses.includes(course._id)}
                                             onChange={() => toggleCourse(course._id)}
                                         />
-                                        {course.title} - {course.duration}
+                                        {course.Title}
                                     </label>
                                 </div>
                             ))}

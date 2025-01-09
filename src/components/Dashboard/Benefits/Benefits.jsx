@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import style from "./Courses.module.css";
+import style from "./Benefits.module.css";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import Overview from "./Overview/OverviewModal";
-import CreateModal from "./Create/CreateModal";
-import EditModal from "./Edit/EditModal";
+import Overview from "./Overview/Overview";
+import CreateModal from "./Create/Create";
+import EditModal from "./Edit/Edit";
 
 const Courses = () => {
     const MySwal = withReactContent(Swal);
-    const [courses, setCourses] = useState([]); // List of courses
+    const [benefits, setBenefits] = useState([]); // List of benefits
     const [reload, setReload] = useState(false);
     const [globalLoading, setGlobalLoading] = useState(true); // General loading state
     const axiosPrivate = useAxiosPrivate();
 
-    const deleteCourse = async (course) => {
+    const deleteBenefit = async (benefit) => {
         const result = await Swal.fire({
             title: "Are you sure?",
-            html: `Are you sure you want to delete <strong>${course.title}</strong>?<br><em>You won't be able to revert this!</em>`,
+            html: `Are you sure you want to delete <strong>${benefit.Name}</strong>?<br><em>You won't be able to revert this!</em>`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -29,18 +29,18 @@ const Courses = () => {
 
         if (result.isConfirmed) {
             try {
-                await axiosPrivate.delete(`/api/courses/${course._id}`);
+                await axiosPrivate.delete(`/api/benefits/${benefit._id}`);
                 Swal.fire({
                     title: "Deleted!",
-                    text: `${course.title} has been deleted.`,
+                    text: `${benefit.Name} has been deleted.`,
                     icon: "success",
                     confirmButtonColor: "#3085d6",
-                    willClose: () => reloadCourses(),
+                    willClose: () => reloadBenefits(),
                 });
             } catch (error) {
                 Swal.fire({
                     title: "Error!",
-                    text: `Failed to delete ${course.title}. Please try again.`,
+                    text: `Failed to delete ${benefit.Name}. Please try again.`,
                     icon: "error",
                     confirmButtonColor: "#3085d6",
                 });
@@ -49,13 +49,12 @@ const Courses = () => {
         }
     };
 
-    const reloadCourses = () => {
+    const reloadBenefits = () => {
         setReload((prev) => !prev);
     };
 
-    const viewCourse = async (course) => {
+    const viewBenefit = async (benefit) => {
         const controller = new AbortController();
-        const signal = controller.signal;
 
         MySwal.fire({
             title: `<div class="${style.modalTitle}">Fetching Data</div>`,
@@ -81,18 +80,13 @@ const Courses = () => {
         });
 
         try {
-            const response = await axiosPrivate.get(`/api/courses/${course._id}/details`, { signal });
-            const details = response.data;
             MySwal.fire({
                 width: "80vw",
                 html: (
 
                     <Overview
                         closeModal={() => Swal.close()}
-                        course={course}
-                        users={details.Subscribers}
-                        benefits={details.Benefits}
-                        categories={details.Categories}
+                        benefit={benefit}
                         axiosPrivate={axiosPrivate}
                     />
                 ),
@@ -109,15 +103,15 @@ const Courses = () => {
         }
     };
 
-    const editCourse = async (course) => {
+    const editBenefit = async (benefit) => {
         MySwal.fire({
             width: "50vw",
             html: (
                 <EditModal
                     closeModal={() => Swal.close()}
-                    course={course}
+                    benefit={benefit}
                     axios={axiosPrivate}
-                    onCourseUpdated={reloadCourses}
+                    onBenefitUpdated={reloadBenefits}
                 />
             ),
             showConfirmButton: false,
@@ -125,74 +119,14 @@ const Courses = () => {
         });
     };
 
-    const createCourse = () => {
+    const createBenefit = () => {
         MySwal.fire({
             width: "80vw",
             html: (
                 <CreateModal
-                    onCourseCreated={reloadCourses}
+                    onBenefitUpdated={reloadBenefits}
                     closeModal={() => Swal.close()}
-                    axios={axiosPrivate}
-                    mockData={{
-                        title: "Title",
-                        description: "Description",
-                        price: 1,
-                        discountedPrice: 0,
-                        stripePriceId: "stripePriceId",
-                        benefits: ["benefit1", "benefit2", "benefit3", "Longer Text here"],
-                        excluded_benefits: ["excluded_benefit1", "excluded_benefit2"],
-                        section: "DOMNA" || "DOMNA LIVE",
-                        categories: [
-                            {
-                                name: "Category1",
-                                description: "Category1 Description",
-                                months: [{
-                                    index: 1,
-                                    name: "Month1",
-                                    description: "Month1 Description1",
-                                    videos: [
-                                        "video1",
-                                        "video2",
-                                        "video3",
-                                        "video4",
-                                        "video5",
-                                    ]
-                                }
-                                ]
-                            },
-                            {
-                                name: "Category2",
-                                description: "Category2 Description",
-                                months: [{
-                                    index: 1,
-                                    name: "Month1",
-                                    description: "Month1 Description Category2",
-                                    videos: [
-                                        "video1",
-                                        "video2",
-                                        "video3",
-                                        "video4",
-                                        "video5",
-                                    ]
-                                },
-                                {
-                                    index: 2,
-                                    name: "Month2",
-                                    description: "Month2 Description Category2",
-                                    videos: [
-                                        "video6",
-                                        "video7",
-                                        "video8",
-                                        "video9",
-                                        "video10",
-                                    ]
-                                }
-                                ]
-                            }
-
-
-                        ],
-                    }}
+                    axiosPrivate={axiosPrivate}
                 />
             ),
             showConfirmButton: false,
@@ -204,8 +138,8 @@ const Courses = () => {
         const fetchCourses = async () => {
             setGlobalLoading(true);
             try {
-                const response = await axiosPrivate.get("/api/courses"); // Fetch courses
-                setCourses(response.data);
+                const response = await axiosPrivate.get("/api/benefits"); // Fetch courses
+                setBenefits(response.data);
             } catch (err) {
                 console.error("Error fetching courses:", err);
             } finally {
@@ -214,48 +148,46 @@ const Courses = () => {
         };
         fetchCourses();
     }, [axiosPrivate, reload]);
-    console.log(courses);
+    console.log(benefits);
     return (
         <div className={style.courses}>
             {globalLoading ? (
                 <div className={style.loadingScreen}>
                     <div className={style.spinner}></div>
-                    <p>Loading courses...</p>
+                    <p>Loading benefits...</p>
                 </div>
             ) : (
                 <>
                     <div className={style.header}>
-                        <h1>Courses</h1>
-                        <button onClick={createCourse} className={style.createButton}>
-                            Create New Course
+                        <h1>Benefits</h1>
+                        <button onClick={createBenefit} className={style.createButton}>
+                            Create New Benefit
                         </button>
                     </div>
                     <div className={style.coursesList}>
-                        {courses.map((course) => (
-                            <div key={course._id} className={style.course}>
-                                <div className={style.header}>{course.Title}</div>
+                        {benefits.map((benefit) => (
+                            <div key={benefit._id} className={style.course}>
+                                <div className={style.header}>{benefit.Name}</div>
                                 <div className={style.main}>
-                                    <div>Id: {course._id}</div>
-                                    <div>Title: {course.Title}</div>
-                                    <div>Price: {course.Price.Discounted ? course.Price.Discounted : course.Price.Normal}</div>
-                                    <div>Subscrubers: {course.Subscribers.length}</div>
-                                    <div>Categories: {course.Categories.length}</div>
+                                    <div>Id: {benefit._id}</div>
+                                    <div>Name: {benefit.Name}</div>
+                                    {benefit.Description && <div>Description: {benefit.Description}</div>}
                                 </div>
                                 <div className={style.footer}>
                                     <button
-                                        onClick={() => viewCourse(course)}
+                                        onClick={() => viewBenefit(benefit)}
                                         className={style.footerButton}
                                     >
                                         View
                                     </button>
                                     <button
-                                        onClick={() => editCourse(course)}
+                                        onClick={() => editBenefit(benefit)}
                                         className={style.footerButton}
                                     >
                                         Edit
                                     </button>
                                     <button
-                                        onClick={() => deleteCourse(course)}
+                                        onClick={() => deleteBenefit(benefit)}
                                         className={style.footerButton}
                                     >
                                         Delete
