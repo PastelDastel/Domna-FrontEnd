@@ -10,26 +10,9 @@ const Course = ({ course }) => {
         CourseId,
         Interval
     } = course;
-
-
-
-    const {
-        title,
-        benefits = [],
-        excluded_benefits = [],
-        stripePriceId,
-        _id: courseId,
-        description,
-        duration,
-        price,
-        discountedPrice
-    } = course;
-
-
     const navigate = useNavigate();
     const { auth } = useAuth();
     const axiosPrivate = useAxiosPrivate();
-    const [quantity, setQuantity] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -76,8 +59,8 @@ const Course = ({ course }) => {
                                     <span className={style.discountBadge}>
                                         -{Math.round(((Price.Normal - Price.Discounted) / Price.Normal) * 100)}%
                                     </span>
-                                    <span className={style.discountedPrice}>${discountedPrice}</span>
-                                    <del className={style.originalPrice}>${price}</del>
+                                    <span className={style.discountedPrice}>${Price.Discounted}</span>
+                                    <del className={style.originalPrice}>${Price.Normal}</del>
                                 </>
                             </p>
                         ) : (
@@ -124,7 +107,7 @@ const Course = ({ course }) => {
                 <span className={style.dropdownIcon}>{isDropdownOpen ? '▲' : '▼'}</span>
             </div>
             <div className={`${style.sectionContent} ${isDropdownOpen ? style.show : ''}`}>
-                <div dangerouslySetInnerHTML={{ __html: description }}></div>
+                <div dangerouslySetInnerHTML={{ __html: Description }}></div>
             </div>
             <div className={style.courseSeparator}></div>
         </>
