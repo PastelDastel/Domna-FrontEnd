@@ -7,7 +7,7 @@ import Overview from "./Overview/Overview";
 import CreateModal from "./Create/Create";
 import EditModal from "./Edit/Edit";
 
-const Courses = () => {
+const Benefits = () => {
     const MySwal = withReactContent(Swal);
     const [benefits, setBenefits] = useState([]); // List of benefits
     const [reload, setReload] = useState(false);
@@ -105,7 +105,7 @@ const Courses = () => {
 
     const editBenefit = async (benefit) => {
         MySwal.fire({
-            width: "50vw",
+            width: "80vw",
             html: (
                 <EditModal
                     closeModal={() => Swal.close()}
@@ -202,4 +202,4 @@ const Courses = () => {
     );
 };
 
-export default Courses;
+export default Benefits;

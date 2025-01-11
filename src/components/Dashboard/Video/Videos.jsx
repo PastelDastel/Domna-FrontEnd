@@ -3,7 +3,9 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import style from "./Videos.module.css"; // Assume there's a CSS module for styling
-
+import Create from "./Create/Create";
+import Overview from "./Overview/Overview";
+import Edit from "./Edit/Edit";
 const Videos = () => {
     const axios = useAxiosPrivate();
     const MySwal = withReactContent(Swal);
@@ -60,97 +62,36 @@ const Videos = () => {
 
     const viewVideo = async (video) => {
         MySwal.fire({
-            title: `<strong>Video Details</strong>`,
-            html: `
-                <div>
-                <h3>${video.Title}</h3>
-                <p>${video.Description}</p>
-                <p>${video.Url}</p>
-                <h5>${video._id}</h5>
-                </div>
-            `,
-            showCloseButton: true,
+            html: <Overview video={video} closeModal={() => Swal.close()}
+            />,
+            showConfirmButton: false,
             focusConfirm: false,
-            confirmButtonText: "Close",
+
         });
     };
 
     const editVideo = async (video) => {
         MySwal.fire({
-            title: `<strong>Edit Video</strong>`,
-            html: `
-                <div>
-                    <input
-                        id="video-title"
-                        class="swal2-input"
-                        placeholder="Title"
-                        value="${video.Title}"
-                    />
-                    <textarea
-                        id="video-description"
-                        class="swal2-textarea"
-                        placeholder="Description"
-                    >${video.Description}</textarea>
-                    <input
-                        id="video-url"
-                        class="swal2-input"
-                        placeholder="Video URL"
-                        value="${video.Url}"
-                    />
-                </div>
-            `,
-            preConfirm: async () => {
-                const title = document.getElementById("video-title").value;
-                const description = document.getElementById("video-description").value;
-                const url = document.getElementById("video-url").value;
-                if (!title || !description) {
-                    Swal.showValidationMessage("Both fields are required.");
-                    return false;
-                }
-
-                try {
-                    await axios.put(`/api/videos/${video._id}`, { Title: title, Description: description, Url: url });
-                    reloadVideos();
-                    return true;
-                } catch (error) {
-                    console.error("Error updating video:", error);
-                    Swal.showValidationMessage("Failed to update the video. Please try again.");
-                    return false;
-                }
-            },
+            html: <Edit axios={axios} closeModal={() => Swal.close()} onVideoUpdated={reloadVideos} video={video} />,
+            showConfirmButton: false,
         });
     };
 
+
+
+
     const createVideo = () => {
         MySwal.fire({
-            title: `<strong>Create Video</strong>`,
-            html: `
-                <div>
-                    <input id="new-video-title" class="swal2-input" placeholder="Title" />
-                    <textarea id="new-video-description" class="swal2-textarea" placeholder="Description"></textarea>
-                    <input id="new-video-url" class="swal2-input" placeholder="Video URL" />
-                </div>
-            `,
-            preConfirm: async () => {
-                const title = document.getElementById("new-video-title").value;
-                const description = document.getElementById("new-video-description").value;
-                const url = document.getElementById("new-video-url").value;
-
-                if (!title || !url) {
-                    Swal.showValidationMessage("Both fields are required.");
-                    return false;
-                }
-
-                try {
-                    await axios.post("/api/videos", { Title: title, Description: description, Url: url });
-                    reloadVideos();
-                    return true;
-                } catch (error) {
-                    console.error("Error creating video:", error);
-                    Swal.showValidationMessage("Failed to create the video. Please try again.");
-                    return false;
-                }
-            },
+            width: "80vw",
+            html: (
+                <Create
+                    onVideoCreated={reloadVideos}
+                    closeModal={() => Swal.close()}
+                    axios={axios}
+                />
+            ),
+            showConfirmButton: false,
+            allowOutsideClick: true,
         });
     };
 

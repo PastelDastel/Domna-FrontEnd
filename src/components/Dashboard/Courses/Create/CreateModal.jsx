@@ -36,7 +36,7 @@ const CreateModal = ({ axios, onCourseCreated, closeModal, mockData }) => {
         const Stripe_price = e.target.stripe_price.value;
         const Normal_price = e.target.normal_price.value;
         const Discount_price = e.target.discount_price?.value | 0;
-        const Categories = Array.from(e.target.categories).filter((category) => category.checked).map((category) => category.value);
+        const Categories = Array.from(e.target.categories || []).filter((category) => category.checked).map((category) => category.value) || [];
         const data = new Object({
             Title,
             Interval,

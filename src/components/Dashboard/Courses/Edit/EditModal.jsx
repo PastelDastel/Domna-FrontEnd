@@ -9,18 +9,107 @@ const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
     const [discount, setDiscount] = useState(!!course.Discount_price);
     const includedRef = useRef();
     const excludedRef = useRef();
-
     useEffect(() => {
+        const fetchCourseDetails = async () => {
+            try {
+                const response = await axios.get(`/api/courses/${course._id}/details`);
+                console.log("Course details: ", response.data);
+
+                const included = response.data.Benefits.filter(
+                    (benefit) => benefit.Type === "Included"
+                ).map((benefit) => benefit.Benefit);
+
+                const excluded = response.data.Benefits.filter(
+                    (benefit) => benefit.Type === "Excluded"
+                ).map((benefit) => benefit.Benefit);
+
+                setSelectedIncluded(included);
+                setSelectedExcluded(excluded);
+
+                // Combine selected benefits directly
+                return [...included, ...excluded];
+            } catch (error) {
+                console.error("Error fetching course details:", error);
+                return [];
+            }
+        };
+
+        const fetchBenefits = async (selectedBenefits) => {
+            try {
+                const response = await axios.get("/api/benefits");
+
+                const availableBenefits = response.data.filter(
+                    (benefit) =>
+                        !selectedBenefits.some((selected) => selected._id === benefit._id)
+                );
+
+                setBenefits(availableBenefits);
+                console.log("Available benefits: ", availableBenefits);
+            } catch (error) {
+                console.error("Error fetching benefits:", error);
+            }
+        };
+
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get("/api/categories");
+                setCategories(response.data);
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            }
+        };
+
         const fetchData = async () => {
-            const response = await axios.get(`/api/courses/${course._id}/details`);
-            console.log(response.data)
-        }
+            const selectedBenefits = await fetchCourseDetails();
+            await fetchBenefits(selectedBenefits);
+            await fetchCategories();
+        };
+
         fetchData();
-    }, [axios, course]);
+    }, [course]);
+
+
 
     const formSubmit = async (e) => {
         e.preventDefault();
-        console.log(e.target);
+        const Title = e.target.title.value;
+        const Interval = e.target.interval.value;
+        const Description = e.target.description.value;
+        const Image = e.target.image.value;
+        const Stripe_price = e.target.stripe_price.value;
+        const Normal_price = e.target.normal_price.value;
+        const Discount_price = e.target.discount_price?.value || 0;
+        const Categories = Array.from(e.target.categories)
+            .filter((input) => input.checked)
+            .map((input) => input.value);
+        const Included = selectedIncluded.map((benefit) => benefit._id);
+        const Excluded = selectedExcluded.map((benefit) => benefit._id);
+
+        const data = {
+            Title,
+            Interval,
+            Description,
+            Image,
+            Price: {
+                Stripe: Stripe_price,
+                Normal: Normal_price,
+                Discounted: Discount_price,
+            },
+            Categories,
+            Benefits: {
+                Included,
+                Excluded,
+            },
+        };
+        console.log("Data: ", data);
+        try {
+            const response = await axios.put(`/api/courses/${course._id}`, data);
+            console.log("Course updated: ", response.data);
+            onCourseUpdated(response.data);
+            closeModal();
+        } catch (error) {
+            console.error("Error updating course:", error);
+        }
     };
 
     return (
@@ -51,11 +140,11 @@ const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
                     </div>
                     <div>
                         <label>Stripe Price</label>
-                        <input type="text" name="stripe_price" defaultValue={course.Stripe_price} required />
+                        <input type="text" name="stripe_price" defaultValue={course.Price.Stripe} required />
                     </div>
                     <div>
                         <label>Normal Price</label>
-                        <input type="number" name="normal_price" defaultValue={course.Normal_price} required />
+                        <input type="number" name="normal_price" defaultValue={course.Price.Normal} required />
                     </div>
                     <div>
                         <button
@@ -69,7 +158,7 @@ const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
                         {discount && (
                             <div>
                                 <label>Discount Price</label>
-                                <input type="number" name="discount_price" defaultValue={course.Discount_price || ""} />
+                                <input type="number" name="discount_price" defaultValue={course.Price.Discounted || ""} />
                             </div>
                         )}
                     </div>

@@ -17,56 +17,19 @@ const Categories = () => {
         setReload((prev) => !prev);
     };
     const viewCategory = async (category) => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-
         MySwal.fire({
-            title: `<div class="${style.modalTitle}">Fetching Data</div>`,
-            html: `
-                <div class="${style.modalContent}">
-                    <div class="${style.spinner}"></div>
-                    <p class="${style.modalText}">Fetching user details...</p>
-                    <button id="cancel-button" class="${style.cancelButton}">Cancel</button>
-                </div>
-            `,
-            didOpen: () => {
-                document
-                    .getElementById("cancel-button")
-                    .addEventListener("click", () => {
-                        controller.abort();
-                        Swal.close();
-                    });
-            },
-            allowOutsideClick: () => !Swal.isLoading(),
+            width: "80vw",
+            html: (
+                <Overview
+                    closeModal={() => Swal.close()}
+                    category={category}
+                    axios={axiosPrivate}
+                />
+            ),
             showConfirmButton: false,
-            allowEscapeKey: true,
-            willClose: () => controller.abort(),
+            allowOutsideClick: true,
         });
 
-        try {
-            const response = await axiosPrivate.get(`/api/categories/${category._id}/details`, { signal });
-            const details = response.data;
-            MySwal.fire({
-                width: "80vw",
-                html: (
-                    <Overview
-                        closeModal={() => Swal.close()}
-                        category={category}
-                        videos={details.Videos}
-                        axiosPrivate={axiosPrivate}
-                    />
-                ),
-                showConfirmButton: false,
-                allowOutsideClick: true,
-            });
-        } catch (err) {
-            if (err.name === "CanceledError") {
-                console.log("Fetch operation was cancelled");
-            } else {
-                console.error("Error fetching user courses:", err);
-                Swal.fire("Error", "Failed to fetch user data", "error");
-            }
-        }
     };
     const editCategory = async (category) => {
         MySwal.fire({
@@ -149,7 +112,7 @@ const Categories = () => {
         fetchCategories();
     }, [axiosPrivate, reload]);
     console.log(categories);
-    return (<>
+    return (<div className={style.categories}>
         {
             globalLoading ? (
                 <div className={style.loadingScreen}>
@@ -160,9 +123,9 @@ const Categories = () => {
                 <>
                     <div className={style.header}>
                         <h1>Categories</h1>
-                        <button onClick={createCategory}>Create Category</button>
+                        <button onClick={createCategory} className={style.createButton}>Create Category</button>
                     </div>
-                    <div className={style.categories}>
+                    <div className={style.categoriesList}>
                         {categories.map((category) => (
                             <div key={category._id} className={style.category}>
                                 <div className={style.header}>{category.Name}</div>
@@ -197,7 +160,7 @@ const Categories = () => {
                 </>
             )
         }
-    </>);
+    </div>);
 };
 
 export default Categories;
