@@ -48,49 +48,44 @@ const OverviewModal = ({ closeModal, course, users, benefits, categories }) => {
                 {/* Right Column - Categories */}
                 <div className={style.column}>
                     <h2>Categories</h2>
-                    {course.Categories.length > 0 ? (
+                    {categories.length > 0 ? (
                         <ul>
-                            {course.categories.map((category) => (
+                            {categories.map((category) => (
                                 <li key={category._id} className={style.category}>
-                                    <h3>{category.name}</h3>
+                                    <h3>{category.Name}</h3>
                                     <p><strong>ID:</strong> {category._id}</p>
-                                    <p>{category.description}</p>
-
-                                    {category.monthlyPrograms.length > 0 ? (
-                                        <>
-                                            <h4>Monthly Programs</h4>
-                                            <ul>
-                                                {category.monthlyPrograms.map((program) => (
-                                                    <li key={program._id} className={style.program}>
-                                                        <h5>Month: {program.month}</h5>
-                                                        <p>{program.description}</p>
-
-                                                        {program.videos.length > 0 ? (
-                                                            <>
-                                                                <h5>Videos</h5>
-                                                                <ul>
-                                                                    {program.videos.map((video) => (
-                                                                        <li key={video._id} className={style.video}>
-                                                                            <h6>{video.name}</h6>
-                                                                            <p>Description: {video.description}</p>
-                                                                            <p>Duration: {video.duration}</p>
-                                                                            <p>
-                                                                                URL: <a href={video.url} target="_blank" rel="noopener noreferrer">{video.url}</a>
-                                                                            </p>
-                                                                        </li>
-                                                                    ))}
-                                                                </ul>
-                                                            </>
-                                                        ) : (
-                                                            <p>No videos available</p>
-                                                        )}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </>
-                                    ) : (
-                                        <p>No monthly programs</p>
-                                    )}
+                                    <p>{category.Description}</p>
+                                    {category.Months?.length > 0 ? (<>
+                                        <h4>Months</h4>
+                                        <div>
+                                            {
+                                                category.Months.map((month, index) => (
+                                                    <div key={month._id} className={style.month}>
+                                                        <h1>Month {index + 1}</h1>
+                                                        <h5>{month.Name}</h5>
+                                                        <p>{month.Description}</p>
+                                                        {month.Videos?.length > 0 ? (<div>Video: {month.Videos.length}</div>) : (<div>No videos</div>)}
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+                                    </>) : (<>No Months</>)}
+                                    {category.SubCategories?.length > 0 ? (<>
+                                        <h4>Subcategories</h4>
+                                        <div>
+                                            {
+                                                category.SubCategories.map((subCategory) => (
+                                                    <div key={subCategory._id} className={style.subCategory}>
+                                                        <h5>{subCategory.Name}</h5>
+                                                        <p>{subCategory.Description}</p>
+                                                        {subCategory.Videos?.length > 0 ? (<div>Video: {subCategory.Videos.length}</div>) : (<div>No videos</div>)}
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+                                    </>) : (<>
+                                        No subcategories
+                                    </>)}
                                 </li>
                             ))}
                         </ul>

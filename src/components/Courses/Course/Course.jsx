@@ -82,7 +82,7 @@ const Course = ({ course }) => {
                     </button>
                 </div>
 
-                <div className={style.rightColumn}>
+                {/* <div className={style.rightColumn}>
                     <ul className={style.featuresList}>
                         {benefits.map((benefit, index) => (
                             <li key={index}>
@@ -99,7 +99,7 @@ const Course = ({ course }) => {
                         <p><em>&quot;Fantastico corso, mi ha cambiato la vita!&quot;</em> - Maria</p>
                         <p><em>&quot;Ho visto risultati dopo una settimana!&quot;</em> - Luca</p>
                     </div>
-                </div>
+                </div> */}
             </div>
             <hr className={style.fullWidthLine} />
             <div className={style.sectionTitle} onClick={toggleDropdown} aria-expanded={isDropdownOpen}>

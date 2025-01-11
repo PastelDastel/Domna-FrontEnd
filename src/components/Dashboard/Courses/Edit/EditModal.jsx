@@ -1,132 +1,200 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import style from "./EditModal.module.css";
 
 const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
-    const {
-        _id, Title, Description, Image, Interval, Price, Benefits, Categories
-    } = course;
+    const [benefits, setBenefits] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [selectedIncluded, setSelectedIncluded] = useState(course.Included || []);
+    const [selectedExcluded, setSelectedExcluded] = useState(course.Excluded || []);
+    const [discount, setDiscount] = useState(!!course.Discount_price);
+    const includedRef = useRef();
+    const excludedRef = useRef();
 
-    const [allBenefits, setAllBenefits] = useState([]);
-    const [includedBenefits, setIncludedBenefits] = useState([]);
-    const [excludedBenefits, setExcludedBenefits] = useState([]);
-
-    const setBenefits = (benefits) => {
-        const included = benefits.filter(benefit => benefit.Type === "Included");
-        const excluded = benefits.filter(benefit => benefit.Type === "Excluded");
-        setIncludedBenefits(included);
-        setExcludedBenefits(excluded);
-    };
     useEffect(() => {
-
-    }, [allBenefits]);
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        console.log("Form submitted: ", formData);
-    };
-    const handleDiscountedPrice = (e) => {
-        const discountedPrice = e.target.value;
-        if (discountedPrice == 0) {
-            e.target.value = "";
+        const fetchData = async () => {
+            const response = await axios.get(`/api/courses/${course._id}/details`);
+            console.log(response.data)
         }
+        fetchData();
+    }, [axios, course]);
+
+    const formSubmit = async (e) => {
+        e.preventDefault();
+        console.log(e.target);
     };
-    useEffect(() => {
-        const fetchBenefits = async () => {
-            const response = await axios.get("/api/benefits");
-            console.log("All benefits: ", response.data);
-            setAllBenefits(response.data);
-            setBenefits(Benefits)
-        };
-        fetchBenefits();
-    }, [course, axios]);
-    const handleIncludedBenefitClick = (e) => {
-        const benefit = e.target.textContent;
-        console.log("Benefit clicked: ", benefit);
-    };
-    const handleAddIncludedBenefit = (e) => {
-        const benefitId = e.target.value;
-        console.log("Benefit added: ", benefitId);
-    };
+
     return (
-        <div className={style.content}>
-            <h1>Edit Modal</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Title</label>
-                    <input type="text" name="Title" placeholder={Title} />
-                </div>
-                <div>
-                    <label>Description</label>
-                    <input type="text" name="Description" placeholder={Description} />
-                </div>
-                <div>
-                    <label>Image</label>
-                    <input type="text" name="Image" placeholder={Image} />
-                </div>
-                <div>
-                    <label>Interval</label>
-                    <select name="Interval" id="IntervalSelect">
-                        <option value="1" selected={Interval === "1"}>1 Month</option>
-                        <option value="3" selected={Interval === "3"}>3 Months</option>
-                        <option value="6" selected={Interval === "6"}>6 Months</option>
-                        <option value="12" selected={Interval === "12"}>1 Year</option>
-                    </select>
-                </div>
-                <div>
-                    <span>Price</span>
+        <div className={style.container}>
+            <h1>Edit {course.Title}</h1>
+            <form onSubmit={formSubmit}>
+                <div className={style.leftColumn}>
                     <div>
-                        <label>Stripe</label>
-                        <input type="text" name="Price" placeholder={Price.Stripe} />
+                        <label>Title</label>
+                        <input type="text" name="title" defaultValue={course.Title} required />
                     </div>
                     <div>
-                        <label>Normal</label>
-                        <input type="text" name="Price" placeholder={Price.Normal} />
+                        <label>Interval</label>
+                        <select name="interval" defaultValue={course.Interval}>
+                            <option value="1">Monthly</option>
+                            <option value="3">Quarterly</option>
+                            <option value="6">Semi-annually</option>
+                            <option value="12">Annually</option>
+                        </select>
                     </div>
                     <div>
-                        <label>Discounted</label>
-                        <input type="number" name="Price" placeholder={Price.Discounted ? Price.Discounted : "There is no discounted price"} min={0} step={0.01} onChange={handleDiscountedPrice} />
+                        <label>Description</label>
+                        <textarea name="description" defaultValue={course.Description} />
                     </div>
-                </div>
-                <div>
-                    <label>Included Benefits</label>
-                    <select name="Benefits" id="IncludedBenefits" onChange={handleAddIncludedBenefit} onSelect={handleAddIncludedBenefit}>
-                        {allBenefits.length > 0 ? allBenefits.map((benefit, index) => (
-                            <option key={benefit._id} value={benefit._id}>{benefit.Name}</option>
-                        )) : <option value="No Benefits included">No Benefits available</option>}
-                    </select>
                     <div>
-                        {Benefits.length > 0 ? Benefits.map((benefit, index) => (
-                            <div key={benefit._id} className={style.benefit} onClick={handleIncludedBenefitClick}>
-                                {benefit.Name}
+                        <label>Image</label>
+                        <input type="file" name="image" accept=".jpg,.jpeg,.png,.gif" />
+                    </div>
+                    <div>
+                        <label>Stripe Price</label>
+                        <input type="text" name="stripe_price" defaultValue={course.Stripe_price} required />
+                    </div>
+                    <div>
+                        <label>Normal Price</label>
+                        <input type="number" name="normal_price" defaultValue={course.Normal_price} required />
+                    </div>
+                    <div>
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setDiscount((prev) => !prev);
+                            }}
+                        >
+                            {discount ? "Remove Discount" : "Apply Discount"}
+                        </button>
+                        {discount && (
+                            <div>
+                                <label>Discount Price</label>
+                                <input type="number" name="discount_price" defaultValue={course.Discount_price || ""} />
                             </div>
-                        )) : <div>No Benefits included</div>}
+                        )}
+                    </div>
+                </div>
+                <div className={style.rightColumn}>
+                    <div>
+                        <label>Benefits</label>
+                        {benefits.length > 0 ? (
+                            <>
+                                <select name="benefits" ref={includedRef}>
+                                    {benefits.map((benefit, index) => (
+                                        <option key={index} value={benefit._id}>
+                                            {benefit.Name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        const selected = benefits.find(
+                                            (benefit) => benefit._id === includedRef.current.value
+                                        );
+                                        setSelectedIncluded((prev) => [...prev, selected]);
+                                        setBenefits((prev) =>
+                                            prev.filter((benefit) => benefit._id !== includedRef.current.value)
+                                        );
+                                    }}
+                                >
+                                    Add
+                                </button>
+                            </>
+                        ) : (
+                            <span>No benefits left to add</span>
+                        )}
+                    </div>
+                    <div>
+                        {selectedIncluded.map((benefit, index) => (
+                            <div key={index}>
+                                <span>{benefit.Name}</span>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setBenefits((prev) => [...prev, benefit]);
+                                        setSelectedIncluded((prev) =>
+                                            prev.filter((selected) => selected._id !== benefit._id)
+                                        );
+                                    }}
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                    <div>
+                        <label>Excluded Benefits</label>
+                        {benefits.length > 0 ? (
+                            <>
+                                <select name="excluded" ref={excludedRef}>
+                                    {benefits.map((benefit, index) => (
+                                        <option key={index} value={benefit._id}>
+                                            {benefit.Name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        const selected = benefits.find(
+                                            (benefit) => benefit._id === excludedRef.current.value
+                                        );
+                                        setSelectedExcluded((prev) => [...prev, selected]);
+                                        setBenefits((prev) =>
+                                            prev.filter((benefit) => benefit._id !== excludedRef.current.value)
+                                        );
+                                    }}
+                                >
+                                    Add
+                                </button>
+                            </>
+                        ) : (
+                            <span>No benefits left to add</span>
+                        )}
+                    </div>
+                    <div>
+                        {selectedExcluded.map((benefit, index) => (
+                            <div key={index}>
+                                <span>{benefit.Name}</span>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setBenefits((prev) => [...prev, benefit]);
+                                        setSelectedExcluded((prev) =>
+                                            prev.filter((selected) => selected._id !== benefit._id)
+                                        );
+                                    }}
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                    <div>
+                        <label>Categories</label>
+                        {categories.length > 0 ? (
+                            categories.map((category, index) => (
+                                <div key={index}>
+                                    <input
+                                        type="checkbox"
+                                        name="categories"
+                                        value={category._id}
+                                        defaultChecked={course.Categories.includes(category._id)}
+                                    />
+                                    <div>{category.Name}</div>
+                                </div>
+                            ))
+                        ) : (
+                            <span>No categories available</span>
+                        )}
                     </div>
                 </div>
                 <div>
-                    <label>Excluded Benefits</label>
-                    <select name="Benefits" id="ExcludedBenefits">
-                        {Benefits.length > 0 ? Benefits.map((benefit, index) => (
-                            <option key={benefit._id} value={benefit._id}>{benefit.Name}</option>
-                        )) : <option value="No Benefits included">No Benefits available</option>}
-                    </select>
-                    <div>
-                        {Benefits.length > 0 ? Benefits.map((benefit, index) => (
-                            <div key={benefit._id} className={style.benefit} onClick={handleIncludedBenefitClick}>
-                                {benefit.Name}
-                            </div>
-                        )) : <div>No Benefits included</div>}
-                    </div>
+                    <button onClick={closeModal}>Cancel</button>
+                    <button type="submit">Update Course</button>
                 </div>
-                <input type="text" name="Title" defaultValue={Title} />
-                <input type="text" name="Description" defaultValue={Description} />
-                <input type="text" name="Image" defaultValue={Image} />
-                <input type="text" name="Interval" defaultValue={Interval} />
-                <input type="text" name="Price" defaultValue={Price} />
-                <input type="text" name="Benefits" defaultValue={Benefits} />
-                <input type="text" name="Categories" defaultValue={Categories} />
-                <button type="submit">Update</button>
             </form>
-            <button onClick={closeModal}>Close</button>
         </div>
     );
 };

@@ -1,0 +1,17 @@
+.container {
+  background-color: tomato;
+}
+
+.container form {
+  background-color: thistle;
+  display: flex;
+  flex-direction: row;
+}
+.container form .leftColumn {
+  background-color: lightblue;
+  width: 50%;
+}
+.container form .rightColumn {
+  background-color: lightgoldenrodyellow;
+  width: 50%;
+}

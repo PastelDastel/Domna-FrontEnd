@@ -1,59 +1,22 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import style from "./Categories.module.css";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import style from "./Courses.module.css";
-import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import Overview from "./Overview/OverviewModal";
-import CreateModal from "./Create/CreateModal";
-import EditModal from "./Edit/EditModal";
- 
-const Courses = () => {
+import Overview from "./Overview/Overview";
+import CreateModal from "./Create/Create";
+import EditModal from "./Edit/Edit";
+
+const Categories = () => {
     const MySwal = withReactContent(Swal);
-    const [courses, setCourses] = useState([]); // List of courses
+    const [categories, setCategories] = useState([]);
     const [reload, setReload] = useState(false);
-    const [globalLoading, setGlobalLoading] = useState(true); // General loading state
+    const [globalLoading, setGlobalLoading] = useState(true);
     const axiosPrivate = useAxiosPrivate();
-
-    const deleteCourse = async (course) => {
-        const result = await Swal.fire({
-            title: "Are you sure?",
-            html: `Are you sure you want to delete <strong>${course.title}</strong>?<br><em>You won't be able to revert this!</em>`,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "Cancel",
-            reverseButtons: true,
-        });
-
-        if (result.isConfirmed) {
-            try {
-                await axiosPrivate.delete(`/api/courses/${course._id}`);
-                Swal.fire({
-                    title: "Deleted!",
-                    text: `${course.title} has been deleted.`,
-                    icon: "success",
-                    confirmButtonColor: "#3085d6",
-                    willClose: () => reloadCourses(),
-                });
-            } catch (error) {
-                Swal.fire({
-                    title: "Error!",
-                    text: `Failed to delete ${course.title}. Please try again.`,
-                    icon: "error",
-                    confirmButtonColor: "#3085d6",
-                });
-                console.error("Delete error:", error);
-            }
-        }
-    };
-
-    const reloadCourses = () => {
+    const reloadCategories = () => {
         setReload((prev) => !prev);
     };
-
-    const viewCourse = async (course) => {
+    const viewCategory = async (category) => {
         const controller = new AbortController();
         const signal = controller.signal;
 
@@ -81,18 +44,15 @@ const Courses = () => {
         });
 
         try {
-            const response = await axiosPrivate.get(`/api/courses/${course._id}/details`, { signal });
+            const response = await axiosPrivate.get(`/api/categories/${category._id}/details`, { signal });
             const details = response.data;
             MySwal.fire({
                 width: "80vw",
                 html: (
-
                     <Overview
                         closeModal={() => Swal.close()}
-                        course={course}
-                        users={details.Subscribers}
-                        benefits={details.Benefits}
-                        categories={details.Categories}
+                        category={category}
+                        videos={details.Videos}
                         axiosPrivate={axiosPrivate}
                     />
                 ),
@@ -108,16 +68,15 @@ const Courses = () => {
             }
         }
     };
-
-    const editCourse = async (course) => {
+    const editCategory = async (category) => {
         MySwal.fire({
-            width: "80vw",
+            width: "50vw",
             html: (
                 <EditModal
                     closeModal={() => Swal.close()}
-                    course={course}
+                    category={category}
                     axios={axiosPrivate}
-                    onCourseUpdated={reloadCourses}
+                    onCategoryUpdated={reloadCategories}
                 />
             ),
             showConfirmButton: false,
@@ -125,12 +84,12 @@ const Courses = () => {
         });
     };
 
-    const createCourse = () => {
+    const createCategory = () => {
         MySwal.fire({
             width: "80vw",
             html: (
                 <CreateModal
-                    onCourseCreated={reloadCourses}
+                    onCategoryCreated={reloadCategories}
                     closeModal={() => Swal.close()}
                     axios={axiosPrivate}
                 />
@@ -140,62 +99,93 @@ const Courses = () => {
         });
     };
 
+    const deleteCategory = async (category) => {
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            html: `Are you sure you want to delete <strong>${category.Name}</strong>?<br><em>You won't be able to revert this!</em>`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "Cancel",
+            reverseButtons: true,
+        });
+
+        if (result.isConfirmed) {
+            try {
+                await axiosPrivate.delete(`/api/categories/${category._id}`);
+                Swal.fire({
+                    title: "Deleted!",
+                    text: `${category.Name} has been deleted.`,
+                    icon: "success",
+                    confirmButtonColor: "#3085d6",
+                    willClose: () => reloadCategories(),
+                });
+            } catch (error) {
+                Swal.fire({
+                    title: "Error!",
+                    text: `Failed to delete ${category.Name}. Please try again.`,
+                    icon: "error",
+                    confirmButtonColor: "#3085d6",
+                });
+                console.error("Delete error:", error);
+            }
+        }
+    };
+
     useEffect(() => {
-        const fetchCourses = async () => {
+        const fetchCategories = async () => {
             setGlobalLoading(true);
             try {
-                const response = await axiosPrivate.get("/api/courses"); // Fetch courses
-                setCourses(response.data);
+                const response = await axiosPrivate.get("/api/categories");
+                setCategories(response.data);
             } catch (err) {
                 console.error("Error fetching courses:", err);
             } finally {
                 setGlobalLoading(false);
             }
         };
-        fetchCourses();
+        fetchCategories();
     }, [axiosPrivate, reload]);
-    console.log(courses);
-    return (
-        <div className={style.courses}>
-            {globalLoading ? (
+    console.log(categories);
+    return (<>
+        {
+            globalLoading ? (
                 <div className={style.loadingScreen}>
                     <div className={style.spinner}></div>
-                    <p>Loading courses...</p>
+                    <p>Loading categories...</p>
                 </div>
             ) : (
                 <>
                     <div className={style.header}>
-                        <h1>Courses</h1>
-                        <button onClick={createCourse} className={style.createButton}>
-                            Create New Course
-                        </button>
+                        <h1>Categories</h1>
+                        <button onClick={createCategory}>Create Category</button>
                     </div>
-                    <div className={style.coursesList}>
-                        {courses.map((course) => (
-                            <div key={course._id} className={style.course}>
-                                <div className={style.header}>{course.Title}</div>
+                    <div className={style.categories}>
+                        {categories.map((category) => (
+                            <div key={category._id} className={style.category}>
+                                <div className={style.header}>{category.Name}</div>
                                 <div className={style.main}>
-                                    <div>Id: {course._id}</div>
-                                    <div>Title: {course.Title}</div>
-                                    <div>Price: {course.Price.Discounted ? course.Price.Discounted : course.Price.Normal}</div>
-                                    <div>Subscrubers: {course.Subscribers.length}</div>
-                                    <div>Categories: {course.Categories.length}</div>
+                                    <div>Id: {category._id}</div>
+                                    <div>Name: {category.Name}</div>
+                                    <div>{category.Description ? "Description: " + category.Description : "No description provided"}</div>
                                 </div>
                                 <div className={style.footer}>
                                     <button
-                                        onClick={() => viewCourse(course)}
+                                        onClick={() => viewCategory(category)}
                                         className={style.footerButton}
                                     >
                                         View
                                     </button>
                                     <button
-                                        onClick={() => editCourse(course)}
+                                        onClick={() => editCategory(category)}
                                         className={style.footerButton}
                                     >
                                         Edit
                                     </button>
                                     <button
-                                        onClick={() => deleteCourse(course)}
+                                        onClick={() => deleteCategory(category)}
                                         className={style.footerButton}
                                     >
                                         Delete
@@ -205,9 +195,9 @@ const Courses = () => {
                         ))}
                     </div>
                 </>
-            )}
-        </div>
-    );
+            )
+        }
+    </>);
 };
 
-export default Courses;
+export default Categories;

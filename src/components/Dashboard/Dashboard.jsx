@@ -4,6 +4,8 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Users from "./Users/Users";
 import Courses from "./Courses/Courses";
 import Benefits from "./Benefits/Benefits";
+import Categories from "./Categories/Categories";
+import Videos from "./Video/Videos";
 const Dashboard = () => {
     const [selectedView, setSelectedView] = useState("overview");
 
@@ -29,6 +31,10 @@ const MainView = ({ selectedView }) => {
             return <Courses />;
         case "benefits":
             return <Benefits />;
+        case "categories":
+            return <Categories />;
+        case "videos":
+            return <Videos />;
         case "transactions":
             return <Transactions />;
         default:
@@ -73,7 +79,7 @@ const SidebarButton = ({ view, selectedView, onViewChange }) => {
 
 // Sidebar Component
 const Sidebar = ({ selectedView, onViewChange }) => {
-    const views = ["overview", "users", "courses", "benefits", "categories", "blogs", "transactions"];
+    const views = ["overview", "users", "courses", "benefits", "categories", "videos", "blogs", "transactions"];
     return (
         <div className={style.sidebar}>
             {views.map((view) => (
