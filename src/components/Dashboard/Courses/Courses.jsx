@@ -6,7 +6,7 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import Overview from "./Overview/OverviewModal";
 import CreateModal from "./Create/CreateModal";
 import EditModal from "./Edit/EditModal";
- 
+
 const Courses = () => {
     const MySwal = withReactContent(Swal);
     const [courses, setCourses] = useState([]); // List of courses
@@ -170,33 +170,35 @@ const Courses = () => {
                             Create New Course
                         </button>
                     </div>
-                    <div className={style.coursesList}>
+                    <div className={style["card-container-courses"]}>
                         {courses.map((course) => (
-                            <div key={course._id} className={style.course}>
-                                <div className={style.header}>{course.Title}</div>
-                                <div className={style.main}>
-                                    <div>Id: {course._id}</div>
-                                    <div>Title: {course.Title}</div>
-                                    <div>Price: {course.Price.Discounted ? course.Price.Discounted : course.Price.Normal}</div>
-                                    <div>Subscrubers: {course.Subscribers.length}</div>
-                                    <div>Categories: {course.Categories.length}</div>
+                            <div key={course._id} className={style["card"]}>
+                                <div className={style["card-header"]}>{course.Title}</div>
+                                <div className={style["card-body"]}>
+                                    <p><strong>Id:</strong> {course._id}</p>
+                                    <p><strong>Titolo:</strong> {course.Title}</p>
+                                    <p><strong>Descrizione:</strong> {course.Description ? course.Description : "Nessuna descrizione"}</p>
+                                    <p><strong>Prezzo:</strong> {course.Price.Discounted ? course.Price.Discounted : course.Price.Normal}</p>
+                                    <p><strong>Benefici:</strong> {course.Benefits.length > 0 ? course.Benefits.length : "Nessun beneficio"}</p>
+                                    <p><strong>Categorie:</strong> {course.Categories.length > 0 ? course.Categories.length : "Nessuna categoria"}</p>
+                                    <p><strong>Iscritti:</strong> {course.Subscribers.length > 0 ? course.Subscribers.length : "Nessun iscritto"}</p>
                                 </div>
-                                <div className={style.footer}>
+                                <div className={style["card-footer"]}>
                                     <button
                                         onClick={() => viewCourse(course)}
-                                        className={style.footerButton}
+                                        className={style["view-button"]}
                                     >
                                         View
                                     </button>
                                     <button
                                         onClick={() => editCourse(course)}
-                                        className={style.footerButton}
+                                        className={style["edit-button"]}
                                     >
                                         Edit
                                     </button>
                                     <button
                                         onClick={() => deleteCourse(course)}
-                                        className={style.footerButton}
+                                        className={style["delete-button"]}
                                     >
                                         Delete
                                     </button>

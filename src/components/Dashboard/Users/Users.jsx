@@ -155,7 +155,7 @@ const Users = () => {
                         user={user}
                         courses={courses}
                         axios={axiosPrivate}
-                        onUserUpdated={reloadUsers} // Pass the reload function
+                        onUserUpdated={reloadUsers} 
                     />
                 ),
                 showConfirmButton: false,
@@ -208,46 +208,46 @@ const Users = () => {
             {globalLoading ? ( // Global loading screen
                 <div className={style.loadingScreen}>
                     <div className={style.spinner}></div>
-                    <p>Loading users...</p>
+                    <p>Caricamento in corso...</p>
                 </div>
             ) : (
                 <>
                     <div className={style.header}>
-                        <h1>Users</h1>
+                        <h1>Utenti</h1>
                         <button
                             onClick={createUser}
                             className={style.createButton}
                         >
-                            Create new User
+                            Crea nuovo utente
                         </button>
                     </div>
-                    <div className={style.usersList}>
+                    <div className={style["card-container-users"]}>
                         {users.map((user) => (
-                            <div key={user._id} className={style.user}>
-                                <div className={style.header}>{user.username}</div>
-                                <div className={style.main}>
-                                    <div>Id: {user._id}</div>
-                                    <div>Username: {user.username}</div>
-                                    <div>Email: {user.email}</div>
+                            <div key={user._id} className={style["card"]}>
+                                <div className={style["card-header"]}>{user.username}</div>
+                                <div className={style["card-body"]}>
+                                    <p><strong>Id:</strong> {user._id}</p>
+                                    <p><strong>Username:</strong> {user.username}</p>
+                                    <p><strong>Email:</strong> {user.email}</p>
                                 </div>
-                                <div className={style.footer}>
+                                <div className={style["card-footer"]}>
                                     <button
                                         onClick={() => viewUser(user)}
-                                        className={style.footerButton}
+                                        className={style["view-button"]}
                                     >
-                                        View
+                                        Dettagli
                                     </button>
                                     <button
                                         onClick={() => editUser(user)}
-                                        className={style.footerButton}
+                                        className={style["edit-button"]}
                                     >
-                                        Edit
+                                        Modifica
                                     </button>
                                     <button
                                         onClick={() => deleteUser(user)}
-                                        className={style.footerButton}
+                                        className={style["delete-button"]}
                                     >
-                                        Delete
+                                        Elimina
                                     </button>
                                 </div>
                             </div>

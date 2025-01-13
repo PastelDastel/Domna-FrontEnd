@@ -2,8 +2,6 @@
   background-color: #fff;
   border-radius: 8px;
   padding: 1.5rem;
-  width: 100%;
-  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -86,4 +84,26 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.leftPanel {
+  width: 500px;
+}
+.rightPanel {
+  width: 300px;
+}
+.Username input,
+.Email input,
+.Password input,
+.Phone input {
+  max-width: 300px;
+}
+.Username,
+.Email,
+.Password,
+.Phone {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
 }

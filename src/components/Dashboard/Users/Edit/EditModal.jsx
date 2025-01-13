@@ -64,40 +64,48 @@ const EditModal = ({ closeModal, user, axios, onUserUpdated }) => {
 
     return (
         <div className={style.modalContainer}>
-            <h1 className={style.title}>Edit User: {user.username}</h1>
+            <h1 className={style.title}>Modifica Utente: {user.username}</h1>
             <div className={style.modalContent}>
                 {/* Left Panel: User Details */}
                 <div className={style.leftPanel}>
-                    <label className={style.label}>Username:</label>
-                    <input
-                        type="text"
-                        name="username"
-                        value={updatedUser.username}
-                        onChange={handleChange}
-                        className={style.input}
-                    />
+                    <div className={style.Username}>
+                        <label className={style.label}>Username:</label>
+                        <input
+                            type="text"
+                            name="username"
+                            value={updatedUser.username}
+                            onChange={handleChange}
+                            className={style.input}
+                        />
+                    </div>
 
-                    <label className={style.label}>Email:</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={updatedUser.email}
-                        onChange={handleChange}
-                        className={style.input}
-                    />
+                    <div className={style.Email}>
+                        <label className={style.label}>Email:</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={updatedUser.email}
+                            onChange={handleChange}
+                            className={style.input}
+                        />
+                    </div>
 
-                    <label className={style.label}>Password:</label>
-                    <input
-                        type="password"
-                        name="new_password"
-                        placeholder="Enter new password"
-                        value={updatedUser.new_password}
-                        onChange={handleChange}
-                        className={style.input}
-                    />
+                    <div className={style.Password}>
+                        <label className={style.label}>Password:</label>
+                        <input
+                            type="password"
+                            name="new_password"
+                            placeholder="Inserisci la nuova password"
+                            value={updatedUser.new_password}
+                            onChange={handleChange}
+                            className={style.input}
+                        />
+                    </div>
 
-                    <label className={style.label}>Role:</label>
-                    <p className={style.readOnlyField}>{user.roles}</p>
+                    <div className={style.Role}>
+                        <label className={style.label}>Ruolo: </label>
+                        <span className={style.readOnlyField}>{user.roles}</span>
+                    </div>
                 </div>
 
                 {/* Right Panel: List of All Courses */}

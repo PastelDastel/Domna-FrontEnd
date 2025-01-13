@@ -1,5 +1,5 @@
 .container {
-  background-color: brown;
+  background-color: #f4f4f9;
   position: relative;
   width: 100vw;
   height: 85vh;
@@ -9,7 +9,6 @@
 
 .content {
   min-width: 412px;
-  flex: 1;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -19,7 +18,9 @@
 
 .sidebar {
   background-color: darkslateblue;
-  width: 15vw;
+  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;

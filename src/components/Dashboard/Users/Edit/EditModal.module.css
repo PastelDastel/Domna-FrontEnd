@@ -203,3 +203,31 @@
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
+
+.Username input {
+  width: 250px;
+  text-align: center;
+}
+
+.Email input {
+  width: 250px;
+  text-align: center;
+}
+
+.Role span {
+  width: fit-content;
+  text-align: center;
+}
+
+.Password input {
+  width: 250px;
+  text-align: center;
+}
+
+.Username,
+.Email,
+.Role,
+.Password {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}

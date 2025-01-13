@@ -6,6 +6,7 @@ const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
     const [categories, setCategories] = useState([]);
     const [selectedIncluded, setSelectedIncluded] = useState(course.Included || []);
     const [selectedExcluded, setSelectedExcluded] = useState(course.Excluded || []);
+    const [selectedCategories, setSelectedCategories] = useState([]);
     const [discount, setDiscount] = useState(!!course.Discount_price);
     const includedRef = useRef();
     const excludedRef = useRef();
@@ -54,6 +55,7 @@ const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
             try {
                 const response = await axios.get("/api/categories");
                 setCategories(response.data);
+                setSelectedCategories(response.data.filter((category) => course.Categories.includes(category._id)));
             } catch (error) {
                 console.error("Error fetching categories:", error);
             }
@@ -67,9 +69,6 @@ const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
 
         fetchData();
     }, [course]);
-
-
-
     const formSubmit = async (e) => {
         e.preventDefault();
         const Title = e.target.title.value;
@@ -79,9 +78,7 @@ const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
         const Stripe_price = e.target.stripe_price.value;
         const Normal_price = e.target.normal_price.value;
         const Discount_price = e.target.discount_price?.value || 0;
-        const Categories = Array.from(e.target.categories)
-            .filter((input) => input.checked)
-            .map((input) => input.value);
+        const Categories = selectedCategories.map((category) => category._id);
         const Included = selectedIncluded.map((benefit) => benefit._id);
         const Excluded = selectedExcluded.map((benefit) => benefit._id);
 
@@ -270,6 +267,15 @@ const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
                                         name="categories"
                                         value={category._id}
                                         defaultChecked={course.Categories.includes(category._id)}
+                                        onClick={(e) => {
+                                            setSelectedCategories((prev) => {
+                                                if (e.target.checked) {
+                                                    return [...prev, category];
+                                                } else {
+                                                    return prev.filter((selected) => selected._id !== category._id);
+                                                }
+                                            });
+                                        }}
                                     />
                                     <div>{category.Name}</div>
                                 </div>

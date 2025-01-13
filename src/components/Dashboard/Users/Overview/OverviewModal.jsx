@@ -3,22 +3,25 @@ import style from "./OverviewModal.module.css";
 
 const OverviewModal = ({ closeModal, user, courses }) => {
     return (
-        <div className={style.modal}>
-
+        <div className={style.userModal}>
             <>
-                <h1>Overview</h1>
-                <p>Id: {user._id}</p>
-                <p>Email: {user.email}</p>
-                <p>Username: {user.username}</p>
-                <p>Role: {user.roles}</p>
+                <h1>Dettagli</h1>
+                <div className={style["user-info-modal"]}>
+                    <p><strong>Id:</strong> {user._id}</p>
+                    <p><strong>Email:</strong> {user.email}</p>
+                    <p><strong>Username:</strong> {user.username}</p>
+                    <p><strong>Roles:</strong> {user.roles}</p>
+                </div>
                 {courses.length > 0 && (
                     <>
                         <h2>Courses</h2>
-                        <ul>
-                            {courses.map((course) => (
-                                <li key={course._id}>{course.title}</li>
-                            ))}
-                        </ul>
+                        <div className={style["course-list-user"]}>
+                            <ul>
+                                {courses.map((course) => (
+                                    <li key={course._id}>{course.Title}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </>
                 )}
             </>

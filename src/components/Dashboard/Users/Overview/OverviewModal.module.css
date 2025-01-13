@@ -1,0 +1,54 @@
+.userModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-info-modal strong {
+  color: #4c6ef5;
+  text-decoration: none;
+}
+
+.user-info-modal p {
+  margin: 10px 0;
+}
+
+.userModal .closeButton {
+  margin-top: 40px;
+  padding: 10px 5px;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 10px;
+  width: 100px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  background-color: #4c6ef5;
+  color: #fff;
+}
+.userModal h2 {
+  margin-top: 20px;
+  color: #333;
+  font-weight: bold;
+}
+.userModal .closeButton:hover {
+  background-color: #2f58fc;
+}
+
+.userModal .course-list-user ul {
+  list-style: none;
+  padding: 0;
+}
+
+.userModal .course-list-user ul li {
+  margin: 10px 0;
+  color: #333;
+  font-weight: bold;
+}
+
+.userModal h1 {
+  color: #333;
+  font-weight: normal;
+  margin-bottom: 20px;
+}

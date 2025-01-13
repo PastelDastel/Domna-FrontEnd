@@ -36,28 +36,33 @@ const CreateModal = ({ onUserCreated, axios, closeModal }) => {
 
     return (
         <div className={style.modalContainer}>
-            <h1 className={style.title}>Create New User</h1>
+            <h1 className={style.title}>Crea nuovo utente</h1>
 
             {/* Form Content */}
             <div className={style.modalContent}>
                 <div className={style.leftPanel}>
-                    <label className={style.label}>Username</label>
-                    <input id="username" className={style.input} placeholder="Enter username" />
-
-                    <label className={style.label}>Password</label>
-                    <input id="password" type="password" className={style.input} placeholder="Enter password" />
-
-                    <label className={style.label}>Email</label>
-                    <input id="email" type="email" className={style.input} placeholder="Enter email" />
-
-                    <label className={style.label}>Phone</label>
-                    <input id="phone" className={style.input} placeholder="Enter phone number" />
+                    <div className={style.Username}>
+                        <label className={style.label}>Username</label>
+                        <input id="username" className={style.input} placeholder="Enter username" />
+                    </div>
+                    <div className={style.Password}>
+                        <label className={style.label}>Password</label>
+                        <input id="password" type="password" className={style.input} placeholder="Enter password" />
+                    </div>
+                    <div className={style.Email}>
+                        <label className={style.label}>Email</label>
+                        <input id="email" type="email" className={style.input} placeholder="Enter email" />
+                    </div>
+                    <div className={style.Phone}>
+                        <label className={style.label}>Telefono</label>
+                        <input id="phone" className={style.input} placeholder="Enter phone number" />
+                    </div>
                 </div>
 
                 <div className={style.rightPanel}>
-                    <label className={style.label}>Role</label>
+                    <label className={style.label}>Ruolo: </label>
                     <select id="roles" className={style.input}>
-                        <option value="4934503821911649">User</option>
+                        <option value="4934503821911649">Cliente</option>
                         <option value="6792941695628669">Admin</option>
                     </select>
                 </div>
