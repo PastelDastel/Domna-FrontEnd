@@ -9,6 +9,13 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
     const subCatDescriptionRef = useRef();
     const [selectedVideos, setSelectedVideos] = useState([]);
     const [availableVideos, setAvailableVideos] = useState([]);
+
+    const [base64Image, setBase64Image] = useState(null);
+    const [base64SubCatImage, setBase64SubCatImage] = useState(null);
+
+
+
+
     console.log(category);
     const [isMonth, setIsMonth] = useState(false);
 
@@ -22,8 +29,13 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
     const addSubCat = () => {
         const subCatName = subCatRef.current.value.trim();
         const subCatDescription = subCatDescriptionRef.current.value.trim();
-        if (!subCatName) return;
-        const newSubCat = { Name: subCatName, Description: subCatDescription, Videos: selectedVideos };
+        const img = base64SubCatImage;
+        if (!subCatName) {
+            alert("Please enter a subCat name.");
+            return;
+        }
+        const newSubCat = { Name: subCatName, Description: subCatDescription, Videos: selectedVideos, Image: img };
+        console.log("New SubCat: ", newSubCat);
         setSubCats((prevSubCats) => [...prevSubCats, newSubCat]);
         subCatRef.current.value = ""; // Clear the input field
         subCatDescriptionRef.current.value = ""; // Clear the input field
@@ -97,14 +109,45 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
             )
         );
     };
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0]; // Get the selected file
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setBase64Image(event.target.result); // Set Base64 string in state
+            };
+            reader.readAsDataURL(file); // Convert file to Base64
+        }
+    };
 
+    const handleSubCatImageUpload = (e) => {
+        const file = e.target.files[0]; // Get the selected file
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setBase64SubCatImage(event.target.result); // Set Base64 string in state
+            };
+            reader.readAsDataURL(file); // Convert file to Base64
+        }
+    };
+    const handlePutSubcatImage = (subCat, imageUrl) => {
+        setSubCats((prevSubCats) =>
+            prevSubCats.map((s) =>
+                s === subCat
+                    ? { ...s, Image: imageUrl }
+                    : s
+            )
+        );
+    }
     // Submit the main form
     const submitForm = async (e) => {
         e.preventDefault(); // Prevent default page reload
         const name = e.target.name.value.trim();
         const description = e.target.description.value.trim();
+        const img = base64Image;
+
         try {
-            const updatedCategory = { name, description, months, subCats };
+            const updatedCategory = { name, description, months, subCats, img };
             console.log("Category before submitting: ", updatedCategory)
 
             const response = await axios.put(`/api/categories/${category._id}`, updatedCategory);
@@ -126,6 +169,10 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                 <div>
                     <label htmlFor="description">Description</label>
                     <input type="text" id="description" name="description" defaultValue={category.Description} />
+                </div>
+                <div>
+                    <label htmlFor="image">Image</label>
+                    <input type="file" id="image" name="image" onChange={handleImageUpload} accept="image/*" />
                 </div>
                 {/* Months Section */}
                 <div>
@@ -168,6 +215,10 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                         <input type="text" ref={subCatRef} />
                         <label>SubCategory Description</label>
                         <textarea type="text" ref={subCatDescriptionRef} />
+                        <div>
+                            <label htmlFor="subCatImage">Image</label>
+                            <input type="file" id="subCatImage" name="subCatImage" onChange={handleSubCatImageUpload} accept="image/*" />
+                        </div>
                         <button type="button" onClick={addSubCat}>Add SubCat</button>
                         {availableVideos.length > 0 ? (<><select name="videos" id="videosss">
                             {availableVideos.map((video) => (
@@ -230,6 +281,30 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                                     </div>
                                     <h3>{subCat.Name}</h3>
                                     <h3>{subCat.Description}</h3>
+                                    <div>
+                                        <h4>Image:</h4>
+                                        {subCat.Image ? <img src={subCat.Image} /> : <p>No image available.</p>}
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                                const file = e.target.files[0];
+                                                if (file) {
+                                                    const reader = new FileReader();
+                                                    reader.onload = () => {
+                                                        const base64String = reader.result;
+                                                        handlePutSubcatImage(subCat, base64String);
+                                                    };
+                                                    reader.onerror = () => {
+                                                        console.error("Failed to read the file.");
+                                                    };
+                                                    reader.readAsDataURL(file); // Convert the file to a data URL
+                                                } else {
+                                                    console.log("No file selected.");
+                                                }
+                                            }}
+                                        />
+                                    </div>
                                     {subCat.Videos.map((video) => (
                                         <div key={video._id} className={styles["video-list"]}>
                                             <span>{video.Title}</span>

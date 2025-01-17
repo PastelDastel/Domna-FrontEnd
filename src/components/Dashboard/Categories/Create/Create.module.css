@@ -1,44 +1,27 @@
-.container {
-  background-color: azure;
+.createCategory .formContent {
   display: flex;
-  flex-direction: column;
-  height: 90vh;
+  flex-direction: row;
+  align-items: center;
 }
 
-.form {
+.left {
   background-color: aqua;
-  display: flex;
-  flex-direction: column;
+  width: 50%;
 }
 
-.monthsContainer {
-  background-color: blanchedalmond;
+.right {
+  background-color: yellow;
+  width: 50%;
 }
 
-.month {
-  background-color: cadetblue;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
+.monthsSubCats {
+  background-color: aquamarine;
 }
 
-.monthHeader {
-  background-color: darkcyan;
-  display: flex;
-  justify-content: space-between;
-  width: 300px;
+.monthsDivision {
+  background-color: yellowgreen;
 }
 
-.monthBody {
-  background-color: darkgoldenrod;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.monthBody textarea {
-  width: 300px;
-  height: 100px;
-  resize: none;
+.subCatsDivision {
+  background-color: lightcoral;
 }

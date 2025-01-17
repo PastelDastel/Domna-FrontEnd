@@ -18,7 +18,7 @@ const Courses = () => {
         console.log(Domna.data.courses);
         const DomnaLive = await axiosPrivate.get('/courses/domna-live');
         setDomnaLiveCourses(DomnaLive.data.courses);
-
+        console.log(DomnaLive.data.courses);
       } catch (err) {
         console.error('Error fetching courses:', err);
         setError('Failed to load courses');

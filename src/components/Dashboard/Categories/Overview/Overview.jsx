@@ -39,6 +39,11 @@ const Overview = ({ closeModal, axios, category }) => {
                 <h2>Name: {categoryDetails.Name}</h2>
                 <p>Description: {categoryDetails.Description}</p>
             </div>
+            <div>
+                <h2>Image</h2>
+                {categoryDetails.Image ? <img src={categoryDetails.Image} /> : <p>No image available.</p>}
+
+            </div>
             {/* Months Section */}
             <div>
                 <h2>Months</h2>
@@ -75,6 +80,10 @@ const Overview = ({ closeModal, axios, category }) => {
                         <div key={index}>
                             <h3>{subCat.Name}</h3>
                             <p>{subCat.Description}</p>
+                            <div>
+                                <h4>Image:</h4>
+                                {subCat.Image ? <img src={subCat.Image} /> : <p>No image available.</p>}
+                            </div>
                             <div>
                                 <h4>Videos:</h4>
                                 {subCat.Videos && subCat.Videos.length > 0 ? (

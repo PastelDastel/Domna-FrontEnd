@@ -120,8 +120,6 @@ const OverviewModal = ({ closeModal, course, users, benefits, categories, axiosP
                     )}
                 </div>
             </div>
-
-            {/* Footer - Close Button */}
             <div className={style.footer}>
                 <button onClick={closeModal} className={style.closeButton}>
                     Close
