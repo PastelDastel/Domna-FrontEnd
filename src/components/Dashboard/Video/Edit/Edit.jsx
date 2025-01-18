@@ -25,39 +25,43 @@ const Edit = ({ onVideoUpdated, closeModal, axios, video }) => {
     };
 
     return (
-        <div className={style.content}>
+        <div className={style.editVideo}>
             <h1>Edit Video</h1>
             <form onSubmit={submitForm}>
-                <label htmlFor="title">Title</label>
-                <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                />
+                <div className={style.inputGroup}>
+                    <label htmlFor="title">Title</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                    />
+                </div>
 
-                <label htmlFor="description">Description</label>
-                <input
-                    type="text"
-                    id="description"
-                    name="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
+                <div className={style.inputGroup}><label htmlFor="description">Description</label>
+                    <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    /></div>
 
-                <label htmlFor="url">URL</label>
-                <input
-                    type="text"
-                    id="url"
-                    name="url"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                    required
-                />
-                <button type="submit">Save Changes</button>
-                <button type="button" onClick={closeModal}>Close</button>
+                <div className={style.inputGroup}> <label htmlFor="url">URL</label>
+                    <input
+                        type="text"
+                        id="url"
+                        name="url"
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
+                        required
+                    /></div>
+                <div className={style.buttonGroup}>
+                    <button type="button" onClick={closeModal}>Close</button>
+                    <button type="submit">Save Changes</button>
+                </div>
             </form>
         </div>
     );

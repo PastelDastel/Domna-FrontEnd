@@ -24,147 +24,142 @@
     transform: rotate(360deg);
   }
 }
-
 .categories {
+  width: 100%;
+}
+
+.header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  background-color: chocolate;
-}
-.categories .header {
-  background-color: darkgoldenrod;
-  width: 100%;
-  height: 50px;
-  display: flex;
-  align-items: center; /* Vertically center content */
-  justify-content: space-evenly; /* Space items evenly */
-  padding: 0 15px; /* Add padding for better spacing */
-  box-sizing: border-box;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
-.categories .header .createButton {
-  background-color: #4caf50;
-  width: 150px;
-  color: white;
+.createButton {
+  background-color: #38a169;
+  color: #fff;
+  width: 200px;
+  height: 30px;
+  padding: 8px 5px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 8px;
   border: none;
-  padding: 8px 12px;
   cursor: pointer;
-  font-size: 14px;
-  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
   text-align: center;
+  white-space: nowrap;
 }
 
-.categories .createButton:hover {
-  background-color: #45a049;
+.createButton:hover {
+  background-color: #2f855a;
 }
 
-.categoriesList {
-  background-color: antiquewhite;
-  width: 100%;
+.card-container-categories {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
-  align-items: center;
+  /*make the scrollbar visible*/
+  overflow-y: scroll;
+  height: 89%;
 }
-.category {
-  background-color: blueviolet;
-  width: 350px;
+
+.card-container-categories .card {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 280px;
   height: 350px;
-  margin: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border-radius: 10px;
+  justify-content: space-between;
+  border: 1px solid #e6e6e6;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.category .header {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background-color: cadetblue;
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: yellow;
+.card-container-categories .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-container-categories .card-header {
+  background: linear-gradient(135deg, #4c6ef5, #6a82fb);
+  color: #fff;
   text-align: center;
-}
-
-.category .main {
-  background-color: darkgreen;
-  width: 100%;
-  height: 250px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: left;
-  padding: 10px;
-  font-size: 1.1rem;
-  color: white;
-}
-
-.category .footer {
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  width: 100%;
-  background-color: darkseagreen;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.category .footer .footerButton {
-  background-color: darkred;
-  color: yellow;
-  border: none;
-  padding: 10px;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-.category .footer .footerButton:hover {
-  background-color: darkorange;
-  color: white;
-}
-
-.modalTitle {
-  font-size: 1.5rem;
+  padding: 20px;
+  font-size: 1.2em;
   font-weight: bold;
+  letter-spacing: 1px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-container-categories .card-body {
+  padding: 20px;
   color: #333;
-  text-align: center;
+  font-size: 0.9em;
+  line-height: 1.6;
+  overflow-y: scroll;
 }
 
-.modalContent {
+.card-container-categories .card-body p {
+  margin: 10px 0;
+}
+
+.card-container-categories .card-body p strong {
+  color: #4c6ef5;
+  text-decoration: none;
+}
+
+.card-container-categories .card-footer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-top: 1px solid #e6e6e6;
 }
 
-.modalText {
-  font-size: 1rem;
-  color: #555;
-  text-align: center;
-}
-
-.cancelButton {
-  background-color: #6c757d;
-  color: white;
-  padding: 0.5rem 1rem;
+.card-container-categories .card-footer button {
+  flex: 1;
+  padding: 8px 5px;
+  font-size: 0.85em;
+  font-weight: bold;
+  border-radius: 8px;
   border: none;
-  border-radius: 0.25rem;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease-in-out;
+  text-align: center;
+  white-space: nowrap;
 }
 
-.cancelButton:hover {
-  background-color: #5a6268;
+.card-container-categories .card-footer .view-button {
+  background: #38a169;
+  color: #fff;
+}
+
+.card-container-categories .card-footer .view-button:hover {
+  background: #2f855a;
+}
+
+.card-container-categories .card-footer .edit-button {
+  background: #ed8936;
+  color: #fff;
+}
+
+.card-container-categories .card-footer .edit-button:hover {
+  background: #dd6b20;
+}
+
+.card-container-categories .card-footer .delete-button {
+  background: #e53e3e;
+  color: #fff;
+}
+
+.card-container-categories .card-footer .delete-button:hover {
+  background: #c53030;
 }

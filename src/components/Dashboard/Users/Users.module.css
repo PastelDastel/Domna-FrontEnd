@@ -25,6 +25,10 @@
   }
 }
 
+.users {
+  width: 100%;
+}
+
 .header {
   display: flex;
   justify-content: space-evenly;

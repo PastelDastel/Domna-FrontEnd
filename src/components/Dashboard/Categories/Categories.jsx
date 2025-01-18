@@ -125,31 +125,31 @@ const Categories = () => {
                         <h1>Categories</h1>
                         <button onClick={createCategory} className={style.createButton}>Create Category</button>
                     </div>
-                    <div className={style.categoriesList}>
+                    <div className={style["card-container-categories"]}>
                         {categories.map((category) => (
-                            <div key={category._id} className={style.category}>
-                                <div className={style.header}>{category.Name}</div>
-                                <div className={style.main}>
-                                    <div>Id: {category._id}</div>
-                                    <div>Name: {category.Name}</div>
-                                    <div>{category.Description ? "Description: " + category.Description : "No description provided"}</div>
+                            <div key={category._id} className={style["card"]}>
+                                <div className={style["card-header"]}>{category.Name}</div>
+                                <div className={style["card-body"]}>
+                                    <p><strong>Id:</strong> {category._id}</p>
+                                    <p><strong>Name:</strong> {category.Name}</p>
+                                    <p><strong>Description:</strong> {category.Description ? category.Description : "No description provided"}</p>
                                 </div>
-                                <div className={style.footer}>
+                                <div className={style["card-footer"]}>
                                     <button
                                         onClick={() => viewCategory(category)}
-                                        className={style.footerButton}
+                                        className={style["view-button"]}
                                     >
                                         View
                                     </button>
                                     <button
                                         onClick={() => editCategory(category)}
-                                        className={style.footerButton}
+                                        className={style["edit-button"]}
                                     >
                                         Edit
                                     </button>
                                     <button
                                         onClick={() => deleteCategory(category)}
-                                        className={style.footerButton}
+                                        className={style["delete-button"]}
                                     >
                                         Delete
                                     </button>

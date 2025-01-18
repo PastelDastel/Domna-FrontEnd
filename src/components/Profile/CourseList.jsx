@@ -69,8 +69,8 @@ const CourseList = ({ courses }) => {
                             className={style.courseCard}
                             onClick={() => setActiveCourseId(course._id)}
                         >
-                            <h2 className={style.courseTitle}>{course.title}</h2>
-                            <p>{course.description}</p>
+                            <h2 className={style.courseTitle}>{course.Title}</h2>
+                            <p>{course.Description}</p>
                         </div>
                     ))}
                 </>
@@ -85,13 +85,13 @@ const CourseList = ({ courses }) => {
                             <div key={course._id} className={style.activeCourseDetails}>
                                 <h1>{course.title}</h1>
                                 <p>{course.description}</p>
-                                {course.categories.map((category) => (
+                                {course.Categories.map((category) => (
                                     <div
-                                        key={category.name}
+                                        key={category.Name}
                                         className={style.categoryCard}
-                                        onClick={() => setActiveCategoryId(category.name)}
+                                        onClick={() => setActiveCategoryId(category.Name)}
                                     >
-                                        <h2>{category.name}</h2>
+                                        <h2>{category.Name}</h2>
                                     </div>
                                 ))}
                             </div>
@@ -105,69 +105,65 @@ const CourseList = ({ courses }) => {
                     {courses
                         .filter((course) => course._id === activeCourseId)
                         .map((course) =>
-                            course.categories
-                                .filter((category) => category.name === activeCategoryId)
-                                .map((category) => (
-                                    <div key={category.name} className={style.activeCategoryDetails}>
-                                        <h1>{category.name}</h1>
-                                        {category.monthlyPrograms.map((program) => {
-                                            let previousMonthCompleted = true;
-
-                                            const isMonthUnlocked = previousMonthCompleted;
-                                            const monthCompleted = program.videos.every((video) =>
+                            course.Categories.filter((category) => category.Name === activeCategoryId).map((category) => (
+                                <div key={category.Name} className={style.activeCategoryDetails}>
+                                    <h1>{category.Name}</h1>
+                                    {category.Months?.map((program, index) => {
+                                        // Check if the previous month is completed (handle undefined cases)
+                                        const previousMonthCompleted =
+                                            index === 0 || (category.Months[index - 1]?.Videos || []).every((video) =>
                                                 completedVideos.has(video._id)
                                             );
 
-                                            previousMonthCompleted = monthCompleted;
+                                        const isMonthUnlocked = previousMonthCompleted;
+                                        const monthCompleted = (program?.Videos || []).every((video) =>
+                                            completedVideos.has(video._id)
+                                        );
 
-                                            let previousVideoCompleted = true;
+                                        return (
+                                            <div key={program._id || index} className={style.monthCard}>
+                                                {isMonthUnlocked ? (
+                                                    <>
+                                                        <p>{program?.Description || "No description available"}</p>
+                                                        <ul>
+                                                            {(program?.Videos || []).map((video, videoIndex) => {
+                                                                // Check if the current video is unlocked
+                                                                const isCompleted = completedVideos.has(video._id);
+                                                                const isVideoUnlocked =
+                                                                    videoIndex === 0 || completedVideos.has(program?.Videos[videoIndex - 1]?._id);
 
-                                            return (
-                                                <div key={program.month} className={style.monthCard}>
-                                                    {isMonthUnlocked ? (
-                                                        <>
-                                                            <p>{program.description}</p>
-                                                            <ul>
-                                                                {program.videos.map((video) => {
-                                                                    const isCompleted = completedVideos.has(video._id);
-                                                                    const isVideoUnlocked = previousVideoCompleted;
-                                                                    previousVideoCompleted = isCompleted;
-                                                                    return (
-                                                                        <li key={video._id}>
-                                                                            {isVideoUnlocked ? (
-                                                                                <VideoTrack
-                                                                                    isCompleted={isCompleted}
-                                                                                    videoUrl={video.url}
-                                                                                    videoId={video._id}
-                                                                                    videoName={video.name}
-                                                                                    onVideoUpdate={handleVideoUpdate}
-                                                                                    isPlaying={
-                                                                                        currentPlayingVideoId === video._id
-                                                                                    }
-                                                                                    onPlay={() => handleVideoPlay(video._id)}
-                                                                                />
-                                                                            ) : (
-                                                                                <p style={{ color: "gray" }}>
-                                                                                    🔒 {video.name} - Complete the previous
-                                                                                    video to unlock.
-                                                                                </p>
-                                                                            )}
-                                                                        </li>
-                                                                    );
-                                                                })}
-                                                            </ul>
-                                                        </>
-                                                    ) : (
-                                                        <p style={{ color: "gray" }}>
-                                                            🔒 Mese {program.month} - Complete all videos from the previous
-                                                            month to unlock.
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                ))
+                                                                return (
+                                                                    <li key={video._id}>
+                                                                        {isVideoUnlocked ? (
+                                                                            <VideoTrack
+                                                                                isCompleted={isCompleted}
+                                                                                videoUrl={video.Url}
+                                                                                videoId={video._id}
+                                                                                videoName={video.Title}
+                                                                                onVideoUpdate={handleVideoUpdate}
+                                                                                isPlaying={currentPlayingVideoId === video._id}
+                                                                                onPlay={() => handleVideoPlay(video._id)}
+                                                                            />
+                                                                        ) : (
+                                                                            <p style={{ color: "gray" }}>
+                                                                                🔒 {video.Title || "Untitled Video"} - Complete the previous video to unlock.
+                                                                            </p>
+                                                                        )}
+                                                                    </li>
+                                                                );
+                                                            })}
+                                                        </ul>
+                                                    </>
+                                                ) : (
+                                                    <p style={{ color: "gray" }}>
+                                                        🔒 Mese {program?._id || index} - Complete all videos from the previous month to unlock.
+                                                    </p>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            ))
                         )}
                 </>
             )}

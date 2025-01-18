@@ -1,0 +1,84 @@
+.editVideo {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.editVideo h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #4c6ef5;
+}
+
+.editVideo form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.editVideo label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  width: 150px;
+}
+
+.editVideo input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.editVideo input:focus {
+  border-color: #4c6ef5;
+  box-shadow: 0 0 3px rgba(76, 110, 245, 0.5);
+}
+
+.editVideo button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.editVideo button[type="submit"] {
+  background: #4c6ef5;
+  color: #fff;
+}
+
+.editVideo button[type="submit"]:hover {
+  background: #3b5bcc;
+}
+
+.editVideo button[type="button"] {
+  background: #e53e3e;
+  color: #fff;
+}
+
+.editVideo button[type="button"]:hover {
+  background: #c53030;
+}
+
+.editVideo .inputGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.editVideo .buttonGroup {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}

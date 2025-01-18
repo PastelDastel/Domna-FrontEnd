@@ -120,16 +120,17 @@ const Profile = () => {
         });
         const fetchedCourses = response.data;
         setCourses(fetchedCourses);
-        console.log("Fetched Courses:", fetchedCourses);
-        // Check if any course has LIVE benefit
-        const liveBenefit = fetchedCourses.some(course =>
-          course.benefits.includes("LIVE")
-        );
+
+        const liveBenefit = fetchedCourses.some(course => {
+          return course.Benefits.some(benefit => {
+            console.log(benefit.Benefit.Name);
+            console.log(benefit.Type);
+            return benefit.Benefit.Name === "Live" && benefit.Type === "Included";
+          });
+        });
         setHasLiveBenefit(liveBenefit);
       } catch (err) {
-        if (!axios.isCancel(err)) {
-          console.error("Error fetching courses:", err);
-        }
+        console.error("Error fetching courses:", err);
       }
     };
 

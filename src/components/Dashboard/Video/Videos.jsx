@@ -82,7 +82,6 @@ const Videos = () => {
 
     const createVideo = () => {
         MySwal.fire({
-            width: "80vw",
             html: (
                 <Create
                     onVideoCreated={reloadVideos}
@@ -125,30 +124,30 @@ const Videos = () => {
                             Create new Video
                         </button>
                     </div>
-                    <div className={style.videosList}>
+                    <div className={style["card-container-videos"]}>
                         {videos.map((video) => (
-                            <div key={video._id} className={style.video}>
-                                <div className={style.header}>{video.Title}</div>
-                                <div className={style.main}>
-                                    <div>ID: {video._id}</div>
-                                    <div>Description: {video.Description}</div>
+                            <div key={video._id} className={style.card}>
+                                <div className={style["card-header"]}>{video.Title}</div>
+                                <div className={style["card-body"]}>
+                                    <p><strong>ID:</strong> {video._id}</p>
+                                    <p><strong>Description:</strong> {video.Description}</p>
                                 </div>
-                                <div className={style.footer}>
+                                <div className={style["card-footer"]}>
                                     <button
                                         onClick={() => viewVideo(video)}
-                                        className={style.footerButton}
+                                        className={style["view-button"]}
                                     >
                                         View
                                     </button>
                                     <button
                                         onClick={() => editVideo(video)}
-                                        className={style.footerButton}
+                                        className={style["edit-button"]}
                                     >
                                         Edit
                                     </button>
                                     <button
                                         onClick={() => deleteVideo(video)}
-                                        className={style.footerButton}
+                                        className={style["delete-button"]}
                                     >
                                         Delete
                                     </button>

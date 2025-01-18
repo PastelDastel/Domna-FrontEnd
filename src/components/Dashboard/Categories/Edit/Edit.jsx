@@ -52,6 +52,13 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
         setMonths((prevMonths) => prevMonths.filter((m) => m !== month));
     };
     // Fetch videos when the component mounts
+
+    useEffect(() => {
+        setBase64Image(category.Image || null);
+    }, [category]);
+
+
+
     useEffect(() => {
         const fetchVideos = async () => {
             try {

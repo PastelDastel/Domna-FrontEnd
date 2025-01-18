@@ -1,4 +1,4 @@
-
+import style from "./Create.module.css";
 
 
 
@@ -32,22 +32,27 @@ const Create = ({ closeModal, axios, onVideoCreated }) => {
 
 
     return (
-        <div>
+        <div className={style.createVideo}>
             <h1>Create Video</h1>
             <form onSubmit={createVideo}>
-                <div>
+                <div className={style.inputGroup}>
                     <label htmlFor="title">Title</label>
                     <input type="text" id="title" name="title" required />
                 </div>
-                <div>
+                <div className={style.inputGroup}>
+
                     <label htmlFor="description">Description</label>
                     <input type="text" id="description" name="description" />
                 </div>
-                <div>
+                <div className={style.inputGroup}>
+
                     <label htmlFor="url">URL</label>
                     <input type="text" id="url" name="url" required />
                 </div>
-                <button type="submit">Create Video</button>
+                <div className={style.buttonGroup}>
+                    <button type="button" onClick={closeModal}>Close</button>
+                    <button type="submit">Save Changes</button>
+                </div>
             </form>
         </div>
     );
