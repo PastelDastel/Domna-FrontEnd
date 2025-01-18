@@ -169,7 +169,8 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
             <h1>Update {category.Name}</h1>
             <form onSubmit={submitForm}>
                 {/* General Category Information */}
-                <div>
+                <div className={styles.left}>
+                    <div>
                     <label htmlFor="name">Name</label>
                     <input type="text" id="name" name="name" required defaultValue={category.Name} />
                 </div>
@@ -181,6 +182,9 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                     <label htmlFor="image">Image</label>
                     <input type="file" id="image" name="image" onChange={handleImageUpload} accept="image/*" />
                 </div>
+                
+
+                
                 {/* Months Section */}
                 <div>
                     <button type="button" onClick={(e) => {
@@ -252,11 +256,12 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                         ))}
                     </div>)}
                 </div>
+                </div>
                 <div className={styles["second-container"]}>
-                    <div>
+                    <div className={styles.existingMonths}>
                         {months.length > 0 ? (<div className={styles["month-section"]}>
                             {months.map((month, index) => (
-                                <div key={month.Description}>
+                                <div key={month.Description} className={styles.monthCard}>
                                     <div className={styles["month-header"]}>
                                         <h1>Month {index + 1}</h1>
                                         <button type="button" onClick={() => { removeMonth(month) }}>Remove</button>
@@ -278,10 +283,10 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                             <p>No months added yet.</p>
                         </div>)}
                     </div>
-                    <div>
+                    <div className={styles.existingSubcategories}>
                         {subCats.length > 0 ? (<div>
                             {subCats.map((subCat, index) => (
-                                <div key={subCat.Name}>
+                                <div key={subCat.Name} className={style.subCatCard}>
                                     <div>
                                         <h1>SubCategory {index + 1}</h1>
                                         <button type="button" onClick={() => { removeSubCat(subCat) }}>Remove</button>

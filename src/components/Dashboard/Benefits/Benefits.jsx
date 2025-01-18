@@ -150,7 +150,7 @@ const Benefits = () => {
     }, [axiosPrivate, reload]);
     console.log(benefits);
     return (
-        <div className={style.courses}>
+        <div className={style.benefits}>
             {globalLoading ? (
                 <div className={style.loadingScreen}>
                     <div className={style.spinner}></div>
@@ -164,31 +164,31 @@ const Benefits = () => {
                             Create New Benefit
                         </button>
                     </div>
-                    <div className={style.coursesList}>
+                    <div className={style["card-container-benefits"]}>
                         {benefits.map((benefit) => (
-                            <div key={benefit._id} className={style.course}>
-                                <div className={style.header}>{benefit.Name}</div>
-                                <div className={style.main}>
-                                    <div>Id: {benefit._id}</div>
-                                    <div>Name: {benefit.Name}</div>
-                                    {benefit.Description && <div>Description: {benefit.Description}</div>}
+                            <div key={benefit._id} className={style["card"]}>
+                                <div className={style["card-header"]}>{benefit.Name}</div>
+                                <div className={style["card-body"]}>
+                                    <p><strong>Id:</strong> {benefit._id}</p>
+                                    <p><strong>Name:</strong> {benefit.Name}</p>
+                                    <p><strong>Description:</strong>{benefit.Description ? benefit.Description : "No description provided"}</p>
                                 </div>
-                                <div className={style.footer}>
+                                <div className={style["card-footer"]}>
                                     <button
                                         onClick={() => viewBenefit(benefit)}
-                                        className={style.footerButton}
+                                        className={style["view-button"]}
                                     >
                                         View
                                     </button>
                                     <button
                                         onClick={() => editBenefit(benefit)}
-                                        className={style.footerButton}
+                                        className={style["edit-button"]}
                                     >
                                         Edit
                                     </button>
                                     <button
                                         onClick={() => deleteBenefit(benefit)}
-                                        className={style.footerButton}
+                                        className={style["delete-button"]}
                                     >
                                         Delete
                                     </button>
