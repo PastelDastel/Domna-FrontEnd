@@ -165,10 +165,9 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
         }
     };
     return (
-        <div className={styles["modal-container"]}>
+        <div>
             <h1>Update {category.Name}</h1>
             <form onSubmit={submitForm}>
-                {/* General Category Information */}
                 <div>
                     <label htmlFor="name">Name</label>
                     <input type="text" id="name" name="name" required defaultValue={category.Name} />
@@ -181,7 +180,6 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                     <label htmlFor="image">Image</label>
                     <input type="file" id="image" name="image" onChange={handleImageUpload} accept="image/*" />
                 </div>
-                {/* Months Section */}
                 <div>
                     <button type="button" onClick={(e) => {
                         setIsMonth(!isMonth)
@@ -210,14 +208,14 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                         {selectedVideos.map((video) => (
                             <div key={video._id}>
                                 <span>{video.Title}</span>
-                                <button className={styles["remove-button"]}
+                                <button
                                     onClick={() => setSelectedVideos((prev) => prev.filter((v) => v._id !== video._id))}
                                 >
                                     Remove
                                 </button>
                             </div>
                         ))}
-                    </div>) : (<div className={styles["section"]}>
+                    </div>) : (<div >
                         <label>Add SubCategory</label>
                         <input type="text" ref={subCatRef} />
                         <label>SubCategory Description</label>
@@ -252,12 +250,12 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                         ))}
                     </div>)}
                 </div>
-                <div className={styles["second-container"]}>
+                <div >
                     <div>
-                        {months.length > 0 ? (<div className={styles["month-section"]}>
+                        {months.length > 0 ? (<div >
                             {months.map((month, index) => (
                                 <div key={month.Description}>
-                                    <div className={styles["month-header"]}>
+                                    <div >
                                         <h1>Month {index + 1}</h1>
                                         <button type="button" onClick={() => { removeMonth(month) }}>Remove</button>
                                     </div>
@@ -265,7 +263,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                                     {month.Videos.map((video) => (
                                         <div key={video._id}>
                                             <span>{video.Title}</span>
-                                            <button className={styles["remove-button-video"]}
+                                            <button
                                                 onClick={() => removeVideofromMonth(month, video)}
                                             >
                                                 Remove
@@ -313,7 +311,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                                         />
                                     </div>
                                     {subCat.Videos.map((video) => (
-                                        <div key={video._id} className={styles["video-list"]}>
+                                        <div key={video._id} >
                                             <span>{video.Title}</span>
                                             <button
                                                 onClick={() => removeVideofromSubCat(subCat, video)}
@@ -325,7 +323,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                                 </div>
                             ))}
                         </div>) : (<div>
-                            <p className={styles["no-data"]}>No subCats added yet.</p>
+                            <p>No subCats added yet.</p>
                         </div>)}
                     </div>
                 </div>
