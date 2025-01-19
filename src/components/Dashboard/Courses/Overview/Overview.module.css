@@ -9,6 +9,7 @@
   flex-direction: row;
   justify-content: center;
   height: 93%; /* Ensures the content fills the modal's height */
+  overflow-y: scroll;
 }
 
 .column:first-child {
@@ -16,7 +17,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
 }
 
 .column:last-child {
@@ -34,64 +35,213 @@
   color: #4c6ef5;
 }
 
-.userData {
+.column {
   display: flex;
   flex-direction: column;
-  align-items: start;
-  width: 500px;
-  margin-bottom: 20px;
+  gap: 20px;
 }
 
-.userData h2 {
-  margin: auto;
-  margin-bottom: 20px;
+.userData {
+  background-color: #f1f1f1;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sectionHeading {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.courseImage {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.noImage {
+  font-style: italic;
+  color: #999;
 }
 
 .courseBenefits {
-  width: 500px;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.noBenefits,
+.noSubscribers {
+  font-style: italic;
+  color: #999;
+}
+
+.subscriberList {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.subscriberItem {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.benefitCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.benefitCard {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: calc(33.333% - 10px); /* Adjust to show 3 cards per row */
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.benefitCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.benefitTitle {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.benefitDescription {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+}
+
+.subscriberList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+  padding: 0;
+  list-style-type: none;
+}
+
+.subscriberItem {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: calc(33.333% - 10px); /* Adjusts to show 3 cards per row */
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  justify-content: space-between;
 }
 
-.courseBenefits h2 {
-  margin: auto;
-  margin-bottom: 20px;
+.subscriberItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
-.courseOverviewModal li {
+.subscriberItem p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.noSubscribers {
+  font-style: italic;
+  color: #999;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.categoryList {
   list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.courseOverviewModal .benefit {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  margin-bottom: 20px;
+.category {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.courseOverviewModal .category {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
+
+.categoryTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
 }
-.courseOverviewModal .month {
+
+.sectionHeading {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #444;
+}
+
+.monthList,
+.subCategoryList {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-  background-color: #00000030;
-  width: fit-content;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.monthItem,
+.subCategoryItem {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   padding: 10px;
-  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: calc(33.333% - 10px); /* Adjusts to show three items per row */
+  text-align: center;
 }
-.courseOverviewModal .subCategory {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-  background-color: #00000030;
-  width: fit-content;
-  padding: 10px;
-  border-radius: 10px;
+
+.monthItem h5,
+.subCategoryItem h5 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 5px 0;
+  color: #555;
+}
+
+.monthItem p,
+.subCategoryItem p {
+  font-size: 13px;
+  color: #666;
+  margin: 5px 0;
+}
+
+h3,
+h4,
+h5 {
+  margin: 0;
+  color: #333;
+}
+
+p {
+  margin: 5px 0;
+  color: #555;
 }

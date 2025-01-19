@@ -26,92 +26,123 @@ const OverviewModal = ({ closeModal, course, users, benefits, categories, axiosP
 
 
 
-    const displayBenefits = () => {
-        console.log("Displaying benefits:", extededBenefits);
-        return extededBenefits.map((benefit) => (
-            <div key={benefit.Benefit._id} className={style.benefit}>
-                <h3>{benefit.Benefit.Name}</h3>
-                <p><strong>Descrizione:</strong> {benefit.Benefit.Description}</p>
-                <p><strong>Tipo:</strong> {benefit.Type === "Included" ? "Incluso" : "Escluso"}</p>
-            </div>
-        ));
-    };
+
     return (
         <div className={style.courseOverviewModal}>
-            {/* Two-column content */}
             <h1>Dettagli di {course.Title}</h1>
             <div className={style.content}>
                 {/* Left Column - General Course Data */}
                 <div className={style.column}>
                     <div className={style.userData}>
-                        <h2>Informazioni</h2>
+                        <h2 className={style.sectionHeading}>Informazioni</h2>
                         <p><strong>Id:</strong> {course._id}</p>
                         <p><strong>Nome:</strong> {course.Title}</p>
                         <p><strong>Descrizione:</strong> {course.Description}</p>
+                        {course.Image ? <img src={course.Image} className={style.courseImage} /> : <p className={style.noImage}>No image detected</p>}
                         <p><strong>Iscritti:</strong> {course.Subscribers.length}</p>
                         <p><strong>Prezzo:</strong> {course.Price.Discounted ? course.Price.Discounted : course.Price.Normal}</p>
                     </div>
                     <div className={style.courseBenefits}>
-                        <h2>Benefici</h2>
-                        {benefits.length > 0 ? displayBenefits() : (<>No benefits</>)}
+                        <h2 className={style.sectionHeading}>Benefici</h2>
+                        {benefits.length > 0 ? (
+                            <>
+                                <div className={style.benefitTypeGroup}>
+                                    <h3 className={style.benefitTypeHeading}>Inclusi</h3>
+                                    <div className={style.benefitCards}>
+                                        {benefits.filter(b => b.Type === "Included").map((benefit, index) => (
+                                            <div key={index} className={style.benefitCard}>
+                                                <h3 className={style.benefitTitle}>{benefit.Benefit.Name}</h3>
+                                                <p className={style.benefitDescription}>{benefit.Benefit.Description}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className={style.benefitTypeGroup}>
+                                    <h3 className={style.benefitTypeHeading}>Esclusi</h3>
+                                    <div className={style.benefitCards}>
+                                        {benefits.filter(b => b.Type === "Excluded").map((benefit, index) => (
+                                            <div key={index} className={style.benefitCard}>
+                                                <h3 className={style.benefitTitle}>{benefit.Benefit.Name}</h3>
+                                                <p className={style.benefitDescription}>{benefit.Benefit.Description}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <p className={style.noBenefits}>No benefits</p>
+                        )}
 
                         {course.Subscribers.length > 0 ? (
                             <>
-                                <h2>Iscritti</h2>
-                                <ul>
+                                <h2 className={style.sectionHeading}>Iscritti</h2>
+                                <ul className={style.subscriberList}>
                                     {users.map((user) => (
-                                        <li key={user._id}><p><strong>Nome:</strong> {user.username} - <strong>Id:</strong> {user._id}</p></li>
+                                        <li key={user._id} className={style.subscriberItem}>
+                                            <p><strong>Nome:</strong> {user.username}</p>
+                                            <p><strong>Email:</strong> {user.email}</p>
+                                            <h6><strong>Id:</strong> {user._id}</h6>
+                                        </li>
                                     ))}
                                 </ul>
                             </>
                         ) : (
-                            <h3>No subscribers</h3>
+                            <h3 className={style.noSubscribers}>No subscribers</h3>
                         )}
                     </div>
-
                 </div>
 
                 {/* Right Column - Categories */}
                 <div className={style.column}>
                     <h2>Categories</h2>
                     {categories.length > 0 ? (
-                        <ul>
+                        <ul className={style.categoryList}>
                             {categories.map((category) => (
                                 <li key={category._id} className={style.category}>
-                                    <h3>{category.Name}</h3>
+                                    <h3 className={style.categoryTitle}>{category.Name}</h3>
                                     <p><strong>Id:</strong> {category._id}</p>
                                     <p><strong>Descrizione:</strong> {category.Description ? category.Description : "Nessuna descrizione"}</p>
-                                    {category.Months?.length > 0 ? (<>
-                                        <h4>Months</h4>
-                                        <div>
-                                            {
-                                                category.Months.map((month, index) => (
-                                                    <div key={month._id} className={style.month}>
+                                    {category.Months?.length > 0 ? (
+                                        <>
+                                            <h4 className={style.sectionHeading}>Months</h4>
+                                            <div className={style.monthList}>
+                                                {category.Months.map((month, index) => (
+                                                    <div key={month._id} className={style.monthItem}>
                                                         <h5>Month {index + 1}</h5>
                                                         <h5>{month.Name}</h5>
                                                         <h5>{month.Description}</h5>
-                                                        {month.Videos?.length > 0 ? (<h5>Video: {month.Videos.length}</h5>) : (<h5>No videos</h5>)}
+                                                        {month.Videos?.length > 0 ? (
+                                                            <h5>Video: {month.Videos.length}</h5>
+                                                        ) : (
+                                                            <h5>No videos</h5>
+                                                        )}
                                                     </div>
-                                                ))
-                                            }
-                                        </div>
-                                    </>) : (<p>No Months</p>)}
-                                    {category.SubCategories?.length > 0 ? (<>
-                                        <h4>Subcategories</h4>
-                                        <div>
-                                            {
-                                                category.SubCategories.map((subCategory) => (
-                                                    <div key={subCategory._id} className={style.subCategory}>
+                                                ))}
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <p>No Months</p>
+                                    )}
+                                    {category.SubCategories?.length > 0 ? (
+                                        <>
+                                            <h4 className={style.sectionHeading}>Subcategories</h4>
+                                            <div className={style.subCategoryList}>
+                                                {category.SubCategories.map((subCategory) => (
+                                                    <div key={subCategory._id} className={style.subCategoryItem}>
                                                         <h5>{subCategory.Name}</h5>
                                                         <p>{subCategory.Description}</p>
-                                                        {subCategory.Videos?.length > 0 ? (<div>Video: {subCategory.Videos.length}</div>) : (<div>No videos</div>)}
+                                                        {subCategory.Videos?.length > 0 ? (
+                                                            <div>Video: {subCategory.Videos.length}</div>
+                                                        ) : (
+                                                            <div>No videos</div>
+                                                        )}
                                                     </div>
-                                                ))
-                                            }
-                                        </div>
-                                    </>) : (<p>
-                                        No subcategories
-                                    </p>)}
+                                                ))}
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <p>No subcategories</p>
+                                    )}
                                 </li>
                             ))}
                         </ul>
@@ -119,6 +150,7 @@ const OverviewModal = ({ closeModal, course, users, benefits, categories, axiosP
                         <h3>No categories</h3>
                     )}
                 </div>
+
             </div>
             <div className={style.footer}>
                 <button onClick={closeModal} className={style.closeButton}>

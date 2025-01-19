@@ -18,11 +18,11 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Random from "./components/Test/Random";
 // every 30s make a get / to keep the backend online
 setInterval(() => {
-  fetch("https://domna-api.onrender.com")
+  fetch("https://domna-backend.onrender.com")
     .then(
       console.log("Server is still online")
     )
-}, 30000);
+}, 40000);
 
 
 
