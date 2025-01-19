@@ -67,7 +67,7 @@
 }
 
 .card-container-categories .card {
-  background: #ffffff;
+  background: #FFF;
   border-radius: 12px;
   overflow: hidden;
   width: 280px;
@@ -105,15 +105,18 @@
   font-size: 0.9em;
   line-height: 1.6;
   overflow-y: scroll;
+  background: #FFF;
 }
 
 .card-container-categories .card-body p {
   margin: 10px 0;
+  background: #FFF;
 }
 
 .card-container-categories .card-body p strong {
   color: #4c6ef5;
   text-decoration: none;
+  background: #FFF;
 }
 
 .card-container-categories .card-footer {

@@ -36,7 +36,7 @@
 
 .heroText h1 {
   font-size: 60px;
-  color: #f29aa0;
+  color: #e47a94;
   margin: 0;
 }
 
@@ -88,7 +88,7 @@
 .socialIcons a {
   text-decoration: none;
   font-size: 35px;
-  color: #d75494;
+  color: #e47a94;
   z-index: 10;
 }
 
@@ -105,28 +105,33 @@
 }
 
 .ButtonCorsi {
-  width: 200px;
+  width: 96%;
   height: 50px;
   background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
+ 
   margin: 10px auto;
-  border: 1px solid black;
+  text-transform: uppercase;
+  color: #e47a94;
+  border: 1px solid #e47a94;
 }
 .navToCourses {
   text-decoration: none;
-  color: plum;
+
   font-size: 20px;
 }
 
 .ButtonCorsi:hover {
-  background-color: #f29aa0;
+  background-color: #f3f3f5;
+
 }
 
-.navToCourses:hover {
-  color: white;
+.navToCourses {
+  color: #e47a94;
 }
+
 
 
 
@@ -142,7 +147,7 @@
   }
   .ButtonCorsi{
     margin-left: 0px;
-
+    width: 50%;
   }
 }
 
@@ -175,6 +180,7 @@
     height: 100vh; /* Adjust for smaller screens */
     background-position: 60% 30%; /* Center the background */
     padding-top: 20px;
+    width: 100%;
   }
 
   .heroText {
@@ -209,7 +215,7 @@
   .socialIcons {
     position: absolute;
     right: auto !important; /* Lascia spazio per il posizionamento a sinistra se necessario */
-    bottom: 25% !important; /* Altezza dal fondo */
+    bottom: 35% !important; /* Altezza dal fondo */
     display: flex;
     flex-direction: row !important;
     gap: 50px;
@@ -218,12 +224,14 @@
 
   .ButtonCorsi{
     margin: 0 auto;
+    
+
   }
 }
 
-@media (max-width: 359px) {
+@media (max-width: 375px) {
   .hero {
-    height: 100vh; /* Adjust for very small screens */
+    height: 100vh;
     background-position: 60% 30%;
     padding-top: 10px;
   }
@@ -260,7 +268,57 @@
   .socialIcons {
     position: absolute;
     right: 23%;
-    bottom: 35%;
+    bottom: 25% !important;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+  }
+
+  .ButtonCorsi{
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 359px) {
+  .hero {
+    height: 100vh;
+    background-position: 60% 30%;
+    padding-top: 10px;
+  }
+
+  .heroText {
+    position: absolute;
+    left: unset;
+    bottom: unset;
+    text-align: center;
+    z-index: 10;
+  }
+
+  .heroText h1 {
+    font-size: 40px;
+    color: #f29aa0;
+    margin: 0;
+  }
+
+  .heroText p {
+    font-size: 18px;
+    margin-top: 5px;
+  }
+  .heroText span {
+    font-size: 10px;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+
+  .heroText span.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .socialIcons {
+    position: absolute;
+    right: 23%;
+    bottom: 25%;
     display: flex;
     flex-direction: row;
     gap: 50px;

@@ -1,10 +1,11 @@
-.letterContainer {
-    margin-top: 5px;
-    display: inline-block;
-  }
+  .letterContainer {
+      margin-top: 5px;
+      display: inline-block;
+      white-space: nowrap; /* Prevent line breaks */
+    }
   
   .letter {
-    color:white;
+    color: #f3f3f5;
     display: inline-block;
     opacity: 0;
     transform: translateX(-20px);
@@ -12,10 +13,11 @@
     font-size: 0.9rem;
     text-transform: uppercase;
     font-family: 'Josefin Sans', sans-serif;
-    margin-right: 3px;
+    margin-right: 2px;
     margin-left: 2px;
   }
   
+
 
 
 
@@ -23,7 +25,7 @@
     .letter {
       font-size: 0.8rem; /* Riduce ulteriormente la dimensione del font */
       letter-spacing: -0.5px; /* Riduce lo spazio tra le lettere */
-      line-height: 1.1; /* Altezza della linea più compatta */
+      line-height: 1.1; /* Altezza della linea più compatta */;
       /* Rimuovi white-space se è troppo restrittivo */
     }
   
@@ -45,7 +47,6 @@
     }
   }
  
-  
 
   @media screen and (max-width: 375px) {
     .letter {
@@ -61,14 +62,14 @@
 
   @media screen and (max-width: 414px) {
     .letter {
-      font-size: 0.8rem; /* Riduce ulteriormente la dimensione del font */
+      font-size: 1rem; /* Riduce ulteriormente la dimensione del font */
       letter-spacing: -0.5px; /* Riduce lo spazio tra le lettere */
       line-height: 1.1; /* Altezza della linea più compatta */
       /* Rimuovi white-space se è troppo restrittivo */
     }
   
     .letterContainer {
-      padding: 0 20px; /* Aggiungi un padding laterale per evitare il testo troppo vicino ai bordi */
+      padding: 0 10px; /* Aggiungi un padding laterale per evitare il testo troppo vicino ai bordi */
     }
   }
 

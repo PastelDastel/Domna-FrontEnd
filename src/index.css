@@ -6,6 +6,7 @@
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: #f39fc8 #f3c7dc;
+  
 }
 
 body {
@@ -17,6 +18,11 @@ body {
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
+ 
+}
+
+main {
+  background-color: #e9d2d9;
 }
 
 

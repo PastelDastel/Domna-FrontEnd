@@ -11,7 +11,10 @@
   font-size: 10px;
   text-transform: uppercase;
   
+
 }
+
+
 
 button {
   all: unset;
@@ -27,6 +30,7 @@ button {
   display: inline-block;
   vertical-align: middle;
 }
+
 ul {
   padding: 0;
 }
@@ -35,7 +39,7 @@ ul {
   display: none;
   font-size: 28px;
   cursor: pointer;
-  color: #d75494;
+  color: #e47a94;
   position: relative; /* Per contenere le barre posizionate assolutamente */
   width: 30px; /* Larghezza del contenitore */
   height: 24px; /* Altezza del contenitore per le tre barre */
@@ -50,19 +54,20 @@ ul {
   margin-top: 0px;
   font-family: "Josefin Sans", sans-serif;
   margin-top: 50px;
-  color: #f29aa0;
+  color: #e47a94;
   visibility: visible;
 }
 
 .navMenu li .link {
   text-decoration: none;
-  color: #d75494;
+  color: #e47a94;
   font-size: 15px;
   transition: color 0.3s ease;
   margin-right: 50px;
   line-height: 100px;
   position: relative; /* Added for underline styling */
   white-space: nowrap; /* Prevents text wrapping */
+  
 }
 
 .navMenu li .link:hover {
@@ -90,7 +95,7 @@ ul {
     height: 100px;
   }
   .navLogo {
-    margin: 0;
+    margin-left: 20px;
     padding: 0;
     height: 100px;
     display: flex;
@@ -112,7 +117,7 @@ ul {
     z-index: 101;
     align-items: center;
     justify-content: center;
-    margin: 0 20px;
+    margin: 0 40px;
     visibility: visible;
   }
 
@@ -165,8 +170,97 @@ ul {
     color: #d75494; /* Change color on hover for better UX */
   }}
 
+
+
+
+
+@media (max-width: 600px) {
+
+  .navbar {
+    position: absolute;
+    top: unset;
+    width: 100%;
+    height: 100px;
+  }
+  .navLogo {
+    margin-left: 20px;
+    padding: 0;
+    height: 100px;
+    display: flex;
+    justify-content: center; /* Centers the img horizontally */
+    align-items: center; /* Centers the img vertically */
+  }
+
+  .navLogo img {
+    margin: 0;
+    padding: 0;
+    max-height: 100%; /* Ensures the image stays within the container's height */
+    max-width: 100%; /* Ensures the image stays within the container's width */
+  }
+  .hamburgerMenu {
+    position: relative;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    z-index: 101;
+    align-items: center;
+    justify-content: center;
+    margin: 0 15px;
+    visibility: visible;
+  }
+
+  .navMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    height: 100vh;
+    width: 100%;
+    overflow-y: auto; /* Add scrolling if content exceeds the viewport */
+  }
+
+  .navMenu.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navMenu li {
+    list-style: none;
+    padding: 0;
+    width: 100%; /* Ensure each menu item takes full width */
+    display: flex;
+    justify-content: center; /* Center-aligns the text */
+    align-items: center; /* Vertically aligns the text */
+    text-align: center;
+  }
+
+  .navMenu li .link {
+    color: #f29aa0; /* Adjust text color */
+    text-decoration: none;
+    font-size: 18px; /* Adjust font size for better readability */
+    text-align: center;
+    width: 100%; /* Ensure the link spans the full width of the list item */
+  }
+  .navMenu li .link {
+    margin: 0 40%;
+  }
+  .navMenu li .link:hover {
+    color: #d75494; /* Change color on hover for better UX */
+  }}
+
+
 /* ! FATTO */
-@media (max-width: 359px) {
+@media (max-width: 390px) {
   .navbar {
     position: absolute;
     top: unset;
@@ -196,7 +290,7 @@ ul {
     z-index: 101;
     align-items: center;
     justify-content: center;
-    margin: 0 20px;
+    margin: 0 40px;
   }
 
   .navMenu {

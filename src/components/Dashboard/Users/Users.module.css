@@ -68,7 +68,7 @@
 }
 
 .card-container-users .card {
-  background: #ffffff;
+  background: #FFF;
   border-radius: 12px;
   overflow: hidden;
   width: 280px;
@@ -103,17 +103,20 @@
 .card-container-users .card-body {
   padding: 20px;
   color: #333;
+  background-color: #FFF;
   font-size: 0.9em;
   line-height: 1.6;
 }
 
 .card-container-users .card-body p {
   margin: 10px 0;
+  background-color: #FFF;
 }
 
 .card-container-users .card-body p strong {
   color: #4c6ef5;
   text-decoration: none;
+  background-color: #FFF;
 }
 
 .card-container-users .card-footer {

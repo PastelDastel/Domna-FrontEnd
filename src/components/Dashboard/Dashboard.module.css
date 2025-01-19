@@ -17,28 +17,34 @@
 }
 
 .sidebar {
-  background-color: darkslateblue;
+  background-color: #e47a94;
   width: 300px;
   min-width: 300px;
   max-width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
+ /*  border-right: 2px solid #e47a94;
+  border-top: 2px solid #e47a94; */
 }
 .sidebarButton {
-  background-color: dodgerblue;
+  background-color: #e9d2d9;
   color: white;
   padding: 10px;
-  margin: 10px;
+  margin-right: 40px;
+  margin-top: 50px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 50%;
+  text-align: center;
+ 
 }
 
 .sidebarButton:hover {
-  background-color: blue;
+  background-color: #e47a94;
 }
 
 .selected {
-  background-color: blue;
+  background-color: #e47a94;
 }

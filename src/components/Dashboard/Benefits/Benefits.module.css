@@ -63,10 +63,11 @@
   /*make the scrollbar visible*/
   overflow-y: scroll;
   height: 89%;
+  
 }
 
 .card-container-benefits .card {
-  background: #ffffff;
+  background: #FFF;
   border-radius: 12px;
   overflow: hidden;
   width: 280px;
@@ -103,15 +104,18 @@
   color: #333;
   font-size: 0.9em;
   line-height: 1.6;
+  background: #FFF;
 }
 
 .card-container-benefits .card-body p {
   margin: 10px 0;
+  background: #FFF;
 }
 
 .card-container-benefits .card-body p strong {
   color: #4c6ef5;
   text-decoration: none;
+  background: #FFF;
 }
 
 .card-container-benefits .card-footer {
