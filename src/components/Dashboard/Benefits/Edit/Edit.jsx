@@ -2,8 +2,8 @@ import style from "./Edit.module.css";
 import { useEffect, useState } from "react";
 
 const Edit = ({ onBenefitUpdated, closeModal, axios, benefit }) => {
-    const [name, setName] = useState(benefit?.name || "");
-    const [description, setDescription] = useState(benefit?.description || "");
+    const [name, setName] = useState(benefit?.Name || "");
+    const [description, setDescription] = useState(benefit?.Description || "");
 
     const submitForm = async (e) => {
         try {

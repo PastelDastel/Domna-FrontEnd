@@ -49,7 +49,7 @@ const Categories = () => {
 
     const createCategory = () => {
         MySwal.fire({
-            width: "80vw",
+            width: "60vw",
             html: (
                 <CreateModal
                     onCategoryCreated={reloadCategories}

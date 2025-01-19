@@ -132,22 +132,31 @@ const Create = ({ closeModal, axios, onCategoryCreated }) => {
             console.error("Failed to create category:", error);
         }
     };
+
+
+
+    const handlePutSubcatImage = (subCat, imageUrl) => {
+        setSubCats((prevSubCats) =>
+            prevSubCats.map((s) =>
+                s === subCat
+                    ? { ...s, Image: imageUrl }
+                    : s
+            )
+        );
+    }
+
+
     return (
-        <div className={style.createCategory}>
+        <div className={style["create-category"]}>
             <h1>Create Category</h1>
             <form onSubmit={submitForm}>
-                <div className={style.formContent}>
-                    {/* General Category Information */}
-                    <div className={style.left}>
-                        <div>
+                <div className={style["form-content"]}>
+                    <div className={style["create-first-section"]}>
+                        <div className={style["name-create"]}>
                             <label htmlFor="name">Name</label>
                             <input type="text" id="name" name="name" required />
                         </div>
-                        <div>
-                            <label htmlFor="description">Description</label>
-                            <input type="text" id="description" name="description" />
-                        </div>
-                        <div>
+                        <div className={style["image-create"]}>
                             <label htmlFor="img">Immagine</label>
                             <input
                                 type="file"
@@ -156,149 +165,236 @@ const Create = ({ closeModal, axios, onCategoryCreated }) => {
                                 accept="image/*"
                                 onChange={handleImageUpload}
                             />
-                            {base64Image && (
+                        </div>
+                        <div className={style["description-create"]}>
+                            <label htmlFor="description">Description</label>
+                            <textarea type="text" id="description" name="description" />
+                        </div>
+                        <div className={style["image-preview"]}>
+                            {base64Image ? <img src={base64Image} /> : <p>No image available.</p>}
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" className={style["switch-button"]} onClick={(e) => {
+                            setIsMonth(!isMonth)
+                            setSelectedVideos([]);
+                            refreshVideosAvailable();
+                        }}>{isMonth ? "Vai a Sottocategorie" : "Vai a Mesi"}</button>
+                        {isMonth ? (
+
+                            <div className={style["month-section"]}>
+                                <div className={style["month-name"]}>
+                                    <label>Nome</label>
+                                    <input type="text" readonly value={"Mese " + (months.length + 1)} />
+                                </div>
+                                <div className={style["month-description"]}>
+                                    <label>Descrizione</label>
+                                    <textarea type="text" ref={monthDescriptionRef} />
+                                </div>
+
+                                <div className={style["month-videos-input"]}>
+                                    {availableVideos.length > 0 ? (<><select name="videos" id="videosss">
+                                        {availableVideos.map((video) => (
+                                            <option key={video._id} value={video._id}>
+                                                {video.Title}
+                                            </option>
+                                        ))}
+                                    </select>
+                                        <button type="button" onClick={() => {
+                                            const selectedVideo = document.getElementById("videosss").value;
+                                            const video = videos.find((v) => v._id === selectedVideo);
+                                            setSelectedVideos((prev) => [...prev, video]);
+                                            setAvailableVideos(availableVideos.filter((v) => v._id !== selectedVideo));
+                                        }}>Add Video</button></>) : (<p>No more videos available</p>)}
+                                </div>
+
                                 <div>
-                                    <img src={base64Image} alt="Preview" style={{ marginTop: '10px', maxWidth: '300px' }} />
+                                    <p><strong>{selectedVideos.length > 0 ? "Video aggiunti" : "Nessun vudeo aggiunto"}</strong></p>
+                                    <div className={style["month-video-container"]}>
+                                        {selectedVideos.map((video) => (
+                                            <div key={video._id} className={style["month-video-card"]}>
+                                                <span>{video.Title}</span>
+                                                <button
+                                                    onClick={() => setSelectedVideos((prev) => prev.filter((v) => v._id !== video._id))}
+                                                >
+                                                    x
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className={style["month-add-button"]}>
+                                    <button type="button" onClick={addMonth}>
+                                        Add Month
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+
+
+
+
+                            <div className={style["subCat-section"]}>
+                                <div className={style["subCat-name"]}>
+                                    <label>Nome</label>
+                                    <input type="text" ref={subCatRef} />
+                                </div>
+                                <div className={style["subCat-image"]}>
+                                    <label htmlFor="subCatImage">Image</label>
+                                    <input type="file" id="subCatImage" name="subCatImage" onChange={handleSubCatImageUpload} accept="image/*" />
+                                </div>
+                                <div className={style["subCat-description"]}>
+                                    <label>Description</label>
+                                    <textarea type="text" ref={subCatDescriptionRef} />
+                                </div>
+                                <div className={style["subCat-image-preview"]}>
+                                    {base64SubCatImage ? <img src={base64SubCatImage} /> : <p>No image available.</p>}
+                                </div>
+                                <div className={style["subCat-videos-input"]}>
+                                    {availableVideos.length > 0 ? (<><select name="videos" id="videosss">
+                                        {availableVideos.map((video) => (
+                                            <option key={video._id} value={video._id}>
+                                                {video.Title}
+                                            </option>
+                                        ))}
+                                    </select>
+                                        <button type="button" onClick={() => {
+                                            const selectedVideo = document.getElementById("videosss").value;
+                                            const video = videos.find((v) => v._id === selectedVideo);
+                                            setSelectedVideos((prev) => [...prev, video]);
+                                            setAvailableVideos(availableVideos.filter((v) => v._id !== selectedVideo));
+                                        }}>Add Video</button></>) : (<p>No more videos available</p>)}
+                                </div>
+                                <div><p><strong>{selectedVideos.length > 0 ? "Video aggiunti" : "Nessun video aggiunto"}</strong></p>
+                                    <div className={style["subCat-video-container"]}>
+                                        {selectedVideos.map((video) => (
+                                            <div key={video._id} className={style["subCat-video-card"]}>
+                                                <span>{video.Title}</span>
+                                                <button
+                                                    onClick={() => setSelectedVideos((prev) => prev.filter((v) => v._id !== video._id))}
+                                                >
+                                                    x
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className={style["subCat-add-button"]}>
+                                    <button type="button" onClick={addSubCat}>Add SubCat</button>
+                                </div>
+                                {selectedVideos.map((video) => (
+                                    <div key={video._id}>
+                                        <span>{video.Title}</span>
+                                        <button
+                                            onClick={() => setSelectedVideos((prev) => prev.filter((v) => v._id !== video._id))}
+                                        >
+                                            x
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    <div>
+                        <div>
+                            {months.length > 0 ? (
+                                <div className={style["existing-months"]}>
+                                    {months.map((month, index) => (
+                                        <div key={month.Description} className={style["existing-month-card"]}>
+                                            <div className={style["existing-month-header"]}>
+                                                <h1>Mese {index + 1}</h1>
+                                                <button type="button" onClick={() => { removeMonth(month) }}>x</button>
+                                            </div>
+                                            <div className={style["existing-month-body"]}>
+                                                <h5>{month.Description}</h5>
+                                                <div className={style["existing-month-videos"]}>
+                                                    {month.Videos.map((video) => (
+                                                        <div key={video._id} className={style["existing-month-video-card"]}>
+                                                            <span>{video.Title}</span>
+                                                            <button
+                                                                onClick={() => removeVideofromMonth(month, video)}
+                                                            >
+                                                                x
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div>
+                                    <p>No months added yet.</p>
                                 </div>
                             )}
                         </div>
-                        <div className={style.monthsSubCats}>
-                            <div className={style.monthsDivision}>
-                                {months.length > 0 ? (<div>
-                                    {months.map((month, index) => (
-                                        <div key={month.Description}>
-                                            <div>
-                                                <h1>Month {index + 1}</h1>
-                                                <button type="button" onClick={() => { removeMonth(month) }}>Remove</button>
-                                            </div>
-                                            <h3>{month.Description}</h3>
-                                            {month.Videos.map((video) => (
-                                                <div key={video._id}>
-                                                    <span>{video.Title}</span>
-                                                    <button
-                                                        onClick={() => removeVideofromMonth(month, video)}
-                                                    >
-                                                        Remove
-                                                    </button>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    ))}
-                                </div>) : (<div>
-                                    <p>No months added yet.</p>
-                                </div>)}
-                            </div>
-                            <div className={style.subCatsDivision}>
-                                {subCats.length > 0 ? (<div>
+                        <div>
+                            {subCats.length > 0 ? (
+                                <div className={style["existing-subCats"]}>
                                     {subCats.map((subCat, index) => (
-                                        <div key={subCat.Name}>
-                                            <div>
-                                                <h1>SubCategory {index + 1}</h1>
-                                                <button type="button" onClick={() => { removeSubCat(subCat) }}>Remove</button>
+                                        <div key={subCat.Name} className={style["existing-subCat-card"]}>
+                                            <div className={style["existing-subCat-header"]}>
+                                                <h3>{subCat.Name}</h3>
+                                                <button type="button" onClick={() => { removeSubCat(subCat) }}>x</button>
                                             </div>
-                                            <h3>{subCat.Name}</h3>
-                                            <h3>{subCat.Description}</h3>
-                                            {subCat.Videos.map((video) => (
-                                                <div key={video._id}>
-                                                    <span>{video.Title}</span>
-                                                    <button
-                                                        onClick={() => removeVideofromSubCat(subCat, video)}
-                                                    >
-                                                        Remove
-                                                    </button>
+                                            <div className={style["existing-subCat-image"]}>
+                                                {subCat.Image ? <img src={subCat.Image} /> : <p>No image available.</p>}
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) => {
+                                                        const file = e.target.files[0];
+                                                        if (file) {
+                                                            const reader = new FileReader();
+                                                            reader.onload = () => {
+                                                                const base64String = reader.result;
+                                                                handlePutSubcatImage(subCat, base64String);
+                                                            };
+                                                            reader.onerror = () => {
+                                                                console.error("Failed to read the file.");
+                                                            };
+                                                            reader.readAsDataURL(file); // Convert the file to a data URL
+                                                        } else {
+                                                            console.log("No file selected.");
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
+                                            <div className={style["existing-subCat-body"]}>
+                                                <h5>{subCat.Description}</h5>
+                                                <div className={style["existing-subCat-videos"]}>
+                                                    {subCat.Videos.map((video) => (
+                                                        <div key={video._id} className={style["existing-subCat-video-card"]}>
+                                                            <span>{video.Title}</span>
+                                                            <button
+                                                                onClick={() => removeVideofromSubCat(subCat, video)}
+                                                            >
+                                                                x
+                                                            </button>
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            ))}
+                                            </div>
                                         </div>
                                     ))}
                                 </div>) : (<div>
                                     <p>No subCats added yet.</p>
                                 </div>)}
-                            </div>
                         </div>
                     </div>
-
-                    {/* Months Section */}
-                    <div className={style.right}>
-                        <div>
-                            <button type="button" onClick={(e) => {
-                                setIsMonth(!isMonth)
-                                setSelectedVideos([]);
-                                refreshVideosAvailable();
-                            }}>Switch</button>
-                            {isMonth ? (<div>
-                                <label>Month configuration</label>
-                                <textarea type="text" ref={monthDescriptionRef} />
-                                <button type="button" onClick={addMonth}>
-                                    Add Month
-                                </button>
-                                {availableVideos.length > 0 ? (<><select name="videos" id="videosss">
-                                    {availableVideos.map((video) => (
-                                        <option key={video._id} value={video._id}>
-                                            {video.Title}
-                                        </option>
-                                    ))}
-                                </select>
-                                    <button type="button" onClick={() => {
-                                        const selectedVideo = document.getElementById("videosss").value;
-                                        const video = videos.find((v) => v._id === selectedVideo);
-                                        setSelectedVideos((prev) => [...prev, video]);
-                                        setAvailableVideos(availableVideos.filter((v) => v._id !== selectedVideo));
-                                    }}>Add Video</button></>) : (<>No more videos available</>)}
-                                {selectedVideos.map((video) => (
-                                    <div key={video._id}>
-                                        <span>{video.Title}</span>
-                                        <button
-                                            onClick={() => setSelectedVideos((prev) => prev.filter((v) => v._id !== video._id))}
-                                        >
-                                            Remove
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>) : (<div>
-                                <label>Add SubCategory</label>
-                                <input type="text" ref={subCatRef} />
-                                <label>SubCategory Description</label>
-                                <textarea type="text" ref={subCatDescriptionRef} />
-                                <label>Image</label>
-                                <input type="file" accept="image/*" ref={subCatImage} onChange={handleSubCatImageUpload} />
-                                {base64SubCatImage && (
-                                    <div>
-                                        <img src={base64SubCatImage} alt="Preview" style={{ marginTop: '10px', maxWidth: '300px' }} />
-                                    </div>
-                                )}
-
-                                <button type="button" onClick={addSubCat}>Add SubCat</button>
-                                {availableVideos.length > 0 ? (<><select name="videos" id="videosss">
-                                    {availableVideos.map((video) => (
-                                        <option key={video._id} value={video._id}>
-                                            {video.Title}
-                                        </option>
-                                    ))}
-                                </select>
-                                    <button type="button" onClick={() => {
-                                        const selectedVideo = document.getElementById("videosss").value;
-                                        const video = videos.find((v) => v._id === selectedVideo);
-                                        setSelectedVideos((prev) => [...prev, video]);
-                                        setAvailableVideos(availableVideos.filter((v) => v._id !== selectedVideo));
-                                    }}>Add Video</button></>) : (<>No more videos available</>)}
-                                {selectedVideos.map((video) => (
-                                    <div key={video._id}>
-                                        <span>{video.Title}</span>
-                                        <button
-                                            onClick={() => setSelectedVideos((prev) => prev.filter((v) => v._id !== video._id))}
-                                        >
-                                            Remove
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>)}
-                        </div>
-                    </div>
-
                 </div>
-                <button type="submit">Create Category</button>
-            </form>
-        </div>
+                <div className={style["edit-modal-footer"]}>
+                    <button type="button" className={style["close-button"]} onClick={closeModal}>Annulla</button>
+                    <button type="submit" className={style["final-confirm"]}>Conferma</button>
+                </div>
+
+
+
+
+            </form >
+        </div >
     );
 };
 
