@@ -65,6 +65,14 @@
   color: #f29aa0;
 }
 
+@media (min-width: 1600px)
+{
+  .heroText h1 {
+    margin-bottom: -300px;
+  
+  }
+}
+
 @media (max-width: 800px) {
   .hero {
     height: 100vh; /* Adjust for smaller screens */

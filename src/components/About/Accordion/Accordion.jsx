@@ -51,7 +51,7 @@ const Accordion = () => {
                 >
                     <p><strong>1998 - 2018:</strong> Le Radici di Equilibre</p>
                     <p><strong>2018 - 2020:</strong> L'Evoluzione e le Nuove Competenze</p>
-                    <p><strong>La Nascita di DOMNA:</strong></p>
+                    <p><strong>2020:</strong> La Nascita di DOMNA</p>
                     <p><strong>WTA Functional Training:</strong> Il Fulcro di DOMNA</p>
 
                 </div>
