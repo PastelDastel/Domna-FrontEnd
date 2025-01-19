@@ -276,10 +276,10 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                             <p>No months added yet.</p>
                         </div>)}
                     </div>
-                    <div>
+                    <div className={styles.existingSubcategories}>
                         {subCats.length > 0 ? (<div>
                             {subCats.map((subCat, index) => (
-                                <div key={subCat.Name}>
+                                <div key={subCat.Name} className={style.subCatCard}>
                                     <div>
                                         <h1>SubCategory {index + 1}</h1>
                                         <button type="button" onClick={() => { removeSubCat(subCat) }}>Remove</button>
