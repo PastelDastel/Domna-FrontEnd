@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'https://domna-backend.onrender.com';
+const BASE_URL = 'https://domna-backend-1.onrender.com';
 // http://localhost:3500
 //https://domna-backend.onrender.com
 export default axios.create({

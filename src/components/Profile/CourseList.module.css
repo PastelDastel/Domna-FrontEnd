@@ -3,12 +3,17 @@
   max-width: 800px;
   border-radius: 10px;
   padding: 5px;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  margin: 0 auto;
+  background-color: #ffc2d1;
+}
+.courseCard .courseDetails {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  background-color: #ffc2d1;
+  padding: 10px;
 }
 
 .categoryCard {
@@ -33,17 +38,6 @@
   padding: 10px;
 }
 
-@media (max-width: 1200px) {
-  .courseCard {
-    width: 90vw;
-  }
-  .categoryCard {
-    width: 90vw;
-  }
-  .monthCard {
-    width: 90vw;
-  }
-}
 .monthCard li {
   list-style-type: none;
   display: flex;
@@ -51,7 +45,6 @@
   align-items: center;
   text-align: center;
 }
-
 
 .courseCard {
   border: 1px solid #ccc;
@@ -95,45 +88,70 @@
 
 .courseCard,
 .categoryCard {
-    border: 1px solid #ccc;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .courseCard:hover,
 .categoryCard:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
 }
 
 .goBackButton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .goBackButton:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .activeCourseDetails,
 .activeCategoryDetails {
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #fff;
 }
 
 .monthCard {
-    margin-top: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+@media (max-width: 1200px) {
+  .courseCard {
+    width: 90vw;
+    max-width: 800px;
+    border-radius: 10px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    background-color: #ffc2d1;
+  }
+
+  .courseCard .courseImageContainer img {
+    object-fit: cover;
+  }
+
+  .courseCard .courseDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
 }

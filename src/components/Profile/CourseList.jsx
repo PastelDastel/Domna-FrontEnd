@@ -57,7 +57,7 @@ const CourseList = ({ courses }) => {
     const handleBackToCategories = () => {
         setActiveCategoryId(null);
     };
-
+    console.log("Courses: ", courses)
     return (
         <>
             {activeCourseId === null ? (
@@ -69,8 +69,21 @@ const CourseList = ({ courses }) => {
                             className={style.courseCard}
                             onClick={() => setActiveCourseId(course._id)}
                         >
-                            <h2 className={style.courseTitle}>{course.Title}</h2>
-                            <p>{course.Description}</p>
+                            <div className={style.courseImageContainer}>
+                                <img
+                                    src={course.Image}
+                                    alt={course.Title}
+                                    className={style.courseImage}
+                                />
+                            </div>
+                            <div className={style.courseDetails}>
+                                <h2 className={style.courseTitle}>{course.Title}</h2>
+                                <p
+                                    dangerouslySetInnerHTML={
+                                        { __html: course.Description.length > 350 ? course.Description.substring(0, 350) + "..." : course.Description }
+                                    }
+                                ></p>
+                            </div>
                         </div>
                     ))}
                 </>
@@ -83,8 +96,12 @@ const CourseList = ({ courses }) => {
                         .filter((course) => course._id === activeCourseId)
                         .map((course) => (
                             <div key={course._id} className={style.activeCourseDetails}>
-                                <h1>{course.title}</h1>
-                                <p>{course.description}</p>
+                                <h1>{course.Title}</h1>
+                                <p
+                                    dangerouslySetInnerHTML={
+                                        { __html: course.Description }
+                                    }
+                                ></p>
                                 {course.Categories.map((category) => (
                                     <div
                                         key={category.Name}
@@ -109,17 +126,14 @@ const CourseList = ({ courses }) => {
                                 <div key={category.Name} className={style.activeCategoryDetails}>
                                     <h1>{category.Name}</h1>
                                     {category.Months?.map((program, index) => {
-                                        // Check if the previous month is completed (handle undefined cases)
                                         const previousMonthCompleted =
                                             index === 0 || (category.Months[index - 1]?.Videos || []).every((video) =>
                                                 completedVideos.has(video._id)
                                             );
-
                                         const isMonthUnlocked = previousMonthCompleted;
                                         const monthCompleted = (program?.Videos || []).every((video) =>
                                             completedVideos.has(video._id)
                                         );
-
                                         return (
                                             <div key={program._id || index} className={style.monthCard}>
                                                 {isMonthUnlocked ? (
@@ -131,7 +145,6 @@ const CourseList = ({ courses }) => {
                                                                 const isCompleted = completedVideos.has(video._id);
                                                                 const isVideoUnlocked =
                                                                     videoIndex === 0 || completedVideos.has(program?.Videos[videoIndex - 1]?._id);
-
                                                                 return (
                                                                     <li key={video._id}>
                                                                         {isVideoUnlocked ? (
@@ -162,6 +175,44 @@ const CourseList = ({ courses }) => {
                                             </div>
                                         );
                                     })}
+                                    {
+                                        category.SubCategories?.map((subCategory, index) => {
+                                            return (
+                                                <>
+                                                    <div key={subCategory._id || index} className={style.subCategoryCard}>
+                                                        <p>{subCategory.Name}</p>
+                                                        <p>{subCategory.Description}</p>
+                                                        <ul>
+                                                            {(subCategory?.Videos || []).map((video, videoIndex) => {
+                                                                const isCompleted = completedVideos.has(video._id);
+                                                                const isVideoUnlocked =
+                                                                    videoIndex === 0 || completedVideos.has(subCategory?.Videos[videoIndex - 1]?._id);
+                                                                return (
+                                                                    <li key={video._id}>
+                                                                        {isVideoUnlocked ? (
+                                                                            <VideoTrack
+                                                                                isCompleted={isCompleted}
+                                                                                videoUrl={video.Url}
+                                                                                videoId={video._id}
+                                                                                videoName={video.Title}
+                                                                                onVideoUpdate={handleVideoUpdate}
+                                                                                isPlaying={currentPlayingVideoId === video._id}
+                                                                                onPlay={() => handleVideoPlay(video._id)}
+                                                                            />
+                                                                        ) : (
+                                                                            <p style={{ color: "gray" }}>
+                                                                                🔒 {video.Title || "Untitled Video"} - Complete the previous video to unlock.
+                                                                            </p>
+                                                                        )}
+                                                                    </li>
+                                                                );
+                                                            })}
+                                                        </ul>
+                                                    </div>
+                                                </>
+                                            )
+                                        })
+                                    }
                                 </div>
                             ))
                         )}

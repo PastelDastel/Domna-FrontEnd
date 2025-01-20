@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
@@ -16,6 +16,13 @@ const Course = ({ course }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+    const [included, setIncluded] = useState([]);
+    const [excluded, setExcluded] = useState([]);
+    useEffect(() => {
+        const benefits = course.Benefits;
+        setIncluded(benefits.filter(benefit => benefit.Type === 'Included'));
+        setExcluded(benefits.filter(benefit => benefit.Type === 'Excluded'));
+    }, [course]);
     const handleAddToCart = async () => {
         if (auth?.accessToken) {
             setIsLoading(true);
@@ -43,7 +50,7 @@ const Course = ({ course }) => {
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
-
+    console.log(course.Benefits)
     return (
         <>
             <hr className={style.fullWidthLine} />
@@ -82,16 +89,16 @@ const Course = ({ course }) => {
                     </button>
                 </div>
 
-                {/* <div className={style.rightColumn}>
+                {<div className={style.rightColumn}>
                     <ul className={style.featuresList}>
-                        {benefits.map((benefit, index) => (
+                        {included.map((benefit, index) => (
                             <li key={index}>
-                                <span className={style.icon}>✔</span> {benefit}
+                                <span className={style.icon}>✔</span> {benefit.Benefit.Name}
                             </li>
                         ))}
-                        {excluded_benefits.map((excluded, index) => (
+                        {excluded.map((excluded, index) => (
                             <li key={`excluded-${index}`} className={style.strikethrough}>
-                                <span className={style.icon}>✖</span> {excluded}
+                                <span className={style.icon}>✖</span> {excluded.Benefit.Name}
                             </li>
                         ))}
                     </ul>
@@ -99,7 +106,7 @@ const Course = ({ course }) => {
                         <p><em>&quot;Fantastico corso, mi ha cambiato la vita!&quot;</em> - Maria</p>
                         <p><em>&quot;Ho visto risultati dopo una settimana!&quot;</em> - Luca</p>
                     </div>
-                </div> */}
+                </div>}
             </div>
             <hr className={style.fullWidthLine} />
             <div className={style.sectionTitle} onClick={toggleDropdown} aria-expanded={isDropdownOpen}>
