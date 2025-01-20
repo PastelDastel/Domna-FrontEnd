@@ -16,16 +16,6 @@ import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import BlogArticlePage from "./components/BlogArticlePage/BlogArticlePage";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Random from "./components/Test/Random";
-// every 30s make a get / to keep the backend online
-setInterval(() => {
-  fetch("https://domna-backend.onrender.com")
-    .then(
-      console.log("Server is still online")
-    )
-}, 40000);
-
-
-
 function App() {
   return (
     <Routes>
