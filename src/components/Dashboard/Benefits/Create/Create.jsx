@@ -11,7 +11,6 @@ const Create = ({ onBenefitUpdated, closeModal, axiosPrivate }) => {
         try {
             e.preventDefault();
             console.log(e.target.name.value);
-            console.log(e.target.description.value);
             const name = e.target.name.value;
             const description = editor.getHTML();
             const res = await axiosPrivate.post("/api/benefits", { name, description });
