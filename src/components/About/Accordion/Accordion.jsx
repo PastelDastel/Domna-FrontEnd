@@ -32,10 +32,10 @@ const Accordion = () => {
                     className={styles.accordionContent}
                     id="credentials"
                 >
-                    <p>Trainer Certificata Woman Functional Training</p>
-                    <p>Trainer Certificata Primitive Movement</p>
-                    <p>Trainer Certificata In Human Movement Optimisation</p>
-                    <p>Diplomata In Nutraceutical Consultant</p>
+                    <p><strong> Trainer Certificata Primitive Movement</strong></p>
+                    <p><strong>Trainer Certificata In Human Movement Optimisation</strong></p>
+                    <p><strong>Trainer Certificata Woman Functional Training</strong></p>
+                    <p><strong>Diplomata In Nutraceutical Consultant</strong></p>
                 </div>
             </div>
 
