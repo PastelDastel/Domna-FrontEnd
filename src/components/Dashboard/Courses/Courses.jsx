@@ -177,7 +177,12 @@ const Courses = () => {
                                 <div className={style["card-body"]}>
                                     <p><strong>Id:</strong> {course._id}</p>
                                     <p><strong>Titolo:</strong> {course.Title}</p>
-                                    <p><strong>Descrizione:</strong> {course.Description ? course.Description : "Nessuna descrizione"}</p>
+                                    <p
+                                        dangerouslySetInnerHTML={{
+                                            __html: `<strong>Descrizione:</strong> ${course.Description ? course.Description : "Nessuna descrizione"
+                                                }`,
+                                        }}
+                                    ></p>
                                     <p><strong>Prezzo:</strong> {course.Price.Discounted ? course.Price.Discounted : course.Price.Normal}</p>
                                     <p><strong>Benefici:</strong> {course.Benefits.length > 0 ? course.Benefits.length : "Nessun beneficio"}</p>
                                     <p><strong>Categorie:</strong> {course.Categories.length > 0 ? course.Categories.length : "Nessuna categoria"}</p>

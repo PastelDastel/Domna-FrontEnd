@@ -42,14 +42,14 @@
   padding: 10px;
 }
 
-.description-edit textarea {
-  min-width: 70%;
-  height: 80%;
-  resize: none;
-  font-size: small;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
+.description-edit span {
+  max-width: 300px;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.description-edit p {
+  font-size: small !important;
 }
 
 .image-preview {
@@ -106,14 +106,13 @@
   padding: 20px;
 }
 
-.subCat-description textarea {
-  min-width: 70%;
-  height: 100px;
-  resize: none;
+.subCat-description span {
+  max-width: 400px;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+.subCat-description p {
   font-size: small;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
 }
 
 .subCat-image {
@@ -278,14 +277,13 @@
   padding: 20px;
 }
 
-.month-description textarea {
-  min-width: 70%;
-  height: 100px;
-  resize: none;
+.month-description span {
+  max-width: 400px;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+.month-description p {
   font-size: small;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
 }
 
 .month-videos-input {

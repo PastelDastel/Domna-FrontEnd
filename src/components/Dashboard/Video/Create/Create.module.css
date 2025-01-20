@@ -82,3 +82,9 @@
   align-items: center;
   justify-content: space-between;
 }
+.createVideo .inputGroup span {
+  max-width: 200px;
+  max-height: 100px;
+  overflow: scroll;
+  font-size: 1rem;
+}

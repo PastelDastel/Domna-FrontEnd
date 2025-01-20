@@ -130,7 +130,11 @@ const Videos = () => {
                                 <div className={style["card-header"]}>{video.Title}</div>
                                 <div className={style["card-body"]}>
                                     <p><strong>ID:</strong> {video._id}</p>
-                                    <p><strong>Description:</strong> {video.Description}</p>
+                                    <p
+                                        dangerouslySetInnerHTML={{
+                                            __html: "<strong>Description:</strong> " + video.Description,
+                                        }}
+                                    ></p>
                                 </div>
                                 <div className={style["card-footer"]}>
                                     <button

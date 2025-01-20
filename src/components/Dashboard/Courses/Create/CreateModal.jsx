@@ -1,7 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
 import style from "./CreateModal.module.css";
-
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 const CreateModal = ({ axios, onCourseCreated, closeModal, mockData }) => {
+    const [description, setDescription] = useState("");
+    const editor = useEditor({
+        extensions: [StarterKit],
+        content: mockData || "<p>Start writing your course description here</p>",
+
+        onUpdate({ editor }) {
+            console.log("Content updated: ", editor.getHTML());
+            setDescription(editor.getHTML());
+        }
+    });
+
     const [benefits, setBenefits] = useState([]);
     const [selectedIncluded, setSelectedIncluded] = useState([]);
     const [selectedExcluded, setSelectedExcluded] = useState([]);
@@ -38,7 +50,7 @@ const CreateModal = ({ axios, onCourseCreated, closeModal, mockData }) => {
         const Excluded = selectedExcluded.map((benefit) => benefit._id);
         const Title = e.target.title.value;
         const Interval = e.target.interval.value;
-        const Description = e.target.description.value;
+        const Description = description;
         const Image = encodedImage;
         const Stripe_price = e.target.stripe_price.value;
         const Normal_price = (e.target.normal_price.value);
@@ -92,7 +104,7 @@ const CreateModal = ({ axios, onCourseCreated, closeModal, mockData }) => {
 
                         <div className={style["description"]}>
                             <label>Description</label>
-                            <textarea name="description" />
+                            <EditorContent editor={editor} className={style.textareaForm} />
                         </div>
                         <div className={style["image-section"]}>
                             <div className={style["image-input"]}>
@@ -232,7 +244,9 @@ const CreateModal = ({ axios, onCourseCreated, closeModal, mockData }) => {
                                         <div key={index} className={style.categoryItem}>
                                             <input type="checkbox" name="categories" value={category._id} className={style.categoryCheckbox} />
                                             <div className={style.categoryName}>{category.Name}</div>
-                                            <div className={style.categoryDescription}>{category.Description}</div>
+                                            <div className={style.categoryDescription}
+                                                dangerouslySetInnerHTML={{ __html: category.Description }}
+                                            ></div>
                                             <div className={style.categoryMonths}>Months: {category.Months?.length}</div>
                                             <div className={style.categorySubCategories}>SubCat: {category.SubCategories?.length}</div>
                                         </div>

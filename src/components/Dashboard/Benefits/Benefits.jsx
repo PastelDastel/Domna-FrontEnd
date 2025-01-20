@@ -121,7 +121,7 @@ const Benefits = () => {
 
     const createBenefit = () => {
         MySwal.fire({
-            width: "80vw",
+            width: "50vw",
             html: (
                 <CreateModal
                     onBenefitUpdated={reloadBenefits}
@@ -171,7 +171,10 @@ const Benefits = () => {
                                 <div className={style["card-body"]}>
                                     <p><strong>Id:</strong> {benefit._id}</p>
                                     <p><strong>Name:</strong> {benefit.Name}</p>
-                                    <p><strong>Description:</strong>{benefit.Description ? benefit.Description : "No description provided"}</p>
+                                    <p dangerouslySetInnerHTML={{
+                                        __html: `<strong>Descrizione:</strong> ${benefit.Description ? benefit.Description : "Nessuna descrizione"
+                                            }`,
+                                    }}></p>
                                 </div>
                                 <div className={style["card-footer"]}>
                                     <button

@@ -42,14 +42,13 @@
   padding: 10px;
 }
 
-.description-create textarea {
-  min-width: 70%;
-  height: 80%;
-  resize: none;
+.description-create span {
+  max-width: 400px;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+.description-create p {
   font-size: small;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
 }
 
 .image-preview {
@@ -101,19 +100,15 @@
 
 .subCat-description {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   padding: 20px;
 }
 
-.subCat-description textarea {
-  min-width: 70%;
-  height: 100px;
-  resize: none;
-  font-size: small;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
+.subCat-description span {
+  max-width: 400px;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 
 .subCat-image {
@@ -219,9 +214,9 @@
   cursor: pointer;
 }
 .create-category p {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 10px;
+  font-size: 1rem;
+  color: #4a5568;
+  margin: 20px;
 }
 
 .create-category p strong {

@@ -132,7 +132,11 @@ const Categories = () => {
                                 <div className={style["card-body"]}>
                                     <p><strong>Id:</strong> {category._id}</p>
                                     <p><strong>Name:</strong> {category.Name}</p>
-                                    <p><strong>Description:</strong> {category.Description ? category.Description : "No description provided"}</p>
+                                    <p
+                                        dangerouslySetInnerHTML={
+                                            { __html: "<strong>Description:</strong> " + category.Description ? category.Description : "No description provided" }
+                                        }
+                                    ></p>
                                 </div>
                                 <div className={style["card-footer"]}>
                                     <button

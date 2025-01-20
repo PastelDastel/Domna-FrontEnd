@@ -110,6 +110,8 @@
 .card-container-courses .card-body p {
   margin: 10px 0;
   background: #FFF;
+  max-height: 250px;
+  overflow: scroll;
 }
 
 .card-container-courses .card-body p strong {

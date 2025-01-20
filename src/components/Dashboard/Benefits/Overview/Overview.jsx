@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 const OverviewModal = ({ closeModal, benefit }) => {
     return (
         <>
-            <h1>Overview</h1>
-            <h2>{benefit.Name}</h2>
-            {benefit.Description && <p>{benefit.Description}</p>}
+            <h1>{benefit.Name}</h1>
+            {benefit.Description && <p 
+                dangerouslySetInnerHTML={{ __html: benefit.Description }}
+            ></p>}
             <button onClick={closeModal}>Close</button>
         </>
     )

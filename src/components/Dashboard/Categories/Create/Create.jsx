@@ -1,13 +1,31 @@
 import { useState, useEffect, useRef } from "react";
 import style from "./Create.module.css";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+
+
+
 const Create = ({ closeModal, axios, onCategoryCreated }) => {
+    const editorMain = useEditor({
+        extensions: [StarterKit],
+        content: "Enter description here\n",
+    });
+
+    const subCatEdit = useEditor({
+        extensions: [StarterKit],
+        content: "Enter description here\n",
+    });
+
+    const MonthEdit = useEditor({
+        extensions: [StarterKit],
+        content: "Enter description here\n",
+    });
+
+
     const [videos, setVideos] = useState([]);
     const [months, setMonths] = useState([]);
     const [subCats, setSubCats] = useState([]);
-    const monthDescriptionRef = useRef();
     const subCatRef = useRef();
-    const subCatDescriptionRef = useRef();
-    const subCatImage = useRef();
     const [base64SubCatImage, setBase64SubCatImage] = useState("");
     const [selectedVideos, setSelectedVideos] = useState([]);
     const [availableVideos, setAvailableVideos] = useState([]);
@@ -23,13 +41,13 @@ const Create = ({ closeModal, axios, onCategoryCreated }) => {
 
     const addSubCat = () => {
         const subCatName = subCatRef.current.value.trim();
-        const subCatDescription = subCatDescriptionRef.current.value.trim();
+        const subCatDescription = subCatEdit.getHTML();
         const subCatImg = base64SubCatImage;
         if (!subCatName) return;
         const newSubCat = { Name: subCatName, Description: subCatDescription, Videos: selectedVideos, Image: subCatImg };
         setSubCats((prevSubCats) => [...prevSubCats, newSubCat]);
         subCatRef.current.value = ""; // Clear the input field
-        subCatDescriptionRef.current.value = ""; // Clear the input field
+        subCatEdit.commands.setContent("Enter description here\n");
         setSelectedVideos([]); // Clear the selected videos
         refreshVideosAvailable();
     }
@@ -58,12 +76,12 @@ const Create = ({ closeModal, axios, onCategoryCreated }) => {
 
     // Add a new month
     const addMonth = () => {
-        const monthDescription = monthDescriptionRef.current.value.trim();
+        const monthDescription = MonthEdit.getHTML();
 
         if (!monthDescription) return;
         const newMonth = { Description: monthDescription, Videos: selectedVideos };
         setMonths((prevMonths) => [...prevMonths, newMonth]);
-        monthDescriptionRef.current.value = ""; // Clear the input field
+        MonthEdit.commands.setContent("Enter description here\n");
         setSelectedVideos([]); // Clear the selected videos
         refreshVideosAvailable();
     };
@@ -117,7 +135,7 @@ const Create = ({ closeModal, axios, onCategoryCreated }) => {
     const submitForm = async (e) => {
         e.preventDefault(); // Prevent default page reload
         const name = e.target.name.value.trim();
-        const description = e.target.description.value.trim();
+        const description = editorMain.getHTML();
         //send the img as a urlencoded string
         const img = base64Image;
 
@@ -168,7 +186,7 @@ const Create = ({ closeModal, axios, onCategoryCreated }) => {
                         </div>
                         <div className={style["description-create"]}>
                             <label htmlFor="description">Description</label>
-                            <textarea type="text" id="description" name="description" />
+                            <span><EditorContent editor={editorMain} /></span>
                         </div>
                         <div className={style["image-preview"]}>
                             {base64Image ? <img src={base64Image} /> : <p>No image available.</p>}
@@ -183,13 +201,14 @@ const Create = ({ closeModal, axios, onCategoryCreated }) => {
                         {isMonth ? (
 
                             <div className={style["month-section"]}>
+
                                 <div className={style["month-name"]}>
                                     <label>Nome</label>
                                     <input type="text" readonly value={"Mese " + (months.length + 1)} />
                                 </div>
                                 <div className={style["month-description"]}>
                                     <label>Descrizione</label>
-                                    <textarea type="text" ref={monthDescriptionRef} />
+                                    <span><EditorContent editor={MonthEdit} /></span>
                                 </div>
 
                                 <div className={style["month-videos-input"]}>
@@ -245,7 +264,7 @@ const Create = ({ closeModal, axios, onCategoryCreated }) => {
                                 </div>
                                 <div className={style["subCat-description"]}>
                                     <label>Description</label>
-                                    <textarea type="text" ref={subCatDescriptionRef} />
+                                    <span><EditorContent editor={subCatEdit} /></span>
                                 </div>
                                 <div className={style["subCat-image-preview"]}>
                                     {base64SubCatImage ? <img src={base64SubCatImage} /> : <p>No image available.</p>}

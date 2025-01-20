@@ -38,7 +38,9 @@ const Overview = ({ closeModal, axios, category }) => {
                     <div className={style.categoryDetails}>
                         <div>
                             <p><strong>Nome:</strong> {categoryDetails.Name}</p>
-                            <p><strong>Description:</strong> {categoryDetails.Description}</p>
+                            <p dangerouslySetInnerHTML={
+                                { __html: "<strong>Descrizione:</strong> " + categoryDetails.Description }
+                            }></p>
                             {categoryDetails.Image ? (
                                 <img src={categoryDetails.Image} alt="Category" className={style.categoryImage} />
                             ) : (
@@ -55,7 +57,9 @@ const Overview = ({ closeModal, axios, category }) => {
                                 categoryDetails.Months.map((month, index) => (
                                     <div key={index} className={style.monthDetails}>
                                         <p><strong>Month {index + 1}</strong></p>
-                                        <p>{month.Description}</p>
+                                        <p dangerouslySetInnerHTML={
+                                            { __html: month.Description }
+                                        }></p>
                                         <p><strong>Videos</strong></p>
                                         <div className={style.monthContent}>
                                             {month.Videos && month.Videos.length > 0 ? (
@@ -80,7 +84,9 @@ const Overview = ({ closeModal, axios, category }) => {
                                 categoryDetails.SubCategories.map((subCat, index) => (
                                     <div key={index} className={style.subcategoryDetails}>
                                         <p><strong>{subCat.Name}</strong></p>
-                                        <p>{subCat.Description}</p>
+                                        <p dangerouslySetInnerHTML={
+                                            { __html: subCat.Description }
+                                        }></p>
                                         <div>
                                             {subCat.Image ? <img src={subCat.Image} /> : <p>No image available.</p>}
                                         </div>

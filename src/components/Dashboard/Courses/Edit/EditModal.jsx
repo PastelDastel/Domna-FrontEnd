@@ -1,7 +1,16 @@
 import { useEffect, useState, useRef } from "react";
 import style from "./EditModal.module.css";
-
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
+    const editor = useEditor({
+        extensions: [StarterKit],
+        content: course.Description,
+        onUpdate({ editor }) {
+            course.Description = editor.getHTML();
+            console.log("Description updated: ", course.Description);
+        },
+    });
     const [benefits, setBenefits] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedIncluded, setSelectedIncluded] = useState(course.Included || []);
@@ -74,7 +83,7 @@ const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
         e.preventDefault();
         const Title = e.target.title.value;
         const Interval = e.target.interval.value;
-        const Description = e.target.description.value;
+        const Description = course.Description;
         const Image = encodedImage;
         const Stripe_price = e.target.stripe_price.value;
         const Normal_price = e.target.normal_price.value;
@@ -142,7 +151,7 @@ const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
                         </div>
                         <div className={style["description"]}>
                             <label>Description</label>
-                            <textarea name="description" defaultValue={course.Description} />
+                            <EditorContent editor={editor} className={style.textareaForm} />
                         </div>
                         <div className={style["image-section"]}>
                             <div className={style["image-input"]}>
@@ -296,7 +305,9 @@ const EditModal = ({ closeModal, course, axios, onCourseUpdated }) => {
                                                 className={style.categoryCheckbox}
                                             />
                                             <div className={style.categoryName}>{category.Name}</div>
-                                            <div className={style.categoryDescription}>{category.Description}</div>
+                                            <div className={style.categoryDescription} dangerouslySetInnerHTML={
+                                                { __html: "<strong>Description:</strong> " + (category.Description ? category.Description : "No description provided") }
+                                            }></div>
                                             <div className={style.categoryMonths}>Months: {category.Months?.length}</div>
                                             <div className={style.categorySubCategories}>SubCat: {category.SubCategories?.length}</div>
                                         </div>

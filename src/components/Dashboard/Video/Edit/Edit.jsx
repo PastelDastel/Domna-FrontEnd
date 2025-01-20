@@ -1,7 +1,17 @@
 import { useState } from "react";
 import style from "./Edit.module.css";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 
 const Edit = ({ onVideoUpdated, closeModal, axios, video }) => {
+
+    const editor = useEditor({
+        extensions: [StarterKit],
+        content: video?.Description || "",
+        onUpdate: ({ editor }) => {
+            setDescription(editor.getHTML());
+        },
+    });
 
     const [title, setTitle] = useState(video?.Title || "");
     const [description, setDescription] = useState(video?.Description || "");
@@ -41,13 +51,8 @@ const Edit = ({ onVideoUpdated, closeModal, axios, video }) => {
                 </div>
 
                 <div className={style.inputGroup}><label htmlFor="description">Description</label>
-                    <input
-                        type="text"
-                        id="description"
-                        name="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    /></div>
+                    <span><EditorContent editor={editor} /></span>
+                </div>
 
                 <div className={style.inputGroup}> <label htmlFor="url">URL</label>
                     <input

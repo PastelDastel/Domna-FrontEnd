@@ -37,7 +37,11 @@ const OverviewModal = ({ closeModal, course, users, benefits, categories, axiosP
                         <h2 className={style.sectionHeading}>Informazioni</h2>
                         <p><strong>Id:</strong> {course._id}</p>
                         <p><strong>Nome:</strong> {course.Title}</p>
-                        <p><strong>Descrizione:</strong> {course.Description}</p>
+                        <p
+                            dangerouslySetInnerHTML={
+                                { __html: "<strong>Descrizione:</strong> " + course.Description }
+                            }
+                        ></p>
                         {course.Image ? <img src={course.Image} className={style.courseImage} /> : <p className={style.noImage}>No image detected</p>}
                         <p><strong>Iscritti:</strong> {course.Subscribers.length}</p>
                         <p><strong>Prezzo:</strong> {course.Price.Discounted ? course.Price.Discounted : course.Price.Normal}</p>
@@ -52,7 +56,9 @@ const OverviewModal = ({ closeModal, course, users, benefits, categories, axiosP
                                         {benefits.filter(b => b.Type === "Included").map((benefit, index) => (
                                             <div key={index} className={style.benefitCard}>
                                                 <h3 className={style.benefitTitle}>{benefit.Benefit.Name}</h3>
-                                                <p className={style.benefitDescription}>{benefit.Benefit.Description}</p>
+                                                <p className={style.benefitDescription} dangerouslySetInnerHTML={
+                                                    { __html: benefit.Benefit.Description }
+                                                }></p>
                                             </div>
                                         ))}
                                     </div>
@@ -63,7 +69,9 @@ const OverviewModal = ({ closeModal, course, users, benefits, categories, axiosP
                                         {benefits.filter(b => b.Type === "Excluded").map((benefit, index) => (
                                             <div key={index} className={style.benefitCard}>
                                                 <h3 className={style.benefitTitle}>{benefit.Benefit.Name}</h3>
-                                                <p className={style.benefitDescription}>{benefit.Benefit.Description}</p>
+                                                <p className={style.benefitDescription} dangerouslySetInnerHTML={
+                                                    { __html: benefit.Benefit.Description }
+                                                }></p>
                                             </div>
                                         ))}
                                     </div>
@@ -101,7 +109,11 @@ const OverviewModal = ({ closeModal, course, users, benefits, categories, axiosP
                                 <li key={category._id} className={style.category}>
                                     <h3 className={style.categoryTitle}>{category.Name}</h3>
                                     <p><strong>Id:</strong> {category._id}</p>
-                                    <p><strong>Descrizione:</strong> {category.Description ? category.Description : "Nessuna descrizione"}</p>
+                                    <p
+                                        dangerouslySetInnerHTML={
+                                            { __html: "<strong>Descrizione:</strong> " + category.Description ? category.Description : "Nessuna descrizione" }
+                                        }
+                                    ></p>
                                     {category.Months?.length > 0 ? (
                                         <>
                                             <h4 className={style.sectionHeading}>Months</h4>
@@ -130,7 +142,11 @@ const OverviewModal = ({ closeModal, course, users, benefits, categories, axiosP
                                                 {category.SubCategories.map((subCategory) => (
                                                     <div key={subCategory._id} className={style.subCategoryItem}>
                                                         <h5>{subCategory.Name}</h5>
-                                                        <p>{subCategory.Description}</p>
+                                                        <p
+                                                            dangerouslySetInnerHTML={
+                                                                { __html: "<strong>Description:</strong> " + subCategory.Description }
+                                                            }
+                                                        ></p>
                                                         {subCategory.Videos?.length > 0 ? (
                                                             <div>Video: {subCategory.Videos.length}</div>
                                                         ) : (

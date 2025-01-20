@@ -112,6 +112,8 @@
 .card-container-videos .card-body p {
   margin: 10px 0;
   background: #FFF;
+  max-height: 150px;
+  overflow: scroll;
 }
 
 .card-container-videos .card-body p strong {

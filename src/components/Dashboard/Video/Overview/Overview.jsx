@@ -6,7 +6,9 @@ const Overview = ({ closeModal, video }) => {
             <h1>Dettagli del video</h1>
             <div>
                 <h2>{video.Title}</h2>
-                <p><strong>Descrizione:</strong> {video.Description ? video.Description : "No description provided"}</p>
+                <p
+                    dangerouslySetInnerHTML={{ __html: "<strong>Descrizione:</strong> " + video.Description ? video.Description : "No description provided" }}
+                ></p>
                 <p><strong>Url:</strong> <a href={video.Url} target="_blank" rel="noopener noreferrer">
                     {video.Url}
                 </a></p>

@@ -1,18 +1,36 @@
 import { useState, useEffect, useRef } from "react";
 import styles from "./Edit.module.css";
+
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+
+
 const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
     const [videos, setVideos] = useState([]);
     const [months, setMonths] = useState([]);
     const [subCats, setSubCats] = useState([]);
-    const monthDescriptionRef = useRef();
     const subCatRef = useRef();
-    const subCatDescriptionRef = useRef();
     const [selectedVideos, setSelectedVideos] = useState([]);
     const [availableVideos, setAvailableVideos] = useState([]);
 
     const [base64Image, setBase64Image] = useState(null);
     const [base64SubCatImage, setBase64SubCatImage] = useState(null);
 
+
+    const editorMain = useEditor({
+        extensions: [StarterKit],
+        content: category.Description,
+    });
+
+    const subCatEdit = useEditor({
+        extensions: [StarterKit],
+        content: "Enter description here\n",
+    });
+
+    const MonthEdit = useEditor({
+        extensions: [StarterKit],
+        content: "Enter description here\n",
+    });
 
 
 
@@ -28,7 +46,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
 
     const addSubCat = () => {
         const subCatName = subCatRef.current.value.trim();
-        const subCatDescription = subCatDescriptionRef.current.value.trim();
+        const subCatDescription = subCatEdit.getHTML();
         const img = base64SubCatImage;
         if (!subCatName) {
             alert("Please enter a subCat name.");
@@ -38,7 +56,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
         console.log("New SubCat: ", newSubCat);
         setSubCats((prevSubCats) => [...prevSubCats, newSubCat]);
         subCatRef.current.value = ""; // Clear the input field
-        subCatDescriptionRef.current.value = ""; // Clear the input field
+        subCatEdit.commands.setContent("Enter description here\n");
         setSelectedVideos([]); // Clear the selected videos
         refreshVideosAvailable();
     }
@@ -84,12 +102,12 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
 
     // Add a new month
     const addMonth = () => {
-        const monthDescription = monthDescriptionRef.current.value.trim();
+        const monthDescription = MonthEdit.getHTML();
 
         if (!monthDescription) return;
         const newMonth = { Description: monthDescription, Videos: selectedVideos };
         setMonths((prevMonths) => [...prevMonths, newMonth]);
-        monthDescriptionRef.current.value = ""; // Clear the input field
+        MonthEdit.commands.setContent("Enter description here\n");
         setSelectedVideos([]); // Clear the selected videos
         refreshVideosAvailable();
     };
@@ -150,7 +168,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
     const submitForm = async (e) => {
         e.preventDefault(); // Prevent default page reload
         const name = e.target.name.value.trim();
-        const description = e.target.description.value.trim();
+        const description = editorMain.getHTML();
         const img = base64Image;
 
         try {
@@ -180,7 +198,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                         </div>
                         <div className={styles["description-edit"]}>
                             <label htmlFor="description">Description</label>
-                            <textarea id="description" name="description" defaultValue={category.Description} />
+                            <span><EditorContent editor={editorMain} /></span>
                         </div>
                         <div className={styles["image-preview"]}>
                             {base64Image ? <img src={base64Image} /> : <p>No image available.</p>}
@@ -201,7 +219,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                                 </div>
                                 <div className={styles["month-description"]}>
                                     <label>Descrizione</label>
-                                    <textarea type="text" ref={monthDescriptionRef} />
+                                    <span><EditorContent editor={MonthEdit} /></span>
                                 </div>
                                 <div className={styles["month-videos-input"]}>
                                     {availableVideos.length > 0 ? (<><select name="videos" id="videosss">
@@ -251,7 +269,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                                 </div>
                                 <div className={styles["subCat-description"]}>
                                     <label>Description</label>
-                                    <textarea type="text" ref={subCatDescriptionRef} />
+                                    <span><EditorContent editor={subCatEdit} /></span>
                                 </div>
                                 <div className={styles["subCat-image-preview"]}>
                                     {base64SubCatImage ? <img src={base64SubCatImage} /> : <p>No image available.</p>}
@@ -302,7 +320,9 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                                                 <button type="button" onClick={() => { removeMonth(month) }}>x</button>
                                             </div>
                                             <div className={styles["existing-month-body"]}>
-                                                <h5>{month.Description}</h5>
+                                                <h5 dangerouslySetInnerHTML={
+                                                    { __html: month.Description }
+                                                }></h5>
                                                 <div className={styles["existing-month-videos"]}>
                                                     {month.Videos.map((video) => (
                                                         <div key={video._id} className={styles["existing-month-video-card"]}>
@@ -358,7 +378,9 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                                                 />
                                             </div>
                                             <div className={styles["existing-subCat-body"]}>
-                                                <h5>{subCat.Description}</h5>
+                                                <h5 dangerouslySetInnerHTML={
+                                                    { __html: subCat.Description }
+                                                }></h5>
                                                 <div className={styles["existing-subCat-videos"]}>
                                                     {subCat.Videos.map((video) => (
                                                         <div key={video._id} className={styles["existing-subCat-video-card"]}>
