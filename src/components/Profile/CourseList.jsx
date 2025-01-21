@@ -95,21 +95,29 @@ const CourseList = ({ courses }) => {
                         .filter((course) => course._id === activeCourseId)
                         .map((course) => (
                             <div key={course._id} className={style.activeCourseDetails}>
-                                <h1>{course.Title}</h1>
-                                <p
-                                    dangerouslySetInnerHTML={
-                                        { __html: course.Description }
-                                    }
-                                ></p>
-                                {course.Categories.map((category) => (
-                                    <div
-                                        key={category.Name}
-                                        className={style.categoryCard}
-                                        onClick={() => setActiveCategoryId(category.Name)}
-                                    >
-                                        <h2>{category.Name}</h2>
-                                    </div>
-                                ))}
+                                <div>
+                                    <h1>{course.Title}</h1>
+                                    <p
+                                        dangerouslySetInnerHTML={
+                                            { __html: course.Description }
+                                        }
+                                    ></p>
+                                    {course.Categories.map((category) => (
+                                        <div
+                                            key={category.Name}
+                                            className={style.categoryCard}
+                                            onClick={() => setActiveCategoryId(category.Name)}
+                                        >
+                                            <img src={category.Image} alt="" />
+                                            <div>
+                                                <h2>{category.Name}</h2>
+                                                <p dangerouslySetInnerHTML={
+                                                    { __html: category.Description.length > 350 ? category.Description.substring(0, 350) + "..." : category.Description }
+                                                }></p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         ))}
                 </>

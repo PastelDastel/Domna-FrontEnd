@@ -84,6 +84,8 @@
   padding: 20px;
   border-radius: 5px;
   background-color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .courseCard,
@@ -94,6 +96,8 @@
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: grid;
+  grid-template-columns: 1fr 10fr;
 }
 
 .courseCard:hover,
@@ -152,6 +156,28 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 10px;
+  }
+
+  .categoryCard {
+    width: 90vw;
+    border-radius: 10px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .monthCard {
+    width: 90vw; /* Ensure it spans full width */
+    max-width: 800px; /* Optional max width for larger screens */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 10px;
     padding: 10px;
   }
 }

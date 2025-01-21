@@ -210,6 +210,26 @@ const Profile = () => {
                         <a href={link} target="_blank" rel="noreferrer">Accedi alla live</a>
                       </div>) : (<p>No link available</p>)
                   }
+                  {lives.map((live) => {
+                    const date = new Date(live.Date);
+                    const displayDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+
+                    const getDayandMonthandYear = (date) => {
+                      const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+
+                      return new Date(date).toLocaleDateString("it-IT", options); // Specifica la lingua italiana
+                    };
+
+                    return (
+                      <div key={live._id} className={styles.liveCard}>
+                        <div className={styles.liveHeader}>{displayDate}</div>
+                        <div className={styles.liveBody}>
+                          <a href={live.Url}>Live del {getDayandMonthandYear(live.Date)}</a>
+                        </div>
+                      </div>
+                    );
+                  })}
+
                 </>)}
               </>) : (<></>)}
             </>
