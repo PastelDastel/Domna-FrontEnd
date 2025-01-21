@@ -57,7 +57,6 @@ const CourseList = ({ courses }) => {
     const handleBackToCategories = () => {
         setActiveCategoryId(null);
     };
-    console.log("Courses: ", courses)
     return (
         <>
             {activeCourseId === null ? (

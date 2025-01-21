@@ -1,0 +1,180 @@
+.recordings {
+  width: 100%;
+}
+
+.recordings .loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.recordings .loading-screen .spinner {
+  width: 60px;
+  height: 60px;
+  border: 8px solid #ddd;
+  border-top-color: #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.recordings .header-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+.recordings .header:first-of-type {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #e47a9469;
+  
+}
+.recordings .header:nth-last-of-type(1) {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #ee477069;
+}
+
+.recordings .header .button-create {
+  background-color: #38a169;
+  color: #fff;
+  width: 200px;
+  height: 30px;
+  padding: 8px 5px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.recordings .header .button-create:hover {
+  background-color: #2f855a;
+}
+
+.recordings .card-container-recordings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  /*make the scrollbar visible*/
+  overflow-y: scroll;
+  height: 89%;
+}
+
+.card-container-recordings .card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 280px;
+  height: 350px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #e6e6e6;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card-container-recordings .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-container-recordings .card-header {
+  background: linear-gradient(135deg, #4c6ef5, #6a82fb);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+  letter-spacing: 1px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-container-recordings .card-body {
+  padding: 20px;
+  color: #333;
+  font-size: 0.9em;
+  line-height: 1.6;
+  background: #fff;
+}
+
+.card-container-recordings .card-body p {
+  margin: 10px 0;
+  background: #fff;
+  max-height: 150px;
+  overflow: scroll;
+}
+
+.card-container-recordings .card-body p strong {
+  color: #4c6ef5;
+  text-decoration: none;
+  background: #fff;
+}
+
+.card-container-recordings .card-footer {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-top: 1px solid #e6e6e6;
+}
+
+.card-container-recordings .card-footer button {
+  flex: 1;
+  padding: 8px 5px;
+  font-size: 0.85em;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.card-container-recordings .card-footer .button-view {
+  background: #38a169;
+  color: #fff;
+}
+
+.card-container-recordings .card-footer .button-view:hover {
+  background: #2f855a;
+}
+
+.card-container-recordings .card-footer .button-edit {
+  background: #ed8936;
+  color: #fff;
+}
+
+.card-container-recordings .card-footer .button-edit:hover {
+  background: #dd6b20;
+}
+
+.card-container-recordings .card-footer .button-delete {
+  background: #e53e3e;
+  color: #fff;
+}
+
+.card-container-recordings .card-footer .button-delete:hover {
+  background: #c53030;
+}

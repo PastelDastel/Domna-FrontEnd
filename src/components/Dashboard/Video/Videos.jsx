@@ -108,7 +108,6 @@ const Videos = () => {
         };
         fetchVideos();
     }, [axios, reload]);
-    console.log(videos);
     return (
         <div className={style.videos}>
             {globalLoading ? (

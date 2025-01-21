@@ -24,12 +24,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
- /*  border-right: 2px solid #e47a94;
-  border-top: 2px solid #e47a94; */
 }
 .sidebarButton {
   background-color: #e9d2d9;
-  color: white;
+  color: black;
   padding: 10px;
   margin-right: 40px;
   margin-top: 50px;
@@ -38,13 +36,14 @@
   cursor: pointer;
   width: 50%;
   text-align: center;
- 
 }
 
 .sidebarButton:hover {
   background-color: #e47a94;
+  color: #f4f4f9;
 }
 
 .selected {
   background-color: #e47a94;
+  color: #f4f4f9;
 }

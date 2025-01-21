@@ -5,8 +5,6 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import styles from "./Profile.module.css"; // Import the CSS module
 import useLogout from "../../hooks/useLogout";
 import MetaPixel from "../Global Components/MetaPixel";
-import VideoSDK from "./VideoSDK/VideoSDK";
-import { getLastRecordingBasedOnRoomId, getTodayRoomID } from "./VideoSDK/API";
 import CourseList from "./CourseList";
 import Swal from "sweetalert2";
 
@@ -15,14 +13,14 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [courses, setCourses] = useState([]);
   const [hasLiveBenefit, setHasLiveBenefit] = useState(false); // Separate state for LIVE benefit check
-  const [loadingRecordings, setLoadingRecordings] = useState(false);
-  const [recordings, setRecordings] = useState([]);
   const [showLives, setShowLives] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState(null); // State to track the selected video
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
+  const [link, setLink] = useState("");
+  const [lives, setLives] = useState([]);
+  const [globalLoading, setGlobalLoading] = useState(true);
 
   const handleChangePassword = async () => {
     const { value: formValues } = await Swal.fire({
@@ -68,14 +66,12 @@ const Profile = () => {
     if (formValues) {
       try {
         const response = await axiosPrivate.post(`/api/users/${id}/password`, formValues);
-        console.log("Password change response:", response.data);
+        Swal.fire("Successo!", `La tua password è stata cambiata in ${formValues.newPassword}`, "success");
       }
       catch (error) {
         console.error("Error changing password:", error);
         Swal.fire("Errore!", "Qualcosa è andato storto. Riprova più tardi.", "error");
       }
-      console.log(formValues);
-      Swal.fire("Successo!", `La tua password è stata cambiata in ${formValues.newPassword}`, "success");
     }
   };
 
@@ -101,18 +97,14 @@ const Profile = () => {
         }
       }
     };
-
     fetchUserData();
-
     return () => {
       controller.abort();
     };
   }, [id, axiosPrivate, navigate, location]);
 
-  // Fetch Courses Data
   useEffect(() => {
     const controller = new AbortController();
-    getTodayRoomID();
     const fetchCourses = async () => {
       try {
         const response = await axiosPrivate.get(`/api/users/${id}/courses`, {
@@ -120,65 +112,45 @@ const Profile = () => {
         });
         const fetchedCourses = response.data;
         setCourses(fetchedCourses);
-
         const liveBenefit = fetchedCourses.some(course => {
           return course.Benefits.some(benefit => {
-            console.log(benefit.Benefit.Name);
-            console.log(benefit.Type);
             return benefit.Benefit.Name === "Live" && benefit.Type === "Included";
           });
         });
         setHasLiveBenefit(liveBenefit);
+        if (liveBenefit) {
+          const fetchLiveLink = async () => {
+            try {
+              const response = await axiosPrivate.get("/api/streaming/streaming-link");
+              console.log(response.data.live.Url);
+              setLink(response.data.live.Url);
+            } catch (error) {
+              console.error("Fetch live link error:", error);
+            }
+          };
+          const fetchRecordings = async () => {
+            try {
+              const response = await axiosPrivate.get("/api/recordings");
+              setLives(response.data);
+              setGlobalLoading(false);
+            } catch (error) {
+              console.error("Fetch lives error:", error);
+              setGlobalLoading(false);
+            }
+          };
+          fetchLiveLink();
+          fetchRecordings();
+        }
       } catch (err) {
         console.error("Error fetching courses:", err);
       }
     };
-
     fetchCourses();
-
     return () => {
       controller.abort();
     };
   }, [id, axiosPrivate]);
-  // Scroll Listener (with passive: true)
-  useEffect(() => {
-    const handleScroll = () => {
-      console.log("User is scrolling the page with video.");
-    };
 
-    // Attach scroll listener with passive: true
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    // Cleanup the listener when the component unmounts
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-  // Fetch Recordings if LIVE benefit exists
-  useEffect(() => {
-    if (hasLiveBenefit) {
-      const fetchRecordings = async () => {
-        setLoadingRecordings(true);
-        try {
-          console.log("Fetching recordings...");
-          const fetchedRecordings = await getLastRecordingBasedOnRoomId();
-          const filteredRecordings = fetchedRecordings.filter(recording => {
-            // Exclude recordings that are in progress or incomplete
-            return recording.status !== "in-progress";
-          });
-          setRecordings(filteredRecordings || []); // Default to empty array if no valid recordings
-          console.log("Filtered Recordings: ", filteredRecordings);
-        } catch (error) {
-          console.error("Error fetching recordings:", error);
-          setRecordings([]); // Set to empty array in case of error
-        } finally {
-          setLoadingRecordings(false);
-        }
-      };
-
-      fetchRecordings();
-    }
-  }, [hasLiveBenefit]);
 
   return (
     <>
@@ -225,63 +197,21 @@ const Profile = () => {
             </>
           ) : (
             <>
-              {loadingRecordings ? (
-                <p className={styles.loading}>Getting live recordings, please wait...</p>
-              ) : (
-                <>
-                  {hasLiveBenefit ? (
-                    <>
-                      <VideoSDK user={user} meetingId={getTodayRoomID()} />
-
-                      {recordings.length > 0 ? (
-                        <>
-                          <h1>Registrazioni</h1>
-                          {recordings.map(recording => {
-                            const formattedDate = new Date(recording.file.createdAt).toLocaleDateString("it-IT", {
-                              day: "2-digit",
-                              month: "long",
-                              year: "numeric",
-                            });
-
-                            return (
-                              <div key={recording.id} className={styles.recordingDetail}>
-                                <button
-                                  className={styles.recordingButton}
-                                  onClick={() => setSelectedVideo(recording.file.fileUrl)}
-                                >
-                                  Live del {formattedDate}
-                                </button>
-                              </div>
-                            );
-                          })}
-
-                          {selectedVideo && (
-                            <div className={styles.videoSection}>
-                              <video
-                                controls
-                                src={selectedVideo}
-                                className={styles.recordingVideo}
-                                disablePictureInPicture={true}
-                                controlsList="nodownload"
-                                //disable download possibility
-                                onContextMenu={e => e.preventDefault()}
-                              >
-                                Your browser does not support the video tag.
-                              </video>
-                            </div>
-                          )}
-                        </>
-                      ) : (
-                        <p>Non ci sono registrazioni disponibili</p>
-                      )}
-                    </>
-                  ) : (
-                    <p className={styles.noLiveData}>
-                      Iscriviti ad un corso DOMNA LIVE per accedere a questa sezione
-                    </p>
-                  )}
-                </>
-              )}
+              {hasLiveBenefit ? (<>
+                {globalLoading ? (<>
+                  <div>
+                    <p>Loading Live section...</p>
+                  </div>
+                </>) : (<>
+                  { //make the link open in a new tab
+                    link ? (
+                      <div className={styles.liveLink}>
+                        <h1>Live Link</h1>
+                        <a href={link} target="_blank" rel="noreferrer">Accedi alla live</a>
+                      </div>) : (<p>No link available</p>)
+                  }
+                </>)}
+              </>) : (<></>)}
             </>
           )}
         </div>

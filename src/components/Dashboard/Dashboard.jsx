@@ -6,6 +6,7 @@ import Courses from "./Courses/Courses";
 import Benefits from "./Benefits/Benefits";
 import Categories from "./Categories/Categories";
 import Videos from "./Video/Videos";
+import Lives from "./Live/Lives";
 const Dashboard = () => {
     const [selectedView, setSelectedView] = useState("overview");
 
@@ -35,6 +36,8 @@ const MainView = ({ selectedView }) => {
             return <Categories />;
         case "videos":
             return <Videos />;
+        case "lives":
+            return <Lives />;
         case "transactions":
             return <Transactions />;
         default:
@@ -43,27 +46,13 @@ const MainView = ({ selectedView }) => {
 };
 
 const Overview = () => {
-    const axios = useAxiosPrivate();
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("/");
-            } catch (err) {
-                console.error("Error fetching overview:", err);
-            }
-        };
-
-        fetchData();
-    }, [axios]);
-
-
-
-    <div className={style.content}>
+    return (<div className={style.content}>
         <h1>Overview</h1>
-    </div>
+        <p>Work in progress...</p>
+    </div>)
 };
 
-const Transactions = () => <div className={style.content}><h1>Transactions</h1></div>;
+const Transactions = () => { return (<div className={style.content}><h1>Transactions</h1></div>) };
 
 const SidebarButton = ({ view, selectedView, onViewChange }) => {
     return (
@@ -79,7 +68,7 @@ const SidebarButton = ({ view, selectedView, onViewChange }) => {
 
 // Sidebar Component
 const Sidebar = ({ selectedView, onViewChange }) => {
-    const views = ["overview", "users", "courses", "benefits", "categories", "videos", "blogs", "transactions"];
+    const views = ["overview", "users", "courses", "benefits", "categories", "videos", "lives"];
     return (
         <div className={style.sidebar}>
             {views.map((view) => (

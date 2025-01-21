@@ -1,0 +1,85 @@
+.create-modal-recording {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-modal-recording h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #4c6ef5;
+}
+
+.create-modal-recording form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.create-modal-recording label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  width: 150px;
+}
+
+.create-modal-recording input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.create-modal-recording input:focus {
+  border-color: #4c6ef5;
+  box-shadow: 0 0 3px rgba(76, 110, 245, 0.5);
+}
+
+.create-modal-recording button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.create-modal-recording button[type="submit"] {
+  background: #4c6ef5;
+  color: #fff;
+}
+
+.create-modal-recording button[type="submit"]:hover {
+  background: #3b5bcc;
+}
+
+.create-modal-recording button[type="button"] {
+  background: #e53e3e;
+  color: #fff;
+}
+
+.create-modal-recording button[type="button"]:hover {
+  background: #c53030;
+}
+
+.create-modal-recording .input-date,
+.create-modal-recording .input-url {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.create-modal-recording .group-button {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
