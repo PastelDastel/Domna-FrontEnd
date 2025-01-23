@@ -1,27 +1,38 @@
 import React, { useState, useEffect } from "react";
 import Testimonial from "./Testimonial/Testimonial";
 import style from "./TestimonialsSlider.module.css";
+import img from "../../../assets/JPG/laura.jpg";
+import img2 from "../../../assets/JPG/monia.jpg";
+import img3 from "../../../assets/JPG/danila.jpg";
+import img4 from "../../../assets/JPG/silvia.jpg";
 
 const testimonialsData = [
   {
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
-    name: "Valentina",
+    image: img2,
+    name: "Monia",
     role: "Cliente Domna",
-    text: "Ho iniziato il percorso ‘Domna’ e non potrei essere più soddisfatta! La preparazione è stata fondamentale per acquisire forza e flessibilità. Ho trasformato i miei desideri in realtà grazie a questo programma. Consiglio vivamente a tutte le donne che desiderano un cambiamento reale nella loro vita.",
-    rating: 4.5,
-  },
-  {
-    image: "https://randomuser.me/api/portraits/women/45.jpg",
-    name: "Giulia",
-    role: "Cliente Domna",
-    text: "Il programma Domna ha cambiato la mia vita. Lo consiglio a tutte!",
+    text: "Grazie a Domna, sto finalmente risolvendo il mio problema alle gambe. Non avrei mai immaginato di vedere le mie gambe così leggere e sgonfie.",
     rating: 5,
   },
   {
-    image: "https://randomuser.me/api/portraits/women/46.jpg",
-    name: "Sofia",
+    image: img4,
+    name: "Silvia",
     role: "Cliente Domna",
-    text: "Mi sento più forte e sicura grazie al percorso Domna.",
+    text: "Per trent'anni ho convissuto con una frustrante rigidità muscolare. Domna mi ha offerto un programma di allenamento che porta enormi benefici a chi soffre di mialgia. Da un anno mi alleno online e non ho più avuto alcuna problematica.",
+    rating: 5,
+  },
+  {
+    image: img3,
+    name: "Danila",
+    role: "Cliente Domna",
+    text: "Dopo pochi mesi, grazie a Domna, i risultati sono evidenti sia sulla mia schiena che nella tonificazione del corpo.",
+    rating: 4,
+  },
+  {
+    image: img,
+    name: "Laura",
+    role: "Cliente Domna",
+    text: "Domna e Marcella trasformano le cose più difficili in facili, divertendoci e accompagnandoci verso obiettivi ambiziosi.",
     rating: 4,
   },
 ];
