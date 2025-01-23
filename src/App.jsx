@@ -29,7 +29,6 @@ function App() {
           <Route path="/blog/article/:id" element={<BlogArticlePage />} />
           <Route path="blog" element={<Blog />} />
           <Route path="/" element={<Home />} />
-
           <Route element={<RequireAuth allowedRoles={[4934503821911649, 6792941695628669]} />}>
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/shopping-cart" element={<ShoppingCart />} />
@@ -39,7 +38,6 @@ function App() {
             <Route path="admin" element={<Admin />} />
             <Route path="random" element={<Random />} />
           </Route>
-
           <Route path="*" element={<Missing />} />
         </Route>
       </Route>

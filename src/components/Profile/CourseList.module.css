@@ -135,6 +135,17 @@
   border-radius: 5px;
 }
 
+.subCategoryCard {
+  background-color: #ffc2d1;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.subCategoryCard li {
+  list-style-type: none;
+}
+
 @media (max-width: 1200px) {
   .courseCard {
     width: 90vw;

@@ -11,7 +11,14 @@ const CourseList = ({ courses }) => {
     const [currentPlayingVideoId, setCurrentPlayingVideoId] = useState(null);
     const [activeCourseId, setActiveCourseId] = useState(null);
     const [activeCategoryId, setActiveCategoryId] = useState(null); // Track which category is active
-
+    const [expandedSubCategories, setExpandedSubCategories] = useState({}); // Track which subcategories are expanded
+    const [expandedMonths, setExpandedMonths] = useState({}); // Track which months are expanded
+    const toggleSubCategory = (id) => {
+        setExpandedSubCategories((prevState) => ({
+            ...prevState,
+            [id]: !prevState[id],
+        }));
+    };
     useEffect(() => {
         const fetchVideosProgress = async () => {
             try {
@@ -56,6 +63,12 @@ const CourseList = ({ courses }) => {
 
     const handleBackToCategories = () => {
         setActiveCategoryId(null);
+    };
+    const toggleMonth = (id) => {
+        setExpandedMonths((prevState) => ({
+            ...prevState,
+            [id]: !prevState[id],
+        }));
     };
     return (
         <>
@@ -134,92 +147,113 @@ const CourseList = ({ courses }) => {
                                     <h1>{category.Name}</h1>
                                     {category.Months?.map((program, index) => {
                                         const previousMonthCompleted =
-                                            index === 0 || (category.Months[index - 1]?.Videos || []).every((video) =>
-                                                completedVideos.has(video._id)
-                                            );
+                                            index === 0 || (category.Months[index - 1]?.Videos || []).every((video) => completedVideos.has(video._id));
                                         const isMonthUnlocked = previousMonthCompleted;
-                                        const monthCompleted = (program?.Videos || []).every((video) =>
-                                            completedVideos.has(video._id)
-                                        );
+                                        const isExpanded = expandedMonths[program._id || index];
+                                        const monthCompleted = (program?.Videos || []).every((video) => completedVideos.has(video._id));
+
                                         return (
                                             <div key={program._id || index} className={style.monthCard}>
-                                                {isMonthUnlocked ? (
+                                                {/* Month Header */}
+                                                <div
+                                                    className={style.monthHeader}
+                                                    onClick={() => toggleMonth(program._id || index)}
+                                                    style={{ cursor: "pointer" }}
+                                                >
+                                                    <h3>
+                                                        Mese {index + 1} {monthCompleted && "✔"} {/* Mark completed months */}
+                                                    </h3>
+                                                    <span>{isExpanded ? "▲" : "▼"}</span>
+                                                </div>
+
+                                                {/* Dropdown Content */}
+                                                {isExpanded && (
                                                     <>
-                                                        <p>{program?.Description || "No description available"}</p>
-                                                        <ul>
-                                                            {(program?.Videos || []).map((video, videoIndex) => {
-                                                                // Check if the current video is unlocked
-                                                                const isCompleted = completedVideos.has(video._id);
-                                                                const isVideoUnlocked =
-                                                                    videoIndex === 0 || completedVideos.has(program?.Videos[videoIndex - 1]?._id);
-                                                                return (
-                                                                    <li key={video._id}>
-                                                                        {isVideoUnlocked ? (
-                                                                            <VideoTrack
-                                                                                isCompleted={isCompleted}
-                                                                                videoUrl={video.Url}
-                                                                                videoId={video._id}
-                                                                                videoName={video.Title}
-                                                                                onVideoUpdate={handleVideoUpdate}
-                                                                                isPlaying={currentPlayingVideoId === video._id}
-                                                                                onPlay={() => handleVideoPlay(video._id)}
-                                                                            />
-                                                                        ) : (
-                                                                            <p style={{ color: "gray" }}>
-                                                                                🔒 {video.Title || "Untitled Video"} - Complete the previous video to unlock.
-                                                                            </p>
-                                                                        )}
-                                                                    </li>
-                                                                );
-                                                            })}
-                                                        </ul>
+                                                        {isMonthUnlocked ? (
+                                                            <>
+                                                                <p>{program?.Description || "No description available"}</p>
+                                                                <ul>
+                                                                    {(program?.Videos || []).map((video, videoIndex) => {
+                                                                        const isCompleted = completedVideos.has(video._id);
+                                                                        const isVideoUnlocked =
+                                                                            videoIndex === 0 || completedVideos.has(program?.Videos[videoIndex - 1]?._id);
+
+                                                                        return (
+                                                                            <li key={video._id}>
+                                                                                {isVideoUnlocked ? (
+                                                                                    <VideoTrack
+                                                                                        isCompleted={isCompleted}
+                                                                                        videoUrl={video.Url}
+                                                                                        videoId={video._id}
+                                                                                        videoName={video.Title}
+                                                                                        onVideoUpdate={handleVideoUpdate}
+                                                                                        isPlaying={currentPlayingVideoId === video._id}
+                                                                                        onPlay={() => handleVideoPlay(video._id)}
+                                                                                    />
+                                                                                ) : (
+                                                                                    <p style={{ color: "gray" }}>
+                                                                                        🔒 {video.Title || "Untitled Video"} - Complete the previous video to unlock.
+                                                                                    </p>
+                                                                                )}
+                                                                            </li>
+                                                                        );
+                                                                    })}
+                                                                </ul>
+                                                            </>
+                                                        ) : (
+                                                            <p style={{ color: "gray" }}>
+                                                                🔒 Mese {program?._id || index} - Complete all videos from the previous month to unlock.
+                                                            </p>
+                                                        )}
                                                     </>
-                                                ) : (
-                                                    <p style={{ color: "gray" }}>
-                                                        🔒 Mese {program?._id || index} - Complete all videos from the previous month to unlock.
-                                                    </p>
                                                 )}
                                             </div>
                                         );
                                     })}
-                                    {
-                                        category.SubCategories?.map((subCategory, index) => {
-                                            return (
-                                                <>
-                                                    <div key={subCategory._id || index} className={style.subCategoryCard}>
-                                                        <p>{subCategory.Name}</p>
-                                                        <p>{subCategory.Description}</p>
-                                                        <ul>
-                                                            {(subCategory?.Videos || []).map((video, videoIndex) => {
-                                                                const isCompleted = completedVideos.has(video._id);
-                                                                const isVideoUnlocked =
-                                                                    videoIndex === 0 || completedVideos.has(subCategory?.Videos[videoIndex - 1]?._id);
-                                                                return (
-                                                                    <li key={video._id}>
-                                                                        {isVideoUnlocked ? (
-                                                                            <VideoTrack
-                                                                                isCompleted={isCompleted}
-                                                                                videoUrl={video.Url}
-                                                                                videoId={video._id}
-                                                                                videoName={video.Title}
-                                                                                onVideoUpdate={handleVideoUpdate}
-                                                                                isPlaying={currentPlayingVideoId === video._id}
-                                                                                onPlay={() => handleVideoPlay(video._id)}
-                                                                            />
-                                                                        ) : (
-                                                                            <p style={{ color: "gray" }}>
-                                                                                🔒 {video.Title || "Untitled Video"} - Complete the previous video to unlock.
-                                                                            </p>
-                                                                        )}
-                                                                    </li>
-                                                                );
-                                                            })}
-                                                        </ul>
-                                                    </div>
-                                                </>
-                                            )
-                                        })
-                                    }
+                                    {category.SubCategories?.map((subCategory, index) => {
+                                        const isExpanded = expandedSubCategories[subCategory._id || index];
+                                        return (
+                                            <div key={subCategory._id || index} className={style.subCategoryCard}>
+                                                {/* Subcategory Header */}
+                                                <div
+                                                    className={style.subCategoryHeader}
+                                                    onClick={() => toggleSubCategory(subCategory._id || index)}
+                                                    style={{ cursor: "pointer" }}
+                                                >
+                                                    <p>{subCategory.Name}</p>
+                                                    <p>{subCategory.Description}</p>
+                                                    <span>
+                                                        {isExpanded ? "▲" : "▼"} {/* Toggle indicator */}
+                                                    </span>
+                                                </div>
+
+                                                {/* Dropdown Content */}
+                                                {isExpanded && (
+                                                    <ul className={style.videoList}>
+                                                        {(subCategory?.Videos || []).map((video, videoIndex) => {
+                                                            const isCompleted = completedVideos.has(video._id);
+                                                            const isVideoUnlocked =
+                                                                videoIndex === 0 || completedVideos.has(subCategory?.Videos[videoIndex - 1]?._id);
+
+                                                            return (
+                                                                <li key={video._id}>
+                                                                    <VideoTrack
+                                                                        isCompleted={isCompleted}
+                                                                        videoUrl={video.Url}
+                                                                        videoId={video._id}
+                                                                        videoName={video.Title}
+                                                                        onVideoUpdate={handleVideoUpdate}
+                                                                        isPlaying={currentPlayingVideoId === video._id}
+                                                                        onPlay={() => handleVideoPlay(video._id)}
+                                                                    />
+                                                                </li>
+                                                            );
+                                                        })}
+                                                    </ul>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             ))
                         )}

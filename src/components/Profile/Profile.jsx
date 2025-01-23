@@ -7,7 +7,9 @@ import useLogout from "../../hooks/useLogout";
 import MetaPixel from "../Global Components/MetaPixel";
 import CourseList from "./CourseList";
 import Swal from "sweetalert2";
-
+import ThumbnailImage from "../../assets/PNG/sfondo grigio.png"
+import M from "../../assets/PNG/letter-m.png"
+import ReactPlayer from "react-player";
 const Profile = () => {
   const logout = useLogout();
   const [user, setUser] = useState(null);
@@ -21,7 +23,7 @@ const Profile = () => {
   const [link, setLink] = useState("");
   const [lives, setLives] = useState([]);
   const [globalLoading, setGlobalLoading] = useState(true);
-
+  const [playingVideo, setPlayingVideo] = useState(null);
   const handleChangePassword = async () => {
     const { value: formValues } = await Swal.fire({
       title: `<div class="${styles.modalTitle}">Modifica Password</div>`,
@@ -29,10 +31,8 @@ const Profile = () => {
         <div class="${styles.modalContainer}">
           <label for="currentPassword" class="${styles.label}">Vecchia Password</label>
           <input type="password" id="currentPassword" class="${styles.inputField}" placeholder="Vecchia Password">
-
           <label for="newPassword" class="${styles.label}">Nuova Password</label>
           <input type="password" id="newPassword" class="${styles.inputField}" placeholder="Nuova Password">
-
           <label for="confirmPassword" class="${styles.label}">Conferma Password</label>
           <input type="password" id="confirmPassword" class="${styles.inputField}" placeholder="Conferma Password">
         </div>
@@ -50,7 +50,6 @@ const Profile = () => {
         const currentPassword = document.getElementById("currentPassword").value;
         const newPassword = document.getElementById("newPassword").value;
         const confirmPassword = document.getElementById("confirmPassword").value;
-
         if (!currentPassword || !newPassword || !confirmPassword) {
           Swal.showValidationMessage("Tutti i campi sono obbligatori");
           return false;
@@ -62,7 +61,6 @@ const Profile = () => {
         return { currentPassword, newPassword };
       },
     });
-
     if (formValues) {
       try {
         const response = await axiosPrivate.post(`/api/users/${id}/password`, formValues);
@@ -74,13 +72,11 @@ const Profile = () => {
       }
     }
   };
-
   // Other functions and useEffects remain unchanged
   const handleLogout = async () => {
     await logout();
     navigate("/");
   };
-
   // Fetch User Data
   useEffect(() => {
     const controller = new AbortController();
@@ -102,7 +98,6 @@ const Profile = () => {
       controller.abort();
     };
   }, [id, axiosPrivate, navigate, location]);
-
   useEffect(() => {
     const controller = new AbortController();
     const fetchCourses = async () => {
@@ -150,8 +145,10 @@ const Profile = () => {
       controller.abort();
     };
   }, [id, axiosPrivate]);
-
-
+  const getDayandMonthandYear = (date) => {
+    const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+    return new Date(date).toLocaleDateString("it-IT", options); // Specifica la lingua italiana
+  };
   return (
     <>
       <MetaPixel pixelId={"410616855425028"} events={[{ type: "ThisDudeIsOnTheProfilePage", params: { userId: user?.id } }]} />
@@ -183,7 +180,6 @@ const Profile = () => {
             <p className={styles.noData}>Log in to see your profile</p>
           )}
         </div>
-
         <div className={styles.profileContent}>
           {!showLives ? (
             <>
@@ -210,32 +206,69 @@ const Profile = () => {
                         <a href={link} target="_blank" rel="noreferrer">Accedi alla live</a>
                       </div>) : (<p>No link available</p>)
                   }
-                  {lives.map((live) => {
-                    const date = new Date(live.Date);
-                    const displayDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-
-                    const getDayandMonthandYear = (date) => {
-                      const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
-
-                      return new Date(date).toLocaleDateString("it-IT", options); // Specifica la lingua italiana
-                    };
-
-                    return (
-                      <div key={live._id} className={styles.liveCard}>
-                        <div className={styles.liveHeader}>{displayDate}</div>
-                        <div className={styles.liveBody}>
-                          <a href={live.Url}>Live del {getDayandMonthandYear(live.Date)}</a>
+                  <div className={styles["video-grid"]}>
+                    {lives.map((live) => {
+                      return (
+                        <div
+                          key={live._id}
+                          className={styles["video-card"]}
+                          data-video={live.Url}
+                          onClick={() => setPlayingVideo(live.Url)}
+                          role="button"
+                          aria-label={`Play video recorded on ${getDayandMonthandYear(live.Date)}`}
+                        >
+                          <div className={styles["thumbnail"]}>
+                            <img
+                              src={ThumbnailImage}
+                              alt="Immagine registrazione"
+                              onError={(e) => (e.target.src = "https://placehold.co/1923784619237469172346")} // Replace with a valid fallback image path
+                            />
+                            <span className={styles["duration"]}>
+                              {live.Duration || "40:00"}
+                            </span>
+                          </div>
+                          <div className={styles["video-details"]}>
+                            <img src={M} alt="M Icon" />
+                            <div className={styles["info"]}>
+                              <h3 className={styles["title"]}>
+                                {getDayandMonthandYear(live.Date)}
+                              </h3>
+                              <p className={styles["meta"]}>
+                                {live.Url} <br /> {live.Views || "100M"} Visualizzazioni
+                              </p>
+                            </div>
+                          </div>
                         </div>
+                      );
+                    })}
+                  </div>
+                  {playingVideo && (
+                    <>
+                      {console.log(playingVideo)} {/* This will log the video URL */}
+                      <div className={styles["video-player"]}>
+                        <div
+                          className={styles["player-overlay"]}
+                          onClick={() => setPlayingVideo(null)}
+                        ></div>
+                        <ReactPlayer
+                          url={playingVideo}
+                          controls
+                          playing
+                          className={styles["player"]}
+                          onError={(e) => console.error("Video playback error:", e)}
+                        />
                       </div>
-                    );
-                  })}
-
+                    </>
+                  )}
                 </>)}
-              </>) : (<></>)}
+              </>) : (<>
+                <p className={styles.noLive}>
+                  Per accedere alle LIVE bisogna aver acquistato un corso DOMNA LIVE
+                </p>
+              </>)}
             </>
           )}
         </div>
-
       </div >
     </>
   );
