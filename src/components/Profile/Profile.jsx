@@ -177,7 +177,7 @@ const Profile = () => {
               </button>
             </>
           ) : (
-            <p className={styles.noData}>Log in to see your profile</p>
+            <p className={styles.noData}>Accedi per vedere il tuo profilo</p>
           )}
         </div>
         <div className={styles.profileContent}>

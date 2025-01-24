@@ -146,7 +146,16 @@
   list-style-type: none;
 }
 
+button{
+  cursor: pointer !important;
+}
+
 @media (max-width: 1200px) {
+
+  .goBackButton{
+    margin-top: 30px;
+    width: 35%;
+  }
   .courseCard {
     width: 90vw;
     max-width: 800px;
@@ -156,10 +165,12 @@
     grid-template-columns: 1fr;
     margin: 0 auto;
     background-color: #ffc2d1;
+    margin-bottom: 40px;
   }
 
   .courseCard .courseImageContainer img {
-    object-fit: cover;
+    object-fit:  cover;
+
   }
 
   .courseCard .courseDetails {
@@ -178,6 +189,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 50px;
+    padding-bottom: 10px;
+  }
+
+  .categoryCard h2 {
+    margin-top: 15px;
+  }
+
+  .categoryCard p{
+    word-wrap: break-word;
   }
 
   .monthCard {

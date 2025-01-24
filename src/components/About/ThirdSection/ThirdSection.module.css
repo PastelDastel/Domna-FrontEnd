@@ -39,6 +39,7 @@
 strong {
   text-decoration: underline;
   color: #8b1d1d;
+
 }
 
 @media (max-width: 950px) {
@@ -156,4 +157,6 @@ strong {
   .paragraphSection {
     font-size: 0.8rem;
   }
+
+    
 }

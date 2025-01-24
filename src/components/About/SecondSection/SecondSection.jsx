@@ -28,7 +28,7 @@ const SecondSection = () => {
                     <p className={style.mindsetText}>
                         Lasciamo da parte gli estremi e diventiamo sani per il lungo periodo!
                         <br /><br />
-                        (<Link to={"/mindset"} className={style.mindsetLink}>Leggi di più sul mio percorso di recupero qui</Link>)
+                        <Link to={"/mindset"} className={style.mindsetLink}>Leggi di più sul mio percorso di recupero qui</Link>
                     </p>
                 </div>
             </div>
