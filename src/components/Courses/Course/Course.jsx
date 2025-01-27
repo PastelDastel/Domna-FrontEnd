@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import style from "./Course.module.css";
-
 const Course = ({ course }) => {
     const {
         Title, Description, Price,

@@ -16,8 +16,6 @@ import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import BlogArticlePage from "./components/BlogArticlePage/BlogArticlePage";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Random from "./components/Test/Random";
-import { SpeedInsights } from "@vercel/speed-insights/react"
-import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   return (
@@ -45,8 +43,7 @@ function App() {
         </Route>
 
       </Route>
-      <SpeedInsights />
-      <Analytics />
+
     </Routes>
   );
 }
