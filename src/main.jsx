@@ -5,11 +5,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
 import './index.css'; // Global CSS
 createRoot(document.getElementById("root")).render(
-    <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path="/*" element={<App />} />
-        </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+  <BrowserRouter>
+    <AuthProvider>
+      <Routes>
+        <Route path="/*" element={<App />} />
+      </Routes>
+    </AuthProvider>
+  </BrowserRouter>
 );
