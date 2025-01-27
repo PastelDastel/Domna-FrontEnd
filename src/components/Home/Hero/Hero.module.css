@@ -267,7 +267,6 @@
     display: flex;
     flex-direction: row;
     gap: 50px;
-    background-color: rgba(64, 224, 208, 0.123);
   }
 
   .ButtonCorsi {

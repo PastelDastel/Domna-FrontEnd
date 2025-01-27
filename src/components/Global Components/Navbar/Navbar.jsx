@@ -73,7 +73,7 @@ const Navbar = () => {
               Courses
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               to="/blog"
               className={`${styles.link} ${isActive("/blog") ? styles.active : ""}`}
@@ -81,7 +81,7 @@ const Navbar = () => {
             >
               Blog
             </Link>
-          </li>
+          </li> */}
           {auth?.roles === 6792941695628669 && (
             <li>
               <Link
