@@ -210,7 +210,7 @@
   .socialIcons {
     position: absolute;
     right: auto !important; /* Lascia spazio per il posizionamento a sinistra se necessario */
-    bottom: 35% !important; /* Altezza dal fondo */
+    bottom: 25% !important;
     display: flex;
     flex-direction: row !important;
     gap: 50px;
@@ -261,13 +261,17 @@
   .socialIcons {
     position: absolute;
     right: 23%;
-    bottom: 25%;
+    bottom: 25% !important;
+    top: unset;
+    padding: 1px;
     display: flex;
     flex-direction: row;
     gap: 50px;
+    background-color: rgba(64, 224, 208, 0.123);
   }
 
   .ButtonCorsi {
     margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
