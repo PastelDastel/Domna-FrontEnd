@@ -10,11 +10,7 @@
   font-weight: 400;
   font-size: 10px;
   text-transform: uppercase;
-  
-
 }
-
-
 
 button {
   all: unset;
@@ -67,7 +63,6 @@ ul {
   line-height: 100px;
   position: relative; /* Added for underline styling */
   white-space: nowrap; /* Prevents text wrapping */
-  
 }
 
 .navMenu li .link:hover {
@@ -168,14 +163,10 @@ ul {
   }
   .navMenu li .link:hover {
     color: #d75494; /* Change color on hover for better UX */
-  }}
-
-
-
-
+  }
+}
 
 @media (max-width: 600px) {
-
   .navbar {
     position: absolute;
     top: unset;
@@ -256,11 +247,11 @@ ul {
   }
   .navMenu li .link:hover {
     color: #d75494; /* Change color on hover for better UX */
-  }}
-
+  }
+}
 
 /* ! FATTO */
-@media (max-width: 390px) {
+@media (max-width: 400px) {
   .navbar {
     position: absolute;
     top: unset;
@@ -340,56 +331,5 @@ ul {
   }
   .navMenu li .link:hover {
     color: #d75494; /* Change color on hover for better UX */
-  }
-}
-
-
-@media (max-height: 850px) {
-  .navMenu {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.95);
-    z-index: 99;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    height: 100vh;
-    width: 100%;
-    overflow-y: auto; /* Add scrolling if content exceeds the viewport */
-  }
-
-  .navMenu.open {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .navMenu li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%; /* Ensure each menu item takes full width */
-    display: flex;
-    justify-content: center; /* Center-aligns the text */
-    align-items: center; /* Vertically aligns the text */
-    text-align: center;
-  }
-
-  .navMenu li .link {
-    height: 80px;
-    color: #f29aa0; /* Adjust text color */
-    text-decoration: none;
-    font-size: 15px; /* Adjust font size for better readability */
-    text-align: center;
-    width: 100%; /* Ensure the link spans the full width of the list item */
-  }
-  .navMenu li .link {
-    margin: 0 40%;
   }
 }

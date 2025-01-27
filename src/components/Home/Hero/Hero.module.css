@@ -111,7 +111,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
- 
+
   margin: 10px auto;
   text-transform: uppercase;
   color: #e47a94;
@@ -125,15 +125,11 @@
 
 .ButtonCorsi:hover {
   background-color: #f3f3f5;
-
 }
 
 .navToCourses {
   color: #e47a94;
 }
-
-
-
 
 @media (min-width: 1600px) {
   .socialIcons {
@@ -145,7 +141,7 @@
     gap: 50px;
     z-index: 10; /* Assicurati che l'elemento sia visibile sopra gli altri */
   }
-  .ButtonCorsi{
+  .ButtonCorsi {
     margin-left: 0px;
     width: 50%;
   }
@@ -169,18 +165,17 @@
     text-align: left;
     z-index: 10;
   }
-  .ButtonCorsi{
+  .ButtonCorsi {
     margin-left: 0px;
-
   }
 }
 
-@media (max-width: 1439px) {
+@media (max-width: 1139px) {
   .hero {
     height: 100vh; /* Adjust for smaller screens */
     background-position: 60% 30%; /* Center the background */
     padding-top: 20px;
-    width: 100%;
+    background-color: aqua;
   }
 
   .heroText {
@@ -222,64 +217,12 @@
     z-index: 10; /* Assicurati che l'elemento sia visibile sopra gli altri */
   }
 
-  .ButtonCorsi{
+  .ButtonCorsi {
     margin: 0 auto;
-    
-
   }
 }
 
-@media (max-width: 375px) {
-  .hero {
-    height: 100vh;
-    background-position: 60% 30%;
-    padding-top: 10px;
-  }
-
-  .heroText {
-    position: absolute;
-    left: unset;
-    bottom: unset;
-    text-align: center;
-    z-index: 10;
-  }
-
-  .heroText h1 {
-    font-size: 40px;
-    color: #f29aa0;
-    margin: 0;
-  }
-
-  .heroText p {
-    font-size: 18px;
-    margin-top: 5px;
-  }
-  .heroText span {
-    font-size: 10px;
-    display: inline-block;
-    transition: all 0.3s ease;
-  }
-
-  .heroText span.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .socialIcons {
-    position: absolute;
-    right: 23%;
-    bottom: 25% !important;
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-  }
-
-  .ButtonCorsi{
-    margin-top: 20px;
-  }
-}
-
-@media (max-width: 359px) {
+@media (max-width: 500px) {
   .hero {
     height: 100vh;
     background-position: 60% 30%;
@@ -324,7 +267,7 @@
     gap: 50px;
   }
 
-  .ButtonCorsi{
+  .ButtonCorsi {
     margin-top: 20px;
   }
 }

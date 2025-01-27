@@ -42,7 +42,7 @@
 }
 
 .textSection.first {
-  left: 450px;
+  left: 350px;
 }
 
 .imageSection.first {
@@ -50,7 +50,7 @@
   left: 0;
 }
 .textSection.third {
-  left: 450px;
+  left: 350px;
 }
 
 .imageSection.third {
@@ -59,7 +59,7 @@
 }
 
 .textSection.second {
-  right: 450px;
+  right: 350px;
 }
 
 .imageSection.second {
@@ -156,7 +156,7 @@
 }
 
 
-@media (max-width: 359px) {
+@media (max-width: 500px) {
   .container {
     height: max-content;
     display: flex;
