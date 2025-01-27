@@ -9,9 +9,11 @@ const Overview = ({ closeModal, recording }) => {
 
     return (
         <div className={style["modal-overview-recording"]}>
-            <h1>Dettagli {displayDate(recording.Date)}</h1>
+            <h1>Dettagli {recording.Name}</h1>
             <div>
-                <h2>{displayDate(recording.Date)}</h2>
+                <p><strong>Data: </strong>{displayDate(recording.Date)}</p>
+                <p><strong>Nome:</strong> {recording.Name}</p>
+                <p><strong>Descrizione:</strong> <span dangerouslySetInnerHTML={{ __html: recording.Description }}></span></p>
                 <p><strong>URL:</strong> <a href={recording.Url} target="_blank" rel="noopener noreferrer">{recording.Url}</a></p>
             </div>
             <button onClick={closeModal}>Close</button>

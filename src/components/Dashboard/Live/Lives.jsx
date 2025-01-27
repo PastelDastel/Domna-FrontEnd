@@ -157,10 +157,11 @@ const Lives = () => {
                             const displayDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
                             return (
                                 <div key={live._id} className={style["card"]}>
-                                    <div className={style["card-header"]}>{displayDate}</div>
+                                    <div className={style["card-header"]}>{live.Name}</div>
                                     <div className={style["card-body"]}>
                                         <p><strong>ID:</strong> {live._id}</p>
                                         <p><strong>URL:</strong> {live.Url}</p>
+                                        <p><strong>Date:</strong> {displayDate}</p>
                                     </div>
                                     <div className={style["card-footer"]}>
                                         <button onClick={() => viewRecording(live)} className={style["button-view"]}>View</button>

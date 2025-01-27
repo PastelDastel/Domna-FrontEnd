@@ -25,21 +25,16 @@ const Home = () => {
           textAlignment="left"
         />
       </motion.div>
-
-     { <ParallaxSection
+    { <ParallaxSection
         text="Allenati Con DOMNA"
         id="first"
       />}
-
       <Section />
-
       <ParallaxSection
         text="Recensioni Clienti DOMNA" id="second" />
-
   {   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 1.2 } }}>
         <TestimonialsSlider />
       </motion.div>}
-
       <ContactSection />
     </>
   );

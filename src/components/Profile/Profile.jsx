@@ -9,7 +9,7 @@ import CourseList from "./CourseList";
 import Swal from "sweetalert2";
 import ThumbnailImage from "../../assets/PNG/sfondo grigio.png"
 import M from "../../assets/PNG/letter-m.png"
-import ReactPlayer from "react-player";
+import RecordingTrack from "./RecordingTrack";
 const Profile = () => {
   const logout = useLogout();
   const [user, setUser] = useState(null);
@@ -23,7 +23,23 @@ const Profile = () => {
   const [link, setLink] = useState("");
   const [lives, setLives] = useState([]);
   const [globalLoading, setGlobalLoading] = useState(true);
-  const [playingVideo, setPlayingVideo] = useState(null);
+
+  const [playingRecording, setPlayingRecording] = useState(null); // Stores the selected recording
+  const [isPlaying, setIsPlaying] = useState(false); // Tracks whether a recording is playing
+
+  const onPlay = (id) => {
+    const selectedRecording = lives.find((live) => live._id === id);
+    setPlayingRecording(selectedRecording);
+    setIsPlaying(true); // Start playback
+  };
+
+  const stopPlayback = () => {
+    setPlayingRecording(null);
+    setIsPlaying(false); // Stop playback
+  };
+
+
+
   const handleChangePassword = async () => {
     const { value: formValues } = await Swal.fire({
       title: `<div class="${styles.modalTitle}">Modifica Password</div>`,
@@ -125,8 +141,8 @@ const Profile = () => {
           };
           const fetchRecordings = async () => {
             try {
-              const response = await axiosPrivate.get("/api/recordings");
-              setLives(response.data);
+              const response = await axiosPrivate.get("/api/recordings/week");
+              setLives(response.data.recordings);
               setGlobalLoading(false);
             } catch (error) {
               console.error("Fetch lives error:", error);
@@ -213,7 +229,7 @@ const Profile = () => {
                           key={live._id}
                           className={styles["video-card"]}
                           data-video={live.Url}
-                          onClick={() => setPlayingVideo(live.Url)}
+                          onClick={() => onPlay(live._id)} // Pass the recording ID to the `onPlay` handler
                           role="button"
                           aria-label={`Play video recorded on ${getDayandMonthandYear(live.Date)}`}
                         >
@@ -231,34 +247,35 @@ const Profile = () => {
                             <img src={M} alt="M Icon" />
                             <div className={styles["info"]}>
                               <h3 className={styles["title"]}>
-                                {getDayandMonthandYear(live.Date)}
+                                <p>{live.Name}</p>
+                                <p>{getDayandMonthandYear(live.Date)}</p>
                               </h3>
-                              <p className={styles["meta"]}>
-                                {live.Url} <br /> {live.Views || "100M"} Visualizzazioni
-                              </p>
+                              <p
+                                className={styles["meta"]}
+                                dangerouslySetInnerHTML={{
+                                  __html: live.Description
+                                    ? `${live.Description}<br />${live.Views || "100M"} Visualizzazioni`
+                                    : "Descrizione non disponibile + live.views etc..",
+                                }}
+                              ></p>
                             </div>
                           </div>
                         </div>
                       );
                     })}
                   </div>
-                  {playingVideo && (
-                    <>
-                      {console.log(playingVideo)} {/* This will log the video URL */}
-                      <div className={styles["video-player"]}>
-                        <div
-                          className={styles["player-overlay"]}
-                          onClick={() => setPlayingVideo(null)}
-                        ></div>
-                        <ReactPlayer
-                          url={playingVideo}
-                          controls
-                          playing
-                          className={styles["player"]}
-                          onError={(e) => console.error("Video playback error:", e)}
-                        />
-                      </div>
-                    </>
+                  {isPlaying && playingRecording && (
+                    <RecordingTrack
+                      isCompleted={false} // Set to true if recording is marked as completed
+                      recordingUrl={playingRecording.Url} // Pass the selected recording URL
+                      recordingId={playingRecording._id} // Pass the selected recording ID
+                      recordingName={playingRecording.Name} // Pass the selected recording Name
+                      onRecordingUpdate={(update) => console.log("Recording updated:", update)} // Update handler
+                      isPlaying={isPlaying} // Control whether the player is active
+                      onPlay={(id) => {
+                        setPlayingRecording(lives.find((live) => live._id === id));
+                      }} // Start the selected recording
+                    />
                   )}
                 </>)}
               </>) : (<>

@@ -1,7 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import style from "./ContactSection.module.css";
+import axios from "axios";
 const ContactSection = () => {
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = {
+      name: formData.get("name"),
+      surname: formData.get("surname"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+    };
+    try {
+      const res = axios.post("https://domna-backend-1.onrender.com/newsletter", data);
+      console.log(res);
+      return;
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className={style.contactSection}>
       <div className={style.container}>

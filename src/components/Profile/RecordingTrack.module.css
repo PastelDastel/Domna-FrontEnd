@@ -1,0 +1,21 @@
+.playerWrapper {
+  padding: 0 20px;
+  width: 50vw;
+  /*calc the 16:9 ratio knowing that the column is 75% of the screen*/
+  height: calc(40vw * 9 / 16);
+  max-width: 50vw;
+  max-height: 40vw;
+}
+
+@media (max-width: 1200px) {
+  .playerWrapper {
+    margin: 0;
+    padding: 0;
+    padding: 0 20px;
+    width: 90vw;
+    /*calc the 16:9 ratio*/
+    height: calc(90vw * 9 / 16);
+    max-width: 800px;
+    max-height: 450px;
+  }
+}

@@ -70,7 +70,9 @@
 }
 
 .create-modal-recording .input-date,
-.create-modal-recording .input-url {
+.create-modal-recording .input-url,
+.create-modal-recording .input-name,
+.create-modal-recording .input-description {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -82,4 +84,12 @@
   gap: 10px;
   align-items: center;
   justify-content: space-between;
+}
+
+.create-modal-recording .input-description span{
+  font-size: 0.8rem;
+  color: #333;
+  max-width: 250px;
+  max-height: 150px;
+  overflow: auto;
 }

@@ -260,9 +260,25 @@
 }
 
 .iframe-container iframe {
-  width: 80%;
+  width: 60%;
   height: 400px;
   border: none;
+}
+
+.close-button {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 10; /* Ensure it is above other elements */
+  transition: background-color 0.3s;
+}
+
+.close-button:hover {
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 @media (max-width: 1200px) {
