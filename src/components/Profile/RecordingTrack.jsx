@@ -84,7 +84,13 @@ const RecordingTrack = ({
     return (
         <div style={{ margin: "10px" }}>
             <button
-                onClick={() => onPlay(recordingId)}
+                onClick={() => {
+                    if (isPlaying) {
+                        onPlay(null); // Set playingRecording to null to stop playback
+                    } else {
+                        onPlay(recordingId);
+                    }
+                }}
                 style={{
                     margin: "10px",
                     padding: "5px",
@@ -94,6 +100,7 @@ const RecordingTrack = ({
             >
                 {isPlaying ? "Close Recording" : `${recordingName}`}
             </button>
+
             {isPlaying && (
                 <div className={style.playerWrapper}>
                     {loading && <p>Loading...</p>}

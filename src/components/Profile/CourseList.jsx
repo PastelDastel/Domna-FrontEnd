@@ -226,7 +226,6 @@ const CourseList = ({ courses }) => {
                                                         {isExpanded ? "▲" : "▼"} {/* Toggle indicator */}
                                                     </span>
                                                 </div>
-
                                                 {/* Dropdown Content */}
                                                 {isExpanded && (
                                                     <ul className={style.videoList}>
@@ -234,7 +233,6 @@ const CourseList = ({ courses }) => {
                                                             const isCompleted = completedVideos.has(video._id);
                                                             const isVideoUnlocked =
                                                                 videoIndex === 0 || completedVideos.has(subCategory?.Videos[videoIndex - 1]?._id);
-
                                                             return (
                                                                 <li key={video._id}>
                                                                     <VideoTrack

@@ -82,9 +82,24 @@ const VideoTrack = ({
 
     return (
         <div style={{ margin: "10px" }}>
-            <button onClick={() => onPlay(videoId)} style={{ margin: "10px", padding: "5px", backgroundColor: "lightblue", borderRadius: "5px" }}>
-                {isPlaying ? "Close Video" : `${videoName}`}
+            <button
+                onClick={() => {
+                    if (isPlaying) {
+                        onPlay(null); // Set playingRecording to null to stop playback
+                    } else {
+                        onPlay(recordingId);
+                    }
+                }}
+                style={{
+                    margin: "10px",
+                    padding: "5px",
+                    backgroundColor: "lightblue",
+                    borderRadius: "5px",
+                }}
+            >
+                {isPlaying ? "Close Recording" : `${recordingName}`}
             </button>
+
             {isPlaying && (
                 <div className={style.playerWrapper}>
                     {loading && <p>Loading...</p>}

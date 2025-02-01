@@ -11,7 +11,6 @@
   .playerWrapper {
     margin: 0;
     padding: 0;
-    padding: 0 20px;
     width: 90vw;
     /*calc the 16:9 ratio*/
     height: calc(90vw * 9 / 16);

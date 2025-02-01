@@ -13,7 +13,7 @@ const ArticleCard = ({ title, text, overlay, image }) => {
                 dangerouslySetInnerHTML={{ __html: text }} // Allows HTML content
             ></p>
             <button className={style.learnMore}>
-                <Link to="/courses" className={style.navLink}>Scopri di più</Link>
+                <Link to="/courses" className={style.navLink}>Il Blog sara' disponibile a breve</Link>
             </button>
         </div>
     );

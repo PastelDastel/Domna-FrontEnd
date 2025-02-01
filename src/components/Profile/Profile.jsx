@@ -123,8 +123,11 @@ const Profile = () => {
         });
         const fetchedCourses = response.data;
         setCourses(fetchedCourses);
+        console.log("Corsi dell'utente", response.data);
         const liveBenefit = fetchedCourses.some(course => {
           return course.Benefits.some(benefit => {
+            console.log("Course:", course);
+            console.log("Benefit:", benefit.Benefit.Name);
             return benefit.Benefit.Name === "Live" && benefit.Type === "Included";
           });
         });
@@ -133,7 +136,7 @@ const Profile = () => {
           const fetchLiveLink = async () => {
             try {
               const response = await axiosPrivate.get("/api/streaming/streaming-link");
-              console.log(response.data.live.Url);
+              console.log("Benefici del utente:", response.data.live.Url);
               setLink(response.data.live.Url);
             } catch (error) {
               console.error("Fetch live link error:", error);
@@ -222,61 +225,68 @@ const Profile = () => {
                         <a href={link} target="_blank" rel="noreferrer">Accedi alla live</a>
                       </div>) : (<p>No link available</p>)
                   }
-                  <div className={styles["video-grid"]}>
+                  <div className={styles["video-container"]}> {/* Change the wrapper to a flex container */}
                     {lives.map((live) => {
+                      const isCurrentPlaying = playingRecording && playingRecording._id === live._id;
+
                       return (
-                        <div
-                          key={live._id}
-                          className={styles["video-card"]}
-                          data-video={live.Url}
-                          onClick={() => onPlay(live._id)} // Pass the recording ID to the `onPlay` handler
-                          role="button"
-                          aria-label={`Play video recorded on ${getDayandMonthandYear(live.Date)}`}
-                        >
-                          <div className={styles["thumbnail"]}>
-                            <img
-                              src={ThumbnailImage}
-                              alt="Immagine registrazione"
-                              onError={(e) => (e.target.src = "https://placehold.co/1923784619237469172346")} // Replace with a valid fallback image path
-                            />
-                            <span className={styles["duration"]}>
-                              {live.Duration || "40:00"}
-                            </span>
-                          </div>
-                          <div className={styles["video-details"]}>
-                            <img src={M} alt="M Icon" />
-                            <div className={styles["info"]}>
-                              <h3 className={styles["title"]}>
-                                <p>{live.Name}</p>
-                                <p>{getDayandMonthandYear(live.Date)}</p>
-                              </h3>
-                              <p
-                                className={styles["meta"]}
-                                dangerouslySetInnerHTML={{
-                                  __html: live.Description
-                                    ? `${live.Description}<br />${live.Views || "100M"} Visualizzazioni`
-                                    : "Descrizione non disponibile + live.views etc..",
-                                }}
-                              ></p>
+                        <div key={live._id} className={styles["video-card"]}> {/* Keep individual card styling */}
+                          <div
+                            className={styles["video-button"]} // Separated button-like div
+                            onClick={() => onPlay(live._id)}
+                            role="button"
+                            aria-label={`Play video recorded on ${getDayandMonthandYear(live.Date)}`}
+                          >
+                            <div className={styles["thumbnail"]}>
+                              <img
+                                src={ThumbnailImage}
+                                alt="Immagine registrazione"
+                                onError={(e) => (e.target.src = "https://placehold.co/192x108")}
+                              />
+                              <span className={styles["duration"]}>
+                                {live.Duration || "40:00"}
+                              </span>
+                            </div>
+                            <div className={styles["video-details"]}>
+                              <img src={M} alt="M Icon" />
+                              <div className={styles["info"]}>
+                                <h3 className={styles["title"]}>
+                                  <p>{live.Name}</p>
+                                  <p>{getDayandMonthandYear(live.Date)}</p>
+                                </h3>
+                                <p
+                                  className={styles["meta"]}
+                                  dangerouslySetInnerHTML={{
+                                    __html: live.Description
+                                      ? `${live.Description}<br />${live.Views || "100M"} Visualizzazioni`
+                                      : "Descrizione non disponibile + live.views etc..",
+                                  }}
+                                ></p>
+                              </div>
                             </div>
                           </div>
+
+                          {/* RecordingTrack appears immediately after the clickable area */}
+                          {isCurrentPlaying && (
+                            <div className={styles["recording-wrapper"]}>
+                              <RecordingTrack
+                                isCompleted={false}
+                                recordingUrl={playingRecording.Url}
+                                recordingId={playingRecording._id}
+                                recordingName={playingRecording.Name}
+                                onRecordingUpdate={(update) => console.log("Recording updated:", update)}
+                                isPlaying={isPlaying}
+                                onPlay={(id) => {
+                                  setPlayingRecording(lives.find((live) => live._id === id));
+                                }}
+                              />
+                            </div>
+                          )}
                         </div>
                       );
                     })}
                   </div>
-                  {isPlaying && playingRecording && (
-                    <RecordingTrack
-                      isCompleted={false} // Set to true if recording is marked as completed
-                      recordingUrl={playingRecording.Url} // Pass the selected recording URL
-                      recordingId={playingRecording._id} // Pass the selected recording ID
-                      recordingName={playingRecording.Name} // Pass the selected recording Name
-                      onRecordingUpdate={(update) => console.log("Recording updated:", update)} // Update handler
-                      isPlaying={isPlaying} // Control whether the player is active
-                      onPlay={(id) => {
-                        setPlayingRecording(lives.find((live) => live._id === id));
-                      }} // Start the selected recording
-                    />
-                  )}
+
                 </>)}
               </>) : (<>
                 <p className={styles.noLive}>

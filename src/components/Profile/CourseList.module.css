@@ -25,10 +25,15 @@
   align-items: center;
   justify-content: center;
 }
-
+.videoList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .monthCard {
-  width: 60vw; /* Ensure it spans full width */
-  max-width: 800px; /* Optional max width for larger screens */
+  width: 60vw; 
+  max-width: 800px; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -146,13 +151,12 @@
   list-style-type: none;
 }
 
-button{
+button {
   cursor: pointer !important;
 }
 
 @media (max-width: 1200px) {
-
-  .goBackButton{
+  .goBackButton {
     margin-top: 30px;
     width: 35%;
   }
@@ -169,8 +173,7 @@ button{
   }
 
   .courseCard .courseImageContainer img {
-    object-fit:  cover;
-
+    object-fit: cover;
   }
 
   .courseCard .courseDetails {
@@ -197,7 +200,7 @@ button{
     margin-top: 15px;
   }
 
-  .categoryCard p{
+  .categoryCard p {
     word-wrap: break-word;
   }
 
