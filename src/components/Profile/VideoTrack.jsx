@@ -22,7 +22,6 @@ const VideoTrack = ({
         const timestamp = playerRef.current?.getCurrentTime() || 0.1;
         let actualTime = actualTimeRef.current;
         if (actualTime > 0.1) { actualTime -= 0.1; } // Subtract the initial 0.1 seconds
-
         try {
             await axiosPrivate.post("/api/video/track", {
                 videoId,
@@ -31,7 +30,6 @@ const VideoTrack = ({
                 actualTime,
                 status,
             });
-
             onVideoUpdate({
                 videoId,
                 status,
@@ -45,7 +43,6 @@ const VideoTrack = ({
             actualTimeRef.current = 0.1; // Reset actualTime no matter what
         }
     };
-
     // Start periodic updates every 5 seconds
     const startTracking = () => {
         if (!intervalRef.current) {
@@ -60,7 +57,6 @@ const VideoTrack = ({
             }, 500);
         }
     };
-
     // Stop periodic updates and send final data
     const stopTracking = (status) => {
         if (intervalRef.current) {
@@ -71,7 +67,6 @@ const VideoTrack = ({
             sendTrackingData(status); // Send the accumulated actual time
         }
     };
-
     // Cleanup when visibility or component changes
     useEffect(() => {
         if (!isPlaying) {
@@ -79,7 +74,6 @@ const VideoTrack = ({
         }
         return () => stopTracking("Paused");
     }, [isPlaying]);
-
     return (
         <div style={{ margin: "10px" }}>
             <button
@@ -87,7 +81,7 @@ const VideoTrack = ({
                     if (isPlaying) {
                         onPlay(null); // Set playingRecording to null to stop playback
                     } else {
-                        onPlay(recordingId);
+                        onPlay(videoId);
                     }
                 }}
                 style={{
@@ -97,7 +91,7 @@ const VideoTrack = ({
                     borderRadius: "5px",
                 }}
             >
-                {isPlaying ? "Close Recording" : `${recordingName}`}
+                {isPlaying ? "Close Recording" : `${videoName}`}
             </button>
 
             {isPlaying && (

@@ -228,7 +228,6 @@ const Profile = () => {
                   <div className={styles["video-container"]}> {/* Change the wrapper to a flex container */}
                     {lives.map((live) => {
                       const isCurrentPlaying = playingRecording && playingRecording._id === live._id;
-
                       return (
                         <div key={live._id} className={styles["video-card"]}> {/* Keep individual card styling */}
                           <div
@@ -265,7 +264,6 @@ const Profile = () => {
                               </div>
                             </div>
                           </div>
-
                           {/* RecordingTrack appears immediately after the clickable area */}
                           {isCurrentPlaying && (
                             <div className={styles["recording-wrapper"]}>
@@ -286,7 +284,6 @@ const Profile = () => {
                       );
                     })}
                   </div>
-
                 </>)}
               </>) : (<>
                 <p className={styles.noLive}>
