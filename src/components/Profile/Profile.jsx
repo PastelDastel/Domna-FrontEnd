@@ -4,7 +4,6 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import styles from "./Profile.module.css"; // Import the CSS module
 import useLogout from "../../hooks/useLogout";
-import MetaPixel from "../Global Components/MetaPixel";
 import CourseList from "./CourseList";
 import Swal from "sweetalert2";
 import ThumbnailImage from "../../assets/PNG/sfondo grigio.png"
@@ -170,7 +169,6 @@ const Profile = () => {
   };
   return (
     <>
-      <MetaPixel pixelId={"410616855425028"} events={[{ type: "ThisDudeIsOnTheProfilePage", params: { userId: user?.id } }]} />
       <div className={styles.profileContainer}>
         <div className={styles.profileSidebar}>
           {user ? (

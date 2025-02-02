@@ -25,11 +25,6 @@ const SecondSection = () => {
                         esaurirsi (e senza scombussolare i propri ormoni nel processo). La vera salute considera la salute
                         mentale, insieme alla salute fisica, e può essere mantenuta in tutte le stagioni e fasi della vita.
                     </p>
-                    <p className={style.mindsetText}>
-                        Lasciamo da parte gli estremi e diventiamo sani per il lungo periodo!
-                        <br /><br />
-                        <Link to={"/mindset"} className={style.mindsetLink}>Leggi di più sul mio percorso di recupero qui</Link>
-                    </p>
                 </div>
             </div>
         </div>

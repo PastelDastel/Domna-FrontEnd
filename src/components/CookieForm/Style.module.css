@@ -1,0 +1,148 @@
+/* Overlay del modale */
+.cookieOverlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 20px;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenitore */
+.cookieContainer {
+  background-color: #222;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Titolo */
+.cookieTitle {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #f39fc8; /* Rosa */
+}
+
+/* Descrizione */
+.cookieDescription {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+/* Opzioni cookie */
+.cookieOptions {
+  text-align: left;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Label con checkbox */
+.cookieLabel {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #ccc;
+  gap: 10px;
+}
+
+.cookieLabel input {
+  width: 18px;
+  height: 18px;
+  accent-color: #f39fc8; /* Cambia il colore del checkbox */
+}
+
+/* Pulsanti */
+.cookieButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Stile pulsanti */
+.acceptButton,
+.rejectButton,
+.saveButton {
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  width: 100%;
+}
+
+/* Accetta tutti */
+.acceptButton {
+  background-color: #28a745; /* Verde */
+}
+
+.acceptButton:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+/* Rifiuta tutti */
+.rejectButton {
+  background-color: #dc3545; /* Rosso */
+}
+
+.rejectButton:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+/* Salva preferenze */
+.saveButton {
+  background-color: #007bff; /* Blu */
+}
+
+.saveButton:hover {
+  background-color: #0069d9;
+  transform: scale(1.05);
+}
+
+/* ✅ RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .cookieContainer {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .cookieTitle {
+    font-size: 1.3rem;
+  }
+
+  .cookieDescription {
+    font-size: 0.95rem;
+  }
+
+  .cookieOptions {
+    gap: 5px;
+  }
+
+  .cookieLabel {
+    font-size: 0.9rem;
+  }
+
+  .acceptButton,
+  .rejectButton,
+  .saveButton {
+    width: 100%;
+    padding: 10px;
+  }
+}

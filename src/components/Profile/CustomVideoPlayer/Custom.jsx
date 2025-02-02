@@ -6,7 +6,6 @@ const CustomReactPlayer = forwardRef(
         const [playing, setPlaying] = useState(true); // Playback state
         const [progress, setProgress] = useState(0); // Video progress
         const [volume, setVolume] = useState(0.5); // Volume state (default to 50%)
-
         return (
             <div
                 style={{
@@ -42,7 +41,6 @@ const CustomReactPlayer = forwardRef(
                     onReady={onReady}
                     onProgress={({ played }) => setProgress(played)} // Track progress
                 />
-
                 {/* Custom Controls */}
                 <div
                     style={{
@@ -74,7 +72,6 @@ const CustomReactPlayer = forwardRef(
                     >
                         {playing ? "Pause" : "Play"}
                     </button>
-
                     {/* Progress Bar */}
                     <input
                         type="range"
@@ -85,7 +82,6 @@ const CustomReactPlayer = forwardRef(
                         onChange={(e) => ref.current.seekTo(parseFloat(e.target.value), "fraction")}
                         style={{ width: "90%" }}
                     />
-
                     {/* Volume Control */}
                     <div
                         style={{
@@ -106,7 +102,6 @@ const CustomReactPlayer = forwardRef(
                             style={{ flex: 1 }}
                         />
                     </div>
-
                     {/* Fullscreen Button */}
                     <button
                         onClick={() => {

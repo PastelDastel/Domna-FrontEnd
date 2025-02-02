@@ -1,0 +1,63 @@
+.footer {
+    background-color: #222;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .links a,
+  .cookieButton {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .links a:hover,
+  .cookieButton:hover {
+    color: #ff69b4;
+  }
+  
+  .cookieButton {
+    font-size: 14px;
+  }
+  
+  .social {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .social img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+  }
+  
+  .social img:hover {
+    transform: scale(1.2);
+  }
+  
+  .copyright {
+    font-size: 12px;
+    opacity: 0.8;
+  }
+  
