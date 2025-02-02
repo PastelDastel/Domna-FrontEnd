@@ -38,6 +38,11 @@ const Course = ({ course }) => {
                 navigate("/shopping-cart");
             } catch (error) {
                 console.error('Error adding to cart:', error);
+                alert("Ordine gia' presente nel carrello");
+                if (error.response.status === 409) {
+                    navigate("/shopping-cart");
+                }
+
             } finally {
                 setIsLoading(false);
             }
