@@ -1,57 +1,58 @@
 /* Center the unauthorized container */
 .unauthorizedContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #f4f4f9;
 }
 
 /* Styling for the unauthorized message box */
 .unauthorizedBox {
-    width: 100%;
-    max-width: 400px;
-    padding: 40px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-family: Arial, sans-serif;
-    color: #333;
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: #333;
 }
 
 .unauthorizedBox h1 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 16px;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 16px;
 }
 
 .unauthorizedBox p {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 24px;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 24px;
 }
 
 /* Flex container for the button */
 .flexGrow {
-    display: flex;
-    justify-content: center;
-    margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
 }
 
 /* Styling for the "Go Back" button */
 .goBackButton {
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .goBackButton:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }

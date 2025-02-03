@@ -4,10 +4,16 @@
   border-radius: 10px;
   padding: 5px;
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 1fr;
   margin: 0 auto;
   background-color: #ffc2d1;
 }
+
+.courseCard .courseImageContainer img {
+  object-fit: cover;
+  height: 25rem;
+}
+
 .courseCard .courseDetails {
   display: flex;
   flex-direction: column;
@@ -25,6 +31,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.categoryCard img {
+  height: 25rem;
+  object-fit: cover;
+  border-radius: 10px;
+}
 .videoList {
   display: flex;
   flex-direction: column;
@@ -32,8 +44,8 @@
   align-items: center;
 }
 .monthCard {
-  width: 60vw; 
-  max-width: 800px; 
+  width: 60vw;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -145,6 +157,7 @@
   padding: 15px;
   border-radius: 10px;
   margin: 10px;
+  width: 80vw;
 }
 
 .subCategoryCard li {
@@ -154,7 +167,24 @@
 button {
   cursor: pointer !important;
 }
-
+.activeCourseDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.activeCourseDetails > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.activeCategoryDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 @media (max-width: 1200px) {
   .goBackButton {
     margin-top: 30px;
@@ -174,6 +204,8 @@ button {
 
   .courseCard .courseImageContainer img {
     object-fit: cover;
+    width: 100%;
+    height: 25rem;
   }
 
   .courseCard .courseDetails {
@@ -194,6 +226,13 @@ button {
     justify-content: center;
     margin-bottom: 50px;
     padding-bottom: 10px;
+    max-width: 500px;
+  }
+  .categoryCard img {
+    width: 100%;
+    height: 15rem;
+
+    object-fit: cover;
   }
 
   .categoryCard h2 {

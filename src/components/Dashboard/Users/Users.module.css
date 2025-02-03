@@ -30,13 +30,16 @@
 }
 
 .header {
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
   align-items: center;
-  margin-bottom: 20px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
+.header h1 {
+  margin: 0 auto;
+}
 .createButton {
   background-color: #38a169;
   color: #fff;
@@ -68,7 +71,7 @@
 }
 
 .card-container-users .card {
-  background: #FFF;
+  background: #fff;
   border-radius: 12px;
   overflow: hidden;
   width: 280px;
@@ -103,20 +106,20 @@
 .card-container-users .card-body {
   padding: 20px;
   color: #333;
-  background-color: #FFF;
+  background-color: #fff;
   font-size: 0.9em;
   line-height: 1.6;
 }
 
 .card-container-users .card-body p {
   margin: 10px 0;
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .card-container-users .card-body p strong {
   color: #4c6ef5;
   text-decoration: none;
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .card-container-users .card-footer {

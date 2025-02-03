@@ -122,7 +122,6 @@ const Profile = () => {
         });
         const fetchedCourses = response.data;
         setCourses(fetchedCourses);
-        console.log("Corsi dell'utente", response.data);
         const liveBenefit = fetchedCourses.some(course => {
           return course.Benefits.some(benefit => {
             console.log("Course:", course);
@@ -145,6 +144,7 @@ const Profile = () => {
             try {
               const response = await axiosPrivate.get("/api/recordings/week");
               setLives(response.data.recordings);
+              console.log("Recordings:", response.data.recordings);
               setGlobalLoading(false);
             } catch (error) {
               console.error("Fetch lives error:", error);
@@ -224,7 +224,9 @@ const Profile = () => {
                       </div>) : (<p>No link available</p>)
                   }
                   <div className={styles["video-container"]}> {/* Change the wrapper to a flex container */}
+                    <h1>Registrazioni</h1>
                     {lives.map((live) => {
+                      if (live?.recording) return null
                       const isCurrentPlaying = playingRecording && playingRecording._id === live._id;
                       return (
                         <div key={live._id} className={styles["video-card"]}> {/* Keep individual card styling */}

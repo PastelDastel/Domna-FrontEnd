@@ -30,6 +30,7 @@
 .recordings .header-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  align-items: center;
 }
 .recordings .header:first-of-type {
   display: flex;
@@ -37,7 +38,6 @@
   align-items: center;
   margin-bottom: 20px;
   background-color: #e47a9469;
-  
 }
 .recordings .header:nth-last-of-type(1) {
   display: flex;
@@ -47,6 +47,18 @@
   background-color: #ee477069;
 }
 
+.recordings .header h1 {
+  margin: 0 auto;
+}
+
+.recordings .header input {
+  width: 50%;
+  padding: 8px 5px;
+  font-size: 0.72em;
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+  margin-right: 10px;
+}
 .recordings .header .button-create {
   background-color: #38a169;
   color: #fff;

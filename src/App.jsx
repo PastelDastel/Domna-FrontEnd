@@ -2,7 +2,6 @@ import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import Layout from "./components/Global Components/Layout";
-import Admin from "./components/Admin/Admin";
 import Missing from "./components/Missing/Missing";
 import Unauthorized from "./components/Unauthorized/Unauthorized";
 import RequireAuth from "./components/Global Components/RequireAuth";
@@ -15,7 +14,6 @@ import Blog from "./components/Blog/Blog";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import BlogArticlePage from "./components/BlogArticlePage/BlogArticlePage";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Random from "./components/Test/Random";
 import Privacy from "./components/Privacy e Policy/Component";
 import Termini from "./components/Termini/Component";
 function App() {
@@ -39,8 +37,6 @@ function App() {
           </Route>
           <Route element={<RequireAuth allowedRoles={[6792941695628669]} />}>
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="admin" element={<Admin />} />
-            <Route path="random" element={<Random />} />
           </Route>
           <Route path="*" element={<Missing />} />
         </Route>

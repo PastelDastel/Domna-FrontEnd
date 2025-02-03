@@ -28,11 +28,15 @@
 }
 
 .header {
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
   align-items: center;
-  margin-bottom: 20px;
   margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0 auto;
 }
 
 .createButton {

@@ -133,6 +133,27 @@
   border: 4px solid #ff4d94;
 }
 
+.liveLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.liveLink a {
+  margin: 10px 0;
+  color: white;
+  text-decoration: none;
+  background-color: #ff4d94;
+  padding: 10px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.liveLink a:hover {
+  background-color: #ff1a66;
+}
+
 .editButton,
 .liveButton,
 .logoutButton {
@@ -195,6 +216,7 @@
   overflow: hidden;
   transition: transform 0.3s ease;
   cursor: pointer;
+  min-height: 300px;
 }
 
 .thumbnail {
