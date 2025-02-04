@@ -5,6 +5,10 @@ import TestimonialsSlider from "./TestimonialSection/TestimonialsSlider";
 import ContactSection from "./Contact Section/ContactSection";
 import MetaPixel from "../Global Components/MetaPixel";
 import { motion } from "framer-motion";
+
+import useAuth from "../../hooks/useAuth";
+
+
 // Funzione per leggere il cookie delle preferenze
 function getCookie(name) {
   const cookies = document.cookie.split("; ");
@@ -20,10 +24,17 @@ const preferences = getCookie("cookiePreferences");
 const marketingEnabled = preferences ? JSON.parse(preferences).marketing : false;
 
 const Home = () => {
+  const { auth } = useAuth();
   return (
     <>
       {/* Carica MetaPixel solo se i cookie di marketing sono attivi */}
-      {marketingEnabled && <MetaPixel pixelId={"410616855425028"} />}
+      {marketingEnabled && (
+        <MetaPixel pixelId={"410616855425028"} eventOptions={{
+          content_name: "Home Page",
+          content_category: "pageView",
+          user_id: auth?.id || "guest"
+        }} />
+      )}
 
       <motion.div
         initial={{ opacity: 0, y: -50 }}

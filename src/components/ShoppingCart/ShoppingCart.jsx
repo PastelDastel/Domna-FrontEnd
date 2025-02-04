@@ -48,6 +48,13 @@ const ShoppingCart = () => {
             console.error('Error during checkout:', error);
         } finally {
             setIsLoading(false);
+            if (window.fbq) {
+                window.fbq('track', 'CourseClicked', {
+                    content_name: orders.map(order => order.productName).join(", "),
+                    content_category: "Shopping Cart",
+                    user_id: auth?.id || "guest"
+                });
+            }
         }
     };
     const handleDeleteOrder = async (orderId) => {

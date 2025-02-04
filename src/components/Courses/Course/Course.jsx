@@ -45,6 +45,14 @@ const Course = ({ course }) => {
 
             } finally {
                 setIsLoading(false);
+                if (window.fbq) {
+                    window.fbq('track', 'CourseClicked', {
+                      content_name: course.Title,
+                      content_category: "Course Selection",
+                      price: course.Price.Stripe,
+                      user_id: auth?.id || "guest"
+                    });
+                  }
             }
         } else {
             navigate("/login");
