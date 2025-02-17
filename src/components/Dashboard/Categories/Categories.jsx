@@ -33,7 +33,7 @@ const Categories = () => {
     };
     const editCategory = async (category) => {
         MySwal.fire({
-            width: "50vw",
+            width: "80vw",
             html: (
                 <EditModal
                     closeModal={() => Swal.close()}

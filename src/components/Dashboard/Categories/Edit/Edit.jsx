@@ -4,6 +4,438 @@ import styles from "./Edit.module.css";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
+const MonthsInput = ({ index, videos, setMonths }) => {
+    const [description, setDescription] = useState("");
+    const [selectedVideos, setSelectedVideos] = useState([]);
+    const MonthEdit = useEditor({
+        extensions: [StarterKit],
+        content: "Enter description here\n",
+        onChange: ({ editor }) => {
+            setDescription(editor.getHTML());
+        },
+    });
+    const [isVisible, setIsVisible] = useState(false);
+    useEffect(() => {
+        console.log("Selected videos in Months Input: " + selectedVideos);
+    }, [selectedVideos]);
+    const _handleAddMonth = () => {
+        const newMonth = { Description: description, Videos: selectedVideos };
+        setMonths((prevMonths) => [...prevMonths, newMonth]);
+        MonthEdit.commands.setContent("Enter description here\n");
+        setSelectedVideos([]);
+    };
+    return <>
+        <div key={index} className={styles["new-month-card"]}>
+            <div className={styles["month-input-name"]}>
+                <span>Nuovo mese  ={">"} Mese {index}</span>
+            </div>
+            <div className={styles["month-input-videos"]}>
+                {videos.length >= 0 ? <>
+                    {!isVisible ?
+                        <button type="button"
+                            onClick={() => setIsVisible(true)}
+                        >Gestisci video</button> :
+                        <VideoInput
+                            videos={videos}
+                            selectedVideos={selectedVideos}
+                            CloseModal={() => setIsVisible(false)}
+                            setSelectedVideos={setSelectedVideos}
+                        />}
+                </> : <>
+                    <span>Nessun video disponibile</span>
+                </>}
+            </div>
+            <div className={styles["month-input-description"]}>
+                <span>Description</span>
+                <EditorContent editor={MonthEdit} />
+            </div>
+            <div className={styles["month-display-selected"]}>Video aggiunti: {selectedVideos.length}</div>
+            <div className={styles["month-input-footer"]}>
+                <button type="button" onClick={() => _handleAddMonth()}>Aggiungi Mese</button>
+            </div>
+        </div>
+    </>
+};
+
+const VideoInput = ({ videos, selectedVideos, CloseModal, setSelectedVideos }) => {
+    const [availableVideos, setAvailableVideos] = useState([]);
+    const [selectedMonthVideos, setSelectedMonthVideos] = useState(selectedVideos);
+    const [draggedItemIndex, setDraggedItemIndex] = useState(null);
+    useEffect(() => {
+        setAvailableVideos(videos.filter((video) => !selectedVideos.includes(video)));
+    }, [videos, selectedVideos]);
+    const handleDragStart = (index) => {
+        setDraggedItemIndex(index);
+    };
+    const handleDragOver = (event) => {
+        event.preventDefault(); // Necessary to allow dropping
+    };
+    const handleDrop = (index) => {
+        if (draggedItemIndex === null || draggedItemIndex === index) return;
+        const newVideos = [...selectedMonthVideos];
+        const [movedVideo] = newVideos.splice(draggedItemIndex, 1);
+        newVideos.splice(index, 0, movedVideo);
+        setSelectedMonthVideos(newVideos);
+        setDraggedItemIndex(null);
+    };
+    const _handleAddVideo = (video) => {
+        setSelectedMonthVideos((prev) => [...prev, video]);
+        setAvailableVideos((prev) => prev.filter((v) => v._id !== video._id));
+    };
+    const _handleRemoveVideo = (video) => {
+        setSelectedMonthVideos((prev) => prev.filter((v) => v._id !== video._id)); // Remove the video from the selected videos
+        setAvailableVideos((prev) => [...prev, video]);
+    };
+    const _handleSaveSelectedVideos = () => {
+        console.log("Selected videos in _handleSaveSelectedVideos: " + selectedMonthVideos);
+        setSelectedVideos(selectedMonthVideos);
+        CloseModal();
+    };
+    return (
+        <div className={styles["video-input"]}>
+            <div className={styles["video-input-available"]}>
+                <h1>Video disponibili</h1>
+                {availableVideos.map((video) => (
+                    <div key={video._id} className={styles["video-input-item"]}>
+                        <span>{video.Title}</span>
+                        <span> <a href={video.Url} target="_blank">{video.Url}</a></span>
+                        <button type="button" onClick={() => _handleAddVideo(video)}>
+                            Aggiungi
+                        </button>
+                    </div>
+                ))}
+            </div>
+            <div className={styles["video-input-selected"]}>
+
+                <h1>Video aggiunti</h1>
+                {selectedMonthVideos.length <= 0 ? <span>Nessun video aggiunto</span> : null}
+                {selectedMonthVideos.map((video, index) => (
+                    <div
+                        key={video._id}
+                        draggable
+                        onDragStart={() => handleDragStart(index)}
+                        onDragOver={handleDragOver}
+                        onDrop={() => handleDrop(index)}
+                        className={styles["video-input-item-selected"]}
+                    >
+                        <span>{video.Title}</span>
+                        <button type="button" onClick={() => { _handleRemoveVideo(video) }}>Rimuovi</button>
+                    </div>
+                ))}
+
+            </div>
+            <div className={styles["video-input-footer"]}>
+                <button type="button" onClick={CloseModal}>Chiudi</button>
+                <button type="button" onClick={_handleSaveSelectedVideos}>Salva</button>
+            </div>
+        </div>
+    );
+};
+
+const EditDescription = ({ description, setDescription, CloseModal }) => {
+    // Creazione dell'editor con il valore iniziale della descrizione
+    const DescriptionEditor = useEditor({
+        extensions: [StarterKit],
+        content: description, // Contenuto iniziale
+    });
+
+    // Sincronizza l'editor con la descrizione esterna quando cambia
+    useEffect(() => {
+        if (DescriptionEditor && description !== DescriptionEditor.getHTML()) {
+            DescriptionEditor.commands.setContent(description);
+        }
+    }, [description, DescriptionEditor]);
+
+    return (
+        <div className={styles["editor-description"]}>
+            <div className={styles["editor-description-content"]}>
+                <span>Descrizione</span>
+                <EditorContent editor={DescriptionEditor} />
+            </div>
+            <div className={styles["editor-description-footer"]}>
+                <button type="button" onClick={CloseModal}>Chiudi</button>
+                <button
+                    type="button"
+                    onClick={() => {
+                        if (DescriptionEditor) {
+                            setDescription(DescriptionEditor.getHTML());
+                        }
+                        CloseModal();
+                    }}
+                >
+                    Salva
+                </button>
+            </div>
+        </div>
+    );
+};
+
+const EditName = ({ name, setName, CloseModal }) => {
+    return (
+        <div className={styles["edit-name"]}>
+            <div className={styles["edit-name-content"]}>
+                <span>Nome</span>
+                <input
+                    type="text"
+                    value={name}
+                />
+            </div>
+            <div className={styles["edit-name-footer"]}>
+
+                <button type="button" onClick={CloseModal}>Chiudi</button>
+                <button
+                    type="button"
+                    onClick={() => {  // Chiudi il modal e salva il nuovo nome
+                        setName(name);
+                        CloseModal();
+                    }}
+                >
+                    Salva
+                </button>
+            </div>
+        </div>
+    );
+
+};
+
+
+const MonthCard = ({ month, index, videos, setMonth }) => {
+    const [description, setDescription] = useState(month.Description);
+    const [selectedVideos, setSelectedVideos] = useState(month.Videos);
+    const [isVisible, setIsVisible] = useState(false);
+    const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
+
+
+
+    return <>
+        <div key={month._id} className={styles["existing-month-card"]}>
+            <div className={styles["month-card-content"]}>
+                <h1>Mese {index + 1}</h1>
+                {
+                    !isDescriptionVisible ? <>
+                        <button type="button" onClick={() => setIsDescriptionVisible(true)}>Modifica</button>
+                    </> : <>
+                        <EditDescription
+                            description={description}
+                            setDescription={(newDescription) => {
+                                setDescription(newDescription); // Aggiorna lo stato locale
+                                setMonth((prevMonths) =>
+                                    prevMonths.map((m) =>
+                                        m === month ? { ...m, Description: newDescription } : m
+                                    )
+                                );
+                            }}
+                            CloseModal={() => setIsDescriptionVisible(false)}
+                        />
+                    </>
+                }
+                {!isVisible ?
+                    <><button type="button"
+                        onClick={() => setIsVisible(true)}
+                    >Video</button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setMonth((prevMonths) =>
+                                    prevMonths.filter((m) => m !== month)
+                                );
+                            }}
+                        >
+                            Rimuovi
+                        </button>
+                    </>
+                    :
+                    <VideoInput videos={videos}
+                        selectedVideos={selectedVideos}
+                        CloseModal={() => {
+                            setMonth((prevMonths) => prevMonths.map((m) => m === month ? { ...m, Videos: selectedVideos } : m));
+                            setIsVisible(false)
+                        }}
+                        setSelectedVideos={setSelectedVideos} />}
+            </div>
+            <div>
+                <span dangerouslySetInnerHTML={{ __html: description }}></span>
+            </div>
+            <div>
+                <span>Video nel mese: {selectedVideos.length}</span>
+            </div>
+        </div >
+    </>
+};
+
+const SubCategoriesInput = ({ index, videos, setSubCats }) => {
+    const [nome, setNome] = useState("");
+    const [description, setDescription] = useState("");
+    const [selectedVideos, setSelectedVideos] = useState([]);
+    const [base64Image, setBase64Image] = useState(null);
+
+    //ref dei vari input
+    const nameRef = useRef();
+    const imageRef = useRef();
+
+
+
+
+    const DescriptionEditor = useEditor({
+        extensions: [StarterKit],
+        content: "Enter description here\n",
+        onChange: ({ editor }) => {
+            setDescription(editor.getHTML());
+        },
+    });
+    const [isVisible, setIsVisible] = useState(false);
+    const _handleAddSubCat = () => {
+        const newSub = { Description: description, Videos: selectedVideos, Image: base64Image, Name: nome };
+        //Name Description Videos Image
+        setSubCats((prevSubs) => [...prevSubs, newSub]);
+        DescriptionEditor.commands.setContent("Enter description here\n");
+        nameRef.current.value = "";
+        imageRef.current.value = "";
+        setBase64Image(null);
+        setNome("");
+        setSelectedVideos([]);
+    };
+
+    const _handleSubCatImageUpload = (e) => {
+        const file = e.target.files[0]; // Get the selected file
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setBase64Image(event.target.result); // Set Base64 string in state
+            };
+            reader.readAsDataURL(file); // Convert file to Base64
+        }
+    };
+
+    return <>
+        <div key={index} className={styles["input-subCat"]}>
+            <div className={styles["input-subCat-name"]}>
+                <span>Nome</span>
+                <input
+                    type="text"
+                    placeholder="Inserisci nome"
+                    onChange={(e) => setNome(e.target.value)}
+                    ref={nameRef}
+                />
+            </div>
+            <div className={styles["input-subCat-image"]}>
+                <label className={styles["custom-file-button"]} onClick={() => document.getElementById("subCatImage").click()}>
+                    Scegli immagine
+                </label>
+                <input
+                    type="file"
+                    id="subCatImage"
+                    name="subCatImage"
+                    onChange={_handleSubCatImageUpload}
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    ref={imageRef}
+                />
+            </div>
+
+            <div className={styles["input-subCat-description"]}>
+                <span>Description</span>
+                <EditorContent editor={DescriptionEditor} />
+            </div>
+            <div className={styles["input-subCat-image-preview"]}>
+                {base64Image ? <img src={base64Image} /> : <p>No image available.</p>}
+            </div>
+            <div className={styles["input-subCat-videos"]}>
+                {videos.length > 0 ? <>
+                    {!isVisible ? <>
+                        <button type="button"
+                            onClick={() => setIsVisible(true)}
+                        >Gestisci video</button>
+                        <div className={styles["input-subCat-videos-number"]}>Video aggiunti: {selectedVideos.length}</div>
+
+                    </> :
+                        <VideoInput
+                            videos={videos}
+                            selectedVideos={selectedVideos}
+                            CloseModal={() => setIsVisible(false)}
+                            setSelectedVideos={setSelectedVideos}
+                        />}
+                </> : <>
+                    <span>Nessun video disponibile</span>
+                </>}
+            </div>
+            <div className={styles["input-subCat-footer"]}>
+                <button type="button" onClick={() => _handleAddSubCat()}>Aggiungi Sottocategoria</button>
+            </div>
+        </div>
+    </>
+
+
+};
+
+const SubCatCard = ({ subCat, index, videos, setSubCats }) => {
+    const [name, setName] = useState(subCat.Name);
+    const [description, setDescription] = useState(subCat.Description);
+    const [selectedVideos, setSelectedVideos] = useState(subCat.Videos);
+    const [base64Image, setBase64Image] = useState(subCat.Image || null);
+    const [isVisible, setIsVisible] = useState(false);
+    const DescriptionEditor = useEditor({
+        extensions: [StarterKit],
+        content: description,
+        onChange: ({ editor }) => {
+            setDescription(editor.getHTML());
+        },
+    });
+    const _handleSaveSubCat = () => {
+        const newSubCat = { Name: name, Description: description, Videos: selectedVideos, Image: base64Image };
+        setSubCats((prevSubs) => prevSubs.map((s) => s === subCat ? newSubCat : s));
+    };
+    const _handleSubCatImageUpload = (e) => {
+        const file = e.target.files[0]; // Get the selected file
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setBase64Image(event.target.result); // Set Base64 string in state
+            };
+            reader.readAsDataURL(file); // Convert file to Base64
+        }
+    };
+
+    return <>
+        <div>
+            <div>
+                <span>Nome</span>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            </div>
+            <div>
+                <span>Immagine</span>
+                <input type="file" id="subCatImage" name="subCatImage" onChange={_handleSubCatImageUpload} accept="image/*" />
+            </div>
+            <div>
+                <span>Description</span>
+                <span><EditorContent editor={DescriptionEditor} /></span>
+            </div>
+            <div>
+                {base64Image ? <img src={base64Image} /> : <p>No image available.</p>}
+            </div>
+            <div>
+                {videos.length > 0 ? <>
+                    {!isVisible ?
+                        <button type="button"
+                            onClick={() => setIsVisible(true)}
+                        >Gestisci video</button> :
+                        <VideoInput
+                            videos={videos}
+                            selectedVideos={selectedVideos}
+                            CloseModal={() => setIsVisible(false)}
+                            setSelectedVideos={setSelectedVideos}
+                        />}
+                </> : <>
+                    <span>Nessun video disponibile</span>
+                </>}
+            </div>
+            <div>Video aggiunti: {selectedVideos.length}</div>
+            <div>
+                <button type="button" onClick={() => _handleSaveSubCat()}>Salva</button>
+            </div>
+        </div>
+    </>
+};
 
 const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
     const [videos, setVideos] = useState([]);
@@ -20,6 +452,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
     const editorMain = useEditor({
         extensions: [StarterKit],
         content: category.Description,
+        editable: true,
     });
 
     const subCatEdit = useEditor({
@@ -100,18 +533,6 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
         fetchCategoryDetails();
     }, [axios]);
 
-    // Add a new month
-    const addMonth = () => {
-        const monthDescription = MonthEdit.getHTML();
-
-        if (!monthDescription) return;
-        const newMonth = { Description: monthDescription, Videos: selectedVideos };
-        setMonths((prevMonths) => [...prevMonths, newMonth]);
-        MonthEdit.commands.setContent("Enter description here\n");
-        setSelectedVideos([]); // Clear the selected videos
-        refreshVideosAvailable();
-    };
-
 
     const removeVideofromSubCat = (subCat, video) => {
         setSubCats((prevSubCats) =>
@@ -182,6 +603,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
             console.error("Failed to create category:", error);
         }
     };
+
     return (
         <div className={styles["edit-category"]}>
             <h1>Update {category.Name}</h1>
@@ -193,15 +615,24 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                             <input type="text" id="name" name="name" required defaultValue={category.Name} />
                         </div>
                         <div className={styles["image-edit"]}>
-                            <label htmlFor="image">Image</label>
-                            <input type="file" id="image" name="image" onChange={handleImageUpload} accept="image/*" />
+                            <label className={styles["custom-file-button"]} onClick={() => document.getElementById("image").click()}>
+                                Scegli immagine
+                            </label>
+                            <input
+                                type="file"
+                                id="image"
+                                name="image"
+                                onChange={handleImageUpload}
+                                accept="image/*"
+                                style={{ display: "none" }}
+                            />
                         </div>
                         <div className={styles["description-edit"]}>
                             <label htmlFor="description">Description</label>
-                            <span><EditorContent editor={editorMain} /></span>
+                            <EditorContent editor={editorMain} />
                         </div>
                         <div className={styles["image-preview"]}>
-                            {base64Image ? <img src={base64Image} /> : <p>No image available.</p>}
+                            {base64Image ? <img src={base64Image} /> : <span>Nessuna immagine scelta</span>}
                         </div>
                     </div>
                     <div>
@@ -209,139 +640,25 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                             setIsMonth(!isMonth)
                             setSelectedVideos([]);
                             refreshVideosAvailable();
-
                         }}>{isMonth ? "Vai a Sottocategorie" : "Vai a Mesi"}</button>
                         {isMonth ? (
-                            <div className={styles["month-section"]}>
-                                <div className={styles["month-name"]}>
-                                    <label>Nome</label>
-                                    <input type="text" readonly value={"Mese " + (months.length + 1)} />
-                                </div>
-                                <div className={styles["month-description"]}>
-                                    <label>Descrizione</label>
-                                    <span><EditorContent editor={MonthEdit} /></span>
-                                </div>
-                                <div className={styles["month-videos-input"]}>
-                                    {availableVideos.length > 0 ? (<><select name="videos" id="videosss">
-                                        {availableVideos.map((video) => (
-                                            <option key={video._id} value={video._id}>
-                                                {video.Title}
-                                            </option>
-                                        ))}
-                                    </select>
-                                        <button type="button" onClick={() => {
-                                            const selectedVideo = document.getElementById("videosss").value;
-                                            const video = videos.find((v) => v._id === selectedVideo);
-                                            setSelectedVideos((prev) => [...prev, video]);
-                                            setAvailableVideos(availableVideos.filter((v) => v._id !== selectedVideo));
-                                        }}>Add Video</button></>) : (<p>No more videos available</p>)}
-                                </div>
-                                <div>
-                                    <p><strong>{selectedVideos.length > 0 ? "Video aggiunti" : "Nessun video aggiunto"}</strong></p>
-                                    <div className={styles["month-video-container"]}>
-                                        {selectedVideos.map((video) => (
-                                            <div key={video._id} className={styles["month-video-card"]}>
-                                                <span>{video.Title}</span>
-                                                <button
-                                                    onClick={() => setSelectedVideos((prev) => prev.filter((v) => v._id !== video._id))}
-                                                >
-                                                    x
-                                                </button>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={styles["month-add-button"]}>
-                                    <button type="button" onClick={addMonth} >
-                                        Add Month
-                                    </button>
-                                </div>
-                            </div>
+                            <MonthsInput index={months.length + 1} videos={availableVideos} setMonths={setMonths} />
                         ) : (
-                            <div className={styles["subCat-section"]}>
-                                <div className={styles["subCat-name"]}>
-                                    <label>Nome</label>
-                                    <input type="text" ref={subCatRef} />
-                                </div>
-                                <div className={styles["subCat-image"]}>
-                                    <label htmlFor="subCatImage">Image</label>
-                                    <input type="file" id="subCatImage" name="subCatImage" onChange={handleSubCatImageUpload} accept="image/*" />
-                                </div>
-                                <div className={styles["subCat-description"]}>
-                                    <label>Description</label>
-                                    <span><EditorContent editor={subCatEdit} /></span>
-                                </div>
-                                <div className={styles["subCat-image-preview"]}>
-                                    {base64SubCatImage ? <img src={base64SubCatImage} /> : <p>No image available.</p>}
-                                </div>
-                                <div className={styles["subCat-videos-input"]}>
-                                    {availableVideos.length > 0 ? (<><select name="videos" id="videosss">
-                                        {availableVideos.map((video) => (
-                                            <option key={video._id} value={video._id}>
-                                                {video.Title}
-                                            </option>
-                                        ))}
-                                    </select>
-                                        <button type="button" onClick={() => {
-                                            const selectedVideo = document.getElementById("videosss").value;
-                                            const video = videos.find((v) => v._id === selectedVideo);
-                                            setSelectedVideos((prev) => [...prev, video]);
-                                            setAvailableVideos(availableVideos.filter((v) => v._id !== selectedVideo));
-                                        }}>Add Video</button></>) : (<p>No more videos available</p>)}
-                                </div>
-                                <div><p><strong>{selectedVideos.length > 0 ? "Video aggiunti" : "Nessun video aggiunto"}</strong></p>
-                                    <div className={styles["subCat-video-container"]}>
-                                        {selectedVideos.map((video) => (
-                                            <div key={video._id} className={styles["subCat-video-card"]}>
-                                                <span>{video.Title}</span>
-                                                <button
-                                                    onClick={() => setSelectedVideos((prev) => prev.filter((v) => v._id !== video._id))}
-                                                >
-                                                    x
-                                                </button>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={styles["subCat-add-button"]}>
-                                    <button type="button" onClick={addSubCat}>Add SubCat</button>
-                                </div>
-                            </div>
+                            <SubCategoriesInput index={subCats.length + 1} videos={availableVideos} setSubCats={setSubCats} />
                         )}
                     </div>
-                    <div>
-                        <div>
-                            {months.length > 0 ? (
-                                <div className={styles["existing-months"]}>
-                                    {months.map((month, index) => (
-                                        <div key={month.Description} className={styles["existing-month-card"]}>
-                                            <div className={styles["existing-month-header"]}>
-                                                <h1>Mese {index + 1}</h1>
-                                                <button type="button" onClick={() => { removeMonth(month) }}>x</button>
-                                            </div>
-                                            <div className={styles["existing-month-body"]}>
-                                                <h5 dangerouslySetInnerHTML={
-                                                    { __html: month.Description }
-                                                }></h5>
-                                                <div className={styles["existing-month-videos"]}>
-                                                    {month.Videos.map((video) => (
-                                                        <div key={video._id} className={styles["existing-month-video-card"]}>
-                                                            <span>{video.Title}</span>
-                                                            <button
-                                                                onClick={() => removeVideofromMonth(month, video)}
-                                                            >
-                                                                x
-                                                            </button>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                    <div className={styles["edit-second-section"]}>
+                        <div className={styles["existing-section-month"]}>
+                            {months.length > 0 ? (<>
+                                {
+                                    months.map((month, index) => (
+                                        <MonthCard month={month} index={index} videos={availableVideos} setMonth={setMonths} />
+                                    ))
+                                }
+                            </>
                             ) : (
-                                <div>
-                                    <p>No months added yet.</p>
+                                <div className={styles["no-months"]}>
+                                    <span>No months added yet</span>
                                 </div>
                             )}
                         </div>
@@ -349,52 +666,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                             {subCats.length > 0 ? (
                                 <div className={styles["existing-subCats"]}>
                                     {subCats.map((subCat, index) => (
-                                        <div key={subCat.Name} className={styles["existing-subCat-card"]}>
-                                            <div className={styles["existing-subCat-header"]}>
-                                                <h3>{subCat.Name}</h3>
-                                                <button type="button" onClick={() => { removeSubCat(subCat) }}>x</button>
-                                            </div>
-                                            <div className={styles["existing-subCat-image"]}>
-                                                {subCat.Image ? <img src={subCat.Image} /> : <p>No image available.</p>}
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e) => {
-                                                        const file = e.target.files[0];
-                                                        if (file) {
-                                                            const reader = new FileReader();
-                                                            reader.onload = () => {
-                                                                const base64String = reader.result;
-                                                                handlePutSubcatImage(subCat, base64String);
-                                                            };
-                                                            reader.onerror = () => {
-                                                                console.error("Failed to read the file.");
-                                                            };
-                                                            reader.readAsDataURL(file); // Convert the file to a data URL
-                                                        } else {
-                                                            console.log("No file selected.");
-                                                        }
-                                                    }}
-                                                />
-                                            </div>
-                                            <div className={styles["existing-subCat-body"]}>
-                                                <h5 dangerouslySetInnerHTML={
-                                                    { __html: subCat.Description }
-                                                }></h5>
-                                                <div className={styles["existing-subCat-videos"]}>
-                                                    {subCat.Videos.map((video) => (
-                                                        <div key={video._id} className={styles["existing-subCat-video-card"]}>
-                                                            <span>{video.Title}</span>
-                                                            <button
-                                                                onClick={() => removeVideofromSubCat(subCat, video)}
-                                                            >
-                                                                x
-                                                            </button>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <SubCatCard subCat={subCat} index={index} videos={availableVideos} setSubCats={setSubCats} />
                                     ))}
                                 </div>) : (<div>
                                     <p>No subCats added yet.</p>

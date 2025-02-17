@@ -59,6 +59,10 @@ const Users = () => {
 
     };
 
+    
+
+
+
     const reloadUsers = () => {
         setReload((prev) => !prev);
     };
@@ -93,13 +97,16 @@ const Users = () => {
         try {
             const response = await axiosPrivate.get(`/api/users/${user._id}/courses`, { signal });
             const courses = response.data;
-
+            const fetchTrackedData = await axiosPrivate.get(`/api/video`, { signal });
+            const trackedData = fetchTrackedData.data;
+            console.log("trackedData in general users", trackedData);
             MySwal.fire({
                 html: (
                     <Overview
                         closeModal={() => Swal.close()}
                         user={user}
                         courses={courses}
+                        trackData={trackedData}
                     />
                 ),
                 showConfirmButton: false,
