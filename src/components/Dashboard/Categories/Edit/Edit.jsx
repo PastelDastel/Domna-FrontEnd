@@ -204,9 +204,6 @@ const MonthCard = ({ month, index, videos, setMonth }) => {
     const [selectedVideos, setSelectedVideos] = useState(month.Videos);
     const [isVisible, setIsVisible] = useState(false);
     const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
-
-
-
     return <>
         <div key={month._id} className={styles["existing-month-card"]}>
             <div className={styles["month-card-content"]}>
@@ -368,74 +365,167 @@ const SubCategoriesInput = ({ index, videos, setSubCats }) => {
 
 };
 
+const EditSubcat = ({ subCat, setSubCat, CloseModal }) => {
+    const [name, setName] = useState(subCat.Name || "");
+    const [description, setDescription] = useState(subCat.Description || "");
+    const [image, setImage] = useState(subCat.Image || "");
+
+    const fileInputRef = useRef(null);
+
+    const DescriptionEditor = useEditor({
+        extensions: [StarterKit],
+        content: description?.length > 0 ? description : "Enter description here\n",
+        onUpdate: ({ editor }) => {
+            setDescription(editor.getHTML());
+        },
+    });
+
+    useEffect(() => {
+        if (DescriptionEditor && subCat.Description !== description) {
+            DescriptionEditor.commands.setContent(subCat.Description);
+        }
+    }, [subCat.Description, DescriptionEditor]);
+
+    const _handleSaveSubCat = () => {
+        const newSubCat = { ...subCat, Name: name, Description: description, Image: image };
+        setSubCat(newSubCat);
+        CloseModal();
+    };
+
+    const _handleChangeImage = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setImage(event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    return (
+        <div className={styles["edit-subCat-modal"]}>
+            <h1>Modifica della categoria {subCat.Name}</h1>
+
+            <div className={styles["edit-subCat-name"]}>
+                <span>Nome</span>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            </div>
+
+            <div className={styles["edit-subCat-image"]}>
+                <label
+                    className={styles["custom-file-button"]}
+                    onClick={() => fileInputRef.current.click()}
+                >
+                    Scegli immagine
+                </label>
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    name="subCatImage"
+                    onChange={_handleChangeImage}
+                    accept="image/*"
+                    style={{ display: "none" }}
+                />
+            </div>
+
+            <div className={styles["edit-subCat-description"]}>
+                <span>Description</span>
+                <EditorContent editor={DescriptionEditor} />
+            </div>
+
+            <div className={styles["edit-subCat-image-preview"]}>
+                {image ? <img src={image} alt="Preview" /> : <p>No image available.</p>}
+            </div>
+
+            <div className={styles["edit-subCat-footer"]}>
+                <button type="button" onClick={CloseModal}>Chiudi</button>
+                <button type="button" onClick={_handleSaveSubCat}>Salva</button>
+            </div>
+        </div>
+    );
+};
+
+
+
+
+
 const SubCatCard = ({ subCat, index, videos, setSubCats }) => {
     const [name, setName] = useState(subCat.Name);
     const [description, setDescription] = useState(subCat.Description);
     const [selectedVideos, setSelectedVideos] = useState(subCat.Videos);
     const [base64Image, setBase64Image] = useState(subCat.Image || null);
     const [isVisible, setIsVisible] = useState(false);
-    const DescriptionEditor = useEditor({
-        extensions: [StarterKit],
-        content: description,
-        onChange: ({ editor }) => {
-            setDescription(editor.getHTML());
-        },
-    });
-    const _handleSaveSubCat = () => {
-        const newSubCat = { Name: name, Description: description, Videos: selectedVideos, Image: base64Image };
-        setSubCats((prevSubs) => prevSubs.map((s) => s === subCat ? newSubCat : s));
-    };
-    const _handleSubCatImageUpload = (e) => {
-        const file = e.target.files[0]; // Get the selected file
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setBase64Image(event.target.result); // Set Base64 string in state
-            };
-            reader.readAsDataURL(file); // Convert file to Base64
-        }
+    const [isEditVisible, setIsEditVisible] = useState(false);
+
+
+
+
+
+    const _handleSaveSubCat = (updatedSubCat) => {
+        console.log("Updated SubCat: ", updatedSubCat);
+        setDescription(updatedSubCat.Description);
+        setName(updatedSubCat.Name);
+        setBase64Image(updatedSubCat.Image);
+        setSubCats((prevSubs) =>
+            prevSubs.map((s) => (s._id === subCat._id ? updatedSubCat : s))
+        );
     };
 
-    return <>
-        <div>
-            <div>
-                <span>Nome</span>
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+    const _handleRemoveSubCat = () => {
+        setSubCats((prevSubs) => prevSubs.filter((s) => s._id !== subCat._id));
+    };
+
+    return (
+        <>
+            <div key={subCat._id} className={styles["existing-subCat-card"]}>
+                <div className={styles["subCat-card-header"]}>
+                    {base64Image ? <img src={base64Image} alt="Category" /> : <p>No image available.</p>}
+                </div>
+                <div className={styles["subCat-card-name"]}>
+                    <span>Nome: </span> <span>{name}</span>
+                </div>
+                <div className={styles["subCat-card-description"]}>
+                    <span>Description:</span>
+                    {description ? (
+                        <span dangerouslySetInnerHTML={{ __html: description }}></span>
+                    ) : (
+                        <span>No description available.</span>
+                    )}
+                </div>
+                <div className={styles["subCat-card-videos"]}>
+                    Video presenti: {selectedVideos.length}
+                </div>
+
+                <div>
+                    {videos.length > 0 ? (
+                        isVisible && (
+                            <VideoInput
+                                videos={videos}
+                                selectedVideos={selectedVideos}
+                                CloseModal={() => setIsVisible(false)}
+                                setSelectedVideos={setSelectedVideos}
+                            />
+                        )
+                    ) : (
+                        <span>Nessun video disponibile</span>
+                    )}
+                </div>
+
+                <div className={styles["subCat-card-footer"]}>
+                    <button type="button" onClick={() => setIsEditVisible(true)}>Modifica</button>
+                    <button type="button" onClick={() => setIsVisible(true)}>Video</button>
+                    <button type="button" onClick={_handleRemoveSubCat}>Rimuovi</button>
+                </div>
             </div>
-            <div>
-                <span>Immagine</span>
-                <input type="file" id="subCatImage" name="subCatImage" onChange={_handleSubCatImageUpload} accept="image/*" />
-            </div>
-            <div>
-                <span>Description</span>
-                <span><EditorContent editor={DescriptionEditor} /></span>
-            </div>
-            <div>
-                {base64Image ? <img src={base64Image} /> : <p>No image available.</p>}
-            </div>
-            <div>
-                {videos.length > 0 ? <>
-                    {!isVisible ?
-                        <button type="button"
-                            onClick={() => setIsVisible(true)}
-                        >Gestisci video</button> :
-                        <VideoInput
-                            videos={videos}
-                            selectedVideos={selectedVideos}
-                            CloseModal={() => setIsVisible(false)}
-                            setSelectedVideos={setSelectedVideos}
-                        />}
-                </> : <>
-                    <span>Nessun video disponibile</span>
-                </>}
-            </div>
-            <div>Video aggiunti: {selectedVideos.length}</div>
-            <div>
-                <button type="button" onClick={() => _handleSaveSubCat()}>Salva</button>
-            </div>
-        </div>
-    </>
+
+            {isEditVisible && (
+                <EditSubcat subCat={subCat} setSubCat={_handleSaveSubCat} CloseModal={() => setIsEditVisible(false)} />
+            )}
+        </>
+    );
 };
+
 
 const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
     const [videos, setVideos] = useState([]);
@@ -465,9 +555,6 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
         content: "Enter description here\n",
     });
 
-
-
-    console.log(category);
     const [isMonth, setIsMonth] = useState(false);
 
     const removeSubCat = (subCat) => {
@@ -662,7 +749,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                                 </div>
                             )}
                         </div>
-                        <div>
+                        <div className={styles["existing-section-subCat"]}>
                             {subCats.length > 0 ? (
                                 <div className={styles["existing-subCats"]}>
                                     {subCats.map((subCat, index) => (

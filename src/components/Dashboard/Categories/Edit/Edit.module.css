@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #888;
 }
 
 .edit-category h1 {
@@ -14,19 +13,15 @@
   width: 100%;
 }
 
-.form-content {
-  background-color: aquamarine;
-}
-
 .edit-first-section {
   background-color: antiquewhite;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
+  border-radius: 15px;
 }
 
 .name-edit {
-  background-color: aquamarine;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -43,12 +38,11 @@
   margin: 0 20px;
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #000;
+  border: 1px solid #b4b4b4;
   font-size: 1.4rem;
 }
 
 .image-edit {
-  background-color: aquamarine;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,7 +66,6 @@
 }
 
 .description-edit {
-  background-color: aquamarine;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -93,7 +86,7 @@
   height: 100px;
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #000;
+  border: 1px solid #b4b4b4;
   font-size: 1.4rem;
   text-align: start;
   background-color: white;
@@ -104,7 +97,6 @@
 }
 
 .image-preview {
-  background-color: aquamarine;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -114,7 +106,7 @@
 
 .image-preview img {
   max-height: 400px;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .switch-button {
@@ -128,14 +120,16 @@
 }
 
 .new-month-card {
-  background-color: antiquewhite;
+  background-color: #ffe2fe;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
+  border-radius: 15px;
+  margin: 20px 0;
+  padding: 10px 0;
 }
 
 .month-input-name {
-  background-color: aquamarine;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -151,7 +145,6 @@
   font-size: 1.4rem;
 }
 .month-input-description {
-  background-color: aquamarine;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -174,7 +167,7 @@
   height: 100px;
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #000;
+  border: 1px solid #b4b4b4;
   font-size: 1.4rem;
   text-align: start;
   background-color: white;
@@ -183,7 +176,6 @@
 }
 
 .month-input-videos {
-  background-color: aquamarine;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -202,7 +194,6 @@
 }
 
 .month-display-selected {
-  background-color: aquamarine;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -210,7 +201,6 @@
 }
 
 .month-input-footer {
-  background-color: aquamarine;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -228,10 +218,12 @@
 
 .no-months {
   background-color: antiquewhite;
+  border-radius: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
+  grid-column: span 2;
 }
 
 .no-months span {
@@ -387,6 +379,7 @@
 .existing-month-card {
   background-color: antiquewhite;
   width: 350px;
+  height: 200px;
   margin: 5px auto;
   border-radius: 15px;
 }
@@ -394,6 +387,7 @@
 .month-card-content {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  padding: 0 5px;
 }
 .month-card-content > h1 {
   grid-column: span 3;
@@ -406,7 +400,8 @@
   background-color: #40d2ff;
   color: white;
   font-weight: bold;
-  border-radius: 5px;
+  border-start-start-radius: 15px;
+  border-end-start-radius: 15px;
   padding: 10px 15px;
   cursor: pointer;
   width: 75%;
@@ -416,7 +411,6 @@
   background-color: #2c79ec;
   color: white;
   font-weight: bold;
-  border-radius: 5px;
   padding: 10px 15px;
   cursor: pointer;
   width: 75%;
@@ -426,7 +420,8 @@
   background-color: #ff4040;
   color: white;
   font-weight: bold;
-  border-radius: 5px;
+  border-start-end-radius: 15px;
+  border-end-end-radius: 15px;
   padding: 10px 15px;
   cursor: pointer;
   width: 75%;
@@ -443,10 +438,9 @@
 }
 
 .existing-section-month {
-  background-color: rgb(255, 238, 0);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(auto-fill, 200px);
+  grid-template-rows: 1fr 1fr;
   justify-content: start;
   height: 400px;
   overflow-y: auto;
@@ -489,7 +483,7 @@
   height: 100px;
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #000;
+  border: 1px solid #b4b4b4;
   font-size: 1.4rem;
   text-align: start;
   background-color: white;
@@ -542,20 +536,19 @@
 }
 
 .edit-second-section {
-  background-color: aqua;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
 }
 
 .input-subCat {
-  background-color: blue;
+  background-color: #ffe2fe;
+  border-radius: 15px;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
 .input-subCat-name {
-  background-color: red;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -572,12 +565,11 @@
   margin: 0 20px;
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #000;
+  border: 1px solid #b4b4b4;
   font-size: 1.4rem;
 }
 
 .input-subCat-description {
-  background-color: red;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -596,7 +588,7 @@
   height: 100px;
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #000;
+  border: 1px solid #b4b4b4;
   font-size: 1.4rem;
   text-align: start;
   background-color: white;
@@ -606,7 +598,6 @@
 }
 
 .input-subCat-image {
-  background-color: red;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -615,7 +606,6 @@
 }
 
 .input-subCat-image-preview {
-  background-color: red;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -625,11 +615,10 @@
 
 .input-subCat-image-preview img {
   max-height: 200px;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .input-subCat-videos {
-  background-color: red;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -648,7 +637,6 @@
 }
 
 .input-subCat-footer {
-  background-color: red;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -665,10 +653,298 @@
 }
 
 .input-subCat-videos-number {
-  background-color: red;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
+}
+
+.subCat-card-header {
+  background: antiquewhite;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Ensures image does not overflow */
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.subCat-card-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures proper cropping */
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.subCat-card-name {
+  background-color: antiquewhite;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50px;
+}
+
+.subCat-card-name span {
+  font-size: 1.4rem;
+}
+
+.subCat-card-description {
+  background-color: antiquewhite;
+  padding: 10px;
+  text-align: left;
+  display: flex;
+  flex-direction: column; /* Ensures text flows properly */
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: auto; /* Adapts to content */
+  overflow: auto;
+  gap: 5px; /* Adds spacing between elements */
+}
+
+.subCat-card-description > span {
+  font-size: 1rem;
+}
+
+.subCat-card-description > span:first-child {
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 100%;
+}
+
+.subCat-card-videos {
+  background-color: antiquewhite;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: auto;
+  overflow: auto;
+  gap: 5px;
+}
+
+.subCat-card-footer {
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.subCat-card-footer button:nth-child(1) {
+  width: 100%;
+  background-color: #40d2ff;
+  color: white;
+  font-weight: bold;
+  border-end-start-radius: 15px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.subCat-card-footer button:nth-child(2) {
+  width: 100%;
+  background-color: #2c79ec;
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+.subCat-card-footer button:nth-child(3) {
+  width: 100%;
+  background-color: #ff4040;
+  color: white;
+  font-weight: bold;
+  border-end-end-radius: 15px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.subCat-card-footer button:nth-child(1):hover {
+  background-color: #00b0ff;
+}
+
+.subCat-card-footer button:nth-child(2):hover {
+  background-color: #005cb2;
+}
+.subCat-card-footer button:nth-child(3):hover {
+  background-color: #e60000;
+}
+
+.edit-subCat-modal {
+  position: fixed;
+  background-color: antiquewhite;
+  border-radius: 15px;
+  width: 80vw;
+  height: 100vh;
+  top: 0vh;
+  left: 10vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.edit-subCat-modal h1 {
+  grid-column: span 2;
+  margin: 10px auto;
+}
+
+.existing-subCat-card {
+  margin: 10px auto;
+}
+.edit-subCat-modal > .edit-subCat-footer {
+  grid-column: span 2;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.edit-subCat-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  margin: 10px 0;
+}
+
+.edit-subCat-name span {
+  margin: 5px 20px;
+}
+
+.edit-subCat-name input {
+  width: calc(100% - 40px);
+  margin: 0 20px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #b4b4b4;
+  font-size: 1.4rem;
+}
+
+.edit-subCat-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  margin: 10px 0;
+}
+
+.edit-subCat-description span {
+  margin: 5px 20px;
+}
+
+.edit-subCat-description div {
+  width: 100%;
+  margin: 0 10px;
+}
+
+.edit-subCat-description div[role="textbox"] {
+  width: calc(100% - 40px);
+  height: 100px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #b4b4b4;
+  font-size: 1.4rem;
+  text-align: start;
+  background-color: white;
+  height: 100%;
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.edit-subCat-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.edit-subCat-image-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.edit-subCat-image-preview img {
+  max-height: 650px;
+  border-radius: 15px;
+}
+
+.edit-subCat-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-subCat-footer button:first-child {
+  background-color: #ff4081;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.edit-subCat-footer button:first-child:hover {
+  background-color: #e6006e;
+}
+
+.edit-subCat-footer button:last-child {
+  background-color: lightgreen;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.edit-subCat-footer button:last-child:hover {
+  background-color: green;
+}
+
+.edit-modal-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.edit-modal-footer button:first-child {
+  background-color: #ff4081;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.edit-modal-footer button:first-child:hover {
+  background-color: #e6006e;
+}
+
+.edit-modal-footer button:last-child {
+  background-color: lightgreen;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.edit-modal-footer button:last-child:hover {
+  background-color: green;
+}
+
+.existing-section-subCat {
+  height: 400px;
+  overflow-y: auto;
 }

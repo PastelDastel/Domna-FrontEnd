@@ -31,86 +31,74 @@ const Overview = ({ closeModal, axios, category }) => {
         return <div>No details available.</div>;
     }
     return (
-        <div className={style.overviewCategory}>
+        <div className={style["overview-modal"]}>
             <h1>Dettagli della categoria</h1>
-            <div className={style.flexContainer}>
-                <div className={style.left}>
-                    <div className={style.categoryDetails}>
-                        <div>
-                            <p><strong>Nome:</strong> {categoryDetails.Name}</p>
-                            <p dangerouslySetInnerHTML={
-                                { __html: "<strong>Descrizione:</strong> " + categoryDetails.Description }
-                            }></p>
-                            {categoryDetails.Image ? (
-                                <img src={categoryDetails.Image} alt="Category" className={style.categoryImage} />
-                            ) : (
-                                <p>No image available.</p>
-                            )}
-                        </div>
-                    </div>
-                </div>
-                <div className={style.right}>
-                    <div className={style.months}>
-                        <h2>Months</h2>
-                        <div className={style.monthsContainer}>
-                            {categoryDetails.Months && categoryDetails.Months.length > 0 ? (
-                                categoryDetails.Months.map((month, index) => (
-                                    <div key={index} className={style.monthDetails}>
-                                        <p><strong>Month {index + 1}</strong></p>
-                                        <p dangerouslySetInnerHTML={
-                                            { __html: month.Description }
-                                        }></p>
-                                        <p><strong>Videos</strong></p>
-                                        <div className={style.monthContent}>
-                                            {month.Videos && month.Videos.length > 0 ? (
-                                                month.Videos.map((video) => (
-                                                    <a href={video.Url} target="_blank" rel="noreferrer" key={video._id}>{video.Title}</a>
-                                                ))
-                                            ) : (
-                                                <div>No videos for this month.</div>
-                                            )}
-                                        </div>
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No months added yet.</p>
-                            )}
-                        </div>
-                    </div>
-                    <div className={style.subcategories}>
-                        <h2>Subcategories</h2>
-                        <div className={style.subcategoriesContainer}>
-                            {categoryDetails.SubCategories && categoryDetails.SubCategories.length > 0 ? (
-                                categoryDetails.SubCategories.map((subCat, index) => (
-                                    <div key={index} className={style.subcategoryDetails}>
-                                        <p><strong>{subCat.Name}</strong></p>
-                                        <p dangerouslySetInnerHTML={
-                                            { __html: subCat.Description }
-                                        }></p>
-                                        <div>
-                                            {subCat.Image ? <img src={subCat.Image} /> : <p>No image available.</p>}
-                                        </div>
-                                        <p><strong>Videos</strong></p>
-                                        <div className={style.subcategoryContent}>
-                                            {subCat.Videos && subCat.Videos.length > 0 ? (
-                                                subCat.Videos.map((video) => (
-                                                    <a href={video.Url} target="_blank" rel="noreferrer" key={video._id}>{video.Title}</a>
-                                                ))
-                                            ) : (
-                                                <p>No videos for this subcategory.</p>
-                                            )}
-                                        </div>
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No subcategories added yet.</p>
-                            )}
-                        </div>
-
-                    </div>
-                </div>
+            <div className={style["main-details"]}>
+                <span>Nome: {categoryDetails.Name}</span>
+                {categoryDetails.Image ? (
+                    <img src={categoryDetails.Image} alt="Category" className={style.categoryImage} />
+                ) : (
+                    <p>No image available.</p>
+                )}
+                <span dangerouslySetInnerHTML={
+                    { __html: "Descrizione: " + categoryDetails.Description }
+                }></span>
             </div>
-            <button onClick={closeModal}>Close</button>
+            <div className={style["overview-months"]}>
+                <h2>Months</h2>
+                {categoryDetails.Months && categoryDetails.Months.length > 0 ? (
+                    categoryDetails.Months.map((month, index) => (
+                        <div key={index} className={style["month-card"]}>
+                            <span>Month {index + 1}</span>
+                            <span dangerouslySetInnerHTML={
+                                { __html: month.Description }
+                            }></span>
+                            <span>Videos</span>
+                            <div className={style["month-videos"]}>
+                                {month.Videos && month.Videos.length > 0 ? (
+                                    month.Videos.map((video) => (
+                                        <a href={video.Url} target="_blank" rel="noreferrer" key={video._id}>{video.Title}</a>
+                                    ))
+                                ) : (
+                                    <div>No videos for this month.</div>
+                                )}
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No months added yet.</p>
+                )}
+            </div>
+            <div className={style["overview-subcategories"]}>
+                <h2>Subcategories</h2>
+                {categoryDetails.SubCategories && categoryDetails.SubCategories.length > 0 ? (
+                    categoryDetails.SubCategories.map((subCat, index) => (
+                        <div key={index} className={style["subcategory-card"]}>
+                            <div>
+                                {subCat.Image ? <img src={subCat.Image} /> : <p>No image available.</p>}
+                            </div>
+                            <span>{subCat.Name}</span>
+                            <span dangerouslySetInnerHTML={
+                                { __html: subCat.Description.length > 0 ? subCat.Description : "No description available." }
+                            }></span>
+                            <span>Videos</span>
+                            <div className={style["subcategory-videos"]}>
+                                {subCat.Videos && subCat.Videos.length > 0 ? (
+                                    subCat.Videos.map((video) => (
+                                        <a href={video.Url} target="_blank" rel="noreferrer" key={video._id}>{video.Title}</a>
+                                    ))
+                                ) : (
+                                    <p>No videos for this subcategory.</p>
+                                )}
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No subcategories added yet.</p>
+                )}
+
+            </div>
+            <button onClick={closeModal} className={style["overview-close"]}>Close</button>
         </div>
     );
 };
