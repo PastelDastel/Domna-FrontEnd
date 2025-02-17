@@ -59,7 +59,7 @@ const Users = () => {
 
     };
 
-    
+
 
 
 
@@ -162,7 +162,7 @@ const Users = () => {
                         user={user}
                         courses={courses}
                         axios={axiosPrivate}
-                        onUserUpdated={reloadUsers} 
+                        onUserUpdated={reloadUsers}
                     />
                 ),
                 showConfirmButton: false,
@@ -200,6 +200,7 @@ const Users = () => {
             setGlobalLoading(true); // Show global loading spinner
             try {
                 const response = await axiosPrivate.get("/api/users");
+                console.log("Users:", response.data);
                 setUsers(response.data);
             } catch (err) {
                 console.error("Error fetching users:", err);
@@ -236,6 +237,8 @@ const Users = () => {
                                     <p><strong>Id:</strong> {user._id}</p>
                                     <p><strong>Username:</strong> {user.username}</p>
                                     <p><strong>Email:</strong> {user.email}</p>
+                                    <p><strong>Online: {user.IsOnline ? "Yes" : "No"}</strong></p>
+                                    <p><strong>LastSeen: {user.LastSeen}</strong></p>
                                 </div>
                                 <div className={style["card-footer"]}>
                                     <button

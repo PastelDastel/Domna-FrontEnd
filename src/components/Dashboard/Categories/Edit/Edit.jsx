@@ -170,33 +170,6 @@ const EditDescription = ({ description, setDescription, CloseModal }) => {
     );
 };
 
-const EditName = ({ name, setName, CloseModal }) => {
-    return (
-        <div className={styles["edit-name"]}>
-            <div className={styles["edit-name-content"]}>
-                <span>Nome</span>
-                <input
-                    type="text"
-                    value={name}
-                />
-            </div>
-            <div className={styles["edit-name-footer"]}>
-
-                <button type="button" onClick={CloseModal}>Chiudi</button>
-                <button
-                    type="button"
-                    onClick={() => {  // Chiudi il modal e salva il nuovo nome
-                        setName(name);
-                        CloseModal();
-                    }}
-                >
-                    Salva
-                </button>
-            </div>
-        </div>
-    );
-
-};
 
 
 const MonthCard = ({ month, index, videos, setMonth }) => {
@@ -262,7 +235,6 @@ const MonthCard = ({ month, index, videos, setMonth }) => {
 
 const SubCategoriesInput = ({ index, videos, setSubCats }) => {
     const [nome, setNome] = useState("");
-    const [description, setDescription] = useState("");
     const [selectedVideos, setSelectedVideos] = useState([]);
     const [base64Image, setBase64Image] = useState(null);
 
@@ -276,12 +248,10 @@ const SubCategoriesInput = ({ index, videos, setSubCats }) => {
     const DescriptionEditor = useEditor({
         extensions: [StarterKit],
         content: "Enter description here\n",
-        onChange: ({ editor }) => {
-            setDescription(editor.getHTML());
-        },
     });
     const [isVisible, setIsVisible] = useState(false);
     const _handleAddSubCat = () => {
+        const description = DescriptionEditor.getHTML();
         const newSub = { Description: description, Videos: selectedVideos, Image: base64Image, Name: nome };
         //Name Description Videos Image
         setSubCats((prevSubs) => [...prevSubs, newSub]);
@@ -375,9 +345,6 @@ const EditSubcat = ({ subCat, setSubCat, CloseModal }) => {
     const DescriptionEditor = useEditor({
         extensions: [StarterKit],
         content: description?.length > 0 ? description : "Enter description here\n",
-        onUpdate: ({ editor }) => {
-            setDescription(editor.getHTML());
-        },
     });
 
     useEffect(() => {
@@ -387,6 +354,7 @@ const EditSubcat = ({ subCat, setSubCat, CloseModal }) => {
     }, [subCat.Description, DescriptionEditor]);
 
     const _handleSaveSubCat = () => {
+        setDescription(DescriptionEditor.getHTML());
         const newSubCat = { ...subCat, Name: name, Description: description, Image: image };
         setSubCat(newSubCat);
         CloseModal();
@@ -452,15 +420,11 @@ const EditSubcat = ({ subCat, setSubCat, CloseModal }) => {
 
 const SubCatCard = ({ subCat, index, videos, setSubCats }) => {
     const [name, setName] = useState(subCat.Name);
-    const [description, setDescription] = useState(subCat.Description);
+    const [description, setDescription] = useState(subCat.Description || "Cristo risorto");
     const [selectedVideos, setSelectedVideos] = useState(subCat.Videos);
     const [base64Image, setBase64Image] = useState(subCat.Image || null);
     const [isVisible, setIsVisible] = useState(false);
     const [isEditVisible, setIsEditVisible] = useState(false);
-
-
-
-
 
     const _handleSaveSubCat = (updatedSubCat) => {
         console.log("Updated SubCat: ", updatedSubCat);
@@ -561,7 +525,9 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
         setSubCats((prevSubCats) => prevSubCats.filter((s) => s !== subCat));
     };
 
-
+    useEffect(() => {
+        console.log("SubCat: ", subCats);
+    }, [subCats]);
 
 
     const addSubCat = () => {
