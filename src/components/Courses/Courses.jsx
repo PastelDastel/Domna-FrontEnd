@@ -58,7 +58,7 @@ const Courses = () => {
       {/* Carica MetaPixel solo se i cookie di marketing sono attivi */}
       {marketingEnabled && (
         <MetaPixel
-          pixelId="5135575923152268"
+          pixelId="778560713652344"
           eventOptions={{
             content_name: "Courses Page",
             content_category: "pageView",
