@@ -238,7 +238,7 @@ const Users = () => {
                                     <p><strong>Username:</strong> {user.username}</p>
                                     <p><strong>Email:</strong> {user.email}</p>
                                     <p><strong>Online: {user.IsOnline ? "Yes" : "No"}</strong></p>
-                                    <p><strong>LastSeen: {user.LastSeen}</strong></p>
+                                    {user.LastSeen && <p><strong>LastSeen: {new Date(user.LastSeen).toLocaleString("it-IT")}</strong></p>}
                                 </div>
                                 <div className={style["card-footer"]}>
                                     <button
