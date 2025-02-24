@@ -420,7 +420,7 @@ const EditSubcat = ({ subCat, setSubCat, CloseModal }) => {
 
 const SubCatCard = ({ subCat, index, videos, setSubCats }) => {
     const [name, setName] = useState(subCat.Name);
-    const [description, setDescription] = useState(subCat.Description || "Cristo risorto");
+    const [description, setDescription] = useState(subCat.Description || "Nessuna descrizione trovata");
     const [selectedVideos, setSelectedVideos] = useState(subCat.Videos);
     const [base64Image, setBase64Image] = useState(subCat.Image || null);
     const [isVisible, setIsVisible] = useState(false);
