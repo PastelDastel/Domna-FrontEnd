@@ -6,7 +6,7 @@ const Analytics = () => {
     const location = useLocation();
 
     useEffect(() => {
-        ReactGA.initialize("G-2ZERYKNWQH"); // Sostituisci con il tuo ID di tracciamento
+        ReactGA.initialize("G-YPGNE2HRN2"); // Sostituisci con il tuo ID di tracciamento
         ReactGA.send("pageview", { page_path: location.pathname });
     }, [location]);
 
