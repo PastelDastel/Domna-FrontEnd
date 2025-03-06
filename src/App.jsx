@@ -16,7 +16,6 @@ import BlogArticlePage from "./components/BlogArticlePage/BlogArticlePage";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Privacy from "./components/Privacy e Policy/Component";
 import Termini from "./components/Termini/Component";
-import Analytics from "./components/Global Components/Google Analytics/Tracking";
 
 
 

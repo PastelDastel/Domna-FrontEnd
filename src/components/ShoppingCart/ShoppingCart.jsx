@@ -49,10 +49,11 @@ const ShoppingCart = () => {
         } finally {
             setIsLoading(false);
             if (window.fbq) {
-                window.fbq('track', 'CourseClicked', {
+                window.fbq('trackCustom', 'Purchase', {
                     content_name: orders.map(order => order.productName).join(", "),
                     content_category: "Shopping Cart",
-                    user_id: auth?.id || "guest"
+                    user_id: auth?.id || "guest",
+                    value: orders.reduce((total, order) => total + order.price, 0),
                 });
             }
         }
