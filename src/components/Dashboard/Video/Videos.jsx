@@ -100,6 +100,7 @@ const Videos = () => {
             try {
                 const response = await axios.get("/api/videos");
                 setVideos(response.data);
+                console.log("Videos fetched:", response.data);
             } catch (error) {
                 console.error("Failed to fetch videos:", error);
             } finally {

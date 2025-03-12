@@ -1,61 +1,697 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Edit.module.css";
 
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
-const MonthsInput = ({ index, videos, setMonths }) => {
-    const [description, setDescription] = useState("");
-    const [selectedVideos, setSelectedVideos] = useState([]);
-    const MonthEdit = useEditor({
+export default function Edit({ closeModal, axios, onCategoryUpdated, category }) {
+    useEffect(() => {
+        //fetch category details
+        const fetchCategoryDetails = async () => {
+            try {
+                const response = await axios.get(`/api/categories/details/${category._id}`);
+                setMainName(response.data.Name);
+                setMainDescription(response.data.Description);
+                setMainImage(response.data.Image);
+                setMonths(response.data.Months);
+                setSubCats(response.data.SubCategories);
+                console.log("Category details fetched: ", response.data);
+            } catch (error) {
+                console.error("Failed to fetch category details:", error);
+            }
+        };
+        fetchCategoryDetails();
+
+    }, []);
+    const [mainName, setMainName] = useState(category.Name);
+    const [mainDescription, setMainDescription] = useState(category.Description);
+    const [mainImage, setMainImage] = useState(category.Image);
+    const [settingMonths, setSettingMonths] = useState(false);
+    const [settingSubCats, setSettingSubCats] = useState(false);
+    const [catMonths, setMonths] = useState(category.Months);
+    const [catSubCats, setSubCats] = useState(category.SubCategories);
+
+
+    const [editingMonthIndex, setEditingMonthIndex] = useState(null);
+    const [editingSubcatId, setEditingSubcatId] = useState(null);
+
+
+
+    const mainImageRef = useRef();
+    const mainEditor = useEditor({
         extensions: [StarterKit],
-        content: "Enter description here\n",
-        onChange: ({ editor }) => {
+        content: mainDescription,
+        editable: true,
+        onUpdate: ({ editor }) => {
+            setMainDescription(editor.getHTML());
+        },
+    });
+
+    const _mainImageUpload = (e) => {
+        const file = e.target.files[0]; // Get the selected file
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setMainImage(event.target.result); // Set Base64 string in state
+            };
+            reader.readAsDataURL(file); // Convert file to Base64
+        }
+    };
+
+    const submitForm = async () => {
+        try {
+            const name = mainName;
+            const description = mainDescription;
+            const months = catMonths;
+            const subCats = catSubCats;
+            const updatedCategory = { name, description, months, subCats, img: mainImage };
+            console.log("Category before submitting: ", updatedCategory);
+            const response = await axios.put(`/api/categories/${category._id}`, updatedCategory);
+            onCategoryUpdated(response.data); // Notify parent about the new category
+            closeModal(); // Close the modal
+        } catch (error) {
+            console.error("Failed to update category:", error);
+        }
+    };
+    console.log("Months: ", catMonths);
+    return (
+        <div className={styles["edit-modal-container"]}>
+            <div>
+                <h1>Modifica categoria</h1>
+            </div>
+            <div className={styles["edit-main-category"]}>
+                <span className={styles["main-category-details"]}>
+                    <span>
+                        <p>Nome</p>
+                        <input
+                            type="text"
+                            placeholder="Nome categoria"
+                            value={mainName}
+                            onChange={(e) => setMainName(e.target.value)}
+                        />
+                    </span>
+                    <span>
+                        <p>Descrizione</p>
+                        <EditorContent editor={mainEditor} />
+                    </span>
+                </span>
+                <span className={styles["main-category-image-container"]}>
+                    <span className={styles["main-category-image"]}>
+                        <img src={mainImage} alt="Immagine categoria" />
+                    </span>
+                    <span>
+                        <button className={styles["custom-file-button"]} onClick={() => mainImageRef.current.click()}>
+                            Cambia Immagine
+                        </button>
+                        <input
+                            type="file"
+                            onChange={_mainImageUpload}
+                            accept="image/*"
+                            style={{ display: "none" }}
+                            ref={mainImageRef}
+                        />
+                    </span>
+                </span>
+            </div>
+            <div className={styles["edit-category-add-buttons"]}>
+                <button onClick={() => {
+                    setSettingMonths(true);
+                    setSettingSubCats(false);
+                }}>Aggiungi Mese</button>
+                <button onClick={() => {
+                    setSettingMonths(false);
+                    setSettingSubCats(true);
+                }}>Aggiungi Sottocategoria</button>
+                {settingMonths && <SettingNewMonths setMonths={setMonths} close={() => {
+                    setSettingMonths(false);
+                    setSettingSubCats(false);
+                }} monthIndex={catMonths.length + 1} axios={axios} />}
+                {settingSubCats && <SettingNewSubCats setSubCats={setSubCats} close={() => {
+                    setSettingMonths(false);
+                    setSettingSubCats(false);
+                }} axios={axios} />}
+            </div>
+            <div className={styles["existing-category-info"]}>
+                <div className={styles["edit-category-months"]}>
+                    {catMonths.length <= 0 ? (<>
+                        <span>There are no months</span>
+                    </>) : (
+                        <>
+                            {catMonths.map((month, index) => (
+                                <div key={index} className={styles["edit-category-month-card"]}>
+                                    <span>Mese {index + 1}</span>
+                                    <span dangerouslySetInnerHTML={{ __html: month.Description }}></span>
+                                    <div>
+                                        <button
+                                            onClick={() => {
+                                                setEditingMonthIndex(index);
+                                            }}
+                                        >
+                                            Modify
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setMonths((prevMonths) => prevMonths.filter((m) => m !== month));
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                    {editingMonthIndex === index && (
+                                        <EditMonth
+                                            month={month}
+                                            setMonths={setMonths}
+                                            close={() => setEditingMonthIndex(null)}
+                                            axios={axios}
+                                            indexMonth={index + 1}
+                                        />
+                                    )}
+                                </div>
+                            ))}
+                        </>
+                    )}
+                </div>
+                <div className={styles["edit-category-subcats"]}>
+                    {catSubCats.length <= 0 ? (<span>There are no subcategories</span>) : (
+                        <>
+                            {catSubCats.map((subCat, index) => (
+                                <div key={index} className={styles["edit-category-subcat-card"]}>
+                                    <span>{subCat.Name}</span>
+                                    <span dangerouslySetInnerHTML={{ __html: subCat.Description }}></span>
+                                    <div>
+                                        <button
+                                            onClick={() => {
+                                                setEditingSubcatId(subCat._id);
+                                            }}
+                                        >
+                                            Modify
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setSubCats((prevSubCats) => prevSubCats.filter((s) => s !== subCat));
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                    {editingSubcatId === subCat._id && (
+                                        <EditSubcat
+                                            subCat={subCat}
+                                            setSubCat={setSubCats}
+                                            CloseModal={() => setEditingSubcatId(null)}
+                                            axios={axios}
+                                        />
+                                    )}
+                                </div>
+                            ))}
+                        </>
+                    )}
+                </div>
+            </div>
+            <div className={styles["footer-buttons-edit-category"]}>
+                <button type="button" onClick={closeModal}>
+                    Annulla
+                </button>
+                <button type="button" onClick={submitForm}>
+                    Conferma
+                </button>
+            </div>
+        </div>
+    );
+}
+
+function SettingNewMonths({ setMonths, close, monthIndex, axios }) {
+    const [name, setName] = useState("Mese " + monthIndex);
+    const [description, setDescription] = useState("");
+    const [videos, setVideos] = useState([]);
+    const [selectedVideos, setSelectedVideos] = useState([]);
+
+    const monthDescriptionEditor = useEditor({
+        extensions: [StarterKit],
+        content: description,
+        editable: true,
+        onUpdate: ({ editor }) => {
             setDescription(editor.getHTML());
         },
     });
-    const [isVisible, setIsVisible] = useState(false);
+
     useEffect(() => {
-        console.log("Selected videos in Months Input: " + selectedVideos);
-    }, [selectedVideos]);
-    const _handleAddMonth = () => {
-        const newMonth = { Description: description, Videos: selectedVideos };
+        const fetchVideos = async () => {
+            try {
+                const response = await axios.get("/api/videos");
+                setVideos(response.data);
+            } catch (error) {
+                console.error("Failed to fetch videos:", error);
+            }
+        };
+        fetchVideos();
+    }, []);
+
+    const handleNewMonth = () => {
+        const newMonth = { Name: name, Description: description, Videos: selectedVideos };
         setMonths((prevMonths) => [...prevMonths, newMonth]);
-        MonthEdit.commands.setContent("Enter description here\n");
+        setName("");
+        setDescription("");
         setSelectedVideos([]);
+        close();
+    }
+
+    const handleVideoSelection = (video) => {
+        setSelectedVideos((prev) => [...prev, video]);
+        setVideos((prev) => prev.filter((v) => v._id !== video._id));
     };
+
+    const handleVideoDeselection = (video) => {
+        setSelectedVideos((prev) => prev.filter((v) => v._id !== video._id));
+        setVideos((prev) => [...prev, video]);
+    }
+
+
+
+    return <div className={styles["setting-new-months"]}>
+        <h1>Aggiungi Mese</h1>
+        <div className={styles["setting-month-details"]}>
+            <div>
+                <span>Nome</span>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            </div>
+            <div>
+                <span><p>Descrizione</p><EditorContent editor={monthDescriptionEditor} /></span>
+            </div>
+        </div>
+        <div className={styles["setting-month-videos-container"]}>
+            <div>
+                <span>Video disponibili</span>
+                <div className={styles["setting-month-videos"]}>
+                    {videos.map((video) => (
+                        <div key={video._id} className={styles["setting-video-item"]}>
+                            <span>{video.Title}</span>
+                            <button type="button" onClick={() => handleVideoSelection(video)}>Aggiungi</button>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div>
+                <span>Video selezionati</span>
+                <div className={styles["setting-selected-videos"]}>
+                    {selectedVideos.map((video) => (
+                        <div key={video._id} className={styles["setting-video-item"]}>
+                            <span>{video.Title}</span>
+                            <button type="button" onClick={() => handleVideoDeselection(video)}>Rimuovi</button>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+        <div className="setting-footer">
+            <button type="button" onClick={close}>Chiudi</button>
+            <button type="button" onClick={handleNewMonth}>Aggiungi</button>
+        </div>
+    </div>
+}
+
+
+function EditMonth({ month, setMonths, close, axios, indexMonth }) {
+    const [description, setDescription] = useState(month.Description);
+    const [videos, setVideos] = useState([]);
+    const [selectedVideos, setSelectedVideos] = useState(month.Videos || []);
+
+    // Editor per la descrizione del mese
+    const monthDescriptionEditor = useEditor({
+        extensions: [StarterKit],
+        content: description,
+        editable: true,
+        onUpdate: ({ editor }) => {
+            setDescription(editor.getHTML());
+        },
+    });
+
+    useEffect(() => {
+        setDescription(month.Description);
+    }, [month.Description]);
+    useEffect(() => {
+        if (monthDescriptionEditor && description !== monthDescriptionEditor.getHTML()) {
+            monthDescriptionEditor.commands.setContent(description);
+        }
+    }, [description, monthDescriptionEditor]);
+
+
+    useEffect(() => {
+        const fetchVideos = async () => {
+            try {
+                const response = await axios.get("/api/videos");
+                const fetchedVideos = response.data;
+                // Filtra i video già selezionati
+                const availableVideos = fetchedVideos.filter(
+                    (v) => !selectedVideos.some((s) => s._id === v._id)
+                );
+
+                setVideos(availableVideos);
+            } catch (error) {
+                console.error("Failed to fetch videos:", error);
+            }
+        };
+        fetchVideos();
+    }, [selectedVideos, axios]);
+    console.log("Selected videos in EditMonth: ", selectedVideos);
+    console.log("Videos in EditMonth: ", videos);
+    const handleVideoSelection = useCallback((video) => {
+        setSelectedVideos((prev) => [...prev, video]);
+        setVideos((prev) => prev.filter((v) => v._id !== video._id));
+    }, []);
+
+    const handleVideoDeselection = useCallback((video) => {
+        setSelectedVideos((prev) => prev.filter((v) => v._id !== video._id));
+        setVideos((prev) => [...prev, video]);
+    }, []);
+
+    const handleConfirm = () => {
+        setMonths((prevMonths) =>
+            prevMonths.map((m) =>
+                m._id === month._id ? { ...m, Description: description, Videos: selectedVideos } : m
+            )
+        );
+        close();
+    };
+
+    console.log("Selected videos in modal: ", selectedVideos);
+    return (
+        <div className={styles["edit-month-container"]}>
+            <h1>Modifica Mese {indexMonth}</h1>
+            <div className={styles["edit-month-details"]}>
+                <div>
+                    <span>Nome</span>
+                    <input type="text" value={`Mese ${indexMonth}`} readOnly />
+                </div>
+                <div>
+                    <span>Descrizione</span>
+                    <EditorContent editor={monthDescriptionEditor} />
+                </div>
+            </div>
+            <div className={styles["edit-month-videos-container"]}>
+                <div>
+                    <span>Video disponibili</span>
+                    <div className={styles["edit-month-videos"]}>
+                        {videos.map((video) => (
+                            <div key={`available-${video._id}`} className={styles["edit-video-item"]}>
+                                <span>{video.Title}</span>
+                                <button type="button" onClick={() => handleVideoSelection(video)}>
+                                    Aggiungi
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div>
+                    <span>Video selezionati</span>
+                    <div className={styles["edit-selected-videos"]}>
+                        {selectedVideos.map((video) => (
+                            <div key={`selected-${video._id}`} className={styles["edit-video-item"]}>
+                                <span>{video.Title}</span>
+                                <button type="button" onClick={() => handleVideoDeselection(video)}>
+                                    Rimuovi
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <div className={styles["edit-month-footer"]}>
+                <button type="button" onClick={close}>Annulla</button>
+                <button type="button" onClick={handleConfirm}>Conferma</button>
+            </div>
+        </div>
+    );
+}
+
+function SettingNewSubCats({ setSubCats, close, axios }) {
+
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("Enter description here\n");
+    const [videos, setVideos] = useState([]);
+    const [selectedVideos, setSelectedVideos] = useState([]);
+    const [base64Image, setBase64Image] = useState(null);
+
+    const subCatDescriptionEditor = useEditor({
+        extensions: [StarterKit],
+        content: description,
+        editable: true,
+        onUpdate: ({ editor }) => {
+            setDescription(editor.getHTML());
+        },
+    });
+
+    useEffect(() => {
+        const fetchVideos = async () => {
+            try {
+                const response = await axios.get("/api/videos");
+                setVideos(response.data);
+            } catch (error) {
+                console.error("Failed to fetch videos:", error);
+            }
+        };
+        fetchVideos();
+    }, []);
+
+
+    const handleNewSubCat = () => {
+        const newSubCat = { Name: name, Description: description, Videos: selectedVideos, Image: base64Image };
+        setSubCats((prevSubCats) => [...prevSubCats, newSubCat]);
+        setName("");
+        setDescription("");
+        setSelectedVideos([]);
+        setBase64Image(null);
+        close();
+    };
+
+    const handleVideoSelection = (video) => {
+        setSelectedVideos((prev) => [...prev, video]);
+        setVideos((prev) => prev.filter((v) => v._id !== video._id));
+    };
+
+    const handleVideoDeselection = (video) => {
+        setSelectedVideos((prev) => prev.filter((v) => v._id !== video._id));
+        setVideos((prev) => [...prev, video]);
+    }
+
+
     return <>
-        <div key={index} className={styles["new-month-card"]}>
-            <div className={styles["month-input-name"]}>
-                <span>Nuovo mese  ={">"} Mese {index}</span>
+        <div className={styles["setting-new-subcat-container"]}>
+            <h1>Aggiungi Sottocategoria</h1>
+            <div className={styles["setting-subcat-details"]}>
+                <div>
+                    <span>Nome</span>
+                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                </div>
+                <div>
+                    <span>Descrizione</span>
+                    <EditorContent editor={subCatDescriptionEditor} />
+                </div>
+                <div className={styles["setting-subcat-image"]}>
+                    <div>
+                        <img src={base64Image} alt="" />
+                    </div>
+                    <div>
+                        <span>Immagine</span>
+                        <label className={styles["custom-file-button"]} onClick={() => document.getElementById("subCatImage").click()}>
+                            Scegli immagine
+                        </label>
+                        <input
+                            type="file"
+                            id="subCatImage"
+                            name="subCatImage"
+                            onChange={(e) => {
+                                const file = e.target.files[0];
+                                if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = (event) => {
+                                        setBase64Image(event.target.result);
+                                    };
+                                    reader.readAsDataURL(file);
+                                }
+                            }}
+                            accept="image/*"
+                            style={{ display: "none" }}
+                        />
+                    </div>
+                </div>
+
             </div>
-            <div className={styles["month-input-videos"]}>
-                {videos.length >= 0 ? <>
-                    {!isVisible ?
-                        <button type="button"
-                            onClick={() => setIsVisible(true)}
-                        >Gestisci video</button> :
-                        <VideoInput
-                            videos={videos}
-                            selectedVideos={selectedVideos}
-                            CloseModal={() => setIsVisible(false)}
-                            setSelectedVideos={setSelectedVideos}
-                        />}
-                </> : <>
-                    <span>Nessun video disponibile</span>
-                </>}
+            <div className={styles["setting-subcat-videos-container"]}>
+                <div>
+                    <span>Video disponibili</span>
+                    <div className={styles["setting-subcat-videos"]}>
+                        {videos.map((video) => (
+                            <div key={video._id} className={styles["setting-video-item"]}>
+                                <span>{video.Title}</span>
+                                <button type="button" onClick={() => handleVideoSelection(video)}>Aggiungi</button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div>
+                    <span>Video selezionati</span>
+                    <div className={styles["setting-selected-videos"]}>
+                        {selectedVideos.map((video) => (
+                            <div key={video._id} className={styles["setting-video-item"]}>
+                                <span>{video.Title}</span>
+                                <button type="button" onClick={() => handleVideoDeselection(video)}>Rimuovi</button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
-            <div className={styles["month-input-description"]}>
-                <span>Description</span>
-                <EditorContent editor={MonthEdit} />
-            </div>
-            <div className={styles["month-display-selected"]}>Video aggiunti: {selectedVideos.length}</div>
-            <div className={styles["month-input-footer"]}>
-                <button type="button" onClick={() => _handleAddMonth()}>Aggiungi Mese</button>
+
+
+            <div className={styles["footer-setting-buttons"]}>
+                <button type="button" onClick={close}>Chiudi</button>
+                <button type="button" onClick={handleNewSubCat}>Conferma</button>
             </div>
         </div>
     </>
-};
+}
+
+function EditSubcat({ subCat, setSubCat, CloseModal, axios }) {
+    const [name, setName] = useState(subCat.Name);
+    const [description, setDescription] = useState(subCat.Description.trim().length > 0 ? subCat.Description : "Enter description here\n");
+    const [image, setImage] = useState(subCat.Image);
+    const [videos, setVideos] = useState([]);
+    const [selectedVideos, setSelectedVideos] = useState(subCat.Videos || []);
+
+    const fileInputRef = useRef(null);
+
+    const _handleFileInput = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setImage(event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+    console.log("Description: ", description);
+    // Editor instance
+    const DescriptionEditor = useEditor({
+        extensions: [StarterKit],
+        content: subCat.Description.trim().length > 0 ? subCat.Description : "Enter description here\n",
+        onUpdate: ({ editor }) => {
+            setDescription(editor.getHTML());
+        },
+    });
+
+    // Sync description when subCat changes
+    useEffect(() => {
+        if (DescriptionEditor) {
+            DescriptionEditor.commands.setContent(subCat.Description);
+        }
+    }, [subCat.Description, DescriptionEditor]);
+
+    // Fetch videos
+    useEffect(() => {
+        const fetchVideos = async () => {
+            try {
+                const response = await axios.get("/api/videos");
+                const fetchedVideos = response.data;
+                // Remove already selected videos
+                const availableVideos = fetchedVideos.filter(
+                    (v) => !selectedVideos.some((s) => s._id === v._id)
+                );
+                setVideos(availableVideos);
+            } catch (error) {
+                console.error("Failed to fetch videos:", error);
+            }
+        };
+        fetchVideos();
+    }, [axios]);
+
+    // Add video only if not already selected
+    const handleVideoSelection = (video) => {
+        setSelectedVideos((prev) =>
+            prev.some((v) => v._id === video._id) ? prev : [...prev, video]
+        );
+        setVideos((prev) => prev.filter((v) => v._id !== video._id));
+    };
+
+    // Remove video and return it to available videos
+    const handleVideoDeselection = (video) => {
+        setSelectedVideos((prev) => prev.filter((v) => v._id !== video._id));
+        setVideos((prev) => [...prev, video]);
+    };
+
+    const handleConfirm = () => {
+        setSubCat((prevSubCats) =>
+            prevSubCats.map((cat) =>
+                cat._id === subCat._id
+                    ? { ...cat, Name: name, Description: description, Videos: selectedVideos, Image: image }
+                    : cat
+            )
+        );
+        CloseModal();
+    };
+
+    return (
+        <div className={styles["edit-subcategory-container"]}>
+            <h1>Edit SubCategory</h1>
+            <div className={styles["edit-subcategory-details"]}>
+                <div>
+                    <span>Name</span>
+                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                </div>
+                <div>
+                    <span>Description</span>
+                    <EditorContent editor={DescriptionEditor} />
+                </div>
+                <div className={styles["edit-subcategory-image-container"]}>
+                    <div className={styles["edit-subcategory-image"]}>
+                        <img src={image} alt="Subcategory image" />
+                    </div>
+                    <div>
+                        <span>Image</span>
+                        <label className={styles["custom-file-button"]} onClick={() => fileInputRef.current.click()}>
+                            Choose image
+                        </label>
+                        <input type="file" accept="image/*" style={{ display: "none" }} ref={fileInputRef} onChange={_handleFileInput} />
+                    </div>
+                </div>
+            </div>
+
+            {/* Video selection */}
+            <div className={styles["edit-subcategory-videos-container"]}>
+                <div>
+                    <span>Available Videos</span>
+                    <div className={styles["edit-subcategory-videos"]}>
+                        {videos.map((video) => (
+                            <div key={`available-${video._id}`} className={styles["edit-video-item"]}>
+                                <span>{video.Title}</span>
+                                <button type="button" onClick={() => handleVideoSelection(video)}>Add</button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div>
+                    <span>Selected Videos</span>
+                    <div className={styles["edit-selected-videos"]}>
+                        {selectedVideos.map((video) => (
+                            <div key={`selected-${video._id}`} className={styles["edit-video-item"]}>
+                                <span>{video.Title}</span>
+                                <button type="button" onClick={() => handleVideoDeselection(video)}>Remove</button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            <div className={styles["edit-subcategory-footer"]}>
+                <button type="button" onClick={CloseModal}>Close</button>
+                <button type="button" onClick={handleConfirm}>Save</button>
+            </div>
+        </div>
+    );
+}
+
+
+/*
 
 const VideoInput = ({ videos, selectedVideos, CloseModal, setSelectedVideos }) => {
     const [availableVideos, setAvailableVideos] = useState([]);
@@ -418,7 +1054,7 @@ const EditSubcat = ({ subCat, setSubCat, CloseModal }) => {
 
 
 
-const SubCatCard = ({ subCat, index, videos, setSubCats }) => {
+const SubCatCard = ({ subCat, videos, setSubCats }) => {
     const [name, setName] = useState(subCat.Name);
     const [description, setDescription] = useState(subCat.Description || "Nessuna descrizione trovata");
     const [selectedVideos, setSelectedVideos] = useState(subCat.Videos);
@@ -514,10 +1150,6 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
         content: "Enter description here\n",
     });
 
-    const MonthEdit = useEditor({
-        extensions: [StarterKit],
-        content: "Enter description here\n",
-    });
 
     const [isMonth, setIsMonth] = useState(false);
 
@@ -525,9 +1157,6 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
         setSubCats((prevSubCats) => prevSubCats.filter((s) => s !== subCat));
     };
 
-    useEffect(() => {
-        console.log("SubCat: ", subCats);
-    }, [subCats]);
 
 
     const addSubCat = () => {
@@ -537,31 +1166,14 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
         if (!subCatName) {
             alert("Please enter a subCat name.");
             return;
-        }
-        const newSubCat = { Name: subCatName, Description: subCatDescription, Videos: selectedVideos, Image: img };
-        console.log("New SubCat: ", newSubCat);
-        setSubCats((prevSubCats) => [...prevSubCats, newSubCat]);
-        subCatRef.current.value = ""; // Clear the input field
-        subCatEdit.commands.setContent("Enter description here\n");
-        setSelectedVideos([]); // Clear the selected videos
-        refreshVideosAvailable();
+            setMonths((prevMonths) => prevMonths.filter((m) => m !== month));
+        };
     }
 
-    const refreshVideosAvailable = () => {
-        setAvailableVideos(videos);
-    };
-
-
-    const removeMonth = (month) => {
-        setMonths((prevMonths) => prevMonths.filter((m) => m !== month));
-    };
     // Fetch videos when the component mounts
-
     useEffect(() => {
         setBase64Image(category.Image || null);
     }, [category]);
-
-
 
     useEffect(() => {
         const fetchVideos = async () => {
@@ -576,8 +1188,7 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
         fetchVideos();
         const fetchCategoryDetails = async () => {
             try {
-                const response = await axios.get(`/api/categories/details/${category._id}`);
-                setMonths(response.data.Months);
+                const response = await axios.get(`/api/categories/${category._id}`);
                 setSubCats(response.data.SubCategories);
             } catch (err) {
                 console.error("Failed to fetch category details:", err);
@@ -613,62 +1224,47 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
         if (file) {
             const reader = new FileReader();
             reader.onload = (event) => {
-                setBase64Image(event.target.result); // Set Base64 string in state
-            };
-            reader.readAsDataURL(file); // Convert file to Base64
-        }
-    };
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    setBase64SubCatImage(event.target.result); // Set Base64 string in state
+                };
+                reader.readAsDataURL(file); // Convert file to Base64
+            }
+        };
 
-    const handleSubCatImageUpload = (e) => {
-        const file = e.target.files[0]; // Get the selected file
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setBase64SubCatImage(event.target.result); // Set Base64 string in state
-            };
-            reader.readAsDataURL(file); // Convert file to Base64
-        }
-    };
-    const handlePutSubcatImage = (subCat, imageUrl) => {
-        setSubCats((prevSubCats) =>
-            prevSubCats.map((s) =>
-                s === subCat
-                    ? { ...s, Image: imageUrl }
-                    : s
-            )
-        );
-    }
-    // Submit the main form
-    const submitForm = async (e) => {
-        e.preventDefault(); // Prevent default page reload
-        const name = e.target.name.value.trim();
-        const description = editorMain.getHTML();
-        const img = base64Image;
+        const handlePutSubcatImage = (subCat, imageUrl) => {
+            setSubCats((prevSubCats) =>
+                prevSubCats.map((s) =>
+                    s === subCat ? { ...s, Image: imageUrl } : s
+                )
+            );
+        };
 
-        try {
-            const updatedCategory = { name, description, months, subCats, img };
-            console.log("Category before submitting: ", updatedCategory)
+        const submitForm = async (e) => {
+            e.preventDefault();
+            const img = base64Image;
+            const description = editorMain.getHTML();
+            const name = category.Name;
 
-            const response = await axios.put(`/api/categories/${category._id}`, updatedCategory);
-            onCategoryUpdated(response.data); // Notify parent about the new category
-            closeModal(); // Close the modal
-        } catch (error) {
-            console.error("Failed to create category:", error);
-        }
-    };
+            try {
+                const updatedCategory = { name, description, months, subCats, img };
+                console.log("Category before submitting: ", updatedCategory);
 
-    return (
-        <div className={styles["edit-category"]}>
-            <h1>Update {category.Name}</h1>
-            <form onSubmit={submitForm}>
-                <div className={styles["form-content"]}>
-                    <div className={styles["edit-first-section"]}>
-                        <div className={styles["name-edit"]}>
-                            <label htmlFor="name">Name</label>
-                            <input type="text" id="name" name="name" required defaultValue={category.Name} />
-                        </div>
-                        <div className={styles["image-edit"]}>
-                            <label className={styles["custom-file-button"]} onClick={() => document.getElementById("image").click()}>
+                const response = await axios.put(`/api/categories/${category._id}`, updatedCategory);
+                onCategoryUpdated(response.data); // Notify parent about the new category
+                closeModal(); // Close the modal
+            } catch (error) {
+                console.error("Failed to update category:", error);
+            }
+        };
+
+        return (
+            <div className={styles["edit-category"]}>
+                <h1>Update {category.Name}</h1>
+                <form onSubmit={submitForm}>
+                    <div className={styles["form-content"]}>
+                        <div className={styles["edit-first-section"]}>
+                            <label htmlFor="image" className={styles["custom-file-button"]} onClick={() => document.getElementById("image").click()}>
                                 Scegli immagine
                             </label>
                             <input
@@ -679,21 +1275,15 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                                 accept="image/*"
                                 style={{ display: "none" }}
                             />
+                            {base64Image && <img src={base64Image} alt="Category" />}
                         </div>
                         <div className={styles["description-edit"]}>
                             <label htmlFor="description">Description</label>
                             <EditorContent editor={editorMain} />
                         </div>
-                        <div className={styles["image-preview"]}>
-                            {base64Image ? <img src={base64Image} /> : <span>Nessuna immagine scelta</span>}
-                        </div>
-                    </div>
-                    <div>
-                        <button type="button" className={styles["switch-button"]} onClick={(e) => {
-                            setIsMonth(!isMonth)
-                            setSelectedVideos([]);
-                            refreshVideosAvailable();
-                        }}>{isMonth ? "Vai a Sottocategorie" : "Vai a Mesi"}</button>
+                        <button type="button" className={styles["switch-button"]} onClick={() => setIsMonth(!isMonth)}>
+                            {isMonth ? "Vai a Sottocategorie" : "Vai a Mesi"}
+                        </button>
                         {isMonth ? (
                             <MonthsInput index={months.length + 1} videos={availableVideos} setMonths={setMonths} />
                         ) : (
@@ -702,13 +1292,12 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                     </div>
                     <div className={styles["edit-second-section"]}>
                         <div className={styles["existing-section-month"]}>
-                            {months.length > 0 ? (<>
-                                {
-                                    months.map((month, index) => (
-                                        <MonthCard month={month} index={index} videos={availableVideos} setMonth={setMonths} />
-                                    ))
-                                }
-                            </>
+                            {months.length > 0 ? (
+                                <>
+                                    {months.map((month, index) => (
+                                        <MonthCard key={index} month={month} index={index} videos={availableVideos} setMonth={setMonths} />
+                                    ))}
+                                </>
                             ) : (
                                 <div className={styles["no-months"]}>
                                     <span>No months added yet</span>
@@ -719,21 +1308,23 @@ const Edit = ({ closeModal, axios, onCategoryUpdated, category }) => {
                             {subCats.length > 0 ? (
                                 <div className={styles["existing-subCats"]}>
                                     {subCats.map((subCat, index) => (
-                                        <SubCatCard subCat={subCat} index={index} videos={availableVideos} setSubCats={setSubCats} />
+                                        <SubCatCard key={index} subCat={subCat} index={index} videos={availableVideos} setSubCats={setSubCats} />
                                     ))}
-                                </div>) : (<div>
+                                </div>
+                            ) : (
+                                <div>
                                     <p>No subCats added yet.</p>
-                                </div>)}
+                                </div>
+                            )}
                         </div>
                     </div>
-                </div>
-                <div className={styles["edit-modal-footer"]}>
-                    <button type="button" className={styles["close-button"]} onClick={closeModal}>Annulla</button>
-                    <button type="submit" className={styles["final-confirm"]}>Conferma</button>
-                </div>
-            </form>
-        </div>
-    );
-};
+                    <div className={styles["edit-modal-footer"]}>
+                        <button type="button" className={styles["close-button"]} onClick={closeModal}>Annulla</button>
+                        <button type="submit" className={styles["final-confirm"]}>Conferma</button>
+                    </div>
+                </form>
+            </div>
+        );
+    };
 
-export default Edit;
+*/
