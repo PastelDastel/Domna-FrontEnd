@@ -127,12 +127,14 @@ const Videos = () => {
                     <div className={style["card-container-videos"]}>
                         {videos.map((video) => (
                             <div key={video._id} className={style.card}>
-                                <div className={style["card-header"]}>{video.Title}</div>
+                                <div className={style["card-header"]}>
+                                    {video.Title.length > 20 ? video.Title.substring(0, 30).charAt(0).toUpperCase() + video.Title.substring(1, 30).toLowerCase() + "..." : video.Title.charAt(0).toUpperCase() + video.Title.substring(1).toLowerCase()}
+                                </div>
                                 <div className={style["card-body"]}>
                                     <p><strong>ID:</strong> {video._id}</p>
                                     <p
                                         dangerouslySetInnerHTML={{
-                                            __html: "<strong>Description:</strong> " + video.Description,
+                                            __html: video.Description.length > 0 ? (video.Description.length > 50 ? video.Description.substring(0, 50).charAt(0).toUpperCase() + video.Description.substring(1, 50).toLowerCase() + "..." : video.Description.charAt(0).toUpperCase() + video.Description.substring(1).toLowerCase()) : "Nessuna descrizione"
                                         }}
                                     ></p>
                                 </div>
