@@ -19,23 +19,6 @@
   background-color: #5a55cc;
 }
 
-/* Cancel (Nevermind) Button */
-.cancelButton {
-  background-color: #7c2c2c;
-  color: #333;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  margin-left: 10px;
-}
-
-.cancelButton:hover {
-  background-color: #bbb;
-}
-
 /* Inputs */
 .inputField {
   display: block;

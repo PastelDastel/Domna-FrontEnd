@@ -5,6 +5,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
 import './index.css'; // Global CSS
 import Analytics from "./components/Global Components/Google Analytics/Tracking";
+
+
+
+
+
+
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Analytics />

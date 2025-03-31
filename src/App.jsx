@@ -17,7 +17,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Privacy from "./components/Privacy e Policy/Component";
 import Termini from "./components/Termini/Component";
 
-
+import StripeCheckout from "./components/Stripe/StripeCheckout";
 
 function App() {
   return (
@@ -40,6 +40,7 @@ function App() {
           </Route>
           <Route element={<RequireAuth allowedRoles={[6792941695628669]} />}>
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="stripe" element={<StripeCheckout />} />
           </Route>
           <Route path="*" element={<Missing />} />
         </Route>

@@ -1,0 +1,71 @@
+.stripeContainer {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 200px;
+}
+
+.stripeComponent {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.stripeComponent_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.stripeComponent_cardWrapper {
+  margin-top: 1rem;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #f9fafb;
+}
+
+.stripeComponent_submitButton {
+  width: 100%;
+  margin-top: 1.5rem;
+  background-color: #6366f1;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.stripeComponent_submitButton:hover {
+  background-color: #4f46e5;
+}
+
+.stripeComponent_submitButton:disabled {
+  background-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+.stripeComponent_error {
+  color: #dc2626;
+  margin-top: 1rem;
+  font-weight: 500;
+  background-color: #fee2e2;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stripeComponent_success {
+  color: #16a34a;
+  margin-top: 1rem;
+  font-weight: 500;
+  background-color: #d1fae5;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+}

@@ -9,7 +9,24 @@ import Swal from "sweetalert2";
 import ThumbnailImage from "../../assets/PNG/sfondo grigio.png"
 import M from "../../assets/PNG/letter-m.png"
 import RecordingTrack from "./RecordingTrack";
+
+
+import useAuth from "../../hooks/useAuth";
+
+import StripeCheckout from "../Stripe/StripeCheckout";
+import { createRoot } from "react-dom/client"; // Import createRoot for React 18+
+import withReactContent from "sweetalert2-react-content";
 const Profile = () => {
+
+  const mySwal = withReactContent(Swal);
+
+
+
+  const { auth } = useAuth();
+
+
+
+
   const logout = useLogout();
   const [user, setUser] = useState(null);
   const [courses, setCourses] = useState([]);
@@ -40,52 +57,26 @@ const Profile = () => {
 
 
   const handleChangePassword = async () => {
-    const { value: formValues } = await Swal.fire({
-      title: `<div class="${styles.modalTitle}">Modifica Password</div>`,
-      html: `
-        <div class="${styles.modalContainer}">
-          <label for="currentPassword" class="${styles.label}">Vecchia Password</label>
-          <input type="password" id="currentPassword" class="${styles.inputField}" placeholder="Vecchia Password">
-          <label for="newPassword" class="${styles.label}">Nuova Password</label>
-          <input type="password" id="newPassword" class="${styles.inputField}" placeholder="Nuova Password">
-          <label for="confirmPassword" class="${styles.label}">Conferma Password</label>
-          <input type="password" id="confirmPassword" class="${styles.inputField}" placeholder="Conferma Password">
-        </div>
-      `,
-      focusConfirm: false,
-      showCancelButton: true, // Enables the "Nevermind" button
-      confirmButtonText: `<span class="${styles.confirmButton}">OK</span>`,
-      cancelButtonText: `<span class="${styles.cancelButton}">Nevermind</span>`, // Custom text for "Nevermind"
-      customClass: {
-        popup: styles.swalPopup,
-        cancelButton: styles.cancelButton, // Custom class for "Nevermind" button
-        confirmButton: styles.confirmButton, // Custom class for confirm button
-      },
-      preConfirm: () => {
-        const currentPassword = document.getElementById("currentPassword").value;
-        const newPassword = document.getElementById("newPassword").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
-        if (!currentPassword || !newPassword || !confirmPassword) {
-          Swal.showValidationMessage("Tutti i campi sono obbligatori");
-          return false;
+    const openStripeModal = async () => {
+      // Show modal with empty HTML, just mount React component inside
+      await mySwal.fire({
+        title: `<div class="${styles.modalTitle}">Modifica Metodo Pagamento</div>`,
+        html: <StripeCheckout axiosPrivate={axiosPrivate} />,
+        focusConfirm: false,
+        confirmButtonText: `<span class="${styles.cancelButton}">Chiudi</span>`,
+        customClass: {
+          popup: styles.swalPopup,
+          cancelButton: styles.cancelButton,
+          confirmButton: styles.confirmButton,
+        },
+
+        preConfirm: () => {
+          // puoi fare controlli se servono
+          return true;
         }
-        if (newPassword !== confirmPassword) {
-          Swal.showValidationMessage("Le password non corrispondono");
-          return false;
-        }
-        return { currentPassword, newPassword };
-      },
-    });
-    if (formValues) {
-      try {
-        const response = await axiosPrivate.post(`/api/users/${id}/password`, formValues);
-        Swal.fire("Successo!", `La tua password è stata cambiata in ${formValues.newPassword}`, "success");
-      }
-      catch (error) {
-        console.error("Error changing password:", error);
-        Swal.fire("Errore!", "Qualcosa è andato storto. Riprova più tardi.", "error");
-      }
-    }
+      });
+    };
+    await openStripeModal();
   };
   // Other functions and useEffects remain unchanged
   const handleLogout = async () => {
@@ -187,7 +178,7 @@ const Profile = () => {
                 </p>
               )}
               <button className={styles.editButton} onClick={handleChangePassword}>
-                Modifica Password
+                Modifica Metodo di Pagamento
               </button>
               <button className={styles.logoutButton} onClick={handleLogout}>
                 Logout
@@ -299,3 +290,13 @@ const Profile = () => {
 };
 
 export default Profile;
+
+
+
+
+
+
+
+
+
+
