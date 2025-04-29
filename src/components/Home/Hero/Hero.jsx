@@ -23,11 +23,11 @@ const Hero = ({ text, animatedText }) => {
         </a>
         <a href="#" target="_blank"><i className="fab fa-tiktok"></i></a>
       </div>
-      <div className={style.bounceArrow}>
+      {/* <div className={style.bounceArrow}>
         <a href="#first" >
           <i className="fas fa-chevron-down" id="bounceArr"></i>
         </a>
-      </div>
+      </div> */}
     </div>
   );
 };

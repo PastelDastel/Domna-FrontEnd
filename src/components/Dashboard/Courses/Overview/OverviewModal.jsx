@@ -1,32 +1,7 @@
 import style from "./Overview.module.css";
 import { useEffect, useState } from "react";
 
-const OverviewModal = ({ closeModal, course, users, benefits, categories, axiosPrivate }) => {
-
-    const [extededBenefits, setExtendedBenefits] = useState([]);
-    useEffect(() => {
-        if (benefits.length > 0) {
-            const fetchBenefits = async () => {
-                const extendedBenefits = [];
-                for (const benefit of benefits) {
-                    try {
-                        console.log("Fetching benefit:", benefit.Benefit._id);
-                        const response = await axiosPrivate.get(`/api/benefits/${benefit.Benefit._id}`);
-                        extendedBenefits.push({ Benefit: response.data, Type: benefit.Type });
-                        console.log("Fetched benefit:", response.data);
-                    } catch (err) {
-                        console.error("Failed to fetch benefit:", err);
-                    }
-                }
-                setExtendedBenefits(extendedBenefits);
-            };
-            fetchBenefits();
-        }
-    }, [course]);
-
-
-
-
+const OverviewModal = ({ closeModal, course, categories, axiosPrivate }) => {
     return (
         <div className={style.courseOverviewModal}>
             <h1>Dettagli di {course.Title}</h1>
@@ -42,61 +17,7 @@ const OverviewModal = ({ closeModal, course, users, benefits, categories, axiosP
                                 { __html: "<strong>Descrizione:</strong> " + course.Description }
                             }
                         ></p>
-                        {course.Image ? <img src={course.Image} className={style.courseImage} /> : <p className={style.noImage}>No image detected</p>}
-                        <p><strong>Iscritti:</strong> {course.Subscribers.length}</p>
-                        <p><strong>Prezzo:</strong> {course.Price.Discounted ? course.Price.Discounted : course.Price.Normal}</p>
-                    </div>
-                    <div className={style.courseBenefits}>
-                        <h2 className={style.sectionHeading}>Benefici</h2>
-                        {benefits.length > 0 ? (
-                            <>
-                                <div className={style.benefitTypeGroup}>
-                                    <h3 className={style.benefitTypeHeading}>Inclusi</h3>
-                                    <div className={style.benefitCards}>
-                                        {benefits.filter(b => b.Type === "Included").map((benefit, index) => (
-                                            <div key={index} className={style.benefitCard}>
-                                                <h3 className={style.benefitTitle}>{benefit.Benefit.Name}</h3>
-                                                <p className={style.benefitDescription} dangerouslySetInnerHTML={
-                                                    { __html: benefit.Benefit.Description }
-                                                }></p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={style.benefitTypeGroup}>
-                                    <h3 className={style.benefitTypeHeading}>Esclusi</h3>
-                                    <div className={style.benefitCards}>
-                                        {benefits.filter(b => b.Type === "Excluded").map((benefit, index) => (
-                                            <div key={index} className={style.benefitCard}>
-                                                <h3 className={style.benefitTitle}>{benefit.Benefit.Name}</h3>
-                                                <p className={style.benefitDescription} dangerouslySetInnerHTML={
-                                                    { __html: benefit.Benefit.Description }
-                                                }></p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </>
-                        ) : (
-                            <p className={style.noBenefits}>No benefits</p>
-                        )}
-
-                        {course.Subscribers.length > 0 ? (
-                            <>
-                                <h2 className={style.sectionHeading}>Iscritti</h2>
-                                <ul className={style.subscriberList}>
-                                    {users.map((user) => (
-                                        <li key={user._id} className={style.subscriberItem}>
-                                            <p><strong>Nome:</strong> {user.username}</p>
-                                            <p><strong>Email:</strong> {user.email}</p>
-                                            <h6><strong>Id:</strong> {user._id}</h6>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </>
-                        ) : (
-                            <h3 className={style.noSubscribers}>No subscribers</h3>
-                        )}
+                        {course.ImageUrl ? <img src={course.ImageUrl} className={style.courseImage} /> : <p className={style.noImage}>No image detected</p>}
                     </div>
                 </div>
 

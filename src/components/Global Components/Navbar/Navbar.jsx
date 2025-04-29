@@ -44,7 +44,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  console.log("auth", auth);
   const handleLogout = async () => {
     await logout();
     navigate("/");
@@ -59,12 +59,11 @@ const Navbar = () => {
 
   return (
     <>
-      <PresenceTracker />
       <section>
         <nav className={styles.navbar}>
           {/* Logo Section */}
           <div className={styles.logo}>
-            <Link to="/" onClick={() => handleCustomEvent("Home Button")} className={styles.navLogo}>
+            <Link to="https://www.domna.net/" onClick={() => handleCustomEvent("Home Button")} className={styles.navLogo}>
               <img src={logo} alt="Domna Logo" />
             </Link>
           </div>
@@ -90,34 +89,8 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            <li>
-              <Link
-                to="/about"
-                className={`${styles.link} ${isActive("/about") ? styles.active : ""}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/courses"
-                className={`${styles.link} ${isActive("/courses") ? styles.active : ""}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Courses
-              </Link>
-            </li>
-            {/* <li>
-            <Link
-              to="/blog"
-              className={`${styles.link} ${isActive("/blog") ? styles.active : ""}`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Blog
-            </Link>
-          </li> */}
-            {auth?.roles === 6792941695628669 && (
+
+            {auth?.roles === "Admin" && (
               <li>
                 <Link
                   to="/dashboard"
@@ -139,36 +112,9 @@ const Navbar = () => {
                     Log in
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    to="/register"
-                    className={`${styles.link} ${isActive("/register") ? styles.active : ""}`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Register
-                  </Link>
-                </li>
               </>
             ) : (
               <>
-                <li>
-                  <Link
-                    to={`/shopping-cart`}
-                    className={`${styles.link} ${isActive(`/shopping-cart`) ? styles.active : ""}`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Shopping Cart
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={`/profile/${auth.id}`}
-                    className={`${styles.link} ${isActive(`/profile/${auth.id}`) ? styles.active : ""}`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Profile
-                  </Link>
-                </li>
                 <li>
                   <button
                     onClick={handleLogout}

@@ -11,7 +11,7 @@ const Layout = () => {
             <CookieConsent isOpen={isCookieModalOpen} setIsOpen={setCookieModalOpen} />
             <Navbar />
             <Outlet />
-            <Footer onOpenCookieModal={() => setCookieModalOpen(true)} />
+            {/* <Footer onOpenCookieModal={() => setCookieModalOpen(true)} /> */}
         </main>
     );
 };

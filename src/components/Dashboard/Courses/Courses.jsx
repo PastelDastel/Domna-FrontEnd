@@ -17,7 +17,7 @@ const Courses = () => {
     const deleteCourse = async (course) => {
         const result = await Swal.fire({
             title: "Are you sure?",
-            html: `Are you sure you want to delete <strong>${course.title}</strong>?<br><em>You won't be able to revert this!</em>`,
+            html: `Are you sure you want to delete <strong>${course.Title}</strong>?<br><em>You won't be able to revert this!</em>`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -32,7 +32,7 @@ const Courses = () => {
                 await axiosPrivate.delete(`/api/courses/${course._id}`);
                 Swal.fire({
                     title: "Deleted!",
-                    text: `${course.title} has been deleted.`,
+                    text: `${course.Title} has been deleted.`,
                     icon: "success",
                     confirmButtonColor: "#3085d6",
                     willClose: () => reloadCourses(),
@@ -40,7 +40,7 @@ const Courses = () => {
             } catch (error) {
                 Swal.fire({
                     title: "Error!",
-                    text: `Failed to delete ${course.title}. Please try again.`,
+                    text: `Failed to delete ${course.Title}. Please try again.`,
                     icon: "error",
                     confirmButtonColor: "#3085d6",
                 });
@@ -83,6 +83,7 @@ const Courses = () => {
         try {
             const response = await axiosPrivate.get(`/api/courses/${course._id}/details`, { signal });
             const details = response.data;
+            console.log("Course details:", details);
             MySwal.fire({
                 width: "80vw",
                 html: (
@@ -90,8 +91,6 @@ const Courses = () => {
                     <Overview
                         closeModal={() => Swal.close()}
                         course={course}
-                        users={details.Subscribers}
-                        benefits={details.Benefits}
                         categories={details.Categories}
                         axiosPrivate={axiosPrivate}
                     />
@@ -166,9 +165,6 @@ const Courses = () => {
                 <>
                     <div className={style.header}>
                         <h1>Courses</h1>
-                        <button onClick={createCourse} className={style.createButton}>
-                            Create New Course
-                        </button>
                     </div>
                     <div className={style["card-container-courses"]}>
                         {courses.map((course) => (
@@ -183,10 +179,7 @@ const Courses = () => {
                                                 }`,
                                         }}
                                     ></p>
-                                    <p><strong>Prezzo:</strong> {course.Price.Discounted ? course.Price.Discounted : course.Price.Normal}</p>
-                                    <p><strong>Benefici:</strong> {course.Benefits.length > 0 ? course.Benefits.length : "Nessun beneficio"}</p>
                                     <p><strong>Categorie:</strong> {course.Categories.length > 0 ? course.Categories.length : "Nessuna categoria"}</p>
-                                    <p><strong>Iscritti:</strong> {course.Subscribers.length > 0 ? course.Subscribers.length : "Nessun iscritto"}</p>
                                 </div>
                                 <div className={style["card-footer"]}>
                                     <button
@@ -201,12 +194,7 @@ const Courses = () => {
                                     >
                                         Edit
                                     </button>
-                                    <button
-                                        onClick={() => deleteCourse(course)}
-                                        className={style["delete-button"]}
-                                    >
-                                        Delete
-                                    </button>
+
                                 </div>
                             </div>
                         ))}

@@ -5,9 +5,11 @@ import useAuth from "../../hooks/useAuth";
 const RequireAuth = ({ allowedRoles }) => {
     const { auth } = useAuth();
     const location = useLocation();
-    const hasRequiredRole = auth?.roles && typeof auth.roles === 'object'
-        ? Object.keys(auth.roles).some(role => allowedRoles.includes(role))
-        : allowedRoles.includes(auth?.roles);    
+    const roles = auth?.roles || [];
+    const hasRequiredRole = allowedRoles?.some((role) => roles.includes(role));
+    console.log("allowedRoles", allowedRoles);
+    console.log("roles", roles);
+    console.log("hasRequiredRole", hasRequiredRole);
     if (hasRequiredRole) {
         return <Outlet />;
     }

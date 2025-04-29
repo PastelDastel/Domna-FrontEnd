@@ -138,11 +138,7 @@ const Lives = () => {
                 </div>) : (
                 <>
                     <div className={style["header-container"]}>
-                        <div className={style["header"]}>
-                            <h1>Live Link</h1>
-                            <input type="text" ref={linkRef} defaultValue={link} placeholder="Inserisci il link di zoom" />
-                            <button onClick={updateLink} className={style["button-create"]}>Aggiorna link</button>
-                        </div>
+
                         <div className={style["header"]}>
                             <h1>Lives</h1>
                             <button onClick={createRecording} className={style["button-create"]}>

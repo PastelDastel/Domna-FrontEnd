@@ -24,24 +24,16 @@ const Dashboard = () => {
 
 const MainView = ({ selectedView }) => {
     switch (selectedView) {
-        case "overview":
-            return <Overview />;
-        case "users":
-            return <Users />;
         case "courses":
             return <Courses />;
-        case "benefits":
-            return <Benefits />;
         case "categories":
             return <Categories />;
         case "videos":
             return <Videos />;
         case "lives":
             return <Lives />;
-        case "transactions":
-            return <Transactions />;
         default:
-            return <Overview />;
+            return <Courses />;
     }
 };
 
@@ -68,7 +60,7 @@ const SidebarButton = ({ view, selectedView, onViewChange }) => {
 
 // Sidebar Component
 const Sidebar = ({ selectedView, onViewChange }) => {
-    const views = ["overview", "users", "courses", "benefits", "categories", "videos", "lives"];
+    const views = ["courses", "categories", "videos", "lives"];
     return (
         <div className={style.sidebar}>
             {views.map((view) => (

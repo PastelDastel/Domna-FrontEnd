@@ -27,15 +27,6 @@ const Home = () => {
   const { auth } = useAuth();
   return (
     <>
-      {/* Carica MetaPixel solo se i cookie di marketing sono attivi */}
-      {marketingEnabled && (
-        <MetaPixel pixelId={"778560713652344"} eventOptions={{
-          content_name: "Home Page",
-          content_category: "pageView",
-          user_id: auth?.id || "guest"
-        }} />
-      )}
-
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -48,7 +39,7 @@ const Home = () => {
         />
       </motion.div>
 
-      <ParallaxSection text="Allenati Con DOMNA" id="first" />
+      {/* <ParallaxSection text="Allenati Con DOMNA" id="first" />
       <Section />
       <ParallaxSection text="Recensioni Clienti DOMNA" id="second" />
 
@@ -56,7 +47,7 @@ const Home = () => {
         <TestimonialsSlider />
       </motion.div>
 
-      <ContactSection />
+      <ContactSection /> */}
     </>
   );
 };
